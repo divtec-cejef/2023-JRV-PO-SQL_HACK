@@ -1,4 +1,4 @@
-# 2023-JRV-PO-ESCAPES-QL
+# 2023-JRV-PO-HACK_WITH_SQL
 Stand de programmation SQL pour les portes ouvertes.
 # Membres :
 - Luca Pinto
