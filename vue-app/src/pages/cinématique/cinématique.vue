@@ -9,8 +9,12 @@ const listeTexte = ["Salut, hacker ! Aide moi à voler la Tesla de couleur noir 
 "Dans l’écran suivant tu trouveras un constructeur sur ta gauche qui te permettra de construire ta requête"]
 var questionActuelle = 0
 function nextText(){
-  message.value = listeTexte[questionActuelle]
-  questionActuelle++
+  if (listeTexte.length < questionActuelle + 1){
+
+  } else {
+    message.value = listeTexte[questionActuelle]
+    questionActuelle++
+  }
 }
 
 </script>
