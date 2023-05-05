@@ -15,8 +15,6 @@
 
 <style scoped>
 
-.image-fullscreen{
 
-}
 
 </style>
