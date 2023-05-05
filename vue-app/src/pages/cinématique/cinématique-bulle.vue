@@ -1,0 +1,35 @@
+<template>
+  <div class="texte-bulle">
+    <img src="../../img/bulle-texte.png" id="bulle" alt="">
+    <p class="texte">{{message}}</p>
+  </div>
+
+</template>
+
+<script setup>
+import {ref} from "vue";
+const message = ref("Salut hacker !")
+</script>
+
+<style scoped>
+*{
+  border: red solid 1px;
+}
+
+.texte-bulle{
+  width: fit-content;
+  position: relative;
+  display: inline-block;
+}
+
+.texte{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  color: #222222;
+}
+
+
+</style>
