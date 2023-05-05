@@ -1,9 +1,17 @@
 <script setup>
 
-import CinématiqueBouton from "@/pages/cinématique/cinématique-bouton.vue";
 import CinématiqueBulle from "@/pages/cinématique/cinématique-bulle.vue";
-
-
+import {ref} from "vue";
+const message= ref("Salut hacker")
+const listeTexte = ["Salut, hacker ! Aide moi à voler la Tesla de couleur noir dans le garage derrière moi ",
+"Pour entrer, il faut que tu trouves le mot de passe de l’alarme. Il me semble que c’est la date de naissance du patron",
+"Tu dois créer une requête SELECT qui permettra de rechercher dans la base de données la date de naissance du patron",
+"Dans l’écran suivant tu trouveras un constructeur sur ta gauche qui te permettra de construire ta requête"]
+var questionActuelle = 0
+function nextText(){
+  message.value = listeTexte[questionActuelle]
+  questionActuelle++
+}
 
 </script>
 
@@ -12,9 +20,14 @@ import CinématiqueBulle from "@/pages/cinématique/cinématique-bulle.vue";
   <img src="../../img/personnage.png" id="personnage" alt="">
 
   <div class="texte-bulle">
-    <cinématique-bulle></cinématique-bulle>
+    <cinématique-bulle :message="message"></cinématique-bulle>
   </div>
-  <cinématique-bouton></cinématique-bouton>
+
+  <button
+      class="btnContinuer"
+      @click="nextText"
+  >Continuer</button>
+
   <RouterLink to="/">retour</RouterLink>
 
 
@@ -54,5 +67,19 @@ img {
   justify-content: right;
   top: 100px;
 }
+
+ .btnContinuer{
+   color: white;
+   background-color: orange;
+   width: 20%;
+   height: 70px;
+   border: none;
+   font-size: 38px;
+   font-weight: bold;
+   border-radius: 20px;
+   position: relative;
+   left: 90%;
+   top: 400px;
+ }
 
 </style>

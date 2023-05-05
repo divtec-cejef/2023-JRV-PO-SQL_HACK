@@ -6,10 +6,14 @@
 
 </template>
 
+
 <script setup>
 import {ref} from "vue";
-const message = ref("Salut hacker !")
+
+const props = defineProps(["message"])
 </script>
+
+
 
 <style scoped>
 *{
@@ -27,7 +31,7 @@ const message = ref("Salut hacker !")
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 42px;
+  font-size: 24px;
   color: #222222;
 }
 
