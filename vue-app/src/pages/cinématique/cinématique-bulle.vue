@@ -17,7 +17,7 @@ const props = defineProps(["message"])
 
 <style scoped>
 *{
-  border: red solid 1px;
+
 }
 
 .texte-bulle{
@@ -33,6 +33,7 @@ const props = defineProps(["message"])
   transform: translate(-50%, -50%);
   font-size: 24px;
   color: #222222;
+  width: 400px;
 }
 
 

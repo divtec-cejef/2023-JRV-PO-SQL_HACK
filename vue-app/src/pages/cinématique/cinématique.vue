@@ -10,7 +10,7 @@ const listeTexte = ["Salut, hacker ! Aide moi à voler la Tesla de couleur noir 
 var questionActuelle = 0
 function nextText(){
   if (listeTexte.length < questionActuelle + 1){
-
+    message.value = "--------"
   } else {
     message.value = listeTexte[questionActuelle]
     questionActuelle++
@@ -84,6 +84,11 @@ img {
    position: relative;
    left: 90%;
    top: 400px;
+   transition: transform 500ms ease;
+ }
+
+ .btnContinuer:hover{
+   transform: scale(1.1);
  }
 
 </style>
