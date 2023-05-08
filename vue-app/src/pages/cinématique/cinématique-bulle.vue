@@ -20,18 +20,12 @@ const props = defineProps(["message"])
 
 }
 
-.texte-bulle{
-  width: fit-content;
-  position: relative;
-  display: inline-block;
-}
-
 .texte{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 24px;
+  font-size: 20px;
   color: #222222;
   width: 400px;
 }

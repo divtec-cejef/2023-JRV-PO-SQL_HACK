@@ -67,23 +67,23 @@ img {
 }
 
 .texte-bulle{
-  display: flex;
-  justify-content: right;
-  top: 100px;
+  position: fixed;
+  bottom: 400px;
+  right: 300px;
 }
 
  .btnContinuer{
+   position: fixed;
+   bottom: 100px;
+   right: 100px;
    color: white;
    background-color: orange;
-   width: 20%;
+   width: 15%;
    height: 70px;
    border: none;
    font-size: 38px;
    font-weight: bold;
    border-radius: 20px;
-   position: relative;
-   left: 90%;
-   top: 400px;
    transition: transform 500ms ease;
  }
 
