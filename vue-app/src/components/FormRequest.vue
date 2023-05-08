@@ -14,7 +14,9 @@ function getDataSelect() {
     const table = getWord(txtSaisie.value, 3);
     const nom = getWord(txtSaisie.value, 7);
     console.log(table, ',', nom);
+    select(table, nom);
 }
+
 
 </script>
 
@@ -28,6 +30,7 @@ function getDataSelect() {
     </form>
 
     <button @click="getDataSelect()">Envoyer</button>
+
 </template>
 
 <style scoped>

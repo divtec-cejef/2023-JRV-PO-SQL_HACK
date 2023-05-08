@@ -1,4 +1,4 @@
-function Select(NomTable,where){
+function select(table, where){
     // Ouverture de la base de données "maBaseDeDonnees"
     var request = window.indexedDB.open("maBaseDeDonnees");
 
@@ -9,19 +9,19 @@ function Select(NomTable,where){
 // Sélection des enregistrements dans la table "personne"
     request.onsuccess = function(event) {
         var db = event.target.result;
-        var transaction = db.transaction([NomTable], "readonly");
-        var objectStore = transaction.objectStore(NomTable);
+        var transaction = db.transaction([table], "readonly");
+        var objectStore = transaction.objectStore(table);
         var request = objectStore.getAll();
 
         request.onsuccess = function(event) {
             var data = event.target.result;
-            if (NomTable === "tb_personne"){
+            if (table == "tb_personne"){
                 afficherTablePersonne(data,where)
             }
-            if (NomTable === "tb_materiel"){
+            if (table == "tb_materiel"){
                 afficherTableMat(data,where)
             }
-            if (NomTable === "tb_voiture"){
+            if (table == "tb_voiture"){
                 afficherTableVoiture(data,where)
             }
         };
@@ -33,7 +33,7 @@ function afficherTablePersonne(data,where){
     var table = document.createElement("table");
     table.innerHTML = "<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Date de naissance</th></tr>";
     for (var i = 0; i < (data.length); i++) {
-        if (data[i].idPersonne === where || data[i].nom_pers === where || data[i].prenom_pers === where || formatDate(data[i].dateNaiss_pers) === where || data[i].numTelephone_pers === where || 0 === where) {
+        if (data[i].idPersonne == where || data[i].nom_pers == where || data[i].prenom_pers == where || formatDate(data[i].dateNaiss_pers) == where || data[i].numTelephone_pers == where || 0 == where) {
             var tr = document.createElement("tr");
             tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom_pers + "</td>" + data[i].prenom_pers + "<td>" + formatDate(data[i].dateNaiss_pers)  + "</td>"  + "<td>" + data[i].numTelephone_pers  + "</td>";
             table.appendChild(tr);
