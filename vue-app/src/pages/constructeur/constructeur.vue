@@ -5,13 +5,16 @@
 
   <input type="text" id="text-requete" :value="text" readonly>
   <button @click="effacer">Effacer</button>
+
+  <constructeur-condition></constructeur-condition>
+
 </template>
 
 <script setup>
 import Constructeur4Bouton from "@/pages/constructeur/constructeur-4-bouton.vue";
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurRequete from "@/pages/constructeur/constructeur-requete.vue"
-
+import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 
 import {ref} from "vue";
 import Parent from "@/pages/constructeur/test/parent.vue";
