@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import './assets/main.css'
 
- import Home from "@/pages/Home.vue";
+import Home from "@/pages/Home.vue";
 import CinematiqueDebut from "@/pages/cinématique-début.vue";
 import {createWebHistory, createRouter} from "vue-router";
 
