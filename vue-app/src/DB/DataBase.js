@@ -76,13 +76,13 @@ request.onsuccess = function(event) {
         };
 
         var numeroPlaque = generatePlaqueNumber();
-        var propri = nom + prenom;
+        var propri = nom + " " + prenom;
 
         var nouvelleVoiture = {
-            couleur: couleurs,
+            couleur: couleurs[Math.floor(Math.random() * couleurs.length)],
             numPlaque: numeroPlaque,
             proprietaire: propri,
-            marque: marques
+            marque: marques[Math.floor(Math.random() * marques.length)]
         }
 
         // Ajouter chaque enregistrement dans la table tb_personne
@@ -130,7 +130,7 @@ function generateRandomPhoneNumber() {
 
 function generatePlaqueNumber() {
     var numTelephone = "JU";
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 5; i++) {
         numTelephone += Math.floor(Math.random() * 10);
     }
     return numTelephone;
