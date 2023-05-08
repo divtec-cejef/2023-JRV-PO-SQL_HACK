@@ -9,25 +9,28 @@ function Select(){
 // Sélection des enregistrements dans la table "personne"
     request.onsuccess = function(event) {
         var db = event.target.result;
-        var transaction = db.transaction(["personne"], "readonly");
-        var objectStore = transaction.objectStore("personne");
+        var transaction = db.transaction(["tb_personne"], "readonly");
+        var objectStore = transaction.objectStore("tb_personne");
         var request = objectStore.getAll();
 
         request.onsuccess = function(event) {
             var data = event.target.result;
-            afficherTable(data);
+            afficherTable(data,0);
         };
     };
 }
 
-function afficherTable(data){
+
+function afficherTable(data,where){
     var table = document.createElement("table");
     table.innerHTML = "<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Date de naissance</th></tr>";
-    for (var i = 0; i < data.length; i++) {
-        var tr = document.createElement("tr");
-        tr.innerHTML = "<td>" + data[i].id + "</td><td>" + data[i].nom + "</td>" + data[i].prenom + "<td>" + formatDate(data[i].dateNaissance)  + "</td>";
-        table.appendChild(tr);
-    };
+    for (var i = 0; i < (data.length); i++) {
+        if (data[i].idPersonne == where || data[i].nom_pers == where || data[i].prenom_pers == where || formatDate(data[i].dateNaiss_pers) == where || data[i].numTelephone_pers == where || 0 == where) {
+            var tr = document.createElement("tr");
+            tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom_pers + "</td>" + data[i].prenom_pers + "<td>" + formatDate(data[i].dateNaiss_pers)  + "</td>"  + "<td>" + data[i].numTelephone_pers  + "</td>";
+            table.appendChild(tr);
+        }
+    }
     document.body.appendChild(table);
 }
 
@@ -35,13 +38,9 @@ function afficherTable(data){
 // Fonction pour formater une date au format jj/mm/aaaa
 function formatDate(date) {
     var d = new Date(date);
-    console.log(d)
     var day = ("0" + d.getDate()).slice(-2);
-    console.log(day)
     var month = ("0" + (d.getMonth() + 1)).slice(-2);
-    console.log(month)
     var year = d.getFullYear();
-    console.log(year)
     return year + "-" + day + "-" + month;
 }
 
