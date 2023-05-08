@@ -2,10 +2,9 @@
   <div class="page2">
     <ul class="table_voiture">
       <p>Voiture</p>
-      <li>idVoiture</li>
-      <li>Couleur</li>
-      <li>Propriétaire</li>
-      <li>Numéro de plaque</li>
+      <li v-for="(propriété, index) in voiture" :key="index" @click="clique(propriété)">
+        {{ propriété }}
+      </li>
     </ul>
     <ul class="table_personne">
       <p>Personne</p>
@@ -25,6 +24,14 @@
 </template>
 
 <script setup>
+  import {ref} from "vue";
+
+  const voiture = ["idVoiture", "Couleur", "Propriétaire", "Num plaque"]
+  const emits = defineEmits(['propriete'])
+  function clique(valeur){
+    emits('propriete', valeur)
+    console.log(valeur)
+  }
 
 </script>
 

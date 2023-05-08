@@ -1,12 +1,10 @@
 <template>
   <constructeur4-bouton @select="maFonction"></constructeur4-bouton>
-  <constructeur-table> </constructeur-table>
+  <constructeur-table @propriete="propriété"> </constructeur-table>
   <constructeur-requete></constructeur-requete>
-  <parent></parent>
-  <enfant></enfant>
 
-  <label for="text-requete">Texte en lecture seule</label>
   <input type="text" id="text-requete" :value="text" readonly>
+  <button @click="effacer">Effacer</button>
 </template>
 
 <script setup>
@@ -20,7 +18,13 @@ import Parent from "@/pages/constructeur/test/parent.vue";
 
 const text = ref()
 function maFonction(valeur){
-  text.value = valeur
+  text.value += valeur
+}
+function propriété(valeur){
+  text.value += valeur
+}
+function effacer(){
+  text.value = ""
 }
 </script>
 
