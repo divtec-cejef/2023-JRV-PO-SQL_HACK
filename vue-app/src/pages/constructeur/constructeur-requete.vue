@@ -1,10 +1,9 @@
 <template>
-  <textarea v-model="text"></textarea>
+  <label>{{ texte }}</label>
 </template>
 
 <script setup>
-import {text} from "stream/consumers";
-const props = defineProps(["text"])
+const text = defineProps(["texte"])
 </script>
 
 <style scoped>

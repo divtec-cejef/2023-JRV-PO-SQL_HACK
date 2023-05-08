@@ -1,5 +1,5 @@
 <template>
-  <constructeur4-bouton :text="text"></constructeur4-bouton>
+  <constructeur4-bouton :select="maFonction"></constructeur4-bouton>
   <constructeur-table> </constructeur-table>
   <constructeur-requete :text="text"></constructeur-requete>
 
@@ -13,11 +13,9 @@ import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurRequete from "@/pages/constructeur/constructeur-requete.vue"
 import {ref} from "vue";
 
-const text = ref()
-function ecrire(){
-  console.log("sadasdad")
+function maFonction(valeur){
+  console.log(valeur)
 }
-
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
   <div class="page1">
-    <button @click="addSelectToRequete">SELECT</button>
+    <button @click="emitEvent">SELECT</button>
     <button id="btn_update">UPDATE</button>
     <button id="btn_insert">INSERT</button>
     <button id="btn_delete">DELETE</button>
@@ -8,9 +8,10 @@
 </template>
 
 <script setup>
-const props = defineProps(["text"])
-  function addSelectToRequete(){
-    console.log("sdsadsa")
+  import { defineEmits } from 'vue'
+  const emits = defineEmits(['select'])
+  function emitEvent(){
+    emits('select', 'SELECT')
   }
 </script>
 
