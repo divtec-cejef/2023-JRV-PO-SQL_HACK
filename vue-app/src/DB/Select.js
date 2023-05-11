@@ -15,59 +15,52 @@ function select(table, condition, valeurCondition){
 
         request.onsuccess = function(event) {
             var data = event.target.result;
-            if (table === "tb_personne"){
-                afficherTablePersonne(data, condition, valeurCondition)
-            }
-            if (table ==="tb_materiel"){
-                afficherTableMat(data, condition, valeurCondition)
-            }
-            if (table === "tb_voiture"){
-                afficherTableVoiture(data, condition, valeurCondition)
-            }
+            afficherTablePersonne(data,table,condition,valeurCondition)
         };
     };
 }
 
 
-function afficherTablePersonne(data, condition, valeurCondition){
+function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
+    // Supprimer l'ancienne table s'il en existe une
+    var oldTable = document.getElementById("tableHtml");
+    if (oldTable) {
+        oldTable.remove();
+    }
+
+    // Créer un nouvel élément <table>
     var table = document.createElement("table");
-    table.innerHTML = "<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Date de naissance</th></tr>";
-    for (var i = 0; i < (data.length); i++) {
-        if (data[i].condition === valeurCondition || 0 === valeurCondition  ) {
+    table.id = "tableHtml";
+    if (nomTable === "tb_personne"){
+        table.innerHTML = "<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Date de naissance</th><th>Numéro de téléphone</th></tr>";
+    }
+    else if (nomTable === "tb_materiel"){
+        table.innerHTML = "<tr><th>ID</th><th>Nom matériel</th><th>Quantite</th></tr>";
+    }
+    else if (nomTable === "tb_voiture"){
+        table.innerHTML = "<tr><th>ID</th><th>Couleur</th><th>plaque</th><th>Propriétaire</th><th>Marque</th></tr>";
+    }
+
+
+    for (var i = 0; i < data.length; i++) {
+        if (data[i][conditionl] === valeurCondition || valeurCondition == 0) {
             var tr = document.createElement("tr");
-            tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom_pers + "</td>" + data[i].prenom_pers + "<td>" + formatDate(data[i].dateNaiss_pers)  + "</td>"  + "<td>" + data[i].numTelephone_pers  + "</td>";
+            if (nomTable === "tb_personne"){
+                tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom_pers + "</td><td>" + data[i].prenom_pers + "</td><td>" + formatDate(data[i].dateNaiss_pers) + "</td><td>" + data[i].numTelephone_pers + "</td>";
+            }
+            else if (nomTable === "tb_materiel"){
+                tr.innerHTML = "<td>" + data[i].idMateriel + "</td><td>" + data[i].nom_mat + "</td>" + data[i].quantite_mat + "<td>";
+            }
+            else if (nomTable === "tb_voiture"){
+                tr.innerHTML = "<td>" + data[i].idVoiture + "</td><td>" + data[i].couleur + "</td><td>" + data[i].numPlaque + "</td><td>" + data[i].proprietaire + "</td><td>" + data[i].marque + "</td>";
+            }
             table.appendChild(tr);
         }
     }
+
+    // Ajouter la nouvelle table au document body
     document.body.appendChild(table);
 }
-
-function afficherTableMat(data,where){
-    const table = document.createElement("table");
-    table.innerHTML = "<tr><th>ID</th><th>Nom matériel</th><th>Quantite</th></tr>";
-    for (var i = 0; i < (data.length); i++) {
-        if (data[i].idMateriel === where || data[i].nom_mat === where || data[i].quantite_mat === where || 0 === where) {
-            var tr = document.createElement("tr");
-            tr.innerHTML = "<td>" + data[i].idMateriel + "</td><td>" + data[i].nom_mat + "</td>" + data[i].quantite_mat + "<td>";
-            table.appendChild(tr);
-        }
-    }
-    document.body.appendChild(table);
-}
-
-function afficherTableVoiture(data,where){
-    const table = document.createElement("table");
-    table.innerHTML = "<tr><th>ID</th><th>Couleur</th><th>Numéro de plaque</th><th>Propriétaire</th><th>Marque</th></tr>";
-    for (var i = 0; i < (data.length); i++) {
-        if (data[i].idVoiture === where || data[i].couleur === where || data[i].numPlaque === where || data[i].proprietaire === where || data[i].marque === where || 0 === where) {
-            var tr = document.createElement("tr");
-            tr.innerHTML = "<td>" + data[i].idVoiture + "</td><td>" + data[i].couleur + "</td>" + data[i].numPlaque + "<td>" + "</td>" + data[i].proprietaire + "<td>" + "</td>" + data[i].marque + "<td>";
-            table.appendChild(tr);
-        }
-    }
-    document.body.appendChild(table);
-}
-
 
 // Fonction pour formater une date au format jj/mm/aaaa
 function formatDate(date) {
