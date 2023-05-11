@@ -6,35 +6,49 @@
   </div>
 
   <!-- requête SELECT -->
-  <div class="requete_select">
+  <div class="requete_select" v-if="commande===1">
     <div v-if="constructeurActuel === 1">
-      <constructeur-table @propriete="propriété"> </constructeur-table>
+      <constructeur-table @propriete="propriété" :where="false" :commande="1"> </constructeur-table>
     </div>
-
     <div v-if="constructeurActuel === 2">
       <constructeur-condition @where="propriété"></constructeur-condition>
     </div>
-
     <div v-if="constructeurActuel === 3">
-      <constructeur-table @propriete="propriété" :where="true"></constructeur-table>
+      <constructeur-table @propriete="propriété" :where="true" :commande="1"></constructeur-table>
     </div>
-
     <div v-if="constructeurActuel === 4">
       <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
       <button class="btnValider" @click="validerRequete">Valider</button>
     </div>
-
-    <br>
-    <input type="text" id="text-requete" :value="requete" readonly>
-    <button @click="effacer">Effacer</button>
   </div>
+
 
   <!-- requête UPDATE -->
-  <div class="requete_update">
-
+  <div class="requete_update" v-if="commande===2">
+    <div v-if="constructeurActuel === 1">
+      <constructeur-table @propriete="propriété" :where="false" :commande="2"> </constructeur-table>
+    </div>
+    <div>
+      <div v-if="constructeurActuel === 2">
+        <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+        <button class="btnValider" @click="testerInputText">Continuer</button>
+      </div>
+    </div>
+    <div v-if="constructeurActuel===3">
+      <constructeur-condition @where="propriété"></constructeur-condition>
+    </div>
+    <div v-if="constructeurActuel===4">
+      <constructeur-table @propriete="propriété" :where="true" :commande="2"></constructeur-table>
+    </div>
+  </div>
+  <div v-if="constructeurActuel===5">
+    <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+    <button class="btnValider" @click="validerRequete">Valider</button>
   </div>
 
-
+  <br>
+  <input type="text" id="text-requete" :value="requete" readonly>
+  <button @click="effacer">Effacer</button>
 
 </template>
 
@@ -47,15 +61,19 @@ import {ref} from "vue";
 /* déclarations des variables*/
 const requete = ref()
 const textCondition = ref()
-let isClicked = false;
 let constructeurActuel = 0;
+let commande = 0
 
 /**
  * Permet d'afficher le texte de la propriété de l'utilisateur dans l'input
  * @param valeur Valeur de la propriété que l'utilisateur à cliqué
  */
 function propriété(valeur){
-  isClicked = true
+  if (valeur === "SELECT "){
+    commande = 1
+  } else if (valeur === "UPDATE "){
+    commande = 2
+  }
   requete.value += valeur
   constructeurActuel++
 }
@@ -74,7 +92,15 @@ function validerRequete(){
     window.alert(requete.value)
     effacer()
   }
+}
 
+function testerInputText(){
+  if (textCondition.value === ""){
+    window.alert("Veuillez remplir le champs de saisie")
+  } else {
+    requete.value += textCondition.value
+    constructeurActuel++
+  }
 }
 
 /***
@@ -86,8 +112,6 @@ function effacer(){
   textCondition.value = ""
   constructeurActuel = 0
 }
-
-
 </script>
 
 <style scoped>

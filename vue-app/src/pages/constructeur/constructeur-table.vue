@@ -29,9 +29,9 @@ const voiture = ["idVoiture", "Couleur", "Propriétaire", "Num plaque"]
 const personne = ["idPersonne", "Nom", "Prénom", "Date de naissance", "Numéro de tel"]
 const materiel = ["idMateriel", "Nom", "Quantité"]
 
-/* émet "propriété" */
+/* émet*/
 const propriete = defineEmits(['propriete'])
-const props = defineProps(['where'])
+const props = defineProps(['where', 'commande'])
 
 /**
  * Teste si le constructeur de la table est après
@@ -42,11 +42,23 @@ const props = defineProps(['where'])
  * @param table Nom du tableau
  */
 function addPropriety(valeur, table) {
-  if (props.where) {
-    valeur = valeur + " = "
-  } else {
-    valeur = valeur + " FROM " + table
+  /* Test pour savoir si on a choisit SELECT*/
+  if (props.commande === 1){
+    if (props.where) {
+      valeur = valeur + " = "
+    } else {
+      valeur = valeur + " FROM " + table
+    }
   }
+  /* Teste pour savoir si on a choisi UPDATE*/
+  if (props.commande === 2){
+    if (props.where) {
+      valeur = valeur + " = "
+    } else {
+      valeur = table + " SET " + valeur + " = "
+    }
+  }
+
 
   propriete('propriete', valeur)
 }
