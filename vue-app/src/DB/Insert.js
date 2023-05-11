@@ -1,4 +1,4 @@
-function Insert(table, donnes){
+function insert(table, donnes){
     var request = window.indexedDB.open("maBaseDeDonnees");
 
     request.onerror = function(event) {
@@ -7,11 +7,12 @@ function Insert(table, donnes){
     request.onsuccess = function(event) {
         var db = event.target.result;
         if (table === "tb_personne") {
+            console.log(donnes[0],donnes[1],donnes[2],donnes[3])
             var Ajouts = {
-                nom_pers: donnes[1],
-                prenom_pers: donnes[2],
-                dateNaiss_pers: donnes[3],
-                numTelephone_pers: donnes[4]
+                nom_pers: donnes[0],
+                prenom_pers: donnes[1],
+                dateNaiss_pers: donnes[2],
+                numTelephone_pers: donnes[3]
             };
         } else if (table === "tb_voiture") {
             var Ajouts = {

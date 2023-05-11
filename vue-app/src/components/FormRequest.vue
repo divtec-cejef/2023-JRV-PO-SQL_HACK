@@ -50,6 +50,7 @@ function getDataFromInsert() {
         dataArray.value.push(dataClean);
     }
     console.log(table, ',', dataArray.value);
+    insert(table,dataArray.value);
 }
 </script>
 
@@ -62,7 +63,8 @@ function getDataFromInsert() {
         </div>
     </form>
 
-    <button @click="getDataFromInsert()">Envoyer</button>
+    <button @click="getDataFromInsert()">Insert</button>
+    <button @click="getDataFromSelect()">Select</button>
 
 </template>
 
