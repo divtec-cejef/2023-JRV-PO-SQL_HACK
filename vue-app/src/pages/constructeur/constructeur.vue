@@ -46,6 +46,11 @@
     <button class="btnValider" @click="validerRequete">Valider</button>
   </div>
 
+  <!-- requête INSERT -->
+  <div class="requete_insert" v-if="commande===3">
+
+  </div>
+
   <br>
   <input type="text" id="text-requete" :value="requete" readonly>
   <button @click="effacer">Effacer</button>
@@ -73,6 +78,8 @@ function propriété(valeur){
     commande = 1
   } else if (valeur === "UPDATE "){
     commande = 2
+  } else if (valeur==="INSERT INTO"){
+    commande = 3
   }
   requete.value += valeur
   constructeurActuel++

@@ -59,7 +59,6 @@ function addPropriety(valeur, table) {
     }
   }
 
-
   propriete('propriete', valeur)
 }
 
