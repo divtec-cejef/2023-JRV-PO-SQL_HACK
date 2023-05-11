@@ -6,10 +6,14 @@
 
 <script setup>
 import {defineEmits, ref} from 'vue'
-import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 const emits = defineEmits(['where'])
+
+/***
+ * Emet la chaine de caractère WHERE pour
+ * l'écrire dans l'input de la requête
+ */
 function addWhere(){
-  emits('where', ' WHERE')
+  emits('where', ' WHERE ')
 }
 </script>
 

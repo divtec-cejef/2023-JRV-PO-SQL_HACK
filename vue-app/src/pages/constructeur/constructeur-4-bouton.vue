@@ -1,21 +1,35 @@
 <template>
   <div class="page1">
-    <button @click="emitEvent" :disabled="isClicked">SELECT</button>
-    <button id="btn_update">UPDATE</button>
-    <button id="btn_insert">INSERT</button>
-    <button id="btn_delete">DELETE</button>
+    <button @click="addSelectToQuery(1)">SELECT</button>
+    <button @click="addSelectToQuery(2)">UPDATE</button>
+    <button @click="addSelectToQuery(3)">INSERT</button>
+    <button @click="addSelectToQuery(4)">DELETE</button>
   </div>
 </template>
 
 <script setup>
-  import { defineEmits } from 'vue'
+import {defineEmits, ref} from 'vue'
   const emits = defineEmits(['select'])
 
-  let isClicked = false;
-  function emitEvent(){
-    emits('select', 'SELECT')
-    isClicked = true
+
+/***
+ * Emet la chaîne de caractère d'une des 4 commandes
+ * des boutons
+ * @param boutonSelectionne Valeur du bouton sélectionner (de 1 à 4)
+ */
+  function addSelectToQuery(boutonSelectionne){
+    switch (boutonSelectionne){
+      case 1: emits('select', 'SELECT ')
+        break
+      case 2: emits('select', 'UPDATE ')
+        break
+      case 3: emits('select', 'INSERT ')
+        break
+      case 4: emits('select', 'DELETE ')
+        break
+    }
   }
+
 </script>
 
 <style scoped>

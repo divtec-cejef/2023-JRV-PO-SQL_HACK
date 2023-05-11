@@ -31,9 +31,16 @@ const materiel = ["idMateriel", "Nom", "Quantité"]
 
 /* émet "propriété" */
 const propriete = defineEmits(['propriete'])
-/* si la table est après l'ajout d'une condition ou non*/
 const props = defineProps(['where'])
 
+/**
+ * Teste si le constructeur de la table est après
+ * les 4 boutons ou après la condition
+ * Mode après 4 boutons : idPersonne FROM personne
+ * Mode après condition : Prénom =
+ * @param valeur Propriété du tableau
+ * @param table Nom du tableau
+ */
 function addPropriety(valeur, table) {
   if (props.where) {
     valeur = valeur + " = "
@@ -47,7 +54,6 @@ function addPropriety(valeur, table) {
 </script>
 
 <style scoped>
-/* page 2 */
 ul {
   padding: 0;
   margin: 20px;
