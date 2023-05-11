@@ -1,4 +1,4 @@
-function select(table, where){
+function select(table, condition, valeurCondition){
     // Ouverture de la base de données "maBaseDeDonnees"
     var request = window.indexedDB.open("maBaseDeDonnees");
 
@@ -15,25 +15,25 @@ function select(table, where){
 
         request.onsuccess = function(event) {
             var data = event.target.result;
-            if (table == "tb_personne"){
-                afficherTablePersonne(data,where)
+            if (table === "tb_personne"){
+                afficherTablePersonne(data, condition, valeurCondition)
             }
-            if (table == "tb_materiel"){
-                afficherTableMat(data,where)
+            if (table ==="tb_materiel"){
+                afficherTableMat(data, condition, valeurCondition)
             }
-            if (table == "tb_voiture"){
-                afficherTableVoiture(data,where)
+            if (table === "tb_voiture"){
+                afficherTableVoiture(data, condition, valeurCondition)
             }
         };
     };
 }
 
 
-function afficherTablePersonne(data,where){
+function afficherTablePersonne(data, condition, valeurCondition){
     var table = document.createElement("table");
     table.innerHTML = "<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Date de naissance</th></tr>";
     for (var i = 0; i < (data.length); i++) {
-        if (data[i].idPersonne == where || data[i].nom_pers == where || data[i].prenom_pers == where || formatDate(data[i].dateNaiss_pers) == where || data[i].numTelephone_pers == where || 0 == where) {
+        if (data[i].condition === valeurCondition || 0 === valeurCondition  ) {
             var tr = document.createElement("tr");
             tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom_pers + "</td>" + data[i].prenom_pers + "<td>" + formatDate(data[i].dateNaiss_pers)  + "</td>"  + "<td>" + data[i].numTelephone_pers  + "</td>";
             table.appendChild(tr);

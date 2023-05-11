@@ -12,9 +12,10 @@ function getWord(chaine, index) {
 
 function getDataSelect() {
     const table = getWord(txtSaisie.value, 3);
+    const champsCondition = getWord(txtSaisie.value, 5);
     const nom = getWord(txtSaisie.value, 7);
-    console.log(table, ',', nom);
-    select(table, nom);
+    console.log(table, ',', champsCondition, ',', nom);
+    select(table, champsCondition, nom);
 }
 
 
