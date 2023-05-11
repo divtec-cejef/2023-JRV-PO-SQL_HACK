@@ -1,6 +1,6 @@
 <template>
   <div class="page1">
-    <button @click="emitEvent">SELECT</button>
+    <button @click="emitEvent" :disabled="isClicked">SELECT</button>
     <button id="btn_update">UPDATE</button>
     <button id="btn_insert">INSERT</button>
     <button id="btn_delete">DELETE</button>
@@ -10,8 +10,11 @@
 <script setup>
   import { defineEmits } from 'vue'
   const emits = defineEmits(['select'])
+
+  let isClicked = false;
   function emitEvent(){
     emits('select', 'SELECT')
+    isClicked = true
   }
 </script>
 
