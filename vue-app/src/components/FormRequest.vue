@@ -16,6 +16,11 @@ function getWord(chaine, index) {
     return mots[index];
 }
 
+/**
+ * Compte le nombre de mots qu'il y a dans la chaine de caractère.
+ * @param chaine La chaine de caractère à traiter.
+ * @returns {*} le nombre de mots.
+ */
 function numberWordInRequest(chaine) {
     const mots = chaine.split(' ');
     const nbreMots = mots.length;
