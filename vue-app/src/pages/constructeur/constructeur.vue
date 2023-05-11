@@ -8,13 +8,13 @@
   <!-- requête SELECT -->
   <div class="requete_select" v-if="commande===1">
     <div v-if="constructeurActuel === 1">
-      <constructeur-table @propriete="propriété" :where="false" :commande="1"> </constructeur-table>
+      <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"> </ConstructeurTableEtPropriete>
     </div>
     <div v-if="constructeurActuel === 2">
       <constructeur-condition @where="propriété"></constructeur-condition>
     </div>
     <div v-if="constructeurActuel === 3">
-      <constructeur-table @propriete="propriété" :where="true" :commande="1"></constructeur-table>
+      <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"></ConstructeurTableEtPropriete>
     </div>
     <div v-if="constructeurActuel === 4">
       <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
@@ -26,7 +26,7 @@
   <!-- requête UPDATE -->
   <div class="requete_update" v-if="commande===2">
     <div v-if="constructeurActuel === 1">
-      <constructeur-table @propriete="propriété" :where="false" :commande="2"> </constructeur-table>
+      <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"> </ConstructeurTableEtPropriete>
     </div>
     <div>
       <div v-if="constructeurActuel === 2">
@@ -38,7 +38,7 @@
       <constructeur-condition @where="propriété"></constructeur-condition>
     </div>
     <div v-if="constructeurActuel===4">
-      <constructeur-table @propriete="propriété" :where="true" :commande="2"></constructeur-table>
+      <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"></ConstructeurTableEtPropriete>
     </div>
   </div>
   <div v-if="constructeurActuel===5">
@@ -48,7 +48,9 @@
 
   <!-- requête INSERT -->
   <div class="requete_insert" v-if="commande===3">
-
+    <div v-if="constructeurActuel===1">
+      <constructeur-table @propriete="propriété"></constructeur-table>
+    </div>
   </div>
 
   <br>
@@ -59,6 +61,7 @@
 
 <script setup>
 import Constructeur4Bouton from "@/pages/constructeur/constructeur-4-bouton.vue";
+import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-table-et-propriete.vue";
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import {ref} from "vue";
@@ -78,7 +81,7 @@ function propriété(valeur){
     commande = 1
   } else if (valeur === "UPDATE "){
     commande = 2
-  } else if (valeur==="INSERT INTO"){
+  } else if (valeur==="INSERT INTO "){
     commande = 3
   }
   requete.value += valeur

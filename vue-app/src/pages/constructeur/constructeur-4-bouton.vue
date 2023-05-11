@@ -23,7 +23,7 @@ import {defineEmits, ref} from 'vue'
         break
       case 2: emits('select', 'UPDATE ')
         break
-      case 3: emits('select', 'INSERT INTO')
+      case 3: emits('select', "INSERT INTO ")
         break
       case 4: emits('select', 'DELETE ')
         break
