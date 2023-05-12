@@ -34,7 +34,7 @@ function numberWordInRequest(chaine) {
 function getDataFromSelect() {
     const table = getWord(txtSaisie.value, 3);
     const champsCondition = getWord(txtSaisie.value, 5);
-    const valeur = getWord(txtSaisie.value, 7);
+    const valeur = getWord(txtSaisie.value, 7).replace(/"|'|;|/g, "");
     console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
     select(table, champsCondition, valeur);
 }
@@ -46,7 +46,7 @@ function getDataFromInsert() {
     const table = getWord(txtSaisie.value, 2);
     const dataArray = ref([]);
     for (let i = 5; i <= numberWordInRequest(txtSaisie.value) - 1; i++) {
-        const dataClean = getWord(txtSaisie.value, i).replace(/"|,|\(|\)/g, "");
+        const dataClean = getWord(txtSaisie.value, i).replace(/"|;|,|\(|\)/g, "");
         dataArray.value.push(dataClean);
     }
     console.log(table, ',', dataArray.value);
@@ -62,7 +62,7 @@ function getDataFromUpdate() {
     const nouvelleValeur = getWord(txtSaisie.value, 5).replace(/"|'|/g, "");
     const valeurID = getWord(txtSaisie.value, 9);
     console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
-    updateRecord(table, valeurID, champsModif, nouvelleValeur);
+    update(table, valeurID, champsModif, nouvelleValeur);
 }
 </script>
 
