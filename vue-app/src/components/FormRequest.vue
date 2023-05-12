@@ -52,6 +52,18 @@ function getDataFromInsert() {
     console.log(table, ',', dataArray.value);
     insert(table,dataArray.value);
 }
+
+/**
+ * Récupère toutes les informations nécessaires pour exécuter une requête UPDATE.
+ */
+function getDataFromUpdate() {
+    const table = getWord(txtSaisie.value, 1);
+    const champsModif = getWord(txtSaisie.value, 3);
+    const nouvelleValeur = getWord(txtSaisie.value, 5).replace(/"|'|/g, "");
+    const valeurID = getWord(txtSaisie.value, 9);
+    console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
+    updateRecord(table, valeurID, champsModif, nouvelleValeur);
+}
 </script>
 
 <template>
@@ -65,6 +77,7 @@ function getDataFromInsert() {
 
     <button @click="getDataFromInsert()">Insert</button>
     <button @click="getDataFromSelect()">Select</button>
+    <button @click="getDataFromUpdate()">Update</button>
 
 </template>
 
