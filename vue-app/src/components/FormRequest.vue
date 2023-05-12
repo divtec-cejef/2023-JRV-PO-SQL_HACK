@@ -33,10 +33,15 @@ function numberWordInRequest(chaine) {
  */
 function getDataFromSelect() {
     const table = getWord(txtSaisie.value, 3);
-    const champsCondition = getWord(txtSaisie.value, 5);
-    const valeur = getWord(txtSaisie.value, 7).replace(/"|'|;|/g, "");
-    console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
-    select(table, champsCondition, valeur);
+    if (numberWordInRequest(txtSaisie.value) > 5 ) {
+        const champsCondition = getWord(txtSaisie.value, 5);
+        const valeur = getWord(txtSaisie.value, 7).replace(/"|'|;|/g, "");
+        console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
+        select(table, champsCondition, valeur);
+    } else {
+        console.log('table : ' + table);
+        select(table);
+    }
 }
 
 /**
@@ -46,7 +51,7 @@ function getDataFromInsert() {
     const table = getWord(txtSaisie.value, 2);
     const dataArray = ref([]);
     for (let i = 5; i <= numberWordInRequest(txtSaisie.value) - 1; i++) {
-        const dataClean = getWord(txtSaisie.value, i).replace(/"|;|,|\(|\)/g, "");
+        const dataClean = getWord(txtSaisie.value, i).replace(/"|,|;|\(|\)/g, "");
         dataArray.value.push(dataClean);
     }
     console.log(table, ',', dataArray.value);
@@ -59,10 +64,21 @@ function getDataFromInsert() {
 function getDataFromUpdate() {
     const table = getWord(txtSaisie.value, 1);
     const champsModif = getWord(txtSaisie.value, 3);
-    const nouvelleValeur = getWord(txtSaisie.value, 5).replace(/"|'|/g, "");
+    const nouvelleValeur = getWord(txtSaisie.value, 5).replace(/"|'|;|/g, "");
     const valeurID = getWord(txtSaisie.value, 9);
     console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
     update(table, parseInt(valeurID), champsModif, nouvelleValeur);
+}
+
+/**
+ * Récupère toutes les informations nécessaires pour exécuter une requête DELETE.
+ */
+function getDataFromDelete() {
+    const table = getWord(txtSaisie.value, 2);
+    const champsID = getWord(txtSaisie.value, 4);
+    const valeurID = getWord(txtSaisie.value, 6);
+    console.log(table, champsID, valeurID);
+    Delete(table, parseInt(valeurID));
 }
 </script>
 
@@ -78,6 +94,7 @@ function getDataFromUpdate() {
     <button @click="getDataFromInsert()">Insert</button>
     <button @click="getDataFromSelect()">Select</button>
     <button @click="getDataFromUpdate()">Update</button>
+    <button @click="getDataFromDelete()">Delete</button>
 
 </template>
 
