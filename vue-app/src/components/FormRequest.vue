@@ -62,7 +62,7 @@ function getDataFromUpdate() {
     const nouvelleValeur = getWord(txtSaisie.value, 5).replace(/"|'|/g, "");
     const valeurID = getWord(txtSaisie.value, 9);
     console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
-    update(table, valeurID, champsModif, nouvelleValeur);
+    update(table, parseInt(valeurID), champsModif, nouvelleValeur);
 }
 </script>
 
