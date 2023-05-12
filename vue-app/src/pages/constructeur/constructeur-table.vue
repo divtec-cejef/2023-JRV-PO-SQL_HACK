@@ -32,10 +32,12 @@ ul {
   margin: 20px;
   border: 1px black solid;
   transition: transform 500ms ease;
+  background-color: white;
 }
 
 li {
   list-style-type: none;
+  background-color: white;
 }
 
 .page2 {
@@ -43,7 +45,6 @@ li {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: aquamarine;
   color: black;
 }
 

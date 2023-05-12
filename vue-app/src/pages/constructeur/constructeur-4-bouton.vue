@@ -36,7 +36,6 @@ import {defineEmits, ref} from 'vue'
 /* page 1 */
 .page1 {
   width: 500px;
-  background-color: aqua;
   padding: 30px;
   display: flex;
   flex-wrap: wrap;

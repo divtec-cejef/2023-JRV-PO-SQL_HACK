@@ -60,17 +60,18 @@
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
-      <input type="text" id="text-requete" :value="text_requete" readonly>
+      <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
 
     <!-- Résultat de la requête -->
     <div class="resultat_requete">
-      <input type="text" id="resultat-requete" :value="resultat_requete" readonly>
+      <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
     </div>
 
-    <button @click="effacer">Effacer</button>
   </div>
+
+  <button @click="effacer">Effacer</button>
 
 </template>
 
@@ -115,9 +116,9 @@ function validerRequete(){
     window.alert("Veuillez remplir le champs de saisie")
   } else {
     text_requete.value += textCondition.value
-    resultat_requete.value = text_requete
-    effacer()
+    resultat_requete.value = text_requete.value
   }
+  text_requete.value = ""
 }
 
 function testerInputText(){
@@ -136,6 +137,7 @@ function testerInputText(){
 function effacer(){
   text_requete.value = ""
   textCondition.value = ""
+  resultat_requete.value = ""
   constructeurActuel = 0
 }
 </script>
@@ -147,9 +149,6 @@ function effacer(){
 div{
   width: fit-content;
 }
-input {
-  width: 100%;
-}
 button{
   width: 30%;
   height: 40px;
@@ -158,25 +157,44 @@ button{
   margin-bottom: 50px;
 }
 
+/* écran gauche */
+.ecran_gauche{
+  border: white 4px solid;
+  width: 600px;
+  height: 700px;
+}
+.text_requete textarea, .resultat_requete textarea{
+  resize: none;
+}
+
 /* Constructeur */
 .constructeur{
-
+  margin: auto;
+  min-height: 300px;
+  max-height: 300px;
 }
 
 /* Text requête */
 .text_requete{
   width: 100%;
+  margin: 0;
 }
-input{
-  min-height: 100px;
-  font-size: 22px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+#text-requete{
+  width: 100%;
+  font-size: 28px;
+  height: 100px;
+  margin: 0;
 }
 
 /* Resultat requête */
 .resultat_requete{
-
+  width: 100%;
+  margin: 0;
+}
+#result-requete{
+  width: 100%;
+  height: 290px;
+  font-size: 28px;
 }
 
 </style>
