@@ -1,4 +1,4 @@
-function updateRecord(tableName, id, propriete,updatedData) {
+function update(tableName, id, propriete,updatedData) {
     var request = window.indexedDB.open("maBaseDeDonnees");
 
     request.onerror = function(event) {
