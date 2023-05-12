@@ -1,4 +1,4 @@
-function updateRecord(tableName, id, propriete,updatedData) {
+function update(tableName, id, propriete,updatedData) {
     var request = window.indexedDB.open("maBaseDeDonnees");
 
     request.onerror = function(event) {
@@ -19,7 +19,7 @@ function updateRecord(tableName, id, propriete,updatedData) {
                 // en utilisant les propriétés de l'objet updatedData
 
                 // Exemple : Modifier la propriété "nom" de l'enregistrement
-                record.[propriete] = updatedData;
+                record[propriete] = updatedData;
 
                 // Mettre à jour l'enregistrement dans le magasin d'objets
                 var updateRequest = objectStore.put(record);

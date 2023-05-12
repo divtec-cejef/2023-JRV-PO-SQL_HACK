@@ -34,7 +34,7 @@ function numberWordInRequest(chaine) {
 function getDataFromSelect() {
     const table = getWord(txtSaisie.value, 3);
     const champsCondition = getWord(txtSaisie.value, 5);
-    const valeur = getWord(txtSaisie.value, 7);
+    const valeur = getWord(txtSaisie.value, 7).replace(/"|'|/g, "");
     console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
     select(table, champsCondition, valeur);
 }
@@ -52,6 +52,19 @@ function getDataFromInsert() {
     console.log(table, ',', dataArray.value);
     insert(table,dataArray.value);
 }
+
+/**
+ * Récupère toutes les informations nécessaires pour exécuter une requête UPDATE.
+ */
+function getDataFromUpdate() {
+    const table = getWord(txtSaisie.value, 1);
+    const champsModif = getWord(txtSaisie.value, 3);
+    const nouvelleValeur = getWord(txtSaisie.value, 5).replace(/"|'|/g, "");
+    // const champsID = getWord(txtSaisie.value, 7);
+    const valeurID = getWord(txtSaisie.value, 9);
+    console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
+    update(table, valeurID, champsModif, nouvelleValeur);
+}
 </script>
 
 <template>
@@ -65,6 +78,7 @@ function getDataFromInsert() {
 
     <button @click="getDataFromInsert()">Insert</button>
     <button @click="getDataFromSelect()">Select</button>
+    <button @click="getDataFromUpdate()">Update</button>
 
 </template>
 
