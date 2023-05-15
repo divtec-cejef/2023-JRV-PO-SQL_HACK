@@ -1,3 +1,4 @@
+
 function select(table, condition = 0, valeurCondition = 0){
     // Ouverture de la base de données "maBaseDeDonnees"
     var request = window.indexedDB.open("maBaseDeDonnees");
@@ -61,5 +62,15 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
     // Ajouter la nouvelle table au document body
     document.body.appendChild(table);
 }
+
+function formatDate(date) {
+    var d = new Date(date);
+    var day = ("0" + d.getDate()).slice(-2);
+    var month = ("0" + (d.getMonth() + 1)).slice(-2);
+    var year = d.getFullYear();
+    return year + "-" + day + "-" + month;
+}
+
+
 
 // Fonction pour formater une date au format jj/mm/aaaa
