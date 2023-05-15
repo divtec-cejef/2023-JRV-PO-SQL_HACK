@@ -11,20 +11,20 @@ request.onupgradeneeded = function(event) {
 
     // Création table tb_personnel
     var objectStore =  db.createObjectStore("tb_personne", { keyPath: "idPersonne", autoIncrement:true });
-    objectStore.createIndex("nom_pers", "nom_pers", { unique: false });
-    objectStore.createIndex("prenom_pers", "prenom_pers", { unique: false });
-    objectStore.createIndex("dateNaiss_pers", "dateNaiss_pers", { unique: false });
-    objectStore.createIndex("numTelephone_pers", "numTelephone_pers", { unique: true });
+    objectStore.createIndex("nom", "nom", { unique: false });
+    objectStore.createIndex("prenom", "prenom", { unique: false });
+    objectStore.createIndex("Date_de_naissance", "Date_de_naissance", { unique: false });
+    objectStore.createIndex("numero_de_tel", "numero_de_tel", { unique: true });
 
     // Création table tb_materiel
     objectStore = db.createObjectStore("tb_materiel", { keyPath: "idMateriel", autoIncrement:true });
-    objectStore.createIndex("nom_mat", "nom_mat", { unique: false });
-    objectStore.createIndex("quantite_mat", "quantite_mat", { unique: false });
+    objectStore.createIndex("nom_materiel", "nom_materiel", { unique: false });
+    objectStore.createIndex("quantite", "quantite", { unique: false });
 
     // Création table tb_voiture
     objectStore = db.createObjectStore("tb_voiture", { keyPath: "idVoiture", autoIncrement:true });
     objectStore.createIndex("couleur", "couleur", { unique: false });
-    objectStore.createIndex("numPlaque", "numPlaque", { unique: true });
+    objectStore.createIndex("numero_plaque", "numero_plaque", { unique: true });
     objectStore.createIndex("proprietaire", "proprietaire", { unique: false });
     objectStore.createIndex("marque", "marque", { unique: false });
 };
@@ -40,26 +40,26 @@ request.onsuccess = function(event) {
     var couleurs = ["Bleu", "Rouge", "Vert", "Noir", "Blanc", "Gris", "Blouge", "Marron"];
     // Ajouter 20 enregistrements fictifs dans la table tb_materiel
     var materiels = [
-        { nom_mat: "Clé à molette", quantite_mat: 5 },
-        { nom_mat: "Tournevis", quantite_mat: 10 },
-        { nom_mat: "Marteau", quantite_mat: 3 },
-        { nom_mat: "Pince", quantite_mat: 7 },
-        { nom_mat: "Lampe de poche", quantite_mat: 2 },
-        { nom_mat: "Cric", quantite_mat: 1 },
-        { nom_mat: "Scie", quantite_mat: 4 },
-        { nom_mat: "Niveau à bulle", quantite_mat: 2 },
-        { nom_mat: "Pistolet à colle", quantite_mat: 3 },
-        { nom_mat: "Ruban adhésif", quantite_mat: 8 },
-        { nom_mat: "Pinceau", quantite_mat: 6 },
-        { nom_mat: "Perceuse", quantite_mat: 2 },
-        { nom_mat: "Étau", quantite_mat: 1 },
-        { nom_mat: "Ciseaux", quantite_mat: 5 },
-        { nom_mat: "Clef à cliquet", quantite_mat: 3 },
-        { nom_mat: "Meuleuse d'angle", quantite_mat: 2 },
-        { nom_mat: "Compresseur d'air", quantite_mat: 1 },
-        { nom_mat: "Chalumeau", quantite_mat: 2 },
-        { nom_mat: "Pistolet de peinture", quantite_mat: 4 },
-        { nom_mat: "Rouleau à peinture", quantite_mat: 6 }
+        { nom_materiel: "Clé à molette", quantite: 5 },
+        { nom_materiel: "Tournevis", quantite: 10 },
+        { nom_materiel: "Marteau", quantite: 3 },
+        { nom_materiel: "Pince", quantite: 7 },
+        { nom_materiel: "Lampe de poche", quantite: 2 },
+        { nom_materiel: "Cric", quantite: 1 },
+        { nom_materiel: "Scie", quantite: 4 },
+        { nom_materiel: "Niveau à bulle", quantite: 2 },
+        { nom_materiel: "Pistolet à colle", quantite: 3 },
+        { nom_materiel: "Ruban adhésif", quantite: 8 },
+        { nom_materiel: "Pinceau", quantite: 6 },
+        { nom_materiel: "Perceuse", quantite: 2 },
+        { nom_materiel: "Étau", quantite: 1 },
+        { nom_materiel: "Ciseaux", quantite: 5 },
+        { nom_materiel: "Clef à cliquet", quantite: 3 },
+        { nom_materiel: "Meuleuse d'angle", quantite: 2 },
+        { nom_materiel: "Compresseur d'air", quantite: 1 },
+        { nom_materiel: "Chalumeau", quantite: 2 },
+        { nom_materiel: "Pistolet de peinture", quantite: 4 },
+        { nom_materiel: "Rouleau à peinture", quantite: 6 }
     ];
 
     for (var i = 0; i < 100; i++) {
@@ -69,10 +69,10 @@ request.onsuccess = function(event) {
         var numTelephone = generateRandomPhoneNumber();
 
         var nouveauPersonne = {
-            nom_pers: nom,
-            prenom_pers: prenom,
-            dateNaiss_pers: dateNaissance,
-            numTelephone_pers: numTelephone
+            nom: nom,
+            prenom: prenom,
+            date_de_naissance: dateNaissance,
+            numero_de_tel: numTelephone
         };
 
         var numeroPlaque = generatePlaqueNumber();
@@ -80,7 +80,7 @@ request.onsuccess = function(event) {
 
         var nouvelleVoiture = {
             couleur: couleurs[Math.floor(Math.random() * couleurs.length)],
-            numPlaque: numeroPlaque,
+            numerp_de_plaque: numeroPlaque,
             proprietaire: propri,
             marque: marques[Math.floor(Math.random() * marques.length)]
         }
