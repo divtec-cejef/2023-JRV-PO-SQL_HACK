@@ -2,13 +2,13 @@
   <div>
     <div class="page2">
       <ul class="table_voiture">
-        <p @click="propriétéInsert(' Voiture')">Voiture</p>
+        <p @click="propriétéInsert('Voiture')">Voiture</p>
       </ul>
       <ul class="table_personne">
-        <p @click="propriétéInsert(' Personne')">Personne</p>
+        <p @click="propriétéInsert('Personne')">Personne</p>
       </ul>
       <ul class="table_materiel">
-        <p @click="propriétéInsert(' Matériel')">Materiel</p>
+        <p @click="propriétéInsert('Matériel')">Materiel</p>
       </ul>
     </div>
   </div>
@@ -20,7 +20,6 @@ const props = defineProps(['table'])
 
 
 function propriétéInsert(valeur){
-  valeur += " VALUES "
   propriete('propriete', valeur)
 }
 
