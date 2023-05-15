@@ -32,7 +32,7 @@ function numberWordInRequest(chaine) {
  * Récupère toutes les informations nécessaires pour exécuter une requête SELECT.
  */
 function getDataFromSelect() {
-    const table = getWord(txtSaisie.value, 3);
+    const table = getWord(txtSaisie.value, 3).replace(/"|'|;|/g, "");
     if (numberWordInRequest(txtSaisie.value) > 5 ) {
         const champsCondition = getWord(txtSaisie.value, 5);
         const valeur = getWord(txtSaisie.value, 7).replace(/"|'|;|/g, "");
@@ -80,6 +80,21 @@ function getDataFromDelete() {
     console.log(table, champsID, valeurID);
     Delete(table, parseInt(valeurID));
 }
+
+/**
+ * Choisit la bonne requête à exécuter en fonction du premier mot de la chaine de caractère.
+ */
+function sendRequest() {
+    const nomRequete = getWord(txtSaisie.value, 0);
+    if (nomRequete === 'select' || nomRequete === 'Select') {
+        return getDataFromSelect();
+    } else if (nomRequete === 'update' || nomRequete === 'Update') {
+        return getDataFromUpdate();
+    } else if (nomRequete === 'insert' || nomRequete === 'Insert') {
+        return getDataFromInsert();
+    }
+    return getDataFromDelete();
+}
 </script>
 
 <template>
@@ -91,10 +106,11 @@ function getDataFromDelete() {
         </div>
     </form>
 
-    <button @click="getDataFromInsert()">Insert</button>
-    <button @click="getDataFromSelect()">Select</button>
-    <button @click="getDataFromUpdate()">Update</button>
-    <button @click="getDataFromDelete()">Delete</button>
+<!--    <button @click="getDataFromInsert()">Insert</button>-->
+<!--    <button @click="getDataFromSelect()">Select</button>-->
+<!--    <button @click="getDataFromUpdate()">Update</button>-->
+<!--    <button @click="getDataFromDelete()">Delete</button>-->
+    <button @click="sendRequest()">Envoyer</button>
 
 </template>
 
