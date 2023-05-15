@@ -8,23 +8,24 @@ function insert(table, donnes){
         var db = event.target.result;
         if (table === "tb_personne") {
             console.log(donnes[0],donnes[1],donnes[2],donnes[3])
+            var dateNaiss = new Date(donnes[2]);
             var Ajouts = {
-                nom_pers: donnes[0],
-                prenom_pers: donnes[1],
-                dateNaiss_pers: donnes[2],
-                numTelephone_pers: donnes[3]
+                nom: donnes[0],
+                prenom: donnes[1],
+                Date_de_naissance: formatDate(dateNaiss),
+                numero_de_tel: donnes[3]
             };
         } else if (table === "tb_voiture") {
             var Ajouts = {
                 couleur: donnes[1],
-                numPlaque: donnes[2],
+                numero_plaque: donnes[2],
                 proprietaire: donnes[3],
                 marque: donnes[4]
             }
         } else {
             var Ajouts = {
-                nom_mat: donnes[1],
-                quantite_mat: donnes[2]
+                nom_materiel: donnes[1],
+                quantite: donnes[2]
             };
         }
         // Ajouter chaque enregistrement
