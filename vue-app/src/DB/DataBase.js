@@ -13,7 +13,7 @@ request.onupgradeneeded = function(event) {
     var objectStore =  db.createObjectStore("tb_personne", { keyPath: "idPersonne", autoIncrement:true });
     objectStore.createIndex("nom", "nom", { unique: false });
     objectStore.createIndex("prenom", "prenom", { unique: false });
-    objectStore.createIndex("Date_de_naissance", "Date_de_naissance", { unique: false });
+    objectStore.createIndex("date_de_naissance", "Date_de_naissance", { unique: false });
     objectStore.createIndex("numero_de_tel", "numero_de_tel", { unique: true });
 
     // Création table tb_materiel

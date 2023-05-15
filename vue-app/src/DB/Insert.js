@@ -9,10 +9,12 @@ function insert(table, donnes){
         if (table === "tb_personne") {
             console.log(donnes[0],donnes[1],donnes[2],donnes[3])
             var dateNaiss = new Date(donnes[2]);
+            console.log(dateNaiss);
+            console.log(formatDate(dateNaiss));
             var Ajouts = {
                 nom: donnes[0],
                 prenom: donnes[1],
-                Date_de_naissance: formatDate(dateNaiss),
+                date_de_naissance: dateNaiss,
                 numero_de_tel: donnes[3]
             };
         } else if (table === "tb_voiture") {
@@ -29,13 +31,15 @@ function insert(table, donnes){
             };
         }
         // Ajouter chaque enregistrement
-        var transactionVoiture = db.transaction([table], "readwrite");
-        var objectStoreVoiture = transactionVoiture.objectStore(table);
-        var request = objectStoreVoiture.add(Ajouts);
+        var transaction = db.transaction([table], "readwrite");
+        var objectStore = transaction.objectStore(table);
+        var request = objectStore.add(Ajouts);
 
         request.onerror = function (event) {
-            console.log("Erreur lors de l'ajout du matériel");
+            console.log("Erreur lors de l'ajout");
         };
-        console.log("Donné ajouté!");
+        request.onsuccess = function (event){
+            console.log("Donné ajouté!");
+        };
     }
 }

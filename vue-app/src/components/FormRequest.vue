@@ -85,12 +85,12 @@ function getDataFromDelete() {
  * Choisit la bonne requête à exécuter en fonction du premier mot de la chaine de caractère.
  */
 function sendRequest() {
-    const nomRequete = getWord(txtSaisie.value, 0);
-    if (nomRequete === 'select' || nomRequete === 'Select') {
+    const nomRequete = getWord(txtSaisie.value, 0).toUpperCase();
+    if (nomRequete === 'SELECT') {
         return getDataFromSelect();
-    } else if (nomRequete === 'update' || nomRequete === 'Update') {
+    } else if (nomRequete === 'UPDATE') {
         return getDataFromUpdate();
-    } else if (nomRequete === 'insert' || nomRequete === 'Insert') {
+    } else if (nomRequete === 'INSERT') {
         return getDataFromInsert();
     }
     return getDataFromDelete();

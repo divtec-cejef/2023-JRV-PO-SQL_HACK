@@ -63,6 +63,7 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
     document.body.appendChild(table);
 }
 
+// Fonction pour formater une date au format jj/mm/aaaa
 function formatDate(date) {
     var d = new Date(date);
     var day = ("0" + d.getDate()).slice(-2);
@@ -73,4 +74,4 @@ function formatDate(date) {
 
 
 
-// Fonction pour formater une date au format jj/mm/aaaa
+
