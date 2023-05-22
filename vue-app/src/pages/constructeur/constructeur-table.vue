@@ -18,7 +18,6 @@
 const propriete = defineEmits(['propriete'])
 const props = defineProps(['table'])
 
-
 function propriétéInsert(valeur){
   propriete('propriete', valeur)
 }

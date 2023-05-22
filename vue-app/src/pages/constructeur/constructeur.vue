@@ -55,7 +55,7 @@
             <constructeur-table @propriete="proprieteInsert"></constructeur-table>
           </div>
           <div v-if="constructeurActuel===2">
-            <constructeur-property-insert :table="table_selectionnee"></constructeur-property-insert>
+            <constructeur-property-insert :table="table_selectionnee" @datainsert="propriété"></constructeur-property-insert>
           </div>
         </div>
       </div>
