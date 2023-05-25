@@ -31,7 +31,7 @@ function numberWordInRequest(chaine) {
 /**
  * Récupère toutes les informations nécessaires pour exécuter une requête SELECT.
  */
-function getDataFromSelect() {
+function executeSelectRequest() {
     const table = getWord(txtSaisie.value, 3).replace(/"|'|;|/g, "");
     if (numberWordInRequest(txtSaisie.value) > 5 ) {
         const champsCondition = getWord(txtSaisie.value, 5);
@@ -47,7 +47,7 @@ function getDataFromSelect() {
 /**
  * Récupère toutes les informations nécessaires pour exécuter une requête INSERT.
  */
-function getDataFromInsert() {
+function executeInsertRequest() {
     const table = getWord(txtSaisie.value, 2);
     const dataArray = ref([]);
     for (let i = 5; i <= numberWordInRequest(txtSaisie.value) - 1; i++) {
@@ -61,7 +61,7 @@ function getDataFromInsert() {
 /**
  * Récupère toutes les informations nécessaires pour exécuter une requête UPDATE.
  */
-function getDataFromUpdate() {
+function executeUpdateRequest() {
     const table = getWord(txtSaisie.value, 1);
     const champsModif = getWord(txtSaisie.value, 3);
     const nouvelleValeur = getWord(txtSaisie.value, 5).replace(/"|'|;|/g, "");
@@ -73,7 +73,7 @@ function getDataFromUpdate() {
 /**
  * Récupère toutes les informations nécessaires pour exécuter une requête DELETE.
  */
-function getDataFromDelete() {
+function executeDeleteRequest() {
     const table = getWord(txtSaisie.value, 2);
     const champsID = getWord(txtSaisie.value, 4);
     const valeurID = getWord(txtSaisie.value, 6);
@@ -85,15 +85,17 @@ function getDataFromDelete() {
  * Choisit la bonne requête à exécuter en fonction du premier mot de la chaine de caractère.
  */
 function sendRequest() {
-    const nomRequete = getWord(txtSaisie.value, 0);
-    if (nomRequete === 'select' || nomRequete === 'Select') {
-        return getDataFromSelect();
-    } else if (nomRequete === 'update' || nomRequete === 'Update') {
-        return getDataFromUpdate();
-    } else if (nomRequete === 'insert' || nomRequete === 'Insert') {
-        return getDataFromInsert();
+    const nomRequete = getWord(txtSaisie.value, 0).toUpperCase();
+    switch (nomRequete) {
+        case 'SELECT':
+            return executeSelectRequest();
+        case 'UPDATE':
+            return executeUpdateRequest();
+        case 'INSERT':
+            return executeInsertRequest();
+        case 'DELETE':
+            return executeDeleteRequest();
     }
-    return getDataFromDelete();
 }
 </script>
 
@@ -106,12 +108,7 @@ function sendRequest() {
         </div>
     </form>
 
-<!--    <button @click="getDataFromInsert()">Insert</button>-->
-<!--    <button @click="getDataFromSelect()">Select</button>-->
-<!--    <button @click="getDataFromUpdate()">Update</button>-->
-<!--    <button @click="getDataFromDelete()">Delete</button>-->
     <button @click="sendRequest()">Envoyer</button>
-
 </template>
 
 <style scoped>
