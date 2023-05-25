@@ -10,6 +10,10 @@ function Delete(tableName, id){
         var transaction = db.transaction([tableName], "readwrite");
         var objectStore = transaction.objectStore(tableName);
         var deleteRequest = objectStore.delete(id);
+        var oldTable = document.getElementById("tableHtml");
+        if (oldTable) {
+            oldTable.remove();
+        }
 
         deleteRequest.onsuccess = function(event) {
             console.log("Suppression réussie");
@@ -27,4 +31,5 @@ function Delete(tableName, id){
             console.log("Erreur de transaction");
         };
     };
+
 }

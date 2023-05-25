@@ -51,4 +51,8 @@ function update(tableName, id, propriete, updatedData) {
             console.log("Erreur de transaction");
         };
     };
+    var oldTable = document.getElementById("tableHtml");
+    if (oldTable) {
+        oldTable.remove();
+    }
 }

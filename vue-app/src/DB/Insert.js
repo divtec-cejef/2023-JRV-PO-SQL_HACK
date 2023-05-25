@@ -42,4 +42,8 @@ function insert(table, donnes){
             console.log("Donné ajouté!");
         };
     }
+    var oldTable = document.getElementById("tableHtml");
+    if (oldTable) {
+        oldTable.remove();
+    }
 }
