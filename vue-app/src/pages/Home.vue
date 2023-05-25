@@ -1,6 +1,7 @@
 <script setup>
 
 import FormRequest from "@/components/FormRequest.vue";
+import Constructeur from "@/App.vue";
 
 
 
@@ -11,7 +12,7 @@ import FormRequest from "@/components/FormRequest.vue";
   </header>
 
   <main>
-    <FormRequest></FormRequest>
+
     <RouterLink to="/cinématique">Cinématique</RouterLink>
     <router-link to="/constructeur-test">ConstructeurTest</router-link>
   </main>

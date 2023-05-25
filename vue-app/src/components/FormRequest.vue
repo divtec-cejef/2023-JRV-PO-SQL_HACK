@@ -2,8 +2,8 @@
 import { ref } from "vue";
 
 const titre = ref('TRY SQL-HACK');
-
 const txtSaisie = ref('');
+
 
 /**
  * Récupère les mots de la chaine de caractère.

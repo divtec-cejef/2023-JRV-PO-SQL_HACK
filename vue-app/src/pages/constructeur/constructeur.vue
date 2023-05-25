@@ -1,3 +1,4 @@
+
 <template>
 
   <!-- Écran de gauche qui contient : constructeur, texte requête
@@ -81,7 +82,6 @@
       </div>
     </div>
 
-
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
@@ -92,6 +92,7 @@
     <div class="resultat_requete">
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
     </div>
+
 
   </div>
 
@@ -105,16 +106,19 @@ import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-tabl
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue"
+
 import {ref} from "vue";
+
+
 
 /* déclarations des variables*/
 const text_requete = ref()
 const resultat_requete = ref()
 const textCondition = ref()
-let constructeurActuel = 0;
+let constructeurActuel = 0
 let commande = 0
 let table_selectionnee = ""
-
+let valider = true
 /**
  * Permet d'afficher le texte de la propriété de l'utilisateur dans l'input
  * @param valeur Valeur de la propriété que l'utilisateur à cliqué
@@ -146,8 +150,10 @@ function validerRequete(){
   } else {
     text_requete.value += textCondition.value
     resultat_requete.value = text_requete.value
+
   }
   text_requete.value = ""
+  valider = true
   constructeurActuel++
 }
 
@@ -195,6 +201,8 @@ function proprieteDelete(valeur){
   constructeurActuel++
 }
 
+/*************************************************************************/
+
 </script>
 
 <style scoped>
@@ -237,12 +245,27 @@ button{
   width: 100%;
   margin: 0;
 }
-#text-requete{
+#text-requete {
   width: 100%;
   font-size: 28px;
   height: 100px;
   margin: 0;
 }
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+button {
+  margin-top: 0.5rem;
+}
+
+form p {
+  margin-bottom: 0.5rem;
+}
+
 
 /* Resultat requête */
 .resultat_requete{
