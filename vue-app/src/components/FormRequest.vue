@@ -104,7 +104,7 @@ function sendRequest() {
     <form method="get">
         <div class="formulaire">
             <p>Entrez la requête :</p>
-            <textarea id="requete" placeholder="Votre requête ici" v-model="txtSaisie"></textarea>
+            <textarea id="requete" placeholder="Votre requête ici" cols="75" v-model="txtSaisie"></textarea>
         </div>
     </form>
 
