@@ -32,11 +32,9 @@
           <div v-if="constructeurActuel === 1">
             <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"> </ConstructeurTableEtPropriete>
           </div>
-          <div>
-            <div v-if="constructeurActuel === 2">
+          <div v-if="constructeurActuel === 2">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
               <button class="btnValider" @click="testerInputText">Continuer</button>
-            </div>
           </div>
           <div v-if="constructeurActuel===3">
             <constructeur-condition @where="propriété"></constructeur-condition>
@@ -58,9 +56,24 @@
             <constructeur-property-insert :table="table_selectionnee" @datainsert="propriété"></constructeur-property-insert>
           </div>
         </div>
+        <!-- DELETE -->
+        <div class="requete_delete" v-if="commande===4">
+          <div v-if="constructeurActuel===1">
+            <constructeur-table @props-delete="proprieteDelete"></constructeur-table>
+          </div>
+          <div v-if="constructeurActuel===2">
+            <constructeur-condition @where="propriété"></constructeur-condition>
+          </div>
+          <div v-if="constructeurActuel===3">
+            <constructeur-table-et-propriete @propriete="propriété" :where="true" :commande="4"></constructeur-table-et-propriete>
+          </div>
+          <div v-if="constructeurActuel===4">
+            <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+            <button class="btnValider" @click="validerRequete">Valider</button>
+          </div>
+        </div>
       </div>
     </div>
-
 
 
     <!-- Texte de la requête dans l'input read only -->
@@ -107,6 +120,8 @@ function propriété(valeur){
     commande = 2
   } else if (valeur==="INSERT"){
     commande = 3
+  } else {
+    commande = 4
   }
   text_requete.value += valeur
   constructeurActuel++
@@ -164,6 +179,11 @@ function proprieteInsert(valeur){
     table_selectionnee = "Matériel"
     text_requete.value += " Matériel"
   }
+  constructeurActuel++
+}
+
+function proprieteDelete(valeur){
+  text_requete.value += "FROM " + valeur
   constructeurActuel++
 }
 

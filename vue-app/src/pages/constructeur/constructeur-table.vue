@@ -2,24 +2,25 @@
   <div>
     <div class="page2">
       <ul class="table_voiture">
-        <p @click="propriétéInsert('Voiture')">Voiture</p>
+        <p @click="propriétéInsertDelete('Voiture')">Voiture</p>
       </ul>
       <ul class="table_personne">
-        <p @click="propriétéInsert('Personne')">Personne</p>
+        <p @click="propriétéInsertDelete('Personne')">Personne</p>
       </ul>
       <ul class="table_materiel">
-        <p @click="propriétéInsert('Matériel')">Materiel</p>
+        <p @click="propriétéInsertDelete('Matériel')">Materiel</p>
       </ul>
     </div>
   </div>
 </template>
 
 <script setup>
-const propriete = defineEmits(['propriete'])
+const propriete = defineEmits(['propriete', 'props-delete'])
 const props = defineProps(['table'])
 
-function propriétéInsert(valeur){
+function propriétéInsertDelete(valeur){
   propriete('propriete', valeur)
+  propriete('props-delete', valeur)
 }
 
 </script>

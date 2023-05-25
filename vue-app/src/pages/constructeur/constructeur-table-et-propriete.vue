@@ -58,6 +58,11 @@ function addPropriety(valeur, table) {
       valeur = table + " SET " + valeur + " = "
     }
   }
+  if (props.commande === 4){
+    if (props.where){
+      valeur = valeur + " = "
+    }
+  }
 
   propriete('propriete', valeur)
 }
