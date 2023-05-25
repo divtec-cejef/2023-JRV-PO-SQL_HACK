@@ -22,7 +22,7 @@
     <li> {{ tb_materiel[2] }} <input type="text" v-model="quantité"></li>
   </ul>
 
-  <button @click="test()">Valider</button>
+  <button @click="valuesRequeteInsert">Valider</button>
 </template>
 
 <script setup>
@@ -65,7 +65,7 @@ function table(){
 }
 /******************************************************************/
 
-function test(){
+function valuesRequeteInsert(){
   let insertion_data = ""
   if (tableSelectionnee===0){
     insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
