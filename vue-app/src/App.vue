@@ -1,7 +1,5 @@
 <script setup>
-
 import FormRequest from "@/components/FormRequest.vue";
-
 </script>
 
 <template>
@@ -11,7 +9,8 @@ import FormRequest from "@/components/FormRequest.vue";
 
   <main>
     <FormRequest></FormRequest>
-
+    <RouterLink to="/cinématique">Cinématique</RouterLink>
+    <router-view/>
   </main>
 </template>
 
