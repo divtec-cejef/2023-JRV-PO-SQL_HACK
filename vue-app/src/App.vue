@@ -11,7 +11,8 @@ import FormRequest from "@/components/FormRequest.vue";
 
   <main>
     <FormRequest></FormRequest>
-
+    <RouterLink to="/cinématique">Cinématique</RouterLink>
+    <Router-link to="/constructeur-test">ConstructeurTest</Router-link>
   </main>
 </template>
 
