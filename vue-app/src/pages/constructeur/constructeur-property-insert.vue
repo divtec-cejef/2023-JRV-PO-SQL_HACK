@@ -65,20 +65,6 @@ function table(){
 }
 /******************************************************************/
 
-function afficherContenu() {
-  const inputs = []
-  for (const item of tb_voiture) {
-    inputs[item] = ""
-  }
-
-  let contenu = ""
-  for (const item of tb_voiture){
-    contenu += `${item} : ${inputs[item]}`
-  }
-  console.log(inputValue.value)
-}
-
-
 function test(){
   let insertion_data = ""
   if (tableSelectionnee===0){

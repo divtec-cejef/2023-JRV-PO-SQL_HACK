@@ -11,6 +11,7 @@
         <div v-if="constructeurActuel === 0">
           <constructeur4-bouton @select="propriété"></constructeur4-bouton>
         </div>
+
         <!-- requête SELECT -->
         <div class="requete_select" v-if="commande===1">
           <div v-if="constructeurActuel === 1">
@@ -26,11 +27,14 @@
             <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
             <button class="btnValider" @click="validerRequete">Valider</button>
           </div>
+          <div v-if="constructeurActuel === 5">
+          </div>
         </div>
+
         <!-- requête UPDATE -->
         <div class="requete_update" v-if="commande===2">
           <div v-if="constructeurActuel === 1">
-            <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"> </ConstructeurTableEtPropriete>
+            <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"></ConstructeurTableEtPropriete>
           </div>
           <div v-if="constructeurActuel === 2">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
@@ -47,6 +51,7 @@
           <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
           <button class="btnValider" @click="validerRequete">Valider</button>
         </div>
+
         <!-- requête INSERT -->
         <div class="requete_insert" v-if="commande===3">
           <div v-if="constructeurActuel===1">
@@ -56,6 +61,7 @@
             <constructeur-property-insert :table="table_selectionnee" @datainsert="propriété"></constructeur-property-insert>
           </div>
         </div>
+
         <!-- DELETE -->
         <div class="requete_delete" v-if="commande===4">
           <div v-if="constructeurActuel===1">
@@ -65,7 +71,7 @@
             <constructeur-condition @where="propriété"></constructeur-condition>
           </div>
           <div v-if="constructeurActuel===3">
-            <constructeur-table-et-propriete @propriete="propriété" :where="true" :commande="4"></constructeur-table-et-propriete>
+            <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"></constructeur-table-et-propriete>
           </div>
           <div v-if="constructeurActuel===4">
             <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
@@ -120,12 +126,12 @@ function propriété(valeur){
     commande = 2
   } else if (valeur==="INSERT"){
     commande = 3
-  } else {
+  } else if (valeur === "DELETE "){
     commande = 4
   }
   text_requete.value += valeur
   constructeurActuel++
-  console.log(constructeurActuel)
+  console.log(constructeurActuel + " " + commande)
 }
 
 /***
@@ -142,6 +148,7 @@ function validerRequete(){
     resultat_requete.value = text_requete.value
   }
   text_requete.value = ""
+  constructeurActuel++
 }
 
 function testerInputText(){
@@ -183,6 +190,7 @@ function proprieteInsert(valeur){
 }
 
 function proprieteDelete(valeur){
+  commande = 4
   text_requete.value += "FROM " + valeur
   constructeurActuel++
 }
