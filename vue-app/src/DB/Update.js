@@ -16,9 +16,14 @@ function update(tableName, id, propriete, updatedData) {
             var record = event.target.result;
 
             if (record) {
-                // Effectuer les modifications sur l'enregistrement récupéré
-                // en utilisant les propriétés de l'objet updatedData
-                record[propriete] = updatedData;
+                if (propriete === "dateNaiss_pers"){
+                    var dateNaiss = new Date(updatedData);
+                    record[propriete] = formatDate(dateNaiss);
+                }else{
+                    // Effectuer les modifications sur l'enregistrement récupéré
+                    // en utilisant les propriétés de l'objet updatedData
+                    record[propriete] = updatedData;
+                }
                 // Mettre à jour l'enregistrement dans le magasin d'objets
                 var updateRequest = objectStore.put(record);
 

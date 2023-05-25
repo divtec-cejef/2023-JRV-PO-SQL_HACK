@@ -44,16 +44,16 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
 
 
     for (var i = 0; i < data.length; i++) {
-        if (data[i][conditionl] === valeurCondition || valeurCondition == 0) {
+        if (data[i][conditionl] === valeurCondition || valeurCondition === 0) {
             var tr = document.createElement("tr");
             if (nomTable === "tb_personne"){
-                tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom_pers + "</td><td>" + data[i].prenom_pers + "</td><td>" + formatDate(data[i].dateNaiss_pers) + "</td><td>" + data[i].numTelephone_pers + "</td>";
+                tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom + "</td><td>" + data[i].prenom + "</td><td>" + formatDate(data[i].date_de_naissance) + "</td><td>" + data[i].numero_de_tel + "</td>";
             }
             else if (nomTable === "tb_materiel"){
-                tr.innerHTML = "<td>" + data[i].idMateriel + "</td><td>" + data[i].nom_mat + "</td>" + data[i].quantite_mat + "<td>";
+                tr.innerHTML = "<td>" + data[i].idMateriel + "</td><td>" + data[i].nom_materiel + "</td>" + data[i].quantite + "<td>";
             }
             else if (nomTable === "tb_voiture"){
-                tr.innerHTML = "<td>" + data[i].idVoiture + "</td><td>" + data[i].couleur + "</td><td>" + data[i].numPlaque + "</td><td>" + data[i].proprietaire + "</td><td>" + data[i].marque + "</td>";
+                tr.innerHTML = "<td>" + data[i].idVoiture + "</td><td>" + data[i].couleur + "</td><td>" + data[i].numero_plaque + "</td><td>" + data[i].proprietaire + "</td><td>" + data[i].marque + "</td>";
             }
             table.appendChild(tr);
         }
@@ -63,6 +63,7 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
     document.body.appendChild(table);
 }
 
+// Fonction pour formater une date au format jj/mm/aaaa
 function formatDate(date) {
     var d = new Date(date);
     var day = ("0" + d.getDate()).slice(-2);
@@ -73,4 +74,4 @@ function formatDate(date) {
 
 
 
-// Fonction pour formater une date au format jj/mm/aaaa
+
