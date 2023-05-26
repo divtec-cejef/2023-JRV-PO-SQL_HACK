@@ -1,8 +1,5 @@
 <script setup>
-
 import FormRequest from "@/components/FormRequest.vue";
-import Constructeur from "@/pages/constructeur/constructeur.vue";
-
 </script>
 
 <template>
@@ -11,11 +8,9 @@ import Constructeur from "@/pages/constructeur/constructeur.vue";
   </header>
 
   <main>
-
-    <RouterLink to="/cinématique">Cinématique</RouterLink>
-    <Router-link to="/constructeur-test">ConstructeurTest</Router-link>
-    <constructeur></constructeur>
     <FormRequest></FormRequest>
+    <RouterLink to="/cinématique">Cinématique</RouterLink>
+    <router-view/>
   </main>
 </template>
 
@@ -33,7 +28,7 @@ header {
   header {
     display: flex;
     place-items: center;
-    //padding-right: calc(var(--section-gap) / 2);
+  //padding-right: calc(var(--section-gap) / 2);
   }
 
   header .wrapper {

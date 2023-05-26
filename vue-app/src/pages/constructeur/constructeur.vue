@@ -1,4 +1,3 @@
-
 <template>
 
   <!-- Écran de gauche qui contient : constructeur, texte requête
@@ -6,77 +5,79 @@
   <div class="ecran_gauche">
 
     <!-- Constructeur de la requête-->
-    <div class="constructeur">
-      <div class="commande">
-        <!-- Boutons des 4 commandes -->
-        <div v-if="constructeurActuel === 0">
-          <constructeur4-bouton @select="propriété"></constructeur4-bouton>
-        </div>
+    <div v-if="constructeurActuel !== 6">
+      <div class="constructeur">
+        <div class="commande">
 
-        <!-- requête SELECT -->
-        <div class="requete_select" v-if="commande===1">
-          <div v-if="constructeurActuel === 1">
-            <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"> </ConstructeurTableEtPropriete>
+          <!-- Boutons des 4 commandes -->
+          <div v-if="constructeurActuel === 0">
+            <constructeur4-bouton @select="propriété"></constructeur4-bouton>
           </div>
-          <div v-if="constructeurActuel === 2">
-            <constructeur-condition @where="propriété"></constructeur-condition>
-          </div>
-          <div v-if="constructeurActuel === 3">
-            <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"></ConstructeurTableEtPropriete>
-          </div>
-          <div v-if="constructeurActuel === 4">
-            <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-            <button class="btnValider" @click="validerRequete">Valider</button>
-          </div>
-          <div v-if="constructeurActuel === 5">
-          </div>
-        </div>
 
-        <!-- requête UPDATE -->
-        <div class="requete_update" v-if="commande===2">
-          <div v-if="constructeurActuel === 1">
-            <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"></ConstructeurTableEtPropriete>
+          <!-- requête SELECT -->
+          <div class="requete_select" v-if="commande===1">
+            <div v-if="constructeurActuel === 1">
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"> </ConstructeurTableEtPropriete>
+            </div>
+            <div v-if="constructeurActuel === 2">
+              <constructeur-condition @where="propriété"></constructeur-condition>
+              <button @click="validerSansCondition">Valider sans condition</button>
+            </div>
+            <div v-if="constructeurActuel === 3">
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"></ConstructeurTableEtPropriete>
+            </div>
+            <div v-if="constructeurActuel === 4">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+              <button class="btnValider" @click="validerRequete">Valider</button>
+            </div>
           </div>
-          <div v-if="constructeurActuel === 2">
+
+          <!-- requête UPDATE -->
+          <div class="requete_update" v-if="commande===2">
+            <div v-if="constructeurActuel === 1">
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"></ConstructeurTableEtPropriete>
+            </div>
+            <div v-if="constructeurActuel === 2">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
               <button class="btnValider" @click="testerInputText">Continuer</button>
+            </div>
+            <div v-if="constructeurActuel===3">
+              <constructeur-condition @where="propriété"></constructeur-condition>
+            </div>
+            <div v-if="constructeurActuel===4">
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"></ConstructeurTableEtPropriete>
+            </div>
           </div>
-          <div v-if="constructeurActuel===3">
-            <constructeur-condition @where="propriété"></constructeur-condition>
-          </div>
-          <div v-if="constructeurActuel===4">
-            <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"></ConstructeurTableEtPropriete>
-          </div>
-        </div>
-        <div v-if="constructeurActuel===5">
-          <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-          <button class="btnValider" @click="validerRequete">Valider</button>
-        </div>
-
-        <!-- requête INSERT -->
-        <div class="requete_insert" v-if="commande===3">
-          <div v-if="constructeurActuel===1">
-            <constructeur-table @propriete="proprieteInsert"></constructeur-table>
-          </div>
-          <div v-if="constructeurActuel===2">
-            <constructeur-property-insert :table="table_selectionnee" @datainsert="propriété"></constructeur-property-insert>
-          </div>
-        </div>
-
-        <!-- DELETE -->
-        <div class="requete_delete" v-if="commande===4">
-          <div v-if="constructeurActuel===1">
-            <constructeur-table @props-delete="proprieteDelete"></constructeur-table>
-          </div>
-          <div v-if="constructeurActuel===2">
-            <constructeur-condition @where="propriété"></constructeur-condition>
-          </div>
-          <div v-if="constructeurActuel===3">
-            <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"></constructeur-table-et-propriete>
-          </div>
-          <div v-if="constructeurActuel===4">
+          <div v-if="constructeurActuel===5">
             <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
             <button class="btnValider" @click="validerRequete">Valider</button>
+          </div>
+
+          <!-- requête INSERT -->
+          <div class="requete_insert" v-if="commande===3">
+            <div v-if="constructeurActuel===1">
+              <constructeur-table @propriete="proprieteInsert"></constructeur-table>
+            </div>
+            <div v-if="constructeurActuel===2">
+              <constructeur-property-insert :table="table_selectionnee" @datainsert="ajouteValuesInsert"></constructeur-property-insert>
+            </div>
+          </div>
+
+          <!-- DELETE -->
+          <div class="requete_delete" v-if="commande===4">
+            <div v-if="constructeurActuel===1">
+              <constructeur-table @props-delete="proprieteDelete"></constructeur-table>
+            </div>
+            <div v-if="constructeurActuel===2">
+              <constructeur-condition @where="propriété"></constructeur-condition>
+            </div>
+            <div v-if="constructeurActuel===3">
+              <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"></constructeur-table-et-propriete>
+            </div>
+            <div v-if="constructeurActuel===4">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+              <button class="btnValider" @click="validerRequete">Valider</button>
+            </div>
           </div>
         </div>
       </div>
@@ -88,15 +89,17 @@
     </div>
 
 
+
     <!-- Résultat de la requête -->
     <div class="resultat_requete">
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
     </div>
 
+    <!-- Bouton finaux -->
+    <button @click="effacer">Recommencer</button>
+    <button>Envoyer la requête</button>
 
   </div>
-
-  <button @click="effacer">Effacer</button>
 
 </template>
 
@@ -106,19 +109,17 @@ import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-tabl
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue"
-
 import {ref} from "vue";
 
-
-
 /* déclarations des variables*/
-const text_requete = ref()
-const resultat_requete = ref()
+let text_requete = ref()
+let resultat_requete = ref()
 const textCondition = ref()
 let constructeurActuel = 0
 let commande = 0
 let table_selectionnee = ""
-let valider = true
+let finDeRequete = false
+
 /**
  * Permet d'afficher le texte de la propriété de l'utilisateur dans l'input
  * @param valeur Valeur de la propriété que l'utilisateur à cliqué
@@ -149,14 +150,28 @@ function validerRequete(){
     window.alert("Veuillez remplir le champs de saisie")
   } else {
     text_requete.value += textCondition.value
-    resultat_requete.value = text_requete.value
-
+    constructeurActuel = 6
   }
-  text_requete.value = ""
-  valider = true
-  constructeurActuel++
 }
 
+
+/***
+ * Fonction qui teste si tous les champs de saisie on
+ * bien été rempli
+ * @param valeur
+ */
+function ajouteValuesInsert(valeur){
+  text_requete.value += valeur
+  constructeurActuel = 6
+}
+
+/***
+ * Teste si le champs de saisie de texte pour
+ * la condition est vide ou non
+ * Si oui : boite de dialogue s'affiche
+ * Si non : On ajoute le texte au textarea de la requete
+ *          et on incrément le constructeur actuel
+ */
 function testerInputText(){
   if (textCondition.value === ""){
     window.alert("Veuillez remplir le champs de saisie")
@@ -201,8 +216,9 @@ function proprieteDelete(valeur){
   constructeurActuel++
 }
 
-/*************************************************************************/
+function validerSansCondition(){
 
+}
 </script>
 
 <style scoped>
@@ -245,27 +261,12 @@ button{
   width: 100%;
   margin: 0;
 }
-#text-requete {
+#text-requete{
   width: 100%;
   font-size: 28px;
   height: 100px;
   margin: 0;
 }
-
-.formulaire {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-button {
-  margin-top: 0.5rem;
-}
-
-form p {
-  margin-bottom: 0.5rem;
-}
-
 
 /* Resultat requête */
 .resultat_requete{
