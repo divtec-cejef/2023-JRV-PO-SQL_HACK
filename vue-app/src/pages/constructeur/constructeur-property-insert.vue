@@ -51,19 +51,30 @@ let quantité = ref()
 
 const props = defineProps(['table'])
 const define = defineEmits(['datainsert'])
-let tableSelectionnee = ref()
 
-function table(){
+
+/***
+ * Fonction qui permet de retourner un nombre qui correspond à la
+ * table sélectionnée, soit:
+ * 0 : table Voiture
+ * 1 : table Personne
+ * 2 : table Matériel
+ * @returns {number} Le nombre qui correspond à la table sélectionnée
+ */
+function tableSelectionnee(){
   if (props.table === "Voiture"){
-    tableSelectionnee = 0
-  }else if (props.table === "Personne"){
-    tableSelectionnee = 1
+    return 0
+  } else if (props.table === "Personne"){
+    return 1
   } else {
-    tableSelectionnee = 2
+    return 2
   }
-  return tableSelectionnee
 }
 
+/***
+ * Affiche un window alert qui avertis l'utilisateur qu'il
+ * faut remplir TOUS les champs
+ */
 function windowAlert(){
   window.alert("Vous devez remplir les champs")
 }
@@ -71,6 +82,7 @@ function windowAlert(){
 /***
  * Fonction qui teste si les champs de saisie sont remplis ou non
  * à l'aide d'un switch
+ * "Return!" permet de retourner faux si les champs ne sont pas remplis
  * @returns {boolean} True si les champs sont remplis
  *                    False si les champs ne sont pas remplis
  */
@@ -106,32 +118,36 @@ function testChampsSaisieInput() {
   }
 }
 
-function addValuesForInsert(){
-  function addValuesForInsert() {
-    let insertion_data = "";
+/***
+ * Fonction qui teste d'abord si les champs de saisie sont remplis pour :
+ * Si oui : retourner et émettre les values d'insertion de la requête INSERT
+ * Si non : afficher une window alert qui avertis l'utilisateur qu'il faut
+ *          saisir les champs
+ */
+function addValuesForInsert() {
+  let insertion_data = "";
 
-    if (testChampsSaisieInput()) {
-      switch (tableSelectionnee) {
-        case 0:
-          insertion_data = `'${idVoiture.value}', '${couleur.value}', '${marque.value}', '${propriétaire.value}', '${numéro_plaque.value}')`;
-          break;
+  if (testChampsSaisieInput()) {
+    switch (tableSelectionnee) {
+      case 0:
+        insertion_data = `'${idVoiture.value}', '${couleur.value}', '${marque.value}', '${propriétaire.value}', '${numéro_plaque.value}')`;
+        break;
 
-        case 1:
-          insertion_data = `'${idPersonne.value}', '${nom.value}', '${prénom.value}', '${date_de_naissance.value}', '${numéro_de_tel.value}')`;
-          break;
+      case 1:
+        insertion_data = `'${idPersonne.value}', '${nom.value}', '${prénom.value}', '${date_de_naissance.value}', '${numéro_de_tel.value}')`;
+        break;
 
-        case 2:
-          insertion_data = `'${idMateriel.value}', '${nom_matériel.value}', '${quantité.value}')`;
-          break;
+      case 2:
+        insertion_data = `'${idMateriel.value}', '${nom_matériel.value}', '${quantité.value}')`;
+        break;
 
-        default:
-          break;
-      }
-
-      define('datainsert', ` VALUES (${insertion_data}`);
-    } else {
-      windowAlert();
+      default:
+        break;
     }
+    // émet les values pour l'insértion
+    define('datainsert', ` VALUES (${insertion_data}`);
+  } else {
+    windowAlert();
   }
 
 }
