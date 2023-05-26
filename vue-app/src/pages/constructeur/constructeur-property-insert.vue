@@ -22,7 +22,7 @@
     <li> {{ tb_materiel[2] }} <input type="text" v-model="quantité"></li>
   </ul>
 
-  <button @click="test()">Valider</button>
+  <button @click="addValuesToInsert">Valider</button>
 </template>
 
 <script setup>
@@ -63,9 +63,32 @@ function table(){
   }
   return tableSelectionnee
 }
-/******************************************************************/
 
-function test(){
+function testChampsSaisie(){
+
+  if(tableSelectionnee === 0){
+    if (idVoiture === "" || couleur === "" || marque === "" ||
+        propriétaire === "" || numéro_plaque === ""){
+
+    }
+  } else if (tableSelectionnee === 1){
+    if (idPersonne === "" ||
+        nom === "" ||
+        prénom === "" ||
+        date_de_naissance === "" ||
+        numéro_de_tel === ""){
+
+    }
+  } else if (tableSelectionnee === 2){
+    if (idMateriel === "" ||
+        nom_matériel === "" ||
+        quantité === ""){
+
+    }
+  }
+}
+
+function addValuesToInsert(){
   let insertion_data = ""
   if (tableSelectionnee===0){
     insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
