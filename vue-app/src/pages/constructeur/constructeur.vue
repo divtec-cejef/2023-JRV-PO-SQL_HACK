@@ -8,6 +8,7 @@
     <div v-if="constructeurActuel !== 6">
       <div class="constructeur">
         <div class="commande">
+
           <!-- Boutons des 4 commandes -->
           <div v-if="constructeurActuel === 0">
             <constructeur4-bouton @select="propriété"></constructeur4-bouton>
@@ -88,14 +89,17 @@
     </div>
 
 
+
     <!-- Résultat de la requête -->
     <div class="resultat_requete">
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
     </div>
 
-  </div>
+    <!-- Bouton finaux -->
+    <button @click="effacer">Recommencer</button>
+    <button>Envoyer la requête</button>
 
-  <button @click="effacer">Effacer</button>
+  </div>
 
 </template>
 

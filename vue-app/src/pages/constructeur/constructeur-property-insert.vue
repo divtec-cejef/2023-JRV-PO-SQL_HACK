@@ -53,32 +53,62 @@ const props = defineProps(['table'])
 const define = defineEmits(['datainsert'])
 let tableSelectionnee = ref()
 
-function table(){
-  if (props.table === "Voiture"){
+function table() {
+  if (props.table === "Voiture") {
     tableSelectionnee = 0
-  }else if (props.table === "Personne"){
+  } else if (props.table === "Personne") {
     tableSelectionnee = 1
   } else {
     tableSelectionnee = 2
   }
   return tableSelectionnee
 }
-/******************************************************************/
+
+function windowAlert(){
+  window.alert("Les champs de saisie doivent être remplis")
+}
+function testChampsSaisieRequeteInsert(){
+  if (tableSelectionnee === 0){
+    if (idVoiture.value === "" || couleur.value === "" ||
+        marque.value === "" || propriétaire.value === "" ||
+        numéro_plaque.value === ""){
+        windowAlert()
+    } else {
+      return true
+    }
+  } else if (tableSelectionnee === 1){
+    if (idPersonne.value === "" || nom.value === "" || prénom.value === ""
+        || date_de_naissance.value === "" || numéro_de_tel.value === ""){
+        windowAlert()
+    } else {
+      return true
+    }
+  } else if (tableSelectionnee === 2){
+    if (idMateriel.value === "" || nom_matériel.value === "" || quantité.value === ""){
+      windowAlert()
+    } else {
+      return true
+    }
+  }
+}
 
 function valuesRequeteInsert(){
   let insertion_data = ""
-  if (tableSelectionnee===0){
-    insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
-    "'" + marque.value + "', " + "'" + propriétaire.value + "', " +
-        "'" + numéro_plaque.value + "') "
-  } else if (tableSelectionnee === 1) {
-    insertion_data = "'" + idPersonne.value + "', " + "'" + nom.value + "', " +
-        "'" + prénom.value + "', " + "'" + date_de_naissance.value + "', " +
-        "'" + numéro_de_tel.value + "') "
-  } else {
-    insertion_data =  "'" + idMateriel.value + "', " + "'" + nom_matériel.value + "', " +
-        "'" + quantité.value + "') "
+  if (testChampsSaisieRequeteInsert()){
+    if (tableSelectionnee===0){
+      insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
+          "'" + marque.value + "', " + "'" + propriétaire.value + "', " +
+          "'" + numéro_plaque.value + "') "
+    } else if (tableSelectionnee === 1) {
+      insertion_data = "'" + idPersonne.value + "', " + "'" + nom.value + "', " +
+          "'" + prénom.value + "', " + "'" + date_de_naissance.value + "', " +
+          "'" + numéro_de_tel.value + "') "
+    } else {
+      insertion_data =  "'" + idMateriel.value + "', " + "'" + nom_matériel.value + "', " +
+          "'" + quantité.value + "') "
+    }
   }
+
 
   console.log(insertion_data)
   define('datainsert', " VALUES (" + insertion_data)
