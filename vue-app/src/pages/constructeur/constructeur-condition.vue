@@ -13,7 +13,7 @@ const emits = defineEmits(['where'])
  * l'écrire dans l'input de la requête
  */
 function addWhere(){
-  emits('where', ' WHERE ')
+  emits('where', ' WHERE')
 }
 </script>
 

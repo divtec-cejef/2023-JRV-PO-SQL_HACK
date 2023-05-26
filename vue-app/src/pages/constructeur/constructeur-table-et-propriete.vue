@@ -2,19 +2,19 @@
   <div class="page2">
     <ul class="table_voiture">
       <p>Voiture</p>
-      <li v-for="(propriete, index) in voiture" :key="index" @click="addPropriety(voiture[index], 'tb_voiture')">
+      <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
         {{ propriete }}
       </li>
     </ul>
     <ul class="table_personne">
       <p>Personne</p>
-      <li v-for="(propriete, index) in personne" :key="index" @click="addPropriety(personne[index], 'tb_voiture')">
+      <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')">
         {{ propriete }}
       </li>
     </ul>
     <ul class="table_materiel">
       <p>Materiel</p>
-      <li v-for="(propriete, index) in materiel" :key="index" @click="addPropriety(materiel[index], 'tb_voiture')">
+      <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
         {{ propriete }}
       </li>
     </ul>
@@ -25,9 +25,9 @@
 import {ref} from "vue";
 
 /* déclarations des 3 tableau pour les propriété des tables*/
-const voiture = ["idVoiture", "Couleur", "Propriétaire", "Num plaque"]
-const personne = ["idPersonne", "Nom", "Prénom", "Date de naissance", "Numéro de tel"]
-const materiel = ["idMateriel", "Nom", "Quantité"]
+const tb_voiture = ["idVoiture", "couleur", "marque", "propriétaire", "numéro_plaque"]
+const tb_personne = ["idPersonne", "nom", "prénom", "date_de_naissance", "numéro_de_tel"]
+const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
 
 /* émet*/
 const propriete = defineEmits(['propriete'])
@@ -43,25 +43,25 @@ const props = defineProps(['where', 'commande'])
  */
 function addPropriety(valeur, table) {
   /* Test pour savoir si on a choisit SELECT*/
+  valeur = " " + valeur
   if (props.commande === 1){
     if (props.where) {
       valeur = valeur + " = "
     } else {
-      valeur = valeur + " FROM " + table
+      valeur =  valeur + " FROM " + table
     }
-  }
-  /* Teste pour savoir si on a choisi UPDATE*/
-  if (props.commande === 2){
+  } else if (props.commande === 2){
     if (props.where) {
       valeur = valeur + " = "
     } else {
-      valeur = table + " SET " + valeur + " = "
+      valeur = " " + table + " SET " + valeur + " = "
     }
+  } else if (props.commande === 4){
+    valeur = valeur + " = "
   }
 
   propriete('propriete', valeur)
 }
-
 </script>
 
 <style scoped>

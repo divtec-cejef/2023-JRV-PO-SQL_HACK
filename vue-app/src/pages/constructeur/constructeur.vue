@@ -127,6 +127,9 @@ let finDeRequete = false
  * @param valeur
  */
 function addValeurToTextRequete(valeur){
+  if (constructeurActuel === 0){
+    text_requete.value = ""
+  }
   text_requete.value += valeur
 }
 
@@ -196,8 +199,9 @@ function testerInputText(){
   if (textCondition.value === ""){
     window.alert("Veuillez remplir le champs de saisie")
   } else {
-    text_requete.value += textCondition.value
+    text_requete.value += "'" + textCondition.value + "'"
     constructeurActuel++
+    textCondition.value = ""
   }
 }
 
@@ -225,7 +229,7 @@ function proprieteInsert(valeur) {
  */
 function proprieteDelete(valeur){
   commande_selectionnee = 4
-  text_requete.value += "FROM " + valeur
+  text_requete.value += " FROM " + valeur
   constructeurActuel++
 }
 

@@ -18,7 +18,8 @@ import {defineEmits, ref} from 'vue'
  * @param boutonSelectionne Valeur du bouton sélectionner (de 1 à 4)
  */
   function addSelectToQuery(boutonSelectionne){
-    let valeur = ""
+  let valeur = ""
+  console.log(valeur)
     switch (boutonSelectionne){
       case 1: valeur = "SELECT"
         break
@@ -29,6 +30,7 @@ import {defineEmits, ref} from 'vue'
       case 4: valeur = "DELETE"
         break
     }
+  console.log(valeur)
   emits('select', valeur)
   }
 

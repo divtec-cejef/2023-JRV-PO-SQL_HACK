@@ -30,9 +30,9 @@
 /* déclarations des 3 tableau pour les propriété des tables*/
 import {computed, ref} from "vue";
 
-const tb_voiture = ["idVoiture", "couleur", "marque", "propriétaire", "numéro_plaque"]
-const tb_personne = ["idPersonne", "nom", "prénom", "date_de_naissance", "numéro_de_tel"]
-const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
+const tb_voiture = ["idVoiture", "couleur", "marque", "proprietaire", "numero_plaque"]
+const tb_personne = ["idPersonne", "nom", "prenom", "date_de_naissance", "numero_de_tel"]
+const tb_materiel = ["idMateriel", "nom_materiel", "quantite"]
 
 let inputValue = ref()
 let idVoiture = ref()
@@ -61,12 +61,13 @@ const define = defineEmits(['datainsert'])
  * 2 : table Matériel
  * @returns {number} Le nombre qui correspond à la table sélectionnée
  */
-function tableSelectionnee(){
+function tableSelectionnee(){$
+  console.log(props.table)
   if (props.table === "Voiture"){
     return 0
   } else if (props.table === "Personne"){
     return 1
-  } else {
+  } else if (props.table === "Materiel"){
     return 2
   }
 }
