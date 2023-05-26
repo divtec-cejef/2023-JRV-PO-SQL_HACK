@@ -20,13 +20,13 @@ import {defineEmits, ref} from 'vue'
   function addSelectToQuery(boutonSelectionne){
     let valeur = ""
     switch (boutonSelectionne){
-      case 1: valeur = "SELECT "
+      case 1: valeur = "SELECT"
         break
-      case 2: valeur = "UPDATE "
+      case 2: valeur = "UPDATE"
         break
       case 3: valeur = "INSERT"
         break
-      case 4: valeur = "DELETE "
+      case 4: valeur = "DELETE"
         break
     }
   emits('select', valeur)

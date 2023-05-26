@@ -15,7 +15,7 @@
           </div>
 
           <!-- requête SELECT -->
-          <div class="requete_select" v-if="commande===1">
+          <div class="requete_select" v-if="commande_selectionnee===1">
             <div v-if="constructeurActuel === 1">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"> </ConstructeurTableEtPropriete>
             </div>
@@ -33,7 +33,7 @@
           </div>
 
           <!-- requête UPDATE -->
-          <div class="requete_update" v-if="commande===2">
+          <div class="requete_update" v-if="commande_selectionnee===2">
             <div v-if="constructeurActuel === 1">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"></ConstructeurTableEtPropriete>
             </div>
@@ -54,17 +54,17 @@
           </div>
 
           <!-- requête INSERT -->
-          <div class="requete_insert" v-if="commande===3">
+          <div class="requete_insert" v-if="commande_selectionnee===3">
             <div v-if="constructeurActuel===1">
               <constructeur-table @propriete="proprieteInsert"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2">
-              <constructeur-property-insert :table="table_selectionnee" @datainsert="ajouteValuesInsert"></constructeur-property-insert>
+              <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"></constructeur-property-insert>
             </div>
           </div>
 
           <!-- DELETE -->
-          <div class="requete_delete" v-if="commande===4">
+          <div class="requete_delete" v-if="commande_selectionnee===4">
             <div v-if="constructeurActuel===1">
               <constructeur-table @props-delete="proprieteDelete"></constructeur-table>
             </div>
@@ -116,27 +116,39 @@ let text_requete = ref()
 let resultat_requete = ref()
 const textCondition = ref()
 let constructeurActuel = 0
-let commande = 0
+let commande_selectionnee = 0
 let table_selectionnee = ""
 let finDeRequete = false
 
+
+function addValeurToTextRequete(valeur){
+  text_requete.value += valeur
+}
+
+/****
+ * Fonction qui teste la commande sélectionnée et ensuite
+ * modifie la valeur de la variable "commande" grâce à un switch
+ * @param valeur Valeur émise depuis le constructeur-4-bouton
+ */
+function commandeSelectionee(valeur) {
+  switch (valeur) {
+    case "SELECT":  commande_selectionnee = 1;  break;
+    case "UPDATE":  commande_selectionnee = 2;  break;
+    case "INSERT":  commande_selectionnee = 3;  break;
+    case "DELETE":  commande_selectionnee = 4;  break;
+  }
+}
+
 /**
  * Permet d'afficher le texte de la propriété de l'utilisateur dans l'input
+ * et modifie la variable "commande" selon la commande (bouton) sélectionné
  * @param valeur Valeur de la propriété que l'utilisateur à cliqué
  */
 function propriété(valeur){
-  if (valeur === "SELECT "){
-    commande = 1
-  } else if (valeur === "UPDATE "){
-    commande = 2
-  } else if (valeur==="INSERT"){
-    commande = 3
-  } else if (valeur === "DELETE "){
-    commande = 4
-  }
-  text_requete.value += valeur
+  commandeSelectionee(valeur)
+  addValeurToTextRequete(valeur)
   constructeurActuel++
-  console.log(constructeurActuel + " " + commande)
+  console.log(constructeurActuel + " " + commande_selectionnee)
 }
 
 /***
@@ -154,16 +166,19 @@ function validerRequete(){
   }
 }
 
-
-/***
- * Fonction qui teste si tous les champs de saisie on
- * bien été rempli
+/****
+ * Fonction ajoute les saisies de l'utilisateur
+ * Une fonction dans le composant constructeur-property-insert
+ * test si les champs sont bien remplis
+ * On met le constructeur actuel à 6 pour que le v-if du div
+ * s'active et enlève le constructeur lorsqu'on valide
  * @param valeur
  */
-function ajouteValuesInsert(valeur){
+function validerValuesInsert(valeur){
   text_requete.value += valeur
   constructeurActuel = 6
 }
+
 
 /***
  * Teste si le champs de saisie de texte pour
@@ -192,33 +207,23 @@ function effacer(){
   constructeurActuel = 0
 }
 
-function proprieteInsert(valeur){
-  commande = 3
-  text_requete.value += " INTO "
-  if (valeur === "Voiture"){
-    table_selectionnee = "Voiture"
-    text_requete.value += " Voiture"
-
-  } else if (valeur === "Personne"){
-    table_selectionnee = "Personne"
-    text_requete.value += " Personne"
-
-  } else {
-    table_selectionnee = "Matériel"
-    text_requete.value += " Matériel"
-  }
-  constructeurActuel++
+function proprieteInsert(valeur) {
+  commande_selectionnee = 3;
+  text_requete.value += " INTO " + valeur;
+  table_selectionnee = valeur;
+  constructeurActuel++;
 }
 
+/***
+ * Ajoute les propriétés
+ * @param valeur
+ */
 function proprieteDelete(valeur){
-  commande = 4
+  commande_selectionnee = 4
   text_requete.value += "FROM " + valeur
   constructeurActuel++
 }
 
-function validerSansCondition(){
-
-}
 </script>
 
 <style scoped>
