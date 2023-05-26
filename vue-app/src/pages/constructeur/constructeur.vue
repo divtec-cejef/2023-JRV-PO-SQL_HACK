@@ -21,7 +21,7 @@
             </div>
             <div v-if="constructeurActuel === 2">
               <constructeur-condition @where="propriété"></constructeur-condition>
-              <button @click="validerSansCondition">Valider sans condition</button>
+              <button @click="">Valider sans condition</button>
             </div>
             <div v-if="constructeurActuel === 3">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"></ConstructeurTableEtPropriete>
@@ -121,6 +121,11 @@ let table_selectionnee = ""
 let finDeRequete = false
 
 
+/***
+ * Ajoute la valeur passée en paramètre dans le texte area
+ * pour la requête
+ * @param valeur
+ */
 function addValeurToTextRequete(valeur){
   text_requete.value += valeur
 }
@@ -161,7 +166,7 @@ function validerRequete(){
   if (textCondition.value === ""){
     window.alert("Veuillez remplir le champs de saisie")
   } else {
-    text_requete.value += textCondition.value
+    text_requete.value += "'" + textCondition.value + "'"
     constructeurActuel = 6
   }
 }
@@ -175,7 +180,7 @@ function validerRequete(){
  * @param valeur
  */
 function validerValuesInsert(valeur){
-  text_requete.value += valeur
+  addValeurToTextRequete(valeur)
   constructeurActuel = 6
 }
 

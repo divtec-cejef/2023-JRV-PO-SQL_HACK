@@ -2,20 +2,20 @@
   <div class="page2">
     <ul class="table_voiture">
       <p>Voiture</p>
-      <li v-for="(propriété, index) in voiture" :key="index" @click="addPropriety(voiture[index], 'Voiture')">
-        {{ propriété }}
+      <li v-for="(propriete, index) in voiture" :key="index" @click="addPropriety(voiture[index], 'tb_voiture')">
+        {{ propriete }}
       </li>
     </ul>
     <ul class="table_personne">
       <p>Personne</p>
-      <li v-for="(propriété, index) in personne" :key="index" @click="addPropriety(personne[index], 'Personne')">
-        {{ propriété }}
+      <li v-for="(propriete, index) in personne" :key="index" @click="addPropriety(personne[index], 'tb_voiture')">
+        {{ propriete }}
       </li>
     </ul>
     <ul class="table_materiel">
       <p>Materiel</p>
-      <li v-for="(propriété, index) in materiel" :key="index" @click="addPropriety(materiel[index], 'Matériel')">
-        {{ propriété }}
+      <li v-for="(propriete, index) in materiel" :key="index" @click="addPropriety(materiel[index], 'tb_voiture')">
+        {{ propriete }}
       </li>
     </ul>
   </div>
