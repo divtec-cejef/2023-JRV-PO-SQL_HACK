@@ -87,36 +87,39 @@ function windowAlert(){
  *                    False si les champs ne sont pas remplis
  */
 function testChampsSaisieInput() {
-  let table_selectionnee = tableSelectionnee()
-  switch (table_selectionnee) {
-    case 0:
-      return !(
-          typeof idVoiture.value === "undefined" ||
-          typeof couleur.value === "undefined" ||
-          typeof marque.value === "undefined" ||
-          typeof proprietaire.value === "undefined" ||
-          typeof numero_plaque.value === "undefined"
-      );
+  if (idIsValidate() && dateNaissanceIsValidate() && numTelIsInt()){
+    let table_selectionnee = tableSelectionnee()
+    switch (table_selectionnee) {
+      case 0:
+        return !(
+            typeof idVoiture.value === "undefined" ||
+            typeof couleur.value === "undefined" ||
+            typeof marque.value === "undefined" ||
+            typeof proprietaire.value === "undefined" ||
+            typeof numero_plaque.value === "undefined"
+        );
 
-    case 1:
-      return !(
-          typeof idPersonne.value === "undefined" ||
-          typeof nom.value === "undefined" ||
-          typeof prenom.value === "undefined" ||
-          typeof date_de_naissance.value === "undefined" ||
-          typeof numero_de_tel.value === "undefined"
-      );
+      case 1:
+        return !(
+            typeof idPersonne.value === "undefined" ||
+            typeof nom.value === "undefined" ||
+            typeof prenom.value === "undefined" ||
+            typeof date_de_naissance.value === "undefined" ||
+            typeof numero_de_tel.value === "undefined"
+        );
 
-    case 2:
-      return !(
-          typeof idMateriel.value === "undefined" ||
-          typeof nom_materiel.value === "undefined" ||
-          typeof nom_materiel.value === "undefined"
-      );
+      case 2:
+        return !(
+            typeof idMateriel.value === "undefined" ||
+            typeof nom_materiel.value === "undefined" ||
+            typeof nom_materiel.value === "undefined"
+        );
 
-    default:
-      return true;
+      default:
+        return true;
+    }
   }
+
 }
 
 /***
@@ -132,15 +135,15 @@ function addValuesForInsert() {
   if (testChampsSaisieInput()) {
     switch (table_selectionnee) {
       case 0:
-        insertion_data = `'${idVoiture.value}', '${couleur.value}', '${marque.value}', '${proprietaire.value}', '${numero_plaque.value}')`;
+        insertion_data = `${idVoiture.value}, '${couleur.value}', '${marque.value}', '${proprietaire.value}', '${numero_plaque.value}')`;
         break;
 
       case 1:
-        insertion_data = `'${idPersonne.value}', '${nom.value}', '${prenom.value}', '${date_de_naissance.value}', '${numero_de_tel.value}')`;
+        insertion_data = `${idPersonne.value}, '${nom.value}', '${prenom.value}', ${date_de_naissance.value}, '${numero_de_tel.value}')`;
         break;
 
       case 2:
-        insertion_data = `'${idMateriel.value}', '${nom_materiel.value}', '${quantite.value}')`;
+        insertion_data = `${idMateriel.value}, '${nom_materiel.value}', '${quantite.value}')`;
         break;
 
       default:
@@ -153,6 +156,60 @@ function addValuesForInsert() {
     windowAlert();
   }
 
+}
+
+/***
+ * Fonction qui retourne True ou False si l'id est un int
+ * @returns {boolean} True si l'id est un int
+ *                    False si l'id n'est pas un int
+ */
+function idIsValidate(){
+  let intIdVoiture = parseInt(idVoiture.value)
+  let intIdPersonne = parseInt(idPersonne.value)
+  let intIdMateriel = parseInt(idMateriel.value)
+  let table_selectionnee = tableSelectionnee()
+
+  // test l'id de la table sélectionnée
+  if (table_selectionnee === 0){
+    return Number.isInteger(intIdVoiture);
+  } else if (table_selectionnee === 1){
+    return Number.isInteger(intIdPersonne);
+  } else {
+    return Number.isInteger(intIdMateriel)
+  }
+
+}
+
+/***
+ * Fonction qui teste si le format est bel et bien
+ * correspondant au format suivant : année-mois-jour
+ */
+function dateNaissanceIsValidate(){
+  //    jj/mm/aaaa
+  let table_selectionnee = tableSelectionnee()
+  if (table_selectionnee === 1){
+    let date = date_de_naissance.value
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(date)
+  } else {
+    return true
+  }
+
+}
+
+
+/***
+ * Fonction qui teste si le numéro de téléphone est
+ * un int
+ */
+function numTelIsInt(){
+  let intNumTel = numero_de_tel.value
+  let table_selectionnee = tableSelectionnee()
+  if (table_selectionnee === 1){
+    return Number.isInteger(intNumTel)
+  } else {
+    return true
+  }
 }
 
 </script>

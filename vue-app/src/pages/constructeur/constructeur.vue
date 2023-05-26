@@ -227,7 +227,7 @@ function proprieteInsert(valeur) {
 }
 
 /***
- * Ajoute les propriétés
+ * Ajoute les propriétés lorsque la commande DELETE est choisi
  * @param valeur
  */
 function proprieteDelete(valeur){
@@ -236,6 +236,9 @@ function proprieteDelete(valeur){
   constructeurActuel++
 }
 
+/****
+ * Affiche la requête dans un window alert
+ */
 function envoyer(){
   window.alert(text_requete.value)
 }
