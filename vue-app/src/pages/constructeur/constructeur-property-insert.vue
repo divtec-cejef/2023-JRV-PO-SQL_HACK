@@ -22,7 +22,7 @@
     <li> {{ tb_materiel[2] }} <input type="text" v-model="quantité"></li>
   </ul>
 
-  <button @click="addValuesToInsert">Valider</button>
+  <button @click="addValuesForInsert">Valider</button>
 </template>
 
 <script setup>
@@ -64,46 +64,42 @@ function table(){
   return tableSelectionnee
 }
 
-function testChampsSaisie(){
+function windowAlert(){
+  window.alert("Vous devez remplir les champs")
+}
 
+function addValuesForInsert(){
+  let insertion_data = ""
   if(tableSelectionnee === 0){
     if (idVoiture === "" || couleur === "" || marque === "" ||
         propriétaire === "" || numéro_plaque === ""){
-
+      windowAlert()
+    } else {
+      insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
+          "'" + marque.value + "', " + "'" + propriétaire.value + "', " +
+          "'" + numéro_plaque.value + "') "
     }
+
   } else if (tableSelectionnee === 1){
-    if (idPersonne === "" ||
-        nom === "" ||
-        prénom === "" ||
-        date_de_naissance === "" ||
-        numéro_de_tel === ""){
-
+    if (idPersonne === "" || nom === "" || prénom === "" ||
+        date_de_naissance === "" || numéro_de_tel === ""){
+        windowAlert()
+    } else {
+      insertion_data = "'" + idPersonne.value + "', " + "'" + nom.value + "', " +
+          "'" + prénom.value + "', " + "'" + date_de_naissance.value + "', " +
+          "'" + numéro_de_tel.value + "') "
     }
+
   } else if (tableSelectionnee === 2){
-    if (idMateriel === "" ||
-        nom_matériel === "" ||
-        quantité === ""){
-
+    if (idMateriel === "" || nom_matériel === "" || quantité === ""){
+      windowAlert()
+    } else {
+      insertion_data =  "'" + idMateriel.value + "', " + "'" + nom_matériel.value + "', " +
+          "'" + quantité.value + "') "
     }
   }
-}
 
-function addValuesToInsert(){
-  let insertion_data = ""
-  if (tableSelectionnee===0){
-    insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
-    "'" + marque.value + "', " + "'" + propriétaire.value + "', " +
-        "'" + numéro_plaque.value + "') "
-  } else if (tableSelectionnee === 1) {
-    insertion_data = "'" + idPersonne.value + "', " + "'" + nom.value + "', " +
-        "'" + prénom.value + "', " + "'" + date_de_naissance.value + "', " +
-        "'" + numéro_de_tel.value + "') "
-  } else {
-    insertion_data =  "'" + idMateriel.value + "', " + "'" + nom_matériel.value + "', " +
-        "'" + quantité.value + "') "
-  }
-
-  console.log(insertion_data)
+  // émition de la valeur d'insertion des données
   define('datainsert', " VALUES (" + insertion_data)
 }
 
