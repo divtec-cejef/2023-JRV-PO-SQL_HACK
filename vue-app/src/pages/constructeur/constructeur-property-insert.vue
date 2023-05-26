@@ -28,7 +28,7 @@
 <script setup>
 
 /* déclarations des 3 tableau pour les propriété des tables*/
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 const tb_voiture = ["idVoiture", "couleur", "marque", "propriétaire", "numéro_plaque"]
 const tb_personne = ["idPersonne", "nom", "prénom", "date_de_naissance", "numéro_de_tel"]
@@ -68,39 +68,62 @@ function windowAlert(){
   window.alert("Vous devez remplir les champs")
 }
 
-function addValuesForInsert(){
-  let insertion_data = ""
+function testChampsSaisieInput(){
   if(tableSelectionnee === 0){
-    if (idVoiture === "" || couleur === "" || marque === "" ||
-        propriétaire === "" || numéro_plaque === ""){
-      windowAlert()
-    } else {
-      insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
-          "'" + marque.value + "', " + "'" + propriétaire.value + "', " +
-          "'" + numéro_plaque.value + "') "
+    if (typeof idVoiture.value === "undefined" || typeof couleur.value === "undefined" ||
+        typeof marque.value === "undefined" || typeof propriétaire.value === "undefined" ||
+        typeof numéro_plaque.value === "undefined" ){
+      return false
     }
 
   } else if (tableSelectionnee === 1){
-    if (idPersonne === "" || nom === "" || prénom === "" ||
-        date_de_naissance === "" || numéro_de_tel === ""){
-        windowAlert()
-    } else {
-      insertion_data = "'" + idPersonne.value + "', " + "'" + nom.value + "', " +
-          "'" + prénom.value + "', " + "'" + date_de_naissance.value + "', " +
-          "'" + numéro_de_tel.value + "') "
+    if (typeof idPersonne.value === "undefined" || typeof nom.value === "undefined" || typeof prénom.value === "undefined" ||
+        typeof date_de_naissance.value === "undefined" || typeof numéro_de_tel.value === "undefined"){
+      return false
     }
 
   } else if (tableSelectionnee === 2){
-    if (idMateriel === "" || nom_matériel === "" || quantité === ""){
-      windowAlert()
+    if (typeof idMateriel.value === "undefined" || typeof nom_matériel.value === "undefined" || typeof nom_matériel.value === "undefined"){
+      return false
+    }
+  }
+  return true
+}
+
+function addValuesForInsert(){
+  let insertion_data = ""
+  if(tableSelectionnee === 0){
+    if (testChampsSaisieInput()){
+      insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
+          "'" + marque.value + "', " + "'" + propriétaire.value + "', " +
+          "'" + numéro_plaque.value + "') "
     } else {
+      windowAlert()
+    }
+
+  } else if (tableSelectionnee === 1){
+    if (testChampsSaisieInput()){
+      insertion_data = "'" + idPersonne.value + "', " + "'" + nom.value + "', " +
+          "'" + prénom.value + "', " + "'" + date_de_naissance.value + "', " +
+          "'" + numéro_de_tel.value + "') "
+    } else {
+      windowAlert()
+    }
+
+  } else if (tableSelectionnee === 2){
+    if (testChampsSaisieInput()){
       insertion_data =  "'" + idMateriel.value + "', " + "'" + nom_matériel.value + "', " +
           "'" + quantité.value + "') "
+    } else {
+      windowAlert()
     }
   }
 
-  // émition de la valeur d'insertion des données
-  define('datainsert', " VALUES (" + insertion_data)
+  if (testChampsSaisieInput()){
+    // émition de la valeur d'insertion des données
+    define('datainsert', " VALUES (" + insertion_data)
+  }
+
 }
 
 </script>
