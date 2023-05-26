@@ -106,6 +106,7 @@ function addValuesToInsert(){
   console.log(insertion_data)
   define('datainsert', " VALUES (" + insertion_data)
 }
+
 </script>
 
 <style scoped>
