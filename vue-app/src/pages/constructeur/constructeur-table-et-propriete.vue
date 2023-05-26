@@ -54,7 +54,7 @@ function addPropriety(valeur, table) {
     if (props.where) {
       valeur = valeur + " = "
     } else {
-      valeur = " " + table + " SET " + valeur + " = "
+      valeur = " " + table + " SET" + valeur + " = "
     }
   } else if (props.commande === 4){
     valeur = valeur + " = "

@@ -61,13 +61,12 @@ const define = defineEmits(['datainsert'])
  * 2 : table Matériel
  * @returns {number} Le nombre qui correspond à la table sélectionnée
  */
-function tableSelectionnee(){$
-  console.log(props.table)
-  if (props.table === "Voiture"){
+function tableSelectionnee(){
+  if (props.table === "tb_voiture"){
     return 0
-  } else if (props.table === "Personne"){
+  } else if (props.table === "tb_personne"){
     return 1
-  } else if (props.table === "Materiel"){
+  } else if (props.table === "tb_materiel"){
     return 2
   }
 }
@@ -147,6 +146,7 @@ function addValuesForInsert() {
       default:
         break;
     }
+    insertion_data += ";"
     // émet les values pour l'insértion
     define('datainsert', ` VALUES (${insertion_data}`);
   } else {

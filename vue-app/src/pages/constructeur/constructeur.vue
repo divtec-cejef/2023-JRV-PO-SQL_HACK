@@ -95,10 +95,12 @@
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
     </div>
 
+  </div>
+
+  <div class="bouton_finaux">
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
-    <button>Envoyer la requête</button>
-
+    <button @click="envoyer">Envoyer la requête</button>
   </div>
 
 </template>
@@ -172,6 +174,7 @@ function validerRequete(){
     text_requete.value += "'" + textCondition.value + "'"
     constructeurActuel = 6
   }
+  text_requete.value += ";"
 }
 
 /****
@@ -233,6 +236,10 @@ function proprieteDelete(valeur){
   constructeurActuel++
 }
 
+function envoyer(){
+  window.alert(text_requete.value)
+}
+
 </script>
 
 <style scoped>
@@ -255,7 +262,7 @@ button{
 
 /* écran gauche */
 .ecran_gauche{
-  border: white 4px solid;
+  border: red 4px solid;
   width: 600px;
   height: 700px;
 }
@@ -291,6 +298,9 @@ button{
   width: 100%;
   height: 290px;
   font-size: 28px;
+}
+.bouton_finaux{
+  width: 50%;
 }
 
 </style>
