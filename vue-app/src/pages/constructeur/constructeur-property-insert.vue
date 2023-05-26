@@ -1,25 +1,25 @@
 <template>
 
-  <ul v-if="table()===0">
+  <ul v-if="tableSelectionnee()===0">
     <li> {{ tb_voiture[0] }} <input type="text" v-model="idVoiture"></li>
     <li> {{ tb_voiture[1] }} <input type="text" v-model="couleur"></li>
     <li> {{ tb_voiture[2] }} <input type="text" v-model="marque"></li>
-    <li> {{ tb_voiture[3] }} <input type="text" v-model="propriétaire"></li>
-    <li> {{ tb_voiture[4] }}<input type="text" v-model="numéro_plaque"></li>
+    <li> {{ tb_voiture[3] }} <input type="text" v-model="proprietaire"></li>
+    <li> {{ tb_voiture[4] }}<input type="text" v-model="numero_plaque"></li>
   </ul>
 
-  <ul v-if="table()===1">
+  <ul v-if="tableSelectionnee()===1">
     <li> {{ tb_personne[0] }} <input type="text" v-model="idPersonne"></li>
     <li> {{ tb_personne[1] }}<input type="text" v-model="nom"></li>
-    <li> {{ tb_personne[2] }}<input type="text" v-model="prénom"></li>
+    <li> {{ tb_personne[2] }}<input type="text" v-model="prenom"></li>
     <li> {{ tb_personne[3] }} <input type="text" v-model="date_de_naissance"></li>
-    <li> {{ tb_personne[4] }} <input type="text" v-model="numéro_de_tel"></li>
+    <li> {{ tb_personne[4] }} <input type="text" v-model="numero_de_tel"></li>
   </ul>
 
-  <ul v-if="table()===2">
+  <ul v-if="tableSelectionnee()===2">
     <li> {{ tb_materiel[0] }}<input type="text" v-model="idMateriel"></li>
-    <li> {{ tb_materiel[1] }} <input type="text" v-model="nom_matériel"></li>
-    <li> {{ tb_materiel[2] }} <input type="text" v-model="quantité"></li>
+    <li> {{ tb_materiel[1] }} <input type="text" v-model="nom_materiel"></li>
+    <li> {{ tb_materiel[2] }} <input type="text" v-model="quantite"></li>
   </ul>
 
   <button @click="addValuesForInsert">Valider</button>
@@ -38,16 +38,16 @@ let inputValue = ref()
 let idVoiture = ref()
 let couleur = ref()
 let marque = ref()
-let propriétaire = ref()
-let numéro_plaque = ref()
+let proprietaire = ref()
+let numero_plaque = ref()
 let idPersonne = ref()
 let nom = ref()
-let prénom = ref()
+let prenom = ref()
 let date_de_naissance = ref()
-let numéro_de_tel = ref()
+let numero_de_tel = ref()
 let idMateriel = ref()
-let nom_matériel = ref()
-let quantité = ref()
+let nom_materiel = ref()
+let quantite = ref()
 
 const props = defineProps(['table'])
 const define = defineEmits(['datainsert'])
@@ -87,30 +87,31 @@ function windowAlert(){
  *                    False si les champs ne sont pas remplis
  */
 function testChampsSaisieInput() {
-  switch (tableSelectionnee) {
+  let table_selectionnee = tableSelectionnee()
+  switch (table_selectionnee) {
     case 0:
       return !(
           typeof idVoiture.value === "undefined" ||
           typeof couleur.value === "undefined" ||
           typeof marque.value === "undefined" ||
-          typeof propriétaire.value === "undefined" ||
-          typeof numéro_plaque.value === "undefined"
+          typeof proprietaire.value === "undefined" ||
+          typeof numero_plaque.value === "undefined"
       );
 
     case 1:
       return !(
           typeof idPersonne.value === "undefined" ||
           typeof nom.value === "undefined" ||
-          typeof prénom.value === "undefined" ||
+          typeof prenom.value === "undefined" ||
           typeof date_de_naissance.value === "undefined" ||
-          typeof numéro_de_tel.value === "undefined"
+          typeof numero_de_tel.value === "undefined"
       );
 
     case 2:
       return !(
           typeof idMateriel.value === "undefined" ||
-          typeof nom_matériel.value === "undefined" ||
-          typeof nom_matériel.value === "undefined"
+          typeof nom_materiel.value === "undefined" ||
+          typeof nom_materiel.value === "undefined"
       );
 
     default:
@@ -126,19 +127,20 @@ function testChampsSaisieInput() {
  */
 function addValuesForInsert() {
   let insertion_data = "";
+  let table_selectionnee = tableSelectionnee()
 
   if (testChampsSaisieInput()) {
-    switch (tableSelectionnee) {
+    switch (table_selectionnee) {
       case 0:
-        insertion_data = `'${idVoiture.value}', '${couleur.value}', '${marque.value}', '${propriétaire.value}', '${numéro_plaque.value}')`;
+        insertion_data = `'${idVoiture.value}', '${couleur.value}', '${marque.value}', '${proprietaire.value}', '${numero_plaque.value}')`;
         break;
 
       case 1:
-        insertion_data = `'${idPersonne.value}', '${nom.value}', '${prénom.value}', '${date_de_naissance.value}', '${numéro_de_tel.value}')`;
+        insertion_data = `'${idPersonne.value}', '${nom.value}', '${prenom.value}', '${date_de_naissance.value}', '${numero_de_tel.value}')`;
         break;
 
       case 2:
-        insertion_data = `'${idMateriel.value}', '${nom_matériel.value}', '${quantité.value}')`;
+        insertion_data = `'${idMateriel.value}', '${nom_materiel.value}', '${quantite.value}')`;
         break;
 
       default:
