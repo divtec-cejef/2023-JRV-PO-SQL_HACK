@@ -68,60 +68,70 @@ function windowAlert(){
   window.alert("Vous devez remplir les champs")
 }
 
-function testChampsSaisieInput(){
-  if(tableSelectionnee === 0){
-    if (typeof idVoiture.value === "undefined" || typeof couleur.value === "undefined" ||
-        typeof marque.value === "undefined" || typeof propriétaire.value === "undefined" ||
-        typeof numéro_plaque.value === "undefined" ){
-      return false
-    }
+/***
+ * Fonction qui teste si les champs de saisie sont remplis ou non
+ * à l'aide d'un switch
+ * @returns {boolean} True si les champs sont remplis
+ *                    False si les champs ne sont pas remplis
+ */
+function testChampsSaisieInput() {
+  switch (tableSelectionnee) {
+    case 0:
+      return !(
+          typeof idVoiture.value === "undefined" ||
+          typeof couleur.value === "undefined" ||
+          typeof marque.value === "undefined" ||
+          typeof propriétaire.value === "undefined" ||
+          typeof numéro_plaque.value === "undefined"
+      );
 
-  } else if (tableSelectionnee === 1){
-    if (typeof idPersonne.value === "undefined" || typeof nom.value === "undefined" || typeof prénom.value === "undefined" ||
-        typeof date_de_naissance.value === "undefined" || typeof numéro_de_tel.value === "undefined"){
-      return false
-    }
+    case 1:
+      return !(
+          typeof idPersonne.value === "undefined" ||
+          typeof nom.value === "undefined" ||
+          typeof prénom.value === "undefined" ||
+          typeof date_de_naissance.value === "undefined" ||
+          typeof numéro_de_tel.value === "undefined"
+      );
 
-  } else if (tableSelectionnee === 2){
-    if (typeof idMateriel.value === "undefined" || typeof nom_matériel.value === "undefined" || typeof nom_matériel.value === "undefined"){
-      return false
-    }
+    case 2:
+      return !(
+          typeof idMateriel.value === "undefined" ||
+          typeof nom_matériel.value === "undefined" ||
+          typeof nom_matériel.value === "undefined"
+      );
+
+    default:
+      return true;
   }
-  return true
 }
 
 function addValuesForInsert(){
-  let insertion_data = ""
-  if(tableSelectionnee === 0){
-    if (testChampsSaisieInput()){
-      insertion_data = "'" + idVoiture.value + "', " + "'" + couleur.value + "', " +
-          "'" + marque.value + "', " + "'" + propriétaire.value + "', " +
-          "'" + numéro_plaque.value + "') "
-    } else {
-      windowAlert()
-    }
+  function addValuesForInsert() {
+    let insertion_data = "";
 
-  } else if (tableSelectionnee === 1){
-    if (testChampsSaisieInput()){
-      insertion_data = "'" + idPersonne.value + "', " + "'" + nom.value + "', " +
-          "'" + prénom.value + "', " + "'" + date_de_naissance.value + "', " +
-          "'" + numéro_de_tel.value + "') "
-    } else {
-      windowAlert()
-    }
+    if (testChampsSaisieInput()) {
+      switch (tableSelectionnee) {
+        case 0:
+          insertion_data = `'${idVoiture.value}', '${couleur.value}', '${marque.value}', '${propriétaire.value}', '${numéro_plaque.value}')`;
+          break;
 
-  } else if (tableSelectionnee === 2){
-    if (testChampsSaisieInput()){
-      insertion_data =  "'" + idMateriel.value + "', " + "'" + nom_matériel.value + "', " +
-          "'" + quantité.value + "') "
-    } else {
-      windowAlert()
-    }
-  }
+        case 1:
+          insertion_data = `'${idPersonne.value}', '${nom.value}', '${prénom.value}', '${date_de_naissance.value}', '${numéro_de_tel.value}')`;
+          break;
 
-  if (testChampsSaisieInput()){
-    // émition de la valeur d'insertion des données
-    define('datainsert', " VALUES (" + insertion_data)
+        case 2:
+          insertion_data = `'${idMateriel.value}', '${nom_matériel.value}', '${quantité.value}')`;
+          break;
+
+        default:
+          break;
+      }
+
+      define('datainsert', ` VALUES (${insertion_data}`);
+    } else {
+      windowAlert();
+    }
   }
 
 }
