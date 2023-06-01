@@ -324,6 +324,11 @@ function validerRequeteUpdate(){
     } else {
       window.alert("Le format de la date doit être : aaaa-mm-jj")
     }
+  } else {
+    text_requete.value += "'"
+    addValeurToTextRequete(textCondition.value)
+    text_requete.value += "'"
+    constructeurActuel++
   }
 }
 
