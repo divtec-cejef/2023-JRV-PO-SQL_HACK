@@ -36,22 +36,24 @@
           <!-- requête UPDATE -->
           <div class="requete_update" v-if="commande_selectionnee===2">
             <div v-if="constructeurActuel === 1">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"></ConstructeurTableEtPropriete>
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
+                                            @propriete_selectionnee="changeProprieteSelectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="testerInputText">Continuer</button>
+              <button class="btnValider" @click="validerRequeteUpdate">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3">
               <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel===4">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"></ConstructeurTableEtPropriete>
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"
+                                            @propriete_selectionnee="changeProprieteSelectionnee"></ConstructeurTableEtPropriete>
             </div>
           </div>
           <div v-if="constructeurActuel===5">
             <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-            <button class="btnValider" @click="validerRequete">Valider</button>
+            <button class="btnValider" @click="validerRequeteUpdate">Valider</button>
           </div>
 
           <!-- requête INSERT -->
@@ -248,6 +250,10 @@ function changeProprieteSelectionnee(valeur){
   propriete_selectionnee = valeur
 }
 
+/***
+ * Fonction qui valide en testant le champs de saisie
+ * pour la condition de la requête
+ */
 function validerRequeteInsert(){
   console.log(propriete_selectionnee)
   if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
@@ -264,6 +270,57 @@ function validerRequeteInsert(){
     if (regex.test(textCondition.value)){
       addValeurToTextRequete(textCondition.value)
       constructeurActuel = 6
+    } else {
+      window.alert("Le format de la date doit être : aaaa-mm-jj")
+    }
+  } else {
+    text_requete.value += "'"
+    addValeurToTextRequete(textCondition.value)
+    text_requete.value += "'"
+    constructeurActuel = 6
+  }
+}
+
+function validerRequeteUpdate(){
+  console.log(propriete_selectionnee)
+  /*
+  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
+      || propriete_selectionnee === "idMateriel"){
+    console.log(Number.isInteger(parseInt(textCondition.value)))
+    if (Number.isInteger(parseInt(textCondition.value))){
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel = 6
+    } else {
+      window.alert("Vous devez saisir un nombre")
+    }
+  } else if (propriete_selectionnee === "date_de_naissance"){
+    const regex = /^\d{4}-\d{2}-\d{2}$/
+    if (regex.test(textCondition.value)){
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel = 6
+    } else {
+      window.alert("Le format de la date doit être : aaaa-mm-jj")
+    }
+  } else {
+    text_requete.value += "'"
+    addValeurToTextRequete(textCondition.value)
+    text_requete.value += "'"
+    constructeurActuel = 6
+  }
+   */
+  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
+      || propriete_selectionnee === "idMateriel") {
+    if (Number.isInteger(parseInt(textCondition.value))){
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel++
+    } else {
+      window.alert("Vous devez saisir un nombre")
+    }
+  } else if (propriete_selectionnee === "date_de_naissance") {
+    const regex = /^\d{4}-\d{2}-\d{2}$/
+    if (regex.test(textCondition.value)){
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel++
     } else {
       window.alert("Le format de la date doit être : aaaa-mm-jj")
     }
