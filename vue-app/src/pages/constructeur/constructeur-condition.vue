@@ -7,6 +7,7 @@
 <script setup>
 import {defineEmits, ref} from 'vue'
 const emits = defineEmits(['where'])
+const props = defineProps(['propriete_selectionnee'])
 
 /***
  * Emet la chaine de caractère WHERE pour

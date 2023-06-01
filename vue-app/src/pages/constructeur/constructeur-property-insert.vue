@@ -5,7 +5,7 @@
     <li> {{ tb_voiture[1] }} <input type="text" v-model="couleur"></li>
     <li> {{ tb_voiture[2] }} <input type="text" v-model="marque"></li>
     <li> {{ tb_voiture[3] }} <input type="text" v-model="proprietaire"></li>
-    <li> {{ tb_voiture[4] }}<input type="text" v-model="numero_plaque"></li>
+    <li> {{ tb_voiture[4] }} <input type="text" v-model="numero_plaque"></li>
   </ul>
 
   <ul v-if="tableSelectionnee()===1">
@@ -101,7 +101,7 @@ function testChampsSaisieInput() {
       } else if (idIsValidate(table_selectionnee)) {
         return true
       }
-        break
+      break
 
     case 1:
       // si les champs sont vides on retourne "false" sinon si les champs id
@@ -114,7 +114,7 @@ function testChampsSaisieInput() {
       } else if (idIsValidate(table_selectionnee) && dateNaissanceIsValidate(table_selectionnee)){
         return true
       }
-        break
+      break
 
     case 2:
       if (typeof idMateriel.value === "undefined" || typeof nom_materiel.value === "undefined" ||
@@ -191,7 +191,7 @@ function idIsValidate(table_selectionnee){
 function dateNaissanceIsValidate(table_selectionnee){
     //    aaaa/mm/dd
     if (table_selectionnee === 1){
-      const regex = /^\d{4}-\d{2}-\d{2}$/;
+      const regex = /^\d{4}-\d{2}-\d{2}$/
       return regex.test(date_de_naissance.value)
     }
 }

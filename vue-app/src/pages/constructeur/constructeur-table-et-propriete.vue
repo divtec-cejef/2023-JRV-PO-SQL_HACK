@@ -30,7 +30,7 @@ const tb_personne = ["idPersonne", "nom", "prénom", "date_de_naissance", "numé
 const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
 
 /* émet*/
-const propriete = defineEmits(['propriete'])
+const propriete = defineEmits(['propriete','propriete_selectionnee'])
 const props = defineProps(['where', 'commande'])
 
 /**
@@ -42,6 +42,7 @@ const props = defineProps(['where', 'commande'])
  * @param table Nom du tableau
  */
 function addPropriety(valeur, table) {
+  let props_select = valeur
   /* Test pour savoir si on a choisit SELECT*/
   valeur = " " + valeur
   if (props.commande === 1){
@@ -61,6 +62,7 @@ function addPropriety(valeur, table) {
   }
 
   propriete('propriete', valeur)
+  propriete('propriete_selectionnee', props_select)
 }
 </script>
 

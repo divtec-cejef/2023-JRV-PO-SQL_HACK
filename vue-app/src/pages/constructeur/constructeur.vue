@@ -24,11 +24,12 @@
               <button @click="">Valider sans condition</button>
             </div>
             <div v-if="constructeurActuel === 3">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"></ConstructeurTableEtPropriete>
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
+                                            @propriete_selectionnee="changeProprieteSelectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="validerRequete">Valider</button>
+              <button class="btnValider" @click="validerRequeteInsert">Valider</button>
             </div>
           </div>
 
@@ -110,7 +111,7 @@ import Constructeur4Bouton from "@/pages/constructeur/constructeur-4-bouton.vue"
 import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-table-et-propriete.vue";
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
-import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue"
+import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
 import {ref} from "vue";
 
 /* déclarations des variables*/
@@ -120,7 +121,7 @@ const textCondition = ref()
 let constructeurActuel = 0
 let commande_selectionnee = 0
 let table_selectionnee = ""
-let finDeRequete = false
+let propriete_selectionnee = ""
 
 
 /***
@@ -241,6 +242,32 @@ function proprieteDelete(valeur){
  */
 function envoyer(){
   window.alert(text_requete.value)
+}
+
+function changeProprieteSelectionnee(valeur){
+  propriete_selectionnee = valeur
+}
+
+function validerRequeteInsert(){
+  console.log(propriete_selectionnee)
+  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
+      || propriete_selectionnee === "idMateriel"){
+    console.log(Number.isInteger(parseInt(textCondition.value)))
+    if (Number.isInteger(parseInt(textCondition.value))){
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel = 6
+    } else {
+      window.alert("Vous devez saisir un nombre")
+    }
+  } else if (propriete_selectionnee === "date_de_naissance"){
+    const regex = /^\d{4}-\d{2}-\d{2}$/
+    if (regex.test(textCondition.value)){
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel = 6
+    } else {
+      window.alert("Le format de la date doit être : aaaa-mm-jj")
+    }
+  }
 }
 
 </script>
