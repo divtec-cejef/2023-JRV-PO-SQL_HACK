@@ -82,44 +82,49 @@ function windowAlert(){
 /***
  * Fonction qui teste si les champs de saisie sont remplis ou non
  * à l'aide d'un switch
- * "Return!" permet de retourner faux si les champs ne sont pas remplis
+ * Permet de retourner faux si les champs ne sont pas remplis
  * @returns {boolean} True si les champs sont remplis
  *                    False si les champs ne sont pas remplis
  */
 function testChampsSaisieInput() {
-  if (idIsValidate() && dateNaissanceIsValidate() && numTelIsInt()){
-    let table_selectionnee = tableSelectionnee()
-    switch (table_selectionnee) {
-      case 0:
-        return !(
-            typeof idVoiture.value === "undefined" ||
-            typeof couleur.value === "undefined" ||
-            typeof marque.value === "undefined" ||
-            typeof proprietaire.value === "undefined" ||
-            typeof numero_plaque.value === "undefined"
-        );
+  let table_selectionnee = tableSelectionnee()
+  switch (table_selectionnee) {
+    case 0:
+      // Si les champs sont vides on retourne faux sinon si les champs
+      // sont remplis et que la date est valide on retourne true, la requête
+      // est donc juste
+      if (typeof idVoiture.value === "undefined" || typeof couleur.value === "undefined" ||
+          typeof marque.value === "undefined" || typeof proprietaire.value === "undefined" ||
+          typeof numero_plaque.value === "undefined") {
+        return false
 
-      case 1:
-        return !(
-            typeof idPersonne.value === "undefined" ||
-            typeof nom.value === "undefined" ||
-            typeof prenom.value === "undefined" ||
-            typeof date_de_naissance.value === "undefined" ||
-            typeof numero_de_tel.value === "undefined"
-        );
+      } else if (idIsValidate(table_selectionnee)) {
+        return true
+      }
+        break
 
-      case 2:
-        return !(
-            typeof idMateriel.value === "undefined" ||
-            typeof nom_materiel.value === "undefined" ||
-            typeof nom_materiel.value === "undefined"
-        );
+    case 1:
+      // si les champs sont vides on retourne "false" sinon si les champs id
+      // date et num_tel sont valides alors on retourne "true"
+      if (typeof idPersonne.value === "undefined" || typeof nom.value === "undefined" ||
+          typeof prenom.value === "undefined" || typeof date_de_naissance.value === "undefined" ||
+          typeof numero_de_tel.value === "undefined"){
+        return false
 
-      default:
-        return true;
-    }
+      } else if (numTelIsInt(table_selectionnee)){
+        return true
+      }
+
+    case 2:
+      return !(
+          typeof idMateriel.value === "undefined" ||
+          typeof nom_materiel.value === "undefined" ||
+          typeof nom_materiel.value === "undefined"
+      );
+
+    default:
+      return true;
   }
-
 }
 
 /***
@@ -163,11 +168,10 @@ function addValuesForInsert() {
  * @returns {boolean} True si l'id est un int
  *                    False si l'id n'est pas un int
  */
-function idIsValidate(){
+function idIsValidate(table_selectionnee){
   let intIdVoiture = parseInt(idVoiture.value)
   let intIdPersonne = parseInt(idPersonne.value)
   let intIdMateriel = parseInt(idMateriel.value)
-  let table_selectionnee = tableSelectionnee()
 
   // test l'id de la table sélectionnée
   if (table_selectionnee === 0){
@@ -184,31 +188,23 @@ function idIsValidate(){
  * Fonction qui teste si le format est bel et bien
  * correspondant au format suivant : année-mois-jour
  */
-function dateNaissanceIsValidate(){
-  //    jj/mm/aaaa
-  let table_selectionnee = tableSelectionnee()
-  if (table_selectionnee === 1){
-    let date = date_de_naissance.value
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-    return regex.test(date)
-  } else {
-    return true
-  }
-
+function dateNaissanceIsValidate(table_selectionnee){
+    //    aaaa/mm/dd
+    if (table_selectionnee === 1){
+      const regex = /^\d{4}-\d{2}-\d{2}$/;
+      return regex.test(date_de_naissance.value)
+    }
 }
 
 
 /***
  * Fonction qui teste si le numéro de téléphone est
- * un int
+ * un int ou non
  */
-function numTelIsInt(){
-  let intNumTel = numero_de_tel.value
-  let table_selectionnee = tableSelectionnee()
+function numTelIsInt(table_selectionnee){
   if (table_selectionnee === 1){
-    return Number.isInteger(intNumTel)
-  } else {
-    return true
+    console.log(Number.isInteger(numero_de_tel.value))
+    return Number.isInteger(numero_de_tel.value)
   }
 }
 
