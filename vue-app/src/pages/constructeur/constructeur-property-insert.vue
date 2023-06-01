@@ -55,7 +55,7 @@ const define = defineEmits(['datainsert'])
 
 /***
  * Fonction qui permet de retourner un nombre qui correspond à la
- * table sélectionnée, soit:
+ * table sélectionnée, soit :
  * 0 : table Voiture
  * 1 : table Personne
  * 2 : table Matériel
@@ -111,19 +111,19 @@ function testChampsSaisieInput() {
           typeof numero_de_tel.value === "undefined"){
         return false
 
-      } else if (numTelIsInt(table_selectionnee)){
+      } else if (idIsValidate(table_selectionnee) && dateNaissanceIsValidate(table_selectionnee)){
+        return true
+      }
+        break
+
+    case 2:
+      if (typeof idMateriel.value === "undefined" || typeof nom_materiel.value === "undefined" ||
+          typeof nom_materiel.value === "undefined") {
+        return false
+      } else if (idIsValidate(table_selectionnee)){
         return true
       }
 
-    case 2:
-      return !(
-          typeof idMateriel.value === "undefined" ||
-          typeof nom_materiel.value === "undefined" ||
-          typeof nom_materiel.value === "undefined"
-      );
-
-    default:
-      return true;
   }
 }
 
@@ -194,18 +194,6 @@ function dateNaissanceIsValidate(table_selectionnee){
       const regex = /^\d{4}-\d{2}-\d{2}$/;
       return regex.test(date_de_naissance.value)
     }
-}
-
-
-/***
- * Fonction qui teste si le numéro de téléphone est
- * un int ou non
- */
-function numTelIsInt(table_selectionnee){
-  if (table_selectionnee === 1){
-    console.log(Number.isInteger(numero_de_tel.value))
-    return Number.isInteger(numero_de_tel.value)
-  }
 }
 
 </script>
