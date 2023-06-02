@@ -29,7 +29,7 @@
             </div>
             <div v-if="constructeurActuel === 4">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="validerRequeteInsert">Valider</button>
+              <button class="btnValider" @click="valideRequeteAll">Valider</button>
             </div>
           </div>
 
@@ -75,11 +75,12 @@
               <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel===3">
-              <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"></constructeur-table-et-propriete>
+              <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"
+              @propriete_selectionnee="changeProprieteSelectionnee"></constructeur-table-et-propriete>
             </div>
             <div v-if="constructeurActuel===4">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="validerRequete">Valider</button>
+              <button class="btnValider" @click="validerRequeteDelete">Valider</button>
             </div>
           </div>
         </div>
@@ -90,7 +91,6 @@
     <div class="text_requete">
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
-
 
 
     <!-- Résultat de la requête -->
@@ -246,6 +246,11 @@ function envoyer(){
   window.alert(text_requete.value)
 }
 
+/**
+ * Fonction qui permet de changer la variable "propriete_selectionnee"
+ * avec la valeur passé en paramètre
+ * @param valeur propriété actuellement sélectionnée
+ */
 function changeProprieteSelectionnee(valeur){
   propriete_selectionnee = valeur
 }
@@ -254,60 +259,8 @@ function changeProprieteSelectionnee(valeur){
  * Fonction qui valide en testant le champs de saisie
  * pour la condition de la requête
  */
-function validerRequeteInsert(){
-  console.log(propriete_selectionnee)
-  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
-      || propriete_selectionnee === "idMateriel"){
-    console.log(Number.isInteger(parseInt(textCondition.value)))
-    if (Number.isInteger(parseInt(textCondition.value))){
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel = 6
-    } else {
-      window.alert("Vous devez saisir un nombre")
-    }
-  } else if (propriete_selectionnee === "date_de_naissance"){
-    const regex = /^\d{4}-\d{2}-\d{2}$/
-    if (regex.test(textCondition.value)){
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel = 6
-    } else {
-      window.alert("Le format de la date doit être : aaaa-mm-jj")
-    }
-  } else {
-    text_requete.value += "'"
-    addValeurToTextRequete(textCondition.value)
-    text_requete.value += "'"
-    constructeurActuel = 6
-  }
-}
-
 function validerRequeteUpdate(){
   console.log(propriete_selectionnee)
-  /*
-  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
-      || propriete_selectionnee === "idMateriel"){
-    console.log(Number.isInteger(parseInt(textCondition.value)))
-    if (Number.isInteger(parseInt(textCondition.value))){
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel = 6
-    } else {
-      window.alert("Vous devez saisir un nombre")
-    }
-  } else if (propriete_selectionnee === "date_de_naissance"){
-    const regex = /^\d{4}-\d{2}-\d{2}$/
-    if (regex.test(textCondition.value)){
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel = 6
-    } else {
-      window.alert("Le format de la date doit être : aaaa-mm-jj")
-    }
-  } else {
-    text_requete.value += "'"
-    addValeurToTextRequete(textCondition.value)
-    text_requete.value += "'"
-    constructeurActuel = 6
-  }
-   */
   if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
       || propriete_selectionnee === "idMateriel") {
     if (Number.isInteger(parseInt(textCondition.value))){
@@ -330,6 +283,126 @@ function validerRequeteUpdate(){
     text_requete.value += "'"
     constructeurActuel++
   }
+}
+
+function validerRequeteDelete(){
+  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
+      || propriete_selectionnee === "idMateriel") {
+    if (Number.isInteger(parseInt(textCondition.value))){
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel = 6
+    } else {
+      window.alert("Vous devez saisir un nombre")
+    }
+  } else if (propriete_selectionnee === "date_de_naissance") {
+    const regex = /^\d{4}-\d{2}-\d{2}$/
+    if (regex.test(textCondition.value)){
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel = 6
+    } else {
+      window.alert("Le format de la date doit être : aaaa-mm-jj")
+    }
+  } else {
+    text_requete.value += "'"
+    addValeurToTextRequete(textCondition.value)
+    text_requete.value += "'"
+    constructeurActuel = 6
+  }
+}
+
+function validerRequeteSelect() {
+  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
+      || propriete_selectionnee === "idMateriel") {
+    if (Number.isInteger(parseInt(textCondition.value))) {
+      addValeurToTextRequete(textCondition.value)
+      constructeurActuel = 6
+    } else {
+      window.alert("Vous devez saisir un nombre")
+    }
+  } else if (propriete_selectionnee === "date_de_naissance") {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (regex.test(textCondition.value)) {
+      addValeurToTextRequete(textCondition.value);
+      constructeurActuel = 6;
+    } else {
+      window.alert("Le format de la date doit être : aaaa-mm-jj");
+    }
+  } else {
+    if (textCondition.value !== "") {
+      text_requete.value += "'"
+      addValeurToTextRequete(textCondition.value)
+      text_requete.value += "'"
+      constructeurActuel = 6
+    } else {
+      window.alert("Vous ne pouvez pas insérer de chaîne vide")
+    }
+  }
+}
+
+  /************************************************************************************************
+   * ********************************************************************************************
+   */
+  function valReq(requeteType) {
+    console.log(propriete_selectionnee);
+
+    if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne" || propriete_selectionnee === "idMateriel") {
+      if (Number.isInteger(parseInt(textCondition.value))) {
+        addValeurToTextRequete(textCondition.value);
+        constructeurActuel = 6;
+      } else {
+        window.alert("Vous devez saisir un nombre");
+      }
+    } else if (propriete_selectionnee === "date_de_naissance") {
+      const regex = /^\d{4}-\d{2}-\d{2}$/;
+      if (regex.test(textCondition.value)) {
+        addValeurToTextRequete(textCondition.value);
+        constructeurActuel = 6;
+      } else {
+        window.alert("Le format de la date doit être : aaaa-mm-jj");
+      }
+    } else {
+      text_requete.value += "'";
+      addValeurToTextRequete(textCondition.value);
+      text_requete.value += "'";
+      console.log(constructeurActuel)
+      constructeurActuel = 6;
+    }
+
+    if (requeteType !== "insert") {
+      constructeurActuel++;
+    }
+  }
+
+function valideRequeteAll() {
+  console.log(propriete_selectionnee);
+
+  if (["idVoiture", "idPersonne", "idMateriel"].includes(propriete_selectionnee)) {
+    if (Number.isInteger(parseInt(textCondition.value))) {
+      addValeurToTextRequete(textCondition.value);
+    } else {
+      window.alert("Vous devez saisir un nombre");
+      return;
+    }
+  } else if (propriete_selectionnee === "date_de_naissance") {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (regex.test(textCondition.value)) {
+      addValeurToTextRequete(textCondition.value);
+    } else {
+      window.alert("Le format de la date doit être : aaaa-mm-jj");
+      return;
+    }
+  } else {
+    if (textCondition.value !== "") {
+      text_requete.value += "'";
+      addValeurToTextRequete(textCondition.value);
+      text_requete.value += "'";
+    } else {
+      window.alert("Vous ne pouvez pas insérer de chaîne vide");
+      return;
+    }
+  }
+
+  constructeurActuel = 6;
 }
 
 </script>
