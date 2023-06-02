@@ -1,3 +1,4 @@
+<!--<script src="../../tools/requestDB.js"></script>-->
 <template>
 
   <!-- Écran de gauche qui contient : constructeur, texte requête
@@ -97,7 +98,7 @@
 
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
-    <button>Envoyer la requête</button>
+    <button @click="sendRequestFromConstructeur(resultat_requete)">Envoyer la requête</button>
 
   </div>
 
@@ -108,7 +109,7 @@ import Constructeur4Bouton from "@/pages/constructeur/constructeur-4-bouton.vue"
 import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-table-et-propriete.vue";
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
-import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue"
+import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
 import {ref} from "vue";
 
 /* déclarations des variables*/
@@ -218,6 +219,14 @@ function proprieteDelete(valeur){
 
 function validerSansCondition(){
 
+}
+
+/**
+ * Envoie la requête créée à partir du constructeur.
+ * @param requestSaisie La requête créée à partir du constructeur.
+ */
+function sendRequestFromConstructeur(requestSaisie) {
+  return sendRequest(requestSaisie)
 }
 </script>
 

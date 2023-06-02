@@ -11,10 +11,11 @@
     "sql.js": "^1.8.0",
     "sqlite3": "^5.1.6",
     "vue": "^3.2.47",
+    "vue-advanced-chat": "^2.0.7",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
-    "vite": "^4.1.4"
+    "vite": "^4.3.8"
   }
 }
