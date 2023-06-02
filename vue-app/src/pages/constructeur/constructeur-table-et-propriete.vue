@@ -1,28 +1,29 @@
 <template>
   <div class="page2">
-    <ul class="table_voiture">
+    <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}">
       <p>Voiture</p>
       <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
         {{ propriete }}
       </li>
     </ul>
-    <ul class="table_personne">
+    <ul class="table_personne" :class="{'disabled': disabledTablePersonne}">
       <p>Personne</p>
       <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')">
         {{ propriete }}
       </li>
     </ul>
-    <ul class="table_materiel">
+    <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}">
       <p>Materiel</p>
       <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
         {{ propriete }}
       </li>
     </ul>
   </div>
+
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {computed, reactive, ref, resolveDirective} from "vue";
 
 /* déclarations des 3 tableau pour les propriété des tables*/
 const tb_voiture = ["idVoiture", "couleur", "marque", "propriétaire", "numéro_plaque"]
@@ -30,8 +31,28 @@ const tb_personne = ["idPersonne", "nom", "prénom", "date_de_naissance", "numé
 const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
 
 /* émet*/
-const propriete = defineEmits(['propriete','propriete_selectionnee'])
-const props = defineProps(['where', 'commande'])
+const propriete = defineEmits(['propriete','propriete_selectionnee', 'table_selectionnee'])
+const props = defineProps(['where', 'commande', 'table']);
+
+// style de la table qui est indisponible
+let disabledTableVoiture = false
+let disabledTablePersonne = false
+let disabledTableMateriel = false
+
+// Grise les tables qui n'ont pas été sélectionné précédement
+  if (props.table === "tb_voiture"){
+    disabledTableVoiture = false
+    disabledTablePersonne = true
+    disabledTableMateriel = true
+  } else if (props.table === "tb_personne"){
+    disabledTableVoiture = true
+    disabledTablePersonne = false
+    disabledTableMateriel = true
+  } else if (props.table === "tb_materiel"){
+    disabledTableVoiture = true
+    disabledTablePersonne = true
+    disabledTableMateriel = false
+}
 
 /**
  * Teste si le constructeur de la table est après
@@ -63,7 +84,10 @@ function addPropriety(valeur, table) {
 
   propriete('propriete', valeur)
   propriete('propriete_selectionnee', props_select)
+  propriete('table_selectionnee', table)
+
 }
+
 </script>
 
 <style scoped>
@@ -98,11 +122,15 @@ p {
 ul:hover {
   border: 1px yellow solid;
   transform: scale(1.05);
-
 }
 
 li:hover {
   color: yellow;
+}
+
+.disabled{
+  pointer-events: none;
+  color: gray;
 }
 
 </style>

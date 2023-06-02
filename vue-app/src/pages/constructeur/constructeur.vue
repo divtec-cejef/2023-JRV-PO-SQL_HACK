@@ -17,7 +17,8 @@
           <!-- requête SELECT -->
           <div class="requete_select" v-if="commande_selectionnee===1">
             <div v-if="constructeurActuel === 1">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"> </ConstructeurTableEtPropriete>
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
+                                            @table_selectionnee="changeTableSelectionnee"> </ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2">
               <constructeur-condition @where="propriété"></constructeur-condition>
@@ -25,7 +26,7 @@
             </div>
             <div v-if="constructeurActuel === 3">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
-                                            @propriete_selectionnee="changeProprieteSelectionnee"></ConstructeurTableEtPropriete>
+                                            @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
@@ -48,7 +49,8 @@
             </div>
             <div v-if="constructeurActuel===4">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"
-                                            @propriete_selectionnee="changeProprieteSelectionnee"></ConstructeurTableEtPropriete>
+                                            @propriete_selectionnee="changeProprieteSelectionnee"
+                                            :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
           </div>
           <div v-if="constructeurActuel===5">
@@ -124,6 +126,7 @@ let constructeurActuel = 0
 let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
+let table = "dasds"
 
 
 /***
@@ -240,9 +243,15 @@ function changeProprieteSelectionnee(valeur){
   textCondition.value = ""
 }
 
+function changeTableSelectionnee(valeur){
+  table_selectionnee = valeur
+  console.log(valeur)
+}
+
 /***
- * Fonction qui teste si la saisie de
- * la condition est valide ou non
+ * Fonction qui permet de tester le champs de saisie de la condition
+ * @param commande si la commande correspond au constructeur actuel update
+ *
  */
 function valideRequete(commande) {
   console.log(propriete_selectionnee);
@@ -342,7 +351,7 @@ button{
   height: 290px;
   font-size: 28px;
 }
-.bouton_finaux{
+.bouton_finaux {
   width: 50%;
 }
 

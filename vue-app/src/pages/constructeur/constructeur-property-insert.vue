@@ -1,7 +1,7 @@
 <template>
 
   <ul v-if="tableSelectionnee()===0">
-    <li> {{ tb_voiture[0] }} <input type="text" v-model="idVoiture"></li>
+    <li> {{ tb_voiture[0] }} <input type="text" v-model="id" readonly></li>
     <li> {{ tb_voiture[1] }} <input type="text" v-model="couleur"></li>
     <li> {{ tb_voiture[2] }} <input type="text" v-model="marque"></li>
     <li> {{ tb_voiture[3] }} <input type="text" v-model="proprietaire"></li>
@@ -9,7 +9,7 @@
   </ul>
 
   <ul v-if="tableSelectionnee()===1">
-    <li> {{ tb_personne[0] }} <input type="text" v-model="idPersonne"></li>
+    <li> {{ tb_personne[0] }} <input type="text" v-model="id" readonly></li>
     <li> {{ tb_personne[1] }}<input type="text" v-model="nom"></li>
     <li> {{ tb_personne[2] }}<input type="text" v-model="prenom"></li>
     <li> {{ tb_personne[3] }} <input type="text" v-model="date_de_naissance"></li>
@@ -17,7 +17,7 @@
   </ul>
 
   <ul v-if="tableSelectionnee()===2">
-    <li> {{ tb_materiel[0] }}<input type="text" v-model="idMateriel"></li>
+    <li> {{ tb_materiel[0] }}<input type="text" v-model="id" readonly></li>
     <li> {{ tb_materiel[1] }} <input type="text" v-model="nom_materiel"></li>
     <li> {{ tb_materiel[2] }} <input type="text" v-model="quantite"></li>
   </ul>
@@ -28,24 +28,21 @@
 <script setup>
 
 /* déclarations des 3 tableau pour les propriété des tables*/
-import {computed, ref} from "vue";
+import {ref} from "vue";
 
 const tb_voiture = ["idVoiture", "couleur", "marque", "proprietaire", "numero_plaque"]
 const tb_personne = ["idPersonne", "nom", "prenom", "date_de_naissance", "numero_de_tel"]
 const tb_materiel = ["idMateriel", "nom_materiel", "quantite"]
 
-let inputValue = ref()
-let idVoiture = ref()
+let id = "null"
 let couleur = ref()
 let marque = ref()
 let proprietaire = ref()
 let numero_plaque = ref()
-let idPersonne = ref()
 let nom = ref()
 let prenom = ref()
 let date_de_naissance = ref()
 let numero_de_tel = ref()
-let idMateriel = ref()
 let nom_materiel = ref()
 let quantite = ref()
 
@@ -75,8 +72,8 @@ function tableSelectionnee(){
  * Affiche un window alert qui avertis l'utilisateur qu'il
  * faut remplir TOUS les champs
  */
-function windowAlert(){
-  window.alert("Vous devez remplir les champs")
+function windowAlert(message){
+  window.alert(message)
 }
 
 /***
@@ -93,37 +90,36 @@ function testChampsSaisieInput() {
       // Si les champs sont vides on retourne faux sinon si les champs
       // sont remplis et que la date est valide on retourne true, la requête
       // est donc juste
-      if (typeof idVoiture.value === "undefined" || typeof couleur.value === "undefined" ||
-          typeof marque.value === "undefined" || typeof proprietaire.value === "undefined" ||
-          typeof numero_plaque.value === "undefined") {
+      if (typeof couleur.value === "undefined" || typeof marque.value === "undefined" ||
+          typeof proprietaire.value === "undefined" || typeof numero_plaque.value === "undefined") {
+        windowAlert("Vous devez remplir les champs")
         return false
 
-      } else if (idIsValidate(table_selectionnee)) {
-        return true
       }
-      break
+      return true
 
     case 1:
-      // si les champs sont vides on retourne "false" sinon si les champs id
-      // date et num_tel sont valides alors on retourne "true"
-      if (typeof idPersonne.value === "undefined" || typeof nom.value === "undefined" ||
-          typeof prenom.value === "undefined" || typeof date_de_naissance.value === "undefined" ||
-          typeof numero_de_tel.value === "undefined"){
-        return false
-
-      } else if (idIsValidate(table_selectionnee) && dateNaissanceIsValidate(table_selectionnee)){
-        return true
+      if (!nom.value || !prenom.value || !date_de_naissance.value || !numero_de_tel.value) {
+        windowAlert("Vous devez remplir tous les champs");
+      } else {
+        if (!dateNaissanceIsValidate(table_selectionnee)) {
+          alert("Le format de la date de naissance doit être : aaaa-mm-jj");
+          return false;
+        }
+        if (!Number.isInteger(parseInt(numero_de_tel.value))) {
+          alert("Le numéro de téléphone doit être un nombre");
+          return false;
+        }
+        return true;
       }
       break
 
     case 2:
-      if (typeof idMateriel.value === "undefined" || typeof nom_materiel.value === "undefined" ||
-          typeof nom_materiel.value === "undefined") {
-        return false
-      } else if (idIsValidate(table_selectionnee)){
+      if (typeof nom_materiel.value === "undefined" || typeof quantite.value === "undefined") {
+        windowAlert("Vous devez remplir les champs")
+      } else {
         return true
       }
-
   }
 }
 
@@ -140,15 +136,15 @@ function addValuesForInsert() {
   if (testChampsSaisieInput()) {
     switch (table_selectionnee) {
       case 0:
-        insertion_data = `${idVoiture.value}, '${couleur.value}', '${marque.value}', '${proprietaire.value}', '${numero_plaque.value}')`;
+        insertion_data = `${id}, '${couleur.value}', '${marque.value}', '${proprietaire.value}', '${numero_plaque.value}')`;
         break;
 
       case 1:
-        insertion_data = `${idPersonne.value}, '${nom.value}', '${prenom.value}', ${date_de_naissance.value}, '${numero_de_tel.value}')`;
+        insertion_data = `${id}, '${nom.value}', '${prenom.value}', ${date_de_naissance.value}, ${numero_de_tel.value})`;
         break;
 
       case 2:
-        insertion_data = `${idMateriel.value}, '${nom_materiel.value}', '${quantite.value}')`;
+        insertion_data = `${id}, '${nom_materiel.value}', '${quantite.value}')`;
         break;
 
       default:
@@ -157,29 +153,6 @@ function addValuesForInsert() {
     insertion_data += ";"
     // émet les values pour l'insértion
     define('datainsert', ` VALUES (${insertion_data}`);
-  } else {
-    windowAlert();
-  }
-
-}
-
-/***
- * Fonction qui retourne True ou False si l'id est un int
- * @returns {boolean} True si l'id est un int
- *                    False si l'id n'est pas un int
- */
-function idIsValidate(table_selectionnee){
-  let intIdVoiture = parseInt(idVoiture.value)
-  let intIdPersonne = parseInt(idPersonne.value)
-  let intIdMateriel = parseInt(idMateriel.value)
-
-  // test l'id de la table sélectionnée
-  if (table_selectionnee === 0){
-    return Number.isInteger(intIdVoiture);
-  } else if (table_selectionnee === 1){
-    return Number.isInteger(intIdPersonne);
-  } else {
-    return Number.isInteger(intIdMateriel)
   }
 
 }
