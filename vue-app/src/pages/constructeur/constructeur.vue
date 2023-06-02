@@ -91,6 +91,10 @@
       </div>
     </div>
 
+    <div>
+      <button @click="retour">sadasdsa</button>
+    </div>
+
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
@@ -292,6 +296,10 @@ function valideRequete(commande) {
     constructeurActuel = 6
     text_requete.value += ";"
   }
+}
+
+function retour(){
+  constructeurActuel--
 }
 
 </script>
