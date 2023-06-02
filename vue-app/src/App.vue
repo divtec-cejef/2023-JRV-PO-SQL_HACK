@@ -12,8 +12,7 @@ import Constructeur from "@/pages/constructeur/constructeur.vue";
 <!--    <FormRequest></FormRequest>-->
     <RouterLink to="/cinématique">Cinématique</RouterLink>
     <router-view/>
-    <constructeur></constructeur>
-<!--    <chatBox></chatBox>-->
+
   </main>
 </template>
 
