@@ -29,7 +29,7 @@
             </div>
             <div v-if="constructeurActuel === 4">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="valideRequeteAll">Valider</button>
+              <button class="btnValider" @click="valideRequete('select')">Valider</button>
             </div>
           </div>
 
@@ -41,7 +41,7 @@
             </div>
             <div v-if="constructeurActuel === 2">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="validerRequeteUpdate">Continuer</button>
+              <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3">
               <constructeur-condition @where="propriété"></constructeur-condition>
@@ -53,7 +53,7 @@
           </div>
           <div v-if="constructeurActuel===5">
             <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-            <button class="btnValider" @click="validerRequeteUpdate">Valider</button>
+            <button class="btnValider" @click="valideRequete('update')">Valider</button>
           </div>
 
           <!-- requête INSERT -->
@@ -80,7 +80,7 @@
             </div>
             <div v-if="constructeurActuel===4">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="validerRequeteDelete">Valider</button>
+              <button class="btnValider" @click="valideRequete('delete')">Valider</button>
             </div>
           </div>
         </div>
@@ -164,22 +164,6 @@ function propriété(valeur){
   console.log(constructeurActuel + " " + commande_selectionnee)
 }
 
-/***
- * Test si la requête est valide. Si le text de la condition
- * est vide on affiche une alert dialog, sinon on ajoute le
- * texte de la requête dans l'input en mode read only et on
- * efface remet à 0 le formulaire
- */
-function validerRequete(){
-  if (textCondition.value === ""){
-    window.alert("Veuillez remplir le champs de saisie")
-  } else {
-    text_requete.value += "'" + textCondition.value + "'"
-    constructeurActuel = 6
-  }
-  text_requete.value += ";"
-}
-
 /****
  * Fonction ajoute les saisies de l'utilisateur
  * Une fonction dans le composant constructeur-property-insert
@@ -253,127 +237,14 @@ function envoyer(){
  */
 function changeProprieteSelectionnee(valeur){
   propriete_selectionnee = valeur
+  textCondition.value = ""
 }
 
 /***
- * Fonction qui valide en testant le champs de saisie
- * pour la condition de la requête
+ * Fonction qui teste si la saisie de
+ * la condition est valide ou non
  */
-function validerRequeteUpdate(){
-  console.log(propriete_selectionnee)
-  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
-      || propriete_selectionnee === "idMateriel") {
-    if (Number.isInteger(parseInt(textCondition.value))){
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel++
-    } else {
-      window.alert("Vous devez saisir un nombre")
-    }
-  } else if (propriete_selectionnee === "date_de_naissance") {
-    const regex = /^\d{4}-\d{2}-\d{2}$/
-    if (regex.test(textCondition.value)){
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel++
-    } else {
-      window.alert("Le format de la date doit être : aaaa-mm-jj")
-    }
-  } else {
-    text_requete.value += "'"
-    addValeurToTextRequete(textCondition.value)
-    text_requete.value += "'"
-    constructeurActuel++
-  }
-}
-
-function validerRequeteDelete(){
-  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
-      || propriete_selectionnee === "idMateriel") {
-    if (Number.isInteger(parseInt(textCondition.value))){
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel = 6
-    } else {
-      window.alert("Vous devez saisir un nombre")
-    }
-  } else if (propriete_selectionnee === "date_de_naissance") {
-    const regex = /^\d{4}-\d{2}-\d{2}$/
-    if (regex.test(textCondition.value)){
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel = 6
-    } else {
-      window.alert("Le format de la date doit être : aaaa-mm-jj")
-    }
-  } else {
-    text_requete.value += "'"
-    addValeurToTextRequete(textCondition.value)
-    text_requete.value += "'"
-    constructeurActuel = 6
-  }
-}
-
-function validerRequeteSelect() {
-  if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne"
-      || propriete_selectionnee === "idMateriel") {
-    if (Number.isInteger(parseInt(textCondition.value))) {
-      addValeurToTextRequete(textCondition.value)
-      constructeurActuel = 6
-    } else {
-      window.alert("Vous devez saisir un nombre")
-    }
-  } else if (propriete_selectionnee === "date_de_naissance") {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-    if (regex.test(textCondition.value)) {
-      addValeurToTextRequete(textCondition.value);
-      constructeurActuel = 6;
-    } else {
-      window.alert("Le format de la date doit être : aaaa-mm-jj");
-    }
-  } else {
-    if (textCondition.value !== "") {
-      text_requete.value += "'"
-      addValeurToTextRequete(textCondition.value)
-      text_requete.value += "'"
-      constructeurActuel = 6
-    } else {
-      window.alert("Vous ne pouvez pas insérer de chaîne vide")
-    }
-  }
-}
-
-  /************************************************************************************************
-   * ********************************************************************************************
-   */
-  function valReq(requeteType) {
-    console.log(propriete_selectionnee);
-
-    if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne" || propriete_selectionnee === "idMateriel") {
-      if (Number.isInteger(parseInt(textCondition.value))) {
-        addValeurToTextRequete(textCondition.value);
-        constructeurActuel = 6;
-      } else {
-        window.alert("Vous devez saisir un nombre");
-      }
-    } else if (propriete_selectionnee === "date_de_naissance") {
-      const regex = /^\d{4}-\d{2}-\d{2}$/;
-      if (regex.test(textCondition.value)) {
-        addValeurToTextRequete(textCondition.value);
-        constructeurActuel = 6;
-      } else {
-        window.alert("Le format de la date doit être : aaaa-mm-jj");
-      }
-    } else {
-      text_requete.value += "'";
-      addValeurToTextRequete(textCondition.value);
-      text_requete.value += "'";
-      console.log(constructeurActuel)
-      constructeurActuel = 6;
-    }
-
-    if (requeteType !== "insert") {
-      constructeurActuel++;
-    }
-  }
-
-function valideRequeteAll() {
+function valideRequete(commande) {
   console.log(propriete_selectionnee);
 
   if (["idVoiture", "idPersonne", "idMateriel"].includes(propriete_selectionnee)) {
@@ -393,16 +264,23 @@ function valideRequeteAll() {
     }
   } else {
     if (textCondition.value !== "") {
+      console.log("champs rempli")
       text_requete.value += "'";
       addValeurToTextRequete(textCondition.value);
       text_requete.value += "'";
     } else {
+      console.log("champs vide")
       window.alert("Vous ne pouvez pas insérer de chaîne vide");
       return;
     }
   }
 
-  constructeurActuel = 6;
+  if (commande === "conditionUpdate1"){
+    constructeurActuel++
+  } else {
+    constructeurActuel = 6
+    text_requete.value += ";"
+  }
 }
 
 </script>
