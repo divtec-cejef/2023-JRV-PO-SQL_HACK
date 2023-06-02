@@ -304,8 +304,6 @@ function valideRequete(commande) {
 function retour(){
   constructeurActuel--
 }
-
->>>>>>> Master
 </script>
 
 <style scoped>
