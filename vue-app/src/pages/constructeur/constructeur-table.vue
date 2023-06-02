@@ -2,13 +2,13 @@
   <div>
     <div class="page2">
       <ul class="table_voiture">
-        <p @click="propriétéInsertDelete('Voiture')">Voiture</p>
+        <p @click="emitsTableSelectionnee('tb_voiture')">tb_voiture</p>
       </ul>
       <ul class="table_personne">
-        <p @click="propriétéInsertDelete('Personne')">Personne</p>
+        <p @click="emitsTableSelectionnee('tb_personne')">tb_personne</p>
       </ul>
       <ul class="table_materiel">
-        <p @click="propriétéInsertDelete('Matériel')">Materiel</p>
+        <p @click="emitsTableSelectionnee('tb_materiel')">tb_materiel</p>
       </ul>
     </div>
   </div>
@@ -18,7 +18,7 @@
 const propriete = defineEmits(['propriete', 'props-delete'])
 const props = defineProps(['table'])
 
-function propriétéInsertDelete(valeur){
+function emitsTableSelectionnee(valeur){
   propriete('propriete', valeur)
   propriete('props-delete', valeur)
 }
