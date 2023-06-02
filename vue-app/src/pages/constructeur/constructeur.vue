@@ -1,3 +1,4 @@
+<!--<script src="../../tools/requestDB.js"></script>-->
 <template>
 
   <!-- Écran de gauche qui contient : constructeur, texte requête
@@ -111,7 +112,9 @@
   <div class="bouton_finaux">
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
+
     <button @click="envoyer">Envoyer la requête</button>
+
   </div>
 
 </template>
@@ -302,6 +305,7 @@ function retour(){
   constructeurActuel--
 }
 
+>>>>>>> Master
 </script>
 
 <style scoped>

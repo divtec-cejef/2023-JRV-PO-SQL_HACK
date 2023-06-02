@@ -9,7 +9,7 @@ import Constructeur from "@/pages/constructeur/constructeur.vue";
   </header>
 
   <main>
-    <FormRequest></FormRequest>
+<!--    <FormRequest></FormRequest>-->
     <RouterLink to="/cinématique">Cinématique</RouterLink>
     <router-view/>
 
