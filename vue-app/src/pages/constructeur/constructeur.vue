@@ -92,7 +92,7 @@
     </div>
 
     <div>
-      <button @click="retour">sadasdsa</button>
+      <button @click="retour">Retour</button>
     </div>
 
     <!-- Texte de la requête dans l'input read only -->
@@ -299,7 +299,10 @@ function valideRequete(commande) {
 }
 
 function retour(){
-  constructeurActuel--
+  if (constructeurActuel !== 0) {
+    constructeurActuel--
+    console.log(constructeurActuel)
+  }
 }
 
 </script>
