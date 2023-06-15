@@ -2,11 +2,14 @@
   <div>
     <button @click="addWhere">Ajouter une condition +</button>
   </div>
+  <div>
+    <button @click="validerSansCondition">Valider sans condition</button>
+  </div>
 </template>
 
 <script setup>
 import {defineEmits, ref} from 'vue'
-const emits = defineEmits(['where'])
+const emits = defineEmits(['where', 'sans-condition'])
 const props = defineProps(['propriete_selectionnee'])
 
 /***
@@ -16,6 +19,11 @@ const props = defineProps(['propriete_selectionnee'])
 function addWhere(){
   emits('where', ' WHERE')
 }
+
+function validerSansCondition(){
+  emits('sans-condition', 'sans_condition')
+}
+
 </script>
 
 <style scoped>

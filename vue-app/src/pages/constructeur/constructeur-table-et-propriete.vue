@@ -40,21 +40,25 @@ let disabledTablePersonne = false
 let disabledTableMateriel = false
 
 // Grise les tables qui n'ont pas été sélectionné précédement
-  if (props.table === "tb_voiture"){
-    console.log("table voiture")
-    disabledTableVoiture = false
-    disabledTablePersonne = true
-    disabledTableMateriel = true
-  } else if (props.table === "tb_personne"){
-    console.log("table personne")
-    disabledTableVoiture = true
-    disabledTablePersonne = false
-    disabledTableMateriel = true
-  } else if (props.table === "tb_materiel"){
-    console.log("table materiel")
-    disabledTableVoiture = true
-    disabledTablePersonne = true
-    disabledTableMateriel = false
+switch (props.table) {
+  case "tb_voiture":
+    console.log("table voiture");
+    disabledTableVoiture = false;
+    disabledTablePersonne = true;
+    disabledTableMateriel = true;
+    break;
+  case "tb_personne":
+    console.log("table personne");
+    disabledTableVoiture = true;
+    disabledTablePersonne = false;
+    disabledTableMateriel = true;
+    break;
+  case "tb_materiel":
+    console.log("table materiel");
+    disabledTableVoiture = true;
+    disabledTablePersonne = true;
+    disabledTableMateriel = false;
+    break;
 }
 
 /**
@@ -90,7 +94,6 @@ function addPropriety(valeur, table) {
   propriete('table_selectionnee', table)
 
 }
-
 </script>
 
 <style scoped>

@@ -18,11 +18,10 @@
           <div class="requete_select" v-if="commande_selectionnee===1">
             <div v-if="constructeurActuel === 1">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
-                                            @table_selectionnee="changeTableSelectionnee"> </ConstructeurTableEtPropriete>
+                                            @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2">
-              <constructeur-condition @where="propriété"></constructeur-condition>
-              <button @click="">Valider sans condition</button>
+              <constructeur-condition @where="propriété" @sans-condition="validerSansCondition"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel === 3">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
@@ -91,21 +90,20 @@
       </div>
     </div>
 
-    <div>
-      <button @click="retour">Retour</button>
-    </div>
-
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
-
 
     <!-- Résultat de la requête -->
     <div class="resultat_requete">
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
     </div>
 
+  </div>
+
+  <div>
+    <button @click="retour">Retour</button>
   </div>
 
   <div class="bouton_finaux">
@@ -123,6 +121,7 @@ import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
 import {ref} from "vue";
+import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
 
 /* déclarations des variables*/
 let text_requete = ref()
@@ -133,7 +132,6 @@ let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
 let table = "dasds"
-
 
 /***
  * Ajoute la valeur passée en paramètre dans le texte area
@@ -171,6 +169,12 @@ function propriété(valeur){
   addValeurToTextRequete(valeur)
   constructeurActuel++
   console.log(constructeurActuel + " " + commande_selectionnee)
+}
+
+function validerSansCondition(valeur){
+  if(valeur === "sans_condition"){
+
+  }
 }
 
 /****
@@ -299,10 +303,7 @@ function valideRequete(commande) {
 }
 
 function retour(){
-  if (constructeurActuel !== 0) {
-    constructeurActuel--
-    console.log(constructeurActuel)
-  }
+  constructeurActuel = 0
 }
 
 </script>
@@ -334,7 +335,6 @@ button{
 .text_requete textarea, .resultat_requete textarea{
   resize: none;
 }
-
 
 /* Constructeur */
 .constructeur{
