@@ -1,23 +1,25 @@
 <template>
   <div class="page2">
-    <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}">
-      <p>Voiture</p>
-      <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
-        {{ propriete }}
-      </li>
-    </ul>
-    <ul class="table_personne" :class="{'disabled': disabledTablePersonne}">
-      <p>Personne</p>
-      <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')">
-        {{ propriete }}
-      </li>
-    </ul>
-    <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}">
-      <p>Materiel</p>
-      <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
-        {{ propriete }}
-      </li>
-    </ul>
+    <div class="tables">
+      <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}">
+        <p>Voiture</p>
+        <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
+          {{ propriete }}
+        </li>
+      </ul>
+      <ul class="table_personne" :class="{'disabled': disabledTablePersonne}">
+        <p>Personne</p>
+        <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')">
+          {{ propriete }}
+        </li>
+      </ul>
+      <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}">
+        <p>Materiel</p>
+        <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
+          {{ propriete }}
+        </li>
+      </ul>
+    </div>
   </div>
 
 </template>
@@ -103,6 +105,7 @@ ul {
   border: 1px black solid;
   transition: transform 500ms ease;
   background-color: white;
+  border-radius: 14px;
 }
 
 li {
@@ -110,12 +113,11 @@ li {
   margin: 5px;
 }
 
-.page2 {
+.tables {
   width: fit-content;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   color: black;
+
 }
 
 p {

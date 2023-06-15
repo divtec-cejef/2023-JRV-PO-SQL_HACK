@@ -16,18 +16,18 @@
 
           <!-- requête SELECT -->
           <div class="requete_select" v-if="commande_selectionnee===1">
-            <div v-if="constructeurActuel === 1">
+            <div v-if="constructeurActuel === 1" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 2">
-              <constructeur-condition @where="propriété" @sans-condition="validerSansCondition"></constructeur-condition>
+            <div v-if="constructeurActuel === 2" class="btn_condition">
+              <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
-            <div v-if="constructeurActuel === 3">
+            <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
                                             @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 4">
+            <div v-if="constructeurActuel === 4" class="text_condition">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
               <button class="btnValider" @click="valideRequete('select')">Valider</button>
             </div>
@@ -102,10 +102,6 @@
 
   </div>
 
-  <div>
-    <button @click="retour">Retour</button>
-  </div>
-
   <div class="bouton_finaux">
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
@@ -169,12 +165,6 @@ function propriété(valeur){
   addValeurToTextRequete(valeur)
   constructeurActuel++
   console.log(constructeurActuel + " " + commande_selectionnee)
-}
-
-function validerSansCondition(valeur){
-  if(valeur === "sans_condition"){
-
-  }
 }
 
 /****
@@ -328,7 +318,7 @@ button{
 
 /* écran gauche */
 .ecran_gauche{
-  border: red 4px solid;
+  background-color: black;
   width: 600px;
   height: 700px;
 }
@@ -344,7 +334,7 @@ button{
 
 /* Text requête */
 .text_requete{
-  width: 100%;
+  width: 99%;
   margin: 0;
 }
 #text-requete{
@@ -356,16 +346,27 @@ button{
 
 /* Resultat requête */
 .resultat_requete{
-  width: 100%;
-  margin: 0;
+  width: 99%;
+  height: 100%;
 }
 #result-requete{
   width: 100%;
-  height: 290px;
+  height: 41%;
   font-size: 28px;
 }
-.bouton_finaux {
-  width: 50%;
+.bouton_finaux button{
+  width: 150px;
+  margin-top: 20px;
 }
-
+.constructeur_table_et_propriete{
+  margin-left: 50px;
+}
+.btn_condition{}
+.text_condition{
+  display: inline-block;
+  text-align: center;
+  padding-top: 100px;
+  padding-right: 200px;
+  padding-left: 200px;
+}
 </style>

@@ -2,9 +2,6 @@
   <div>
     <button @click="addWhere">Ajouter une condition +</button>
   </div>
-  <div>
-    <button @click="validerSansCondition">Valider sans condition</button>
-  </div>
 </template>
 
 <script setup>
@@ -20,15 +17,11 @@ function addWhere(){
   emits('where', ' WHERE')
 }
 
-function validerSansCondition(){
-  emits('sans-condition', 'sans_condition')
-}
-
 </script>
 
 <style scoped>
 div{
-  padding: 30px;
+  padding: 110px;
 }
 button {
   font-size: 32px;
@@ -38,7 +31,6 @@ button {
   padding: 20px;
   border-radius: 20px;
 }
-
 button {
   transition: transform 500ms ease;
 }
