@@ -1,6 +1,7 @@
 <script setup>
 import FormRequest from "@/components/FormRequest.vue";
 import Constructeur from "@/pages/constructeur/constructeur.vue";
+import Chat from "@/chatBox/chat.vue";
 </script>
 
 <template>
@@ -9,7 +10,10 @@ import Constructeur from "@/pages/constructeur/constructeur.vue";
   </header>
 
   <main>
-<!--    <FormRequest></FormRequest>-->
+
+    <chat></chat>
+    <FormRequest></FormRequest>
+
     <RouterLink to="/cinématique">Cinématique</RouterLink>
     <router-view/>
 
