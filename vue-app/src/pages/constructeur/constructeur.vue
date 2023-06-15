@@ -1,4 +1,3 @@
-<!--<script src="../../tools/requestDB.js"></script>-->
 <template>
 
   <!-- Écran de gauche qui contient : constructeur, texte requête
@@ -113,7 +112,7 @@
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
 
-    <button @click="envoyer">Envoyer la requête</button>
+    <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
 
   </div>
 
@@ -125,10 +124,11 @@ import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-tabl
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
-import {ref} from "vue";
+import { ref } from "vue";
+import { sendRequest } from "@/tools/requestDB";
 
 /* déclarations des variables*/
-let text_requete = ref()
+const text_requete = ref('')
 let resultat_requete = ref()
 const textCondition = ref()
 let constructeurActuel = 0
@@ -286,6 +286,7 @@ function valideRequete(commande) {
       text_requete.value += "'";
       addValeurToTextRequete(textCondition.value);
       text_requete.value += "'";
+      console.log(text_requete.value);
     } else {
       console.log("champs vide")
       window.alert("Vous ne pouvez pas insérer de chaîne vide");
@@ -303,6 +304,10 @@ function valideRequete(commande) {
 
 function retour(){
   constructeurActuel--
+}
+
+function sendRequestFromConstructor() {
+  sendRequest(text_requete.value);
 }
 </script>
 
