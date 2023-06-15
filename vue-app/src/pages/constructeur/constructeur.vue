@@ -96,9 +96,9 @@
     </div>
 
     <!-- Résultat de la requête -->
-    <div class="resultat_requete">
+    <div class="resultat_requete" :style="styleDivTextarea">
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly
-      :style="textareaStyle"></textarea>
+      :style="styleTextArea"></textarea>
     </div>
 
   </div>
@@ -130,10 +130,17 @@ let table_selectionnee = ""
 let propriete_selectionnee = ""
 let table = "dasds"
 
-const textareaStyle = ref({
+const styleTextArea = ref({
   width: '99%',
   height: '100%'
 });
+
+const styleDivTextarea = ref({
+  width: '100%',
+  height: '41%',
+  fontSize: '28px'
+});
+
 
 /***
  * Ajoute la valeur passée en paramètre dans le texte area
@@ -213,6 +220,7 @@ function effacer(){
   textCondition.value = ""
   resultat_requete.value = ""
   constructeurActuel = 0
+  styleTextArea.value.height = '300px'
 }
 
 function proprieteInsert(valeur) {
@@ -297,7 +305,7 @@ function valideRequete(commande) {
     text_requete.value += ";"
   }
 
-  textareaStyle.value.height = '500px'
+  styleTextArea.value.height = '600px'
 }
 
 function retour(){
