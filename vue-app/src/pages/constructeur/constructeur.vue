@@ -34,26 +34,26 @@
           </div>
 
           <!-- requête UPDATE -->
-          <div class="requete_update" v-if="commande_selectionnee===2">
+          <div class="requete_update, constructeur_table_et_propriete" v-if="commande_selectionnee===2">
             <div v-if="constructeurActuel === 1">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 2">
+            <div v-if="constructeurActuel === 2" class="text_condition">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
               <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
-            <div v-if="constructeurActuel===3">
+            <div v-if="constructeurActuel===3" class="btn_condition">
               <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
-            <div v-if="constructeurActuel===4">
+            <div v-if="constructeurActuel===4" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
           </div>
-          <div v-if="constructeurActuel===5">
+          <div v-if="constructeurActuel===5" class="text_condition">
             <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
             <button class="btnValider" @click="valideRequete('update')">Valider</button>
           </div>
@@ -74,14 +74,14 @@
               <constructeur-table @props-delete="proprieteDelete"
                                   @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
-            <div v-if="constructeurActuel===2">
+            <div v-if="constructeurActuel===2" class="btn_condition">
               <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
-            <div v-if="constructeurActuel===3">
+            <div v-if="constructeurActuel===3" class="constructeur_table_et_propriete">
               <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"
               @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></constructeur-table-et-propriete>
             </div>
-            <div v-if="constructeurActuel===4">
+            <div v-if="constructeurActuel===4" class="text_condition">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
               <button class="btnValider" @click="valideRequete('delete')">Valider</button>
             </div>
