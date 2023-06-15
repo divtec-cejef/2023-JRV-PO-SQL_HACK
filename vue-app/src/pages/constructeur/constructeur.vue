@@ -97,7 +97,8 @@
 
     <!-- Résultat de la requête -->
     <div class="resultat_requete">
-      <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
+      <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly
+      :style="textareaStyle"></textarea>
     </div>
 
   </div>
@@ -116,7 +117,7 @@ import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-tabl
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
 
 /* déclarations des variables*/
@@ -128,6 +129,11 @@ let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
 let table = "dasds"
+
+const textareaStyle = ref({
+  width: '99%',
+  height: '100%'
+});
 
 /***
  * Ajoute la valeur passée en paramètre dans le texte area
@@ -290,6 +296,8 @@ function valideRequete(commande) {
     constructeurActuel = 6
     text_requete.value += ";"
   }
+
+  textareaStyle.value.height = '500px'
 }
 
 function retour(){
