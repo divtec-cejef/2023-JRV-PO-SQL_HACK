@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="chat-container">
     <vue-advanced-chat
-        height="1000px"
+        height="500px"
         :current-user-id="currentUserId"
         :rooms="JSON.stringify(rooms)"
         :rooms-loaded="true"
@@ -29,7 +29,7 @@ export default {
       rooms: [
         {
           roomId: '1',
-          roomName: 'Room 1',
+          roomName: 'Liam le grand voleur des temps moderne',
           avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
           users: [
             { _id: '1234', username: 'John Doe' },
@@ -115,5 +115,8 @@ export default {
 <style>
 body {
   font-family: 'Arial', sans-serif;
+}
+.chat-container {
+  width: 600px; /* Modifier la valeur pour ajuster la largeur */
 }
 </style>
