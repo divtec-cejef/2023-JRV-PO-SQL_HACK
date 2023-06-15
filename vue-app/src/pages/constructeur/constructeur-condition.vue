@@ -7,13 +7,14 @@
 <script setup>
 import {defineEmits, ref} from 'vue'
 const emits = defineEmits(['where'])
+const props = defineProps(['propriete_selectionnee'])
 
 /***
  * Emet la chaine de caractère WHERE pour
  * l'écrire dans l'input de la requête
  */
 function addWhere(){
-  emits('where', ' WHERE ')
+  emits('where', ' WHERE')
 }
 </script>
 

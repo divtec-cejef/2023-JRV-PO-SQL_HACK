@@ -1,37 +1,61 @@
 <template>
   <div class="page2">
-    <ul class="table_voiture">
+    <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}">
       <p>Voiture</p>
-      <li v-for="(propriété, index) in voiture" :key="index" @click="addPropriety(voiture[index], 'Voiture')">
-        {{ propriété }}
+      <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
+        {{ propriete }}
       </li>
     </ul>
-    <ul class="table_personne">
+    <ul class="table_personne" :class="{'disabled': disabledTablePersonne}">
       <p>Personne</p>
-      <li v-for="(propriété, index) in personne" :key="index" @click="addPropriety(personne[index], 'Personne')">
-        {{ propriété }}
+      <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')">
+        {{ propriete }}
       </li>
     </ul>
-    <ul class="table_materiel">
+    <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}">
       <p>Materiel</p>
-      <li v-for="(propriété, index) in materiel" :key="index" @click="addPropriety(materiel[index], 'Matériel')">
-        {{ propriété }}
+      <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
+        {{ propriete }}
       </li>
     </ul>
   </div>
+
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {computed, reactive, ref, resolveDirective} from "vue";
 
 /* déclarations des 3 tableau pour les propriété des tables*/
-const voiture = ["idVoiture", "Couleur", "Propriétaire", "Num plaque"]
-const personne = ["idPersonne", "Nom", "Prénom", "Date de naissance", "Numéro de tel"]
-const materiel = ["idMateriel", "Nom", "Quantité"]
+const tb_voiture = ["idVoiture", "couleur", "marque", "propriétaire", "numéro_plaque"]
+const tb_personne = ["idPersonne", "nom", "prénom", "date_de_naissance", "numéro_de_tel"]
+const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
 
 /* émet*/
-const propriete = defineEmits(['propriete'])
-const props = defineProps(['where', 'commande'])
+const propriete = defineEmits(['propriete','propriete_selectionnee', 'table_selectionnee'])
+const props = defineProps(['where', 'commande', 'table']);
+
+// style de la table qui est indisponible
+let disabledTableVoiture = false
+let disabledTablePersonne = false
+let disabledTableMateriel = false
+
+// Grise les tables qui n'ont pas été sélectionné précédement
+  if (props.table === "tb_voiture"){
+    console.log("table voiture")
+    disabledTableVoiture = false
+    disabledTablePersonne = true
+    disabledTableMateriel = true
+  } else if (props.table === "tb_personne"){
+    console.log("table personne")
+    disabledTableVoiture = true
+    disabledTablePersonne = false
+    disabledTableMateriel = true
+  } else if (props.table === "tb_materiel"){
+    console.log("table materiel")
+    disabledTableVoiture = true
+    disabledTablePersonne = true
+    disabledTableMateriel = false
+}
 
 /**
  * Teste si le constructeur de la table est après
@@ -42,24 +66,29 @@ const props = defineProps(['where', 'commande'])
  * @param table Nom du tableau
  */
 function addPropriety(valeur, table) {
+  let props_select = valeur
   /* Test pour savoir si on a choisit SELECT*/
+  valeur = " " + valeur
   if (props.commande === 1){
     if (props.where) {
       valeur = valeur + " = "
     } else {
-      valeur = valeur + " FROM " + table
+      valeur =  valeur + " FROM " + table
     }
-  }
-  /* Teste pour savoir si on a choisi UPDATE*/
-  if (props.commande === 2){
+  } else if (props.commande === 2){
     if (props.where) {
       valeur = valeur + " = "
     } else {
-      valeur = table + " SET " + valeur + " = "
+      valeur = " " + table + " SET" + valeur + " = "
     }
+  } else if (props.commande === 4){
+    valeur = valeur + " = "
   }
 
   propriete('propriete', valeur)
+  propriete('propriete_selectionnee', props_select)
+  propriete('table_selectionnee', table)
+
 }
 
 </script>
@@ -96,11 +125,15 @@ p {
 ul:hover {
   border: 1px yellow solid;
   transform: scale(1.05);
-
 }
 
 li:hover {
   color: yellow;
+}
+
+.disabled{
+  pointer-events: none;
+  color: gray;
 }
 
 </style>

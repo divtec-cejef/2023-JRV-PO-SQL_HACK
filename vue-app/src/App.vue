@@ -10,11 +10,13 @@ import Chat from "@/chatBox/chat.vue";
   </header>
 
   <main>
+
     <chat></chat>
     <FormRequest></FormRequest>
+
     <RouterLink to="/cinématique">Cinématique</RouterLink>
     <router-view/>
-    <constructeur></constructeur>
+
   </main>
 </template>
 

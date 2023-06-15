@@ -15,72 +15,84 @@
           </div>
 
           <!-- requête SELECT -->
-          <div class="requete_select" v-if="commande===1">
+          <div class="requete_select" v-if="commande_selectionnee===1">
             <div v-if="constructeurActuel === 1">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"> </ConstructeurTableEtPropriete>
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
+                                            @table_selectionnee="changeTableSelectionnee"> </ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2">
               <constructeur-condition @where="propriété"></constructeur-condition>
-              <button @click="validerSansCondition">Valider sans condition</button>
+              <button @click="">Valider sans condition</button>
             </div>
             <div v-if="constructeurActuel === 3">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"></ConstructeurTableEtPropriete>
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
+                                            @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="validerRequete">Valider</button>
+              <button class="btnValider" @click="valideRequete('select')">Valider</button>
             </div>
           </div>
 
           <!-- requête UPDATE -->
-          <div class="requete_update" v-if="commande===2">
+          <div class="requete_update" v-if="commande_selectionnee===2">
             <div v-if="constructeurActuel === 1">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"></ConstructeurTableEtPropriete>
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
+                                            @propriete_selectionnee="changeProprieteSelectionnee"
+                                            @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="testerInputText">Continuer</button>
+              <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3">
               <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel===4">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"></ConstructeurTableEtPropriete>
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"
+                                            @propriete_selectionnee="changeProprieteSelectionnee"
+                                            :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
           </div>
           <div v-if="constructeurActuel===5">
             <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-            <button class="btnValider" @click="validerRequete">Valider</button>
+            <button class="btnValider" @click="valideRequete('update')">Valider</button>
           </div>
 
           <!-- requête INSERT -->
-          <div class="requete_insert" v-if="commande===3">
+          <div class="requete_insert" v-if="commande_selectionnee===3">
             <div v-if="constructeurActuel===1">
               <constructeur-table @propriete="proprieteInsert"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2">
-              <constructeur-property-insert :table="table_selectionnee" @datainsert="ajouteValuesInsert"></constructeur-property-insert>
+              <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"></constructeur-property-insert>
             </div>
           </div>
 
           <!-- DELETE -->
-          <div class="requete_delete" v-if="commande===4">
+          <div class="requete_delete" v-if="commande_selectionnee===4">
             <div v-if="constructeurActuel===1">
-              <constructeur-table @props-delete="proprieteDelete"></constructeur-table>
+              <constructeur-table @props-delete="proprieteDelete"
+                                  @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2">
               <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel===3">
-              <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"></constructeur-table-et-propriete>
+              <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"
+              @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></constructeur-table-et-propriete>
             </div>
             <div v-if="constructeurActuel===4">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="validerRequete">Valider</button>
+              <button class="btnValider" @click="valideRequete('delete')">Valider</button>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div>
+      <button @click="retour">sadasdsa</button>
     </div>
 
     <!-- Texte de la requête dans l'input read only -->
@@ -89,15 +101,18 @@
     </div>
 
 
-
     <!-- Résultat de la requête -->
     <div class="resultat_requete">
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
     </div>
 
+  </div>
+
+  <div class="bouton_finaux">
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
-    <button>Envoyer la requête</button>
+
+    <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
 
   </div>
 
@@ -108,62 +123,72 @@ import Constructeur4Bouton from "@/pages/constructeur/constructeur-4-bouton.vue"
 import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-table-et-propriete.vue";
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
-import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue"
-import {ref} from "vue";
+import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
+import { ref } from "vue";
+import { sendRequest } from "@/tools/requestDB";
 
 /* déclarations des variables*/
-let text_requete = ref()
+const text_requete = ref('')
 let resultat_requete = ref()
 const textCondition = ref()
 let constructeurActuel = 0
-let commande = 0
+let commande_selectionnee = 0
 let table_selectionnee = ""
-let finDeRequete = false
+let propriete_selectionnee = ""
+let table = "dasds"
+
+
+/***
+ * Ajoute la valeur passée en paramètre dans le texte area
+ * pour la requête
+ * @param valeur
+ */
+function addValeurToTextRequete(valeur){
+  if (constructeurActuel === 0){
+    text_requete.value = ""
+  }
+  text_requete.value += valeur
+}
+
+/****
+ * Fonction qui teste la commande sélectionnée et ensuite
+ * modifie la valeur de la variable "commande" grâce à un switch
+ * @param valeur Valeur émise depuis le constructeur-4-bouton
+ */
+function commandeSelectionee(valeur) {
+  switch (valeur) {
+    case "SELECT":  commande_selectionnee = 1;  break;
+    case "UPDATE":  commande_selectionnee = 2;  break;
+    case "INSERT":  commande_selectionnee = 3;  break;
+    case "DELETE":  commande_selectionnee = 4;  break;
+  }
+}
 
 /**
  * Permet d'afficher le texte de la propriété de l'utilisateur dans l'input
+ * et modifie la variable "commande" selon la commande (bouton) sélectionné
  * @param valeur Valeur de la propriété que l'utilisateur à cliqué
  */
 function propriété(valeur){
-  if (valeur === "SELECT "){
-    commande = 1
-  } else if (valeur === "UPDATE "){
-    commande = 2
-  } else if (valeur==="INSERT"){
-    commande = 3
-  } else if (valeur === "DELETE "){
-    commande = 4
-  }
-  text_requete.value += valeur
+  commandeSelectionee(valeur)
+  addValeurToTextRequete(valeur)
   constructeurActuel++
-  console.log(constructeurActuel + " " + commande)
+  console.log(constructeurActuel + " " + commande_selectionnee)
 }
 
-/***
- * Test si la requête est valide. Si le text de la condition
- * est vide on affiche une alert dialog, sinon on ajoute le
- * texte de la requête dans l'input en mode read only et on
- * efface remet à 0 le formulaire
- */
-function validerRequete(){
-  if (textCondition.value === ""){
-    window.alert("Veuillez remplir le champs de saisie")
-  } else {
-    text_requete.value += textCondition.value
-    constructeurActuel = 6
-  }
-}
-
-
-/***
- * Fonction qui teste si tous les champs de saisie on
- * bien été rempli
+/****
+ * Fonction ajoute les saisies de l'utilisateur
+ * Une fonction dans le composant constructeur-property-insert
+ * test si les champs sont bien remplis
+ * On met le constructeur actuel à 6 pour que le v-if du div
+ * s'active et enlève le constructeur lorsqu'on valide
  * @param valeur
  */
-function ajouteValuesInsert(valeur){
-  text_requete.value += valeur
+function validerValuesInsert(valeur){
+  addValeurToTextRequete(valeur)
   constructeurActuel = 6
 }
+
 
 /***
  * Teste si le champs de saisie de texte pour
@@ -176,8 +201,9 @@ function testerInputText(){
   if (textCondition.value === ""){
     window.alert("Veuillez remplir le champs de saisie")
   } else {
-    text_requete.value += textCondition.value
+    text_requete.value += "'" + textCondition.value + "'"
     constructeurActuel++
+    textCondition.value = ""
   }
 }
 
@@ -192,32 +218,96 @@ function effacer(){
   constructeurActuel = 0
 }
 
-function proprieteInsert(valeur){
-  commande = 3
-  text_requete.value += " INTO "
-  if (valeur === "Voiture"){
-    table_selectionnee = "Voiture"
-    text_requete.value += " Voiture"
-
-  } else if (valeur === "Personne"){
-    table_selectionnee = "Personne"
-    text_requete.value += " Personne"
-
-  } else {
-    table_selectionnee = "Matériel"
-    text_requete.value += " Matériel"
-  }
-  constructeurActuel++
+function proprieteInsert(valeur) {
+  commande_selectionnee = 3;
+  text_requete.value += " INTO " + valeur;
+  table_selectionnee = valeur;
+  constructeurActuel++;
 }
 
+/***
+ * Ajoute les propriétés lorsque la commande DELETE est choisi
+ * @param valeur
+ */
 function proprieteDelete(valeur){
-  commande = 4
-  text_requete.value += "FROM " + valeur
+  commande_selectionnee = 4
+  text_requete.value += " FROM " + valeur
   constructeurActuel++
 }
 
-function validerSansCondition(){
+/****
+ * Affiche la requête dans un window alert
+ */
+function envoyer(){
+  window.alert(text_requete.value)
+}
 
+/**
+ * Fonction qui permet de changer la variable "propriete_selectionnee"
+ * avec la valeur passé en paramètre
+ * @param valeur propriété actuellement sélectionnée
+ */
+function changeProprieteSelectionnee(valeur){
+  propriete_selectionnee = valeur
+  textCondition.value = ""
+}
+
+function changeTableSelectionnee(valeur){
+  table_selectionnee = valeur
+  console.log(valeur)
+}
+
+/***
+ * Fonction qui permet de tester le champs de saisie de la condition
+ * @param commande si la commande correspond au constructeur actuel update
+ *
+ */
+function valideRequete(commande) {
+  console.log(propriete_selectionnee);
+
+  if (["idVoiture", "idPersonne", "idMateriel"].includes(propriete_selectionnee)) {
+    if (Number.isInteger(parseInt(textCondition.value))) {
+      addValeurToTextRequete(textCondition.value);
+    } else {
+      window.alert("Vous devez saisir un nombre");
+      return;
+    }
+  } else if (propriete_selectionnee === "date_de_naissance") {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (regex.test(textCondition.value)) {
+      addValeurToTextRequete(textCondition.value);
+    } else {
+      window.alert("Le format de la date doit être : aaaa-mm-jj");
+      return;
+    }
+  } else {
+    if (textCondition.value !== "") {
+      console.log("champs rempli")
+      text_requete.value += "'";
+      addValeurToTextRequete(textCondition.value);
+      text_requete.value += "'";
+      console.log(text_requete.value);
+    } else {
+      console.log("champs vide")
+      window.alert("Vous ne pouvez pas insérer de chaîne vide");
+      return;
+    }
+  }
+
+  if (commande === "conditionUpdate1"){
+    constructeurActuel++
+  } else {
+    constructeurActuel = 6
+    text_requete.value += ";"
+  }
+}
+
+function retour(){
+  constructeurActuel--
+}
+
+function sendRequestFromConstructor() {
+  sendRequest(text_requete.value);
 }
 </script>
 
@@ -241,7 +331,7 @@ button{
 
 /* écran gauche */
 .ecran_gauche{
-  border: white 4px solid;
+  border: red 4px solid;
   width: 600px;
   height: 700px;
 }
@@ -277,6 +367,9 @@ button{
   width: 100%;
   height: 290px;
   font-size: 28px;
+}
+.bouton_finaux {
+  width: 50%;
 }
 
 </style>
