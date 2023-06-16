@@ -64,7 +64,8 @@
               <constructeur-table @propriete="proprieteInsert"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2" class="property_insert">
-              <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"></constructeur-property-insert>
+              <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"
+              @change-taille-textarea="changeTailleTextarea"></constructeur-property-insert>
             </div>
           </div>
 
@@ -141,6 +142,9 @@ const styleDivTextarea = ref({
   fontSize: '28px'
 });
 
+function changeTailleTextarea(){
+  styleTextArea.value.height = '600px'
+}
 
 /***
  * Ajoute la valeur passée en paramètre dans le texte area
@@ -303,7 +307,7 @@ function valideRequete(commande) {
   } else {
     constructeurActuel = 6
     text_requete.value += ";"
-    styleTextArea.value.height = '600px'
+    changeTailleTextarea()
   }
 }
 

@@ -55,7 +55,7 @@ let nom_materiel = ref()
 let quantite = ref()
 
 const props = defineProps(['table'])
-const define = defineEmits(['datainsert'])
+const define = defineEmits(['datainsert', 'changeTailleTextarea'])
 
 
 /***
@@ -163,6 +163,7 @@ function addValuesForInsert() {
     define('datainsert', ` VALUES (${insertion_data}`);
   }
 
+  define("changeTailleTextarea", true)
 }
 
 /***
