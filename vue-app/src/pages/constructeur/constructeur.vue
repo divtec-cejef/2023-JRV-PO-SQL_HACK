@@ -21,11 +21,11 @@
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
-              <constructeur-condition @where="propriété"></constructeur-condition>
+              <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
-                                            @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
+                                            @propriete_selectionnee="propriété" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
@@ -65,7 +65,7 @@
             </div>
             <div v-if="constructeurActuel===2" class="property_insert">
               <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"
-              @change-taille-textarea="changeTailleTextarea"></constructeur-property-insert>
+              @change-taille-textarea="changeTailleTextarea" @etat-btn-envoi-requete="changeEtatBtnEnvoiRequete"></constructeur-property-insert>
             </div>
           </div>
 
@@ -87,6 +87,7 @@
               <button class="btnValider" @click="valideRequete('delete')">Valider</button>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -119,7 +120,7 @@ import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
 import {reactive, ref} from "vue";
-import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
+import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-valider-sans-condition.vue"
 
 /* déclarations des variables*/
 let text_requete = ref()
@@ -145,6 +146,10 @@ const styleDivTextarea = ref({
 
 function changeTailleTextarea(){
   styleTextArea.value.height = '600px'
+}
+
+function changeEtatBtnEnvoiRequete(){
+  etatBtnEnvoiRequete = false
 }
 
 /***
@@ -314,8 +319,7 @@ function valideRequete(commande) {
   etatBtnEnvoiRequete = false
 }
 
-function retour(){
-  constructeurActuel = 0
+function validerSansCondition(valeur){
 }
 
 </script>
