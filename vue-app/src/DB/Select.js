@@ -16,20 +16,20 @@ function select(table, condition = 0, valeurCondition = 0){
 
         request.onsuccess = function(event) {
             var data = event.target.result;
-            afficherTablePersonne(data,table,condition,valeurCondition)
+            return afficherTablePersonne(data,table,condition,valeurCondition)
         };
     };
 }
 
 
 function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
-    // Supprimer l'ancienne table s'il en existe une
-    var oldTable = document.getElementById("tableHtml");
-    if (oldTable) {
-        oldTable.remove();
-    }
+//Supprimer l'ancienne table s'il en existe une
+let oldTable = document.getElementById("tableHtml");
+if (oldTable) {
+oldTable.remove();
+}
 
-    // Créer un nouvel élément <table>
+// Créer un nouvel élément <table>
     var table = document.createElement("table");
     table.id = "tableHtml";
     if (nomTable === "tb_personne"){
@@ -43,9 +43,9 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
     }
 
 
-    for (var i = 0; i < data.length; i++) {
+    for(let i = 0; i < data.length; i++) {
         if (data[i][conditionl] === valeurCondition || valeurCondition === 0) {
-            var tr = document.createElement("tr");
+            let tr = document.createElement("tr");
             if (nomTable === "tb_personne"){
                 tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom + "</td><td>" + data[i].prenom + "</td><td>" + formatDate(data[i].date_de_naissance) + "</td><td>" + data[i].numero_de_tel + "</td>";
             }
@@ -58,9 +58,10 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
             table.appendChild(tr);
         }
     }
+    let Affichage = document.getElementById("resultat_requete");
+    Affichage.appendChild(table)
 
-    // Ajouter la nouvelle table au document body
-    document.body.appendChild(table);
+
 }
 
 // Fonction pour formater une date au format jj/mm/aaaa

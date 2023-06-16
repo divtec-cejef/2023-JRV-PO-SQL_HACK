@@ -52,10 +52,11 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   data() {
     return {
-      tableData: [],
+      tableData: ref([]),
       tableId: '',
       nomTable: '',
       conditionl: '',
@@ -63,12 +64,7 @@ export default {
     };
   },
   methods: {
-    afficherTablePersonne() {
-      const data = []; // Renseignez vos données ici
-      const nomTable = 'tb_personne'; // Renseignez le nom de la table ici
-      const conditionl = ''; // Renseignez votre condition ici
-      const valeurCondition = ''; // Renseignez la valeur de la condition ici
-
+    afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
       // Supprimer l'ancienne table s'il en existe une
       if (this.tableId) {
         const oldTable = document.getElementById(this.tableId);
@@ -134,5 +130,4 @@ export default {
 };
 </script>
 <style>
-
 </style>

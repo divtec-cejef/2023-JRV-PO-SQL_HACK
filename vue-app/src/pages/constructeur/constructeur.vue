@@ -102,7 +102,7 @@
 
 
     <!-- Résultat de la requête -->
-    <div class="resultat_requete">
+    <div class="resultat_requete" id="resultat_requete">
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
     </div>
 
