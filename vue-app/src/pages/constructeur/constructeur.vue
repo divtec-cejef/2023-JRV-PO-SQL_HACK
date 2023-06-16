@@ -16,45 +16,44 @@
 
           <!-- requête SELECT -->
           <div class="requete_select" v-if="commande_selectionnee===1">
-            <div v-if="constructeurActuel === 1">
+            <div v-if="constructeurActuel === 1" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
-                                            @table_selectionnee="changeTableSelectionnee"> </ConstructeurTableEtPropriete>
+                                            @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 2">
-              <constructeur-condition @where="propriété"></constructeur-condition>
-              <button @click="">Valider sans condition</button>
+            <div v-if="constructeurActuel === 2" class="btn_condition">
+              <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"></constructeur-condition>
             </div>
-            <div v-if="constructeurActuel === 3">
+            <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
-                                            @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
+                                            @propriete_selectionnee="propriété" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 4">
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+            <div v-if="constructeurActuel === 4" class="saisie_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
               <button class="btnValider" @click="valideRequete('select')">Valider</button>
             </div>
           </div>
 
           <!-- requête UPDATE -->
-          <div class="requete_update" v-if="commande_selectionnee===2">
+          <div class="requete_update, constructeur_table_et_propriete" v-if="commande_selectionnee===2">
             <div v-if="constructeurActuel === 1">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 2">
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+            <div v-if="constructeurActuel === 2" class="saisie_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
               <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
-            <div v-if="constructeurActuel===3">
+            <div v-if="constructeurActuel===3" class="btn_condition">
               <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
-            <div v-if="constructeurActuel===4">
+            <div v-if="constructeurActuel===4" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
           </div>
-          <div v-if="constructeurActuel===5">
+          <div v-if="constructeurActuel===5" class="text_condition">
             <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
             <button class="btnValider" @click="valideRequete('update')">Valider</button>
           </div>
@@ -64,8 +63,9 @@
             <div v-if="constructeurActuel===1">
               <constructeur-table @propriete="proprieteInsert"></constructeur-table>
             </div>
-            <div v-if="constructeurActuel===2">
-              <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"></constructeur-property-insert>
+            <div v-if="constructeurActuel===2" class="property_insert">
+              <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"
+              @change-taille-textarea="changeTailleTextarea" @etat-btn-envoi-requete="changeEtatBtnEnvoiRequete"></constructeur-property-insert>
             </div>
           </div>
 
@@ -75,24 +75,21 @@
               <constructeur-table @props-delete="proprieteDelete"
                                   @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
-            <div v-if="constructeurActuel===2">
+            <div v-if="constructeurActuel===2" class="btn_condition">
               <constructeur-condition @where="propriété"></constructeur-condition>
             </div>
-            <div v-if="constructeurActuel===3">
+            <div v-if="constructeurActuel===3" class="constructeur_table_et_propriete">
               <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"
               @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></constructeur-table-et-propriete>
             </div>
-            <div v-if="constructeurActuel===4">
+            <div v-if="constructeurActuel===4" class="text_condition">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
               <button class="btnValider" @click="valideRequete('delete')">Valider</button>
             </div>
           </div>
+
         </div>
       </div>
-    </div>
-
-    <div>
-      <button @click="retour">sadasdsa</button>
     </div>
 
     <!-- Texte de la requête dans l'input read only -->
@@ -100,10 +97,14 @@
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
-
     <!-- Résultat de la requête -->
+
+    <div class="resultat_requete" :style="styleDivTextarea">
+      <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly
+      :style="styleTextArea"></textarea>
+
     <div class="resultat_requete" id="resultat_requete">
-      <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly></textarea>
+    
     </div>
 
   </div>
@@ -112,7 +113,11 @@
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
 
+    <button class="vide" :class="{'disabled': etatBtnEnvoiRequete}" @click="envoyer">Envoyer la requête</button>
+
+
     <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
+
 
   </div>
 
@@ -124,8 +129,13 @@ import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-tabl
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
-import { ref } from "vue";
+
+import {reactive, ref} from "vue";
+import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-valider-sans-condition.vue"
+
+
 import { sendRequest } from "@/tools/requestDB";
+
 
 /* déclarations des variables*/
 const text_requete = ref('')
@@ -136,7 +146,26 @@ let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
 let table = "dasds"
+let etatBtnEnvoiRequete = true
 
+const styleTextArea = ref({
+  width: '99%',
+  height: '100%'
+});
+
+const styleDivTextarea = ref({
+  width: '100%',
+  height: '41%',
+  fontSize: '28px'
+});
+
+function changeTailleTextarea(){
+  styleTextArea.value.height = '600px'
+}
+
+function changeEtatBtnEnvoiRequete(){
+  etatBtnEnvoiRequete = false
+}
 
 /***
  * Ajoute la valeur passée en paramètre dans le texte area
@@ -216,6 +245,8 @@ function effacer(){
   textCondition.value = ""
   resultat_requete.value = ""
   constructeurActuel = 0
+  styleTextArea.value.height = '300px'
+  etatBtnEnvoiRequete = true
 }
 
 function proprieteInsert(valeur) {
@@ -299,11 +330,12 @@ function valideRequete(commande) {
   } else {
     constructeurActuel = 6
     text_requete.value += ";"
+    changeTailleTextarea()
   }
+  etatBtnEnvoiRequete = false
 }
 
-function retour(){
-  constructeurActuel--
+function validerSansCondition(valeur){
 }
 
 function sendRequestFromConstructor() {
@@ -331,14 +363,13 @@ button{
 
 /* écran gauche */
 .ecran_gauche{
-  border: red 4px solid;
+  background-color: black;
   width: 600px;
   height: 700px;
 }
 .text_requete textarea, .resultat_requete textarea{
   resize: none;
 }
-
 
 /* Constructeur */
 .constructeur{
@@ -348,28 +379,60 @@ button{
 
 /* Text requête */
 .text_requete{
-  width: 100%;
+  width: 99%;
   margin: 0;
 }
 #text-requete{
-  width: 100%;
+  width: 588px;
   font-size: 28px;
+  color: white;
   height: 100px;
   margin: 0;
+  background-color: black;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+  padding: 5px;
 }
 
 /* Resultat requête */
 .resultat_requete{
-  width: 100%;
-  margin: 0;
+  width: 99%;
+  height: 100%;
 }
 #result-requete{
   width: 100%;
-  height: 290px;
+  margin-top: -5px;
+  height: 41%;
   font-size: 28px;
+  background-color: black;
+
 }
-.bouton_finaux {
-  width: 50%;
+.bouton_finaux button{
+  width: 150px;
+  margin-top: 30px;
+}
+.constructeur_table_et_propriete{
+  margin-left: 40px;
+}
+.btnValider{
+  margin-top: 25px;
+  width: 100px;
+  height: 50px;
+}
+.saisie_condition{
+  display: inline-block;
+  text-align: center;
+  padding-top: 100px;
+  padding-right: 200px;
+  padding-left: 200px;
+}
+.property_insert{
+  margin-left: 150px;
+  padding-top: 30px;
+}
+.disabled{
+  pointer-events: none;
+  color: gray;
 }
 
 </style>

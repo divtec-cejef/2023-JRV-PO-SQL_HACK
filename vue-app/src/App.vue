@@ -14,6 +14,7 @@ import Chat from "@/chatBox/chat.vue";
     <chat></chat>
     <FormRequest></FormRequest>
 
+
     <RouterLink to="/cinématique">Cinématique</RouterLink>
     <router-view/>
 

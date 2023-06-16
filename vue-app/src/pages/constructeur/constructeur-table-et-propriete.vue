@@ -1,23 +1,25 @@
 <template>
   <div class="page2">
-    <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}">
-      <p>Voiture</p>
-      <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
-        {{ propriete }}
-      </li>
-    </ul>
-    <ul class="table_personne" :class="{'disabled': disabledTablePersonne}">
-      <p>Personne</p>
-      <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')">
-        {{ propriete }}
-      </li>
-    </ul>
-    <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}">
-      <p>Materiel</p>
-      <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
-        {{ propriete }}
-      </li>
-    </ul>
+    <div class="tables">
+      <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}">
+        <p>Voiture</p>
+        <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
+          {{ propriete }}
+        </li>
+      </ul>
+      <ul class="table_personne" :class="{'disabled': disabledTablePersonne}">
+        <p>Personne</p>
+        <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')">
+          {{ propriete }}
+        </li>
+      </ul>
+      <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}">
+        <p>Materiel</p>
+        <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
+          {{ propriete }}
+        </li>
+      </ul>
+    </div>
   </div>
 
 </template>
@@ -40,21 +42,25 @@ let disabledTablePersonne = false
 let disabledTableMateriel = false
 
 // Grise les tables qui n'ont pas été sélectionné précédement
-  if (props.table === "tb_voiture"){
-    console.log("table voiture")
-    disabledTableVoiture = false
-    disabledTablePersonne = true
-    disabledTableMateriel = true
-  } else if (props.table === "tb_personne"){
-    console.log("table personne")
-    disabledTableVoiture = true
-    disabledTablePersonne = false
-    disabledTableMateriel = true
-  } else if (props.table === "tb_materiel"){
-    console.log("table materiel")
-    disabledTableVoiture = true
-    disabledTablePersonne = true
-    disabledTableMateriel = false
+switch (props.table) {
+  case "tb_voiture":
+    console.log("table voiture");
+    disabledTableVoiture = false;
+    disabledTablePersonne = true;
+    disabledTableMateriel = true;
+    break;
+  case "tb_personne":
+    console.log("table personne");
+    disabledTableVoiture = true;
+    disabledTablePersonne = false;
+    disabledTableMateriel = true;
+    break;
+  case "tb_materiel":
+    console.log("table materiel");
+    disabledTableVoiture = true;
+    disabledTablePersonne = true;
+    disabledTableMateriel = false;
+    break;
 }
 
 /**
@@ -90,7 +96,6 @@ function addPropriety(valeur, table) {
   propriete('table_selectionnee', table)
 
 }
-
 </script>
 
 <style scoped>
@@ -100,19 +105,20 @@ ul {
   border: 1px black solid;
   transition: transform 500ms ease;
   background-color: white;
+  border-radius: 14px;
 }
 
 li {
   list-style-type: none;
   margin: 5px;
+  font-family: 'Roboto', sans-serif;
 }
 
-.page2 {
+.tables {
   width: fit-content;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   color: black;
+
 }
 
 p {
@@ -120,6 +126,7 @@ p {
   font-size: 32px;
   padding: 5px;
   font-weight: 600;
+  font-family: 'Poppins', sans-serif;
 }
 
 ul:hover {
