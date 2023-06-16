@@ -111,6 +111,7 @@ ul {
 li {
   list-style-type: none;
   margin: 5px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .tables {
@@ -125,6 +126,7 @@ p {
   font-size: 32px;
   padding: 5px;
   font-weight: 600;
+  font-family: 'Poppins', sans-serif;
 }
 
 ul:hover {

@@ -30,6 +30,7 @@ button {
   color: white;
   padding: 20px;
   border-radius: 20px;
+  font-family: 'Poppins', sans-serif;
 }
 button {
   transition: transform 500ms ease;

@@ -40,8 +40,8 @@
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 2" class="text_condition">
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+            <div v-if="constructeurActuel === 2" class="saisie_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
               <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="btn_condition">
@@ -107,7 +107,7 @@
   <div class="bouton_finaux">
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
-    <button @click="envoyer">Envoyer la requête</button>
+    <button class="vide" :class="{'disabled': etatBtnEnvoiRequete}" @click="envoyer">Envoyer la requête</button>
   </div>
 
 </template>
@@ -130,6 +130,7 @@ let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
 let table = "dasds"
+let etatBtnEnvoiRequete = true
 
 const styleTextArea = ref({
   width: '99%',
@@ -225,6 +226,7 @@ function effacer(){
   resultat_requete.value = ""
   constructeurActuel = 0
   styleTextArea.value.height = '300px'
+  etatBtnEnvoiRequete = true
 }
 
 function proprieteInsert(valeur) {
@@ -309,6 +311,7 @@ function valideRequete(commande) {
     text_requete.value += ";"
     changeTailleTextarea()
   }
+  etatBtnEnvoiRequete = false
 }
 
 function retour(){
@@ -357,7 +360,7 @@ button{
   margin: 0;
 }
 #text-requete{
-  width: 590px;
+  width: 588px;
   font-size: 28px;
   color: white;
   height: 100px;
@@ -375,6 +378,7 @@ button{
 }
 #result-requete{
   width: 100%;
+  margin-top: -5px;
   height: 41%;
   font-size: 28px;
   background-color: black;
@@ -385,7 +389,7 @@ button{
   margin-top: 30px;
 }
 .constructeur_table_et_propriete{
-  margin-left: 50px;
+  margin-left: 40px;
 }
 .btnValider{
   margin-top: 25px;
@@ -403,4 +407,9 @@ button{
   margin-left: 150px;
   padding-top: 30px;
 }
+.disabled{
+  pointer-events: none;
+  color: gray;
+}
+
 </style>
