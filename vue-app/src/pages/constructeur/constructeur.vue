@@ -98,9 +98,13 @@
     </div>
 
     <!-- Résultat de la requête -->
+
     <div class="resultat_requete" :style="styleDivTextarea">
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly
       :style="styleTextArea"></textarea>
+
+    <div class="resultat_requete" id="resultat_requete">
+    
     </div>
 
   </div>
@@ -108,7 +112,13 @@
   <div class="bouton_finaux">
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
+
     <button class="vide" :class="{'disabled': etatBtnEnvoiRequete}" @click="envoyer">Envoyer la requête</button>
+
+
+    <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
+
+
   </div>
 
 </template>
@@ -119,11 +129,16 @@ import ConstructeurTableEtPropriete from "@/pages/constructeur/constructeur-tabl
 import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
+
 import {reactive, ref} from "vue";
 import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-valider-sans-condition.vue"
 
+
+import { sendRequest } from "@/tools/requestDB";
+
+
 /* déclarations des variables*/
-let text_requete = ref()
+const text_requete = ref('')
 let resultat_requete = ref()
 const textCondition = ref()
 let constructeurActuel = 0
@@ -302,6 +317,7 @@ function valideRequete(commande) {
       text_requete.value += "'";
       addValeurToTextRequete(textCondition.value);
       text_requete.value += "'";
+      console.log(text_requete.value);
     } else {
       console.log("champs vide")
       window.alert("Vous ne pouvez pas insérer de chaîne vide");
@@ -322,6 +338,9 @@ function valideRequete(commande) {
 function validerSansCondition(valeur){
 }
 
+function sendRequestFromConstructor() {
+  sendRequest(text_requete.value);
+}
 </script>
 
 <style scoped>
