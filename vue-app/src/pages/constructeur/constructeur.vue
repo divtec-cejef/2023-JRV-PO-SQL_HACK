@@ -27,8 +27,8 @@
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
                                             @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 4" class="text_condition">
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
+            <div v-if="constructeurActuel === 4" class="saisie_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
               <button class="btnValider" @click="valideRequete('select')">Valider</button>
             </div>
           </div>
@@ -63,7 +63,7 @@
             <div v-if="constructeurActuel===1">
               <constructeur-table @propriete="proprieteInsert"></constructeur-table>
             </div>
-            <div v-if="constructeurActuel===2">
+            <div v-if="constructeurActuel===2" class="property_insert">
               <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"></constructeur-property-insert>
             </div>
           </div>
@@ -303,9 +303,8 @@ function valideRequete(commande) {
   } else {
     constructeurActuel = 6
     text_requete.value += ";"
+    styleTextArea.value.height = '600px'
   }
-
-  styleTextArea.value.height = '600px'
 }
 
 function retour(){
@@ -354,10 +353,15 @@ button{
   margin: 0;
 }
 #text-requete{
-  width: 100%;
+  width: 590px;
   font-size: 28px;
+  color: white;
   height: 100px;
   margin: 0;
+  background-color: black;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+  padding: 5px;
 }
 
 /* Resultat requête */
@@ -369,20 +373,30 @@ button{
   width: 100%;
   height: 41%;
   font-size: 28px;
+  background-color: black;
+
 }
 .bouton_finaux button{
   width: 150px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .constructeur_table_et_propriete{
   margin-left: 50px;
 }
-.btn_condition{}
-.text_condition{
+.btnValider{
+  margin-top: 25px;
+  width: 100px;
+  height: 50px;
+}
+.saisie_condition{
   display: inline-block;
   text-align: center;
   padding-top: 100px;
   padding-right: 200px;
   padding-left: 200px;
+}
+.property_insert{
+  margin-left: 150px;
+  padding-top: 30px;
 }
 </style>
