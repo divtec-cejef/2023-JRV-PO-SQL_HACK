@@ -25,7 +25,7 @@
             </div>
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
-                                            @propriete_selectionnee="propriété" :table="table_selectionnee"></ConstructeurTableEtPropriete>
+                                            @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
