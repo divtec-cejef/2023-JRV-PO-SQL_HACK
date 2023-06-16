@@ -25,7 +25,7 @@
             </div>
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
-                                            @propriete_selectionnee="propriété" :table="table_selectionnee"></ConstructeurTableEtPropriete>
+                                            @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
@@ -103,24 +103,24 @@
       <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly
       :style="styleTextArea"></textarea>
 
-    <div class="resultat_requete" id="resultat_requete">
-    
+      <div class="resultat_requete" id="resultat_requete">
+
+      </div>
+
     </div>
 
+    <div class="bouton_finaux">
+      <!-- Bouton finaux -->
+      <button @click="effacer">Recommencer</button>
+
+      <button class="vide" :class="{'disabled': etatBtnEnvoiRequete}" @click="envoyer">Envoyer la requête</button>
+
+
+      <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
+
+
+    </div>
   </div>
-
-  <div class="bouton_finaux">
-    <!-- Bouton finaux -->
-    <button @click="effacer">Recommencer</button>
-
-    <button class="vide" :class="{'disabled': etatBtnEnvoiRequete}" @click="envoyer">Envoyer la requête</button>
-
-
-    <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
-
-
-  </div>
-
 </template>
 
 <script setup>
