@@ -109,9 +109,7 @@
     <!-- Bouton finaux -->
     <button @click="effacer">Recommencer</button>
 
-    <button class="vide" :class="{'disabled': etatBtnEnvoiRequete}" @click="envoyer">Envoyer la requête</button>
-
-    <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
+    <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}">Envoyer la requête</button>
 
   </div>
 
