@@ -98,13 +98,8 @@
     </div>
 
     <!-- Résultat de la requête -->
+    <div class="resultat_requete" id="resultat_requete" ref="maDiv">
 
-    <div class="resultat_requete" :style="styleDivTextarea">
-      <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly
-      :style="styleTextArea"></textarea>
-
-    <div class="resultat_requete" id="resultat_requete">
-    
     </div>
 
   </div>
@@ -115,9 +110,7 @@
 
     <button class="vide" :class="{'disabled': etatBtnEnvoiRequete}" @click="envoyer">Envoyer la requête</button>
 
-
     <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
-
 
   </div>
 
@@ -147,6 +140,7 @@ let table_selectionnee = ""
 let propriete_selectionnee = ""
 let table = "dasds"
 let etatBtnEnvoiRequete = true
+const maDiv = ref(null)
 
 const styleTextArea = ref({
   width: '99%',
@@ -190,6 +184,7 @@ function commandeSelectionee(valeur) {
     case "UPDATE":  commande_selectionnee = 2;  break;
     case "INSERT":  commande_selectionnee = 3;  break;
     case "DELETE":  commande_selectionnee = 4;  break;
+    case "sans_condition": commande_selectionnee = -1; break;
   }
 }
 
@@ -247,6 +242,8 @@ function effacer(){
   constructeurActuel = 0
   styleTextArea.value.height = '300px'
   etatBtnEnvoiRequete = true
+  maDiv.removeChild(table)
+
 }
 
 function proprieteInsert(valeur) {
@@ -291,7 +288,6 @@ function changeTableSelectionnee(valeur){
 /***
  * Fonction qui permet de tester le champs de saisie de la condition
  * @param commande si la commande correspond au constructeur actuel update
- *
  */
 function valideRequete(commande) {
   console.log(propriete_selectionnee);
@@ -335,7 +331,11 @@ function valideRequete(commande) {
   etatBtnEnvoiRequete = false
 }
 
-function validerSansCondition(valeur){
+function validerSansCondition(){
+  constructeurActuel = 6
+  text_requete.value += ";"
+  changeTailleTextarea()
+  etatBtnEnvoiRequete = false
 }
 
 function sendRequestFromConstructor() {

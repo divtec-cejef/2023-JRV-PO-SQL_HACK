@@ -21,7 +21,7 @@ function addWhere(){
 }
 
 function validerSansCondition(){
-  emits('valider_sans_condition', '')
+  emits('valider_sans_condition', 'sans_condition')
 }
 
 </script>
