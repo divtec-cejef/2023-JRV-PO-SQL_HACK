@@ -8,9 +8,11 @@ const listeTexte = ["Salut, hacker ! Aide moi à voler la Tesla de couleur noir 
 "Tu dois créer une requête SELECT qui permettra de rechercher dans la base de données la date de naissance du patron",
 "Dans l’écran suivant tu trouveras un constructeur sur ta gauche qui te permettra de construire ta requête"]
 var questionActuelle = 0
+const emits = defineEmits(['changement-ecran'])
+
 function nextText(){
   if (listeTexte.length < questionActuelle + 1){
-    message.value = "--------"
+    emits('changement-ecran', true)
   } else {
     message.value = listeTexte[questionActuelle]
     questionActuelle++

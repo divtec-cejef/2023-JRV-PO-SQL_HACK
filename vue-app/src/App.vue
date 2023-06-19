@@ -2,6 +2,20 @@
 import FormRequest from "@/components/FormRequest.vue";
 import Constructeur from "@/pages/constructeur/constructeur.vue";
 import Chat from "@/chatBox/chat.vue";
+import Cinématique from "@/pages/cinématique/cinématique.vue";
+import {ref} from "vue";
+
+let ecranJeu = ref(false)
+let cinematique = ref(true)
+let cle = ref(0)
+
+function changerEcran(valeur){
+  console.log(valeur)
+  ecranJeu = valeur
+  cinematique = false
+  cle.value += 1
+}
+
 </script>
 
 <template>
@@ -10,13 +24,12 @@ import Chat from "@/chatBox/chat.vue";
   </header>
 
   <main>
+    <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
 
-    <chat></chat>
-    <FormRequest></FormRequest>
-
-
-    <RouterLink to="/cinématique">Cinématique</RouterLink>
-    <router-view/>
+    <div v-if="ecranJeu">
+      <chat></chat>
+      <constructeur></constructeur>
+    </div>
 
   </main>
 </template>
