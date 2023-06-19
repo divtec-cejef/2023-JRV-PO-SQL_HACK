@@ -88,29 +88,24 @@
               <button class="btnValider" @click="valideRequete('delete')">Valider</button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
+
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
-      <div class="resultat_requete" id="resultat_requete">
+    <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
 
-      </div>
-
-
+    </div>
 
     <div class="bouton_finaux">
       <!-- Bouton finaux -->
       <button @click="effacer">Recommencer</button>
-
-
-    <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}">Envoyer la requête</button>
-
+      <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}">Envoyer la requête</button>
     </div>
   </div>
 </template>
@@ -131,28 +126,23 @@ import { sendRequest } from "@/tools/requestDB";
 
 /* déclarations des variables*/
 const text_requete = ref('')
-let resultat_requete = ref()
 const textCondition = ref()
 let constructeurActuel = 0
 let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
 let etatBtnEnvoiRequete = true
-const maDiv = ref(null)
 
-const styleTextArea = ref({
-  width: '99%',
-  height: '100%'
-});
-
-const styleDivTextarea = ref({
-  width: '100%',
-  height: '41%',
-  fontSize: '28px'
+const tailleDivResultatRequete = ref({
+  height: '270px',
+  width: '600px',
+  border: 'red solid 1px'
 });
 
 function changeTailleTextarea(){
-  styleTextArea.value.height = '600px'
+  tailleDivResultatRequete.value.height = '580px'
+  tailleDivResultatRequete.value.maxHeight = '580px'
+  tailleDivResultatRequete.value.overflow = 'auto'
 }
 
 function changeEtatBtnEnvoiRequete(){
@@ -182,7 +172,6 @@ function commandeSelectionee(valeur) {
     case "UPDATE":  commande_selectionnee = 2;  break;
     case "INSERT":  commande_selectionnee = 3;  break;
     case "DELETE":  commande_selectionnee = 4;  break;
-    case "sans_condition": commande_selectionnee = -1; break;
   }
 }
 
@@ -234,13 +223,16 @@ function testerInputText(){
  * + celui du constructeur et remet le constructeur actuel à 0
  */
 function effacer(){
+  //Supprimer l'ancienne table s'il en existe une
+  let oldTable = document.getElementById("table_result");
+  if (oldTable) {
+    oldTable.remove();
+  }
   text_requete.value = ""
   textCondition.value = ""
-  resultat_requete.value = ""
   constructeurActuel = 0
-  styleTextArea.value.height = '300px'
+  tailleDivResultatRequete.value.height = '270px'
   etatBtnEnvoiRequete = true
-  maDiv.removeChild(table)
 
 }
 

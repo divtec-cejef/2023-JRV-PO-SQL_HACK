@@ -24,13 +24,6 @@ function select(table, condition = 0, valeurCondition = 0){
 
 function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
 
-
-//Supprimer l'ancienne table s'il en existe une
-let oldTable = document.getElementById("table_result");
-if (oldTable) {
-oldTable.remove();
-}
-
 // Créer un nouvel élément <table>
     var table = document.createElement("table");
     table.id = "table_result";
