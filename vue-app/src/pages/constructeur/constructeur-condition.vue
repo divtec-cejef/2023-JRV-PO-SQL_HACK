@@ -2,7 +2,7 @@
 
   <div>
     <button @click="addWhere">Ajouter une condition +</button>
-    <button @click="validerSansCondition">Valider sans condition</button>
+    <button @click="validerSansCondition" v-if="etat">Valider sans condition</button>
   </div>
 
 </template>
@@ -10,7 +10,8 @@
 <script setup>
 import {defineEmits, ref} from 'vue'
 const emits = defineEmits(['where', 'sans-condition', 'valider_sans_condition'])
-const props = defineProps(['propriete_selectionnee'])
+const props = defineProps(['etat'])
+
 
 /***
  * Emet la chaine de caractère WHERE pour
@@ -21,7 +22,7 @@ function addWhere(){
 }
 
 function validerSansCondition(){
-  emits("valider_sans_condition", true)
+  emits('valider_sans_condition', 'sans_condition')
 }
 
 </script>

@@ -21,7 +21,8 @@
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
-              <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"></constructeur-condition>
+              <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"
+              :etat="true"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
@@ -45,10 +46,10 @@
               <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="btn_condition">
-              <constructeur-condition @where="propriété"></constructeur-condition>
+              <constructeur-condition @where="propriété" :etat="false"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel===4" class="constructeur_table_et_propriete">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
@@ -76,7 +77,7 @@
                                   @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2" class="btn_condition">
-              <constructeur-condition @where="propriété"></constructeur-condition>
+              <constructeur-condition @where="propriété" :etat="false"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel===3" class="constructeur_table_et_propriete">
               <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"
@@ -102,15 +103,13 @@
       </div>
 
 
+
     <div class="bouton_finaux">
       <!-- Bouton finaux -->
       <button @click="effacer">Recommencer</button>
 
-      <button class="vide" :class="{'disabled': etatBtnEnvoiRequete}" @click="envoyer">Envoyer la requête</button>
 
-
-      <button @click="sendRequestFromConstructor()">Envoyer la requête</button>
-
+    <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}">Envoyer la requête</button>
 
     </div>
   </div>
@@ -139,6 +138,7 @@ let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
 let etatBtnEnvoiRequete = true
+const maDiv = ref(null)
 
 const styleTextArea = ref({
   width: '99%',
@@ -182,6 +182,7 @@ function commandeSelectionee(valeur) {
     case "UPDATE":  commande_selectionnee = 2;  break;
     case "INSERT":  commande_selectionnee = 3;  break;
     case "DELETE":  commande_selectionnee = 4;  break;
+    case "sans_condition": commande_selectionnee = -1; break;
   }
 }
 
@@ -239,6 +240,8 @@ function effacer(){
   constructeurActuel = 0
   styleTextArea.value.height = '300px'
   etatBtnEnvoiRequete = true
+  maDiv.removeChild(table)
+
 }
 
 function proprieteInsert(valeur) {
@@ -283,7 +286,6 @@ function changeTableSelectionnee(valeur){
 /***
  * Fonction qui permet de tester le champs de saisie de la condition
  * @param commande si la commande correspond au constructeur actuel update
- *
  */
 function valideRequete(commande) {
   console.log(propriete_selectionnee);
@@ -327,7 +329,11 @@ function valideRequete(commande) {
   etatBtnEnvoiRequete = false
 }
 
-function validerSansCondition(valeur){
+function validerSansCondition(){
+  constructeurActuel = 6
+  text_requete.value += ";"
+  changeTailleTextarea()
+  etatBtnEnvoiRequete = false
 }
 
 function sendRequestFromConstructor() {

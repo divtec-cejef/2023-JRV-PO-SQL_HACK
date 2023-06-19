@@ -9,6 +9,7 @@
 const define = defineEmits(['valider-sans-condition'])
 
 function validerSansCondition(){
+
   define("valider-sans-condition", true)
 }
 
