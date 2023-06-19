@@ -47,7 +47,7 @@ header {
 
 /* Paramètres pour la totalité du tableau */
 .table_result {
-  width: max-content;
+  width: 100%;
   margin: auto ;
   border-collapse: collapse ;
   background: white;
@@ -55,29 +55,25 @@ header {
 
 /* Paramètres pour les cellules classiques ET les cellules d'en-tête */
 .table_result th, .table_result td {
-  border: 1px solid #8f10ff ;
+  border: 1px solid #000000 ;
   padding: 5px ;
 }
 
 /* Paramètres pour les lignes d'en-tête uniquement */
-.table_result thead tr {
+.table_result th {
   background-color: #8f10ff ;
   color: #ffffff ;
 }
 
-/* Paramètres pour les lignes de contenu */
-.table_result tbody tr {
-  background-color: #f2ecfe ;
-}
 
 /* Paramètres pour les lignes de contenu paires */
-.table_result tbody tr:nth-child(2n) {
-  background-color: #f9f6ff ;
+.table_result tr:not(:first-child):nth-child(even){
+  background-color: lightgray;
 }
 
-/* Paramètres pour les lignes de contenu au survol de la souris */
-.table_result tbody tr:hover {
-  background-color: #5000a9 ;
-  color: #ffffff ;
+.table_result td:hover {
+  background-color: #8f10ff ;
+  color: #ffffff;
 }
+
 </style>

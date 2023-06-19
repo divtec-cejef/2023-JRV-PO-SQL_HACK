@@ -49,6 +49,7 @@ oldTable.remove();
     for(let i = 0; i < data.length; i++) {
         if (data[i][conditionl] === valeurCondition || valeurCondition === 0) {
             let tr = document.createElement("tr");
+            tr.classList.add("tr_result");
             if (nomTable === "tb_personne"){
                 tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom + "</td><td>" + data[i].prenom + "</td><td>" + formatDate(data[i].date_de_naissance) + "</td><td>" + data[i].numero_de_tel + "</td>";
             }

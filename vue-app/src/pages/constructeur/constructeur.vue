@@ -422,4 +422,8 @@ button{
   color: gray;
 }
 
+.resultat_requete{
+  width: 100%;;
+}
+
 </style>
