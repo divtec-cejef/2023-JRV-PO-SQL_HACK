@@ -21,7 +21,8 @@
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
-              <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"></constructeur-condition>
+              <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"
+              :etat="true"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
@@ -45,10 +46,10 @@
               <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="btn_condition">
-              <constructeur-condition @where="propriété"></constructeur-condition>
+              <constructeur-condition @where="propriété" :etat="false"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel===4" class="constructeur_table_et_propriete">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="2"
+              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
@@ -76,7 +77,7 @@
                                   @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2" class="btn_condition">
-              <constructeur-condition @where="propriété"></constructeur-condition>
+              <constructeur-condition @where="propriété" :etat="false"></constructeur-condition>
             </div>
             <div v-if="constructeurActuel===3" class="constructeur_table_et_propriete">
               <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"
