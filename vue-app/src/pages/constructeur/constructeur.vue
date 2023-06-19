@@ -99,15 +99,10 @@
 
     <!-- Résultat de la requête -->
 
-    <div class="resultat_requete" :style="styleDivTextarea">
-      <textarea name="resultat_requete" id="result-requete" cols="2" rows="2" :value="resultat_requete" readonly
-      :style="styleTextArea"></textarea>
-
       <div class="resultat_requete" id="resultat_requete">
 
       </div>
 
-    </div>
 
     <div class="bouton_finaux">
       <!-- Bouton finaux -->
