@@ -1,5 +1,5 @@
-<template>
 
+<template>
   <!-- Écran de gauche qui contient : constructeur, texte requête
  et le résultat de la requête-->
   <div class="ecran_gauche">
@@ -97,8 +97,6 @@
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
-    <!-- Résultat de la requête -->
-
       <div class="resultat_requete" id="resultat_requete">
 
       </div>
@@ -140,7 +138,6 @@ let constructeurActuel = 0
 let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
-let table = "dasds"
 let etatBtnEnvoiRequete = true
 
 const styleTextArea = ref({
@@ -336,6 +333,8 @@ function validerSansCondition(valeur){
 function sendRequestFromConstructor() {
   sendRequest(text_requete.value);
 }
+
+
 </script>
 
 <style scoped>
@@ -362,7 +361,7 @@ button{
   width: 600px;
   height: 700px;
 }
-.text_requete textarea, .resultat_requete textarea{
+.text_requete textarea{
   resize: none;
 }
 
@@ -389,19 +388,6 @@ button{
   padding: 5px;
 }
 
-/* Resultat requête */
-.resultat_requete{
-  width: 99%;
-  height: 100%;
-}
-#result-requete{
-  width: 100%;
-  margin-top: -5px;
-  height: 41%;
-  font-size: 28px;
-  background-color: black;
-
-}
 .bouton_finaux button{
   width: 150px;
   margin-top: 30px;

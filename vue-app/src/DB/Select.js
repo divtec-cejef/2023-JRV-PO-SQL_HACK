@@ -23,15 +23,18 @@ function select(table, condition = 0, valeurCondition = 0){
 
 
 function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
+
+
 //Supprimer l'ancienne table s'il en existe une
-let oldTable = document.getElementById("tableHtml");
+let oldTable = document.getElementById("table_result");
 if (oldTable) {
 oldTable.remove();
 }
 
 // Créer un nouvel élément <table>
     var table = document.createElement("table");
-    table.id = "tableHtml";
+    table.id = "table_result";
+    table.classList.add("table_result");
     if (nomTable === "tb_personne"){
         table.innerHTML = "<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Date de naissance</th><th>Numéro de téléphone</th></tr>";
     }
@@ -60,8 +63,6 @@ oldTable.remove();
     }
     let Affichage = document.getElementById("resultat_requete");
     Affichage.appendChild(table)
-
-
 }
 
 // Fonction pour formater une date au format jj/mm/aaaa
