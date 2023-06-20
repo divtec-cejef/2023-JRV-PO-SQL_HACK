@@ -79,10 +79,11 @@ export default {
         date: new Date().toDateString()
       }
 
-      if (message.content === '1986-04-26') {
+      if (message.content === '1986-04-26' || message.content === '26-04-1986') {
         this.addNewMessage(1)
       } else {
         this.addNewMessage(2)
+
       }
 
       this.messages = [...this.messages, newMessage]
