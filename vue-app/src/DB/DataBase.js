@@ -62,6 +62,8 @@ request.onsuccess = function(event) {
         { nom_materiel: "Rouleau à peinture", quantite: 6 }
     ];
 
+    let dupontPlace = Math.floor(Math.random() * 100) + 1;
+
     for (var i = 0; i < 100; i++) {
         var nom = noms[Math.floor(Math.random() * noms.length)];
         var prenom = prenoms[Math.floor(Math.random() * prenoms.length)];
@@ -75,16 +77,17 @@ request.onsuccess = function(event) {
             numero_de_tel: numTelephone
         };
 
+
+
         var numeroPlaque = generatePlaqueNumber();
         var propri = nom + " " + prenom;
 
         var nouvelleVoiture = {
             couleur: couleurs[Math.floor(Math.random() * couleurs.length)],
-            numerp_de_plaque: numeroPlaque,
+            numero_de_plaque: numeroPlaque,
             proprietaire: propri,
             marque: marques[Math.floor(Math.random() * marques.length)]
         }
-
         // Ajouter chaque enregistrement dans la table tb_personne
         var transactionVoiture = db.transaction(["tb_personne"], "readwrite");
         var objectStoreVoiture = transactionVoiture.objectStore("tb_personne");
@@ -104,7 +107,22 @@ request.onsuccess = function(event) {
             var requestMat = objectStoreMat.add(materiel);
 
         }
+        if (i === dupontPlace){
+            var Dupont = {
+                nom: 'Dupont',
+                prenom: 'Martin',
+                date_de_naissance: new  Date('1986-04-26'),
+                numero_de_tel: '0763772504'
+            };
 
+            // Ajouter chaque enregistrement dans la table tb_personne
+            var transactionDupont = db.transaction(["tb_personne"], "readwrite");
+            var objectStoreDupont = transactionDupont.objectStore("tb_personne");
+            var requestDupont = objectStoreDupont.add(Dupont);
+            requestDupont.onerror = function(event) {
+                console.log("Erreur lors de l'ajout du Dupont");
+            };
+        }
         requestMat.onerror = function(event) {
             console.log("Erreur lors de l'ajout du matériel");
         };
@@ -129,11 +147,12 @@ function generateRandomPhoneNumber() {
 }
 
 function generatePlaqueNumber() {
-    var numTelephone = "JU";
+    var numPlaque = "JU";
     for (var i = 0; i < 5; i++) {
-        numTelephone += Math.floor(Math.random() * 10);
+        numPlaque += Math.floor(Math.random() * 10);
     }
-    return numTelephone;
+    console.log(numPlaque)
+    return numPlaque;
 }
 
 // Fonction pour générer une date de naissance aléatoire

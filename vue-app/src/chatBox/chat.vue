@@ -41,7 +41,7 @@ export default {
       ],
       messages: [],
       messagesVoleur: [
-        "Salut hackeur, envoie-moi le code pour déverrouiller la porte",
+        "Salut hackeur, envoie-moi le code pour déverrouiller la porte. Le nom du patron est Martin Dupont.",
         "Parfait, c'était ça",
         "Qu'est-ce que tu as fait, sérieux ? Tu veux que je me fasse arrêter ou quoi ? Donne-moi le bon code maintenant, sinon j'appelle la police."
       ],
@@ -79,7 +79,7 @@ export default {
         date: new Date().toDateString()
       }
 
-      if (message.content === '26-04-1986') {
+      if (message.content === '1986-04-26') {
         this.addNewMessage(1)
       } else {
         this.addNewMessage(2)
