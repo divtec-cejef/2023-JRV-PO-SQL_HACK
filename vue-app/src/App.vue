@@ -26,9 +26,9 @@ function changerEcran(valeur){
   <main>
     <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
 
-    <div v-if="ecranJeu">
-      <chat></chat>
+    <div v-if="ecranJeu" class="ecran_hackeur">
       <constructeur></constructeur>
+      <chat class="chat"></chat>
     </div>
 
   </main>
@@ -37,11 +37,6 @@ function changerEcran(valeur){
 <style>
 header {
   line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 
 @media (min-width: 1024px) {
@@ -87,6 +82,15 @@ header {
 .table_result td:hover {
   background-color: #8f10ff ;
   color: #ffffff;
+}
+
+.ecran_hackeur {
+  display: flex;
+  justify-content: space-around;
+}
+
+.chat {
+  align-self: flex-end;
 }
 
 </style>
