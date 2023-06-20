@@ -2,9 +2,8 @@
 
 import CinématiqueBulle from "@/pages/cinématique/cinématique-bulle.vue";
 import {ref} from "vue";
-const message= ref("Salut hacker")
-const listeTexte = ["Salut, hacker ! Aide moi à voler la Tesla de couleur noir dans le garage derrière moi ",
-"Pour entrer, il faut que tu trouves le mot de passe de l’alarme. Il me semble que c’est la date de naissance du patron",
+const message= ref("Salut, hacker ! Aide moi à voler la Tesla de couleur noir dans le garage derrière moi")
+const listeTexte = ["Pour entrer, il faut que tu trouves le mot de passe de l’alarme. Il me semble que c’est la date de naissance du patron",
 "Tu dois créer une requête SELECT qui permettra de rechercher dans la base de données la date de naissance du patron",
 "Dans l’écran suivant tu trouveras un constructeur sur ta gauche qui te permettra de construire ta requête"]
 var questionActuelle = 0
