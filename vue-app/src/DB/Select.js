@@ -50,7 +50,7 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
                 tr.innerHTML = "<td>" + data[i].idMateriel + "</td><td>" + data[i].nom_materiel + "</td>" + data[i].quantite + "<td>";
             }
             else if (nomTable === "tb_voiture"){
-                tr.innerHTML = "<td>" + data[i].idVoiture + "</td><td>" + data[i].couleur + "</td><td>" + data[i].numero_plaque + "</td><td>" + data[i].proprietaire + "</td><td>" + data[i].marque + "</td>";
+                tr.innerHTML = "<td>" + data[i].idVoiture + "</td><td>" + data[i].couleur + "</td><td>" + data[i].numero_de_plaque + "</td><td>" + data[i].proprietaire + "</td><td>" + data[i].marque + "</td>";
             }
             table.appendChild(tr);
         }
@@ -65,7 +65,7 @@ function formatDate(date) {
     var day = ("0" + d.getDate()).slice(-2);
     var month = ("0" + (d.getMonth() + 1)).slice(-2);
     var year = d.getFullYear();
-    return year + "-" + day + "-" + month;
+    return year + "-" + month + "-" + day ;
 }
 
 
