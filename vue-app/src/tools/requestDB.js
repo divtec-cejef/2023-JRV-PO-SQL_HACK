@@ -42,11 +42,12 @@ function executeSelectRequest(request) {
     if (numberWordInRequest(request) > 5 ) {
         const champsCondition = removeAccents(getWord(request, 5));
         const valeur = getWord(request, 7).replace(/"|'|;|/g, "");
-        if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture') {
-            parseInt(valeur);
+        if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
+            select(table, champsCondition,parseInt(valeur));
+        } else {
+            console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
+            select(table, champsCondition, valeur);
         }
-        console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
-        select(table, champsCondition, valeur);
     } else {
         console.log('table : ' + table);
         select(table);

@@ -84,7 +84,7 @@ request.onsuccess = function(event) {
 
         let nouvelleVoiture = {
             couleur: couleurs[Math.floor(Math.random() * couleurs.length)],
-            numero_de_plaque: numeroPlaque,
+            numero_plaque: numeroPlaque,
             proprietaire: propri,
             marque: marques[Math.floor(Math.random() * marques.length)]
         }
