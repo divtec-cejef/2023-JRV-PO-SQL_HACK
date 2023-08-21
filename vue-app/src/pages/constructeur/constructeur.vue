@@ -136,7 +136,6 @@ let etatBtnEnvoiRequete = true
 const tailleDivResultatRequete = ref({
   height: '270px',
   width: '600px',
-  border: 'red solid 1px'
 });
 
 function changeTailleTextarea(){
