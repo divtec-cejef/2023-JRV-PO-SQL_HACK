@@ -53,7 +53,7 @@ function executeSelectRequest(request) {
     if (numberWordInRequest(request) > 5 ) {
         const champsCondition = removeAccents(getWord(request, 5));
         const valeur = cleanString(getWord(request, 7));
-        if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture') {
+        if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
             select(table, champsCondition, parseInt(valeur));
         }
         else {

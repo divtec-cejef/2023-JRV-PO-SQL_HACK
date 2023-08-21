@@ -6,26 +6,27 @@ function insert(table, donnes){
     };
     request.onsuccess = function(event) {
         let db = event.target.result;
+        let Ajouts;
         if (table === "tb_personne") {
             console.log(donnes[0],donnes[1],donnes[2],donnes[3])
             let dateNaiss = new Date(donnes[2]);
             console.log(dateNaiss);
             console.log(formatDate(dateNaiss));
-            let Ajouts = {
+            Ajouts = {
                 nom: donnes[0],
                 prenom: donnes[1],
                 date_de_naissance: dateNaiss,
                 numero_de_tel: donnes[3]
             };
         } else if (table === "tb_voiture") {
-            let Ajouts = {
+            Ajouts = {
                 couleur: donnes[1],
                 numero_plaque: donnes[2],
                 proprietaire: donnes[3],
                 marque: donnes[4]
             }
         } else {
-            let Ajouts = {
+            Ajouts = {
                 nom_materiel: donnes[1],
                 quantite: donnes[2]
             };
