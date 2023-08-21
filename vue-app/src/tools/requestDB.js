@@ -73,7 +73,7 @@ function executeInsertRequest(request) {
     const table = getWord(request, 2);
     const dataArray = ref([]);
     for (let i = 5; i <= numberWordInRequest(request) - 1; i++) {
-        const dataClean = getWord(request, i).replace(/"|,|;|\(|\)/g, "");
+        const dataClean = getWord(request, i).replace(/'|"|,|;|\(|\)/g, "");
         dataArray.value.push(dataClean);
     }
     console.log(table, ',', dataArray.value);
