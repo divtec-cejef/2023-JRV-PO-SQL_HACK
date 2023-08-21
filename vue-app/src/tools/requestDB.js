@@ -26,13 +26,25 @@ function numberWordInRequest(request) {
 }
 
 /**
+ * Retire tout les accents d'une chaine de caractère.
+ * @param str Chaine de caractère à traiter.
+ * @returns {*} La chaine de caractère sans les accents.
+ */
+function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+/**
  * Récupère toutes les informations nécessaires pour exécuter une requête SELECT.
  */
 function executeSelectRequest(request) {
     const table = getWord(request, 3).replace(/"|'|;|/g, "");
     if (numberWordInRequest(request) > 5 ) {
-        const champsCondition = getWord(request, 5);
+        const champsCondition = removeAccents(getWord(request, 5));
         const valeur = getWord(request, 7).replace(/"|'|;|/g, "");
+        if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture') {
+            parseInt(valeur);
+        }
         console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
         select(table, champsCondition, valeur);
     } else {
