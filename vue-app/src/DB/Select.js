@@ -1,5 +1,5 @@
 
-function select(table, condition = 0, valeurCondition = 0){
+function select(table, condition = "0", valeurCondition = "0"){
     // Ouverture de la base de données "maBaseDeDonnees"
     let request = window.indexedDB.open("maBaseDeDonnees");
 
@@ -40,7 +40,8 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
 
 
     for(let i = 0; i < data.length; i++) {
-        if (data[i][conditionl] === valeurCondition || valeurCondition === 0) {
+        console.log(data[i][conditionl]);
+        if (data[i][conditionl] === valeurCondition || valeurCondition === "0") {
             let tr = document.createElement("tr");
             tr.classList.add("tr_result");
             if (nomTable === "tb_personne"){

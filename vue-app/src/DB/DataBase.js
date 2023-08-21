@@ -12,20 +12,20 @@ request.onupgradeneeded = function(event) {
     // Création table tb_personnel
     let objectStore =  db.createObjectStore("tb_personne", { keyPath: "idPersonne", autoIncrement:true });
     objectStore.createIndex("nom", "nom", { unique: false });
-    objectStore.createIndex("prénom", "prénom", { unique: false });
+    objectStore.createIndex("prenom", "prenom", { unique: false });
     objectStore.createIndex("date_de_naissance", "date_de_naissance", { unique: false });
-    objectStore.createIndex("numéro_de_tel", "numéro_de_tel", { unique: true });
+    objectStore.createIndex("numero_de_tel", "numero_de_tel", { unique: true });
 
     // Création table tb_materiel
     objectStore = db.createObjectStore("tb_materiel", { keyPath: "idMateriel", autoIncrement:true });
-    objectStore.createIndex("nom_matériel", "nom_matériel", { unique: false });
-    objectStore.createIndex("quantité", "quantité", { unique: false });
+    objectStore.createIndex("nom_materiel", "nom_materiel", { unique: false });
+    objectStore.createIndex("quantite", "quantite", { unique: false });
 
     // Création table tb_voiture
     objectStore = db.createObjectStore("tb_voiture", { keyPath: "idVoiture", autoIncrement:true });
     objectStore.createIndex("couleur", "couleur", { unique: false });
-    objectStore.createIndex("numéro_plaque", "numéro_plaque", { unique: true });
-    objectStore.createIndex("propriétaire", "propriétaire", { unique: false });
+    objectStore.createIndex("numero_plaque", "numero_plaque", { unique: true });
+    objectStore.createIndex("proprietaire", "proprietaire", { unique: false });
     objectStore.createIndex("marque", "marque", { unique: false });
 };
 
