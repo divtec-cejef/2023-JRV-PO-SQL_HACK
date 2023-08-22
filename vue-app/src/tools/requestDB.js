@@ -87,7 +87,7 @@ function executeUpdateRequest(request) {
     const table = getWord(request, 1);
     const champsModif = getWord(request, 3);
     const nouvelleValeur = cleanString(getWord(request, 5));
-    const valeurID = getWord(request, 9);
+    const valeurID = cleanString(getWord(request, 11));
     console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
     update(table, parseInt(valeurID), champsModif, nouvelleValeur);
 }
