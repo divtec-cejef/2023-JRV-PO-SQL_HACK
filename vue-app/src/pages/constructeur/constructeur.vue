@@ -19,12 +19,10 @@
             <div v-if="constructeurActuel === 1" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
-              <constructeur-bouton-retour :constructeur_actuel="constructeurActuel" @btn-retour="retour"></constructeur-bouton-retour>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
               <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"
               :etat="true"></constructeur-condition>
-              <constructeur-bouton-retour :constructeur_actuel="constructeurActuel" @btn-retour="retour"></constructeur-bouton-retour>
             </div>
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
@@ -90,24 +88,21 @@
           </div>
         </div>
       </div>
-
-      <div class="bouton_finaux">
-        <!-- Bouton finaux -->
-        <button @click="effacer">Recommencer</button>
-        <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}">Envoyer la requête</button>
-      </div>
     </div>
-
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
+      <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}" v-if="constructeurActuel === 6">Envoyer la requête</button>
+      <button @click="effacer">Recommencer</button>
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
     <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
 
     </div>
+
   </div>
+
 </template>
 
 <script setup>
