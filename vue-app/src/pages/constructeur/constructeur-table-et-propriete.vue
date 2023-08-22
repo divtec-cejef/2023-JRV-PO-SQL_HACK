@@ -72,6 +72,9 @@ switch (props.table) {
  * @param table Nom du tableau
  */
 function addPropriety(valeur, table) {
+  if (valeur === "propriétaire"){
+    valeur = "proprietaire"
+  }
   let props_select = valeur
   /* Test pour savoir si on a choisit SELECT*/
   valeur = " " + valeur

@@ -76,13 +76,16 @@
             <div v-if="constructeurActuel===2" class="btn_condition">
               <constructeur-condition @where="propriété" :etat="false"></constructeur-condition>
             </div>
-            <div v-if="constructeurActuel===3" class="constructeur_table_et_propriete">
-              <constructeur-table-et-propriete @propriete="propriété" :where="false" :commande="4"
-              @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></constructeur-table-et-propriete>
+            <div v-if="constructeurActuel === 2" class="saisie_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition">
+              <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
-            <div v-if="constructeurActuel===4" class="text_condition">
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-              <button class="btnValider" @click="valideRequete('delete')">Valider</button>
+            <div v-if="constructeurActuel===3" class="btn_condition">
+              <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
+              <div class="saisie_id">
+                <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="num_id">
+                <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
+              </div>
             </div>
           </div>
         </div>
@@ -321,14 +324,15 @@ function valideRequete(commande) {
   etatBtnEnvoiRequete = false
 }
 
-
 /***
  * Fonction qui permet de valider la saisie des input pour la requête
  * update et ensuite les ajouter les saisies au text area
  */
 function valideRequeteUpdate() {
   if (!isNaN(numId.value)) {
-    text_requete.value += " WHERE "
+    if (commande_selectionnee !== "DELETE") {
+      text_requete.value += " WHERE "
+    }
     switch (table_selectionnee) {
       case "tb_personne":
         text_requete.value += "idPersonne"
