@@ -15,14 +15,16 @@
           </div>
 
           <!-- requête SELECT -->
-          <div class="requete_select" v-if="commande_selectionnee===1">
+          <div class="requete_select" v-if="commande_selectionnee===1" :key="cle">
             <div v-if="constructeurActuel === 1" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
+              <constructeur-bouton-retour :constructeur_actuel="constructeurActuel" @btn-retour="retour"></constructeur-bouton-retour>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
               <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"
               :etat="true"></constructeur-condition>
+              <constructeur-bouton-retour :constructeur_actuel="constructeurActuel" @btn-retour="retour"></constructeur-bouton-retour>
             </div>
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
@@ -42,21 +44,13 @@
                                             @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition">
               <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="btn_condition">
-              <constructeur-condition @where="propriété" :etat="false"></constructeur-condition>
+              <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="num_id">
+              <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
             </div>
-            <div v-if="constructeurActuel===4" class="constructeur_table_et_propriete">
-              <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
-                                            @propriete_selectionnee="changeProprieteSelectionnee"
-                                            :table="table_selectionnee"></ConstructeurTableEtPropriete>
-            </div>
-          </div>
-          <div v-if="constructeurActuel===5" class="text_condition">
-            <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition">
-            <button class="btnValider" @click="valideRequete('update')">Valider</button>
           </div>
 
           <!-- requête INSERT -->
@@ -90,6 +84,12 @@
           </div>
         </div>
       </div>
+
+      <div class="bouton_finaux">
+        <!-- Bouton finaux -->
+        <button @click="effacer">Recommencer</button>
+        <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}">Envoyer la requête</button>
+      </div>
     </div>
 
 
@@ -102,11 +102,6 @@
 
     </div>
 
-    <div class="bouton_finaux">
-      <!-- Bouton finaux -->
-      <button @click="effacer">Recommencer</button>
-      <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}">Envoyer la requête</button>
-    </div>
   </div>
 </template>
 
@@ -119,6 +114,7 @@ import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-proper
 
 import {reactive, ref} from "vue";
 import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-valider-sans-condition.vue"
+import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
 
 
 import { sendRequest } from "@/tools/requestDB";
@@ -127,11 +123,13 @@ import { sendRequest } from "@/tools/requestDB";
 /* déclarations des variables*/
 const text_requete = ref('')
 const textCondition = ref()
+const numId = ref()
 let constructeurActuel = 0
 let commande_selectionnee = 0
 let table_selectionnee = ""
 let propriete_selectionnee = ""
 let etatBtnEnvoiRequete = true
+let cle = ref(0)
 
 const tailleDivResultatRequete = ref({
   height: '270px',
@@ -321,6 +319,34 @@ function valideRequete(commande) {
   etatBtnEnvoiRequete = false
 }
 
+
+/***
+ * Fonction qui permet de valider la saisie des input pour la requête
+ * update et ensuite les ajouter les saisies au text area
+ */
+function valideRequeteUpdate() {
+  if (!isNaN(numId.value)) {
+    text_requete.value += " WHERE "
+    switch (table_selectionnee) {
+      case "tb_personne":
+        text_requete.value += "idPersonne"
+        break
+      case "tb_voiture":
+        text_requete.value += "idVoiture"
+        break
+      case "tb_materiel":
+        text_requete.value += "idMateriel"
+        break
+    }
+    text_requete.value += " = " + numId.value
+    constructeurActuel = 6
+    text_requete.value += ";"
+    changeTailleTextarea()
+  } else {
+    window.alert("Vous devez saisir un nombre")
+  }
+}
+
 function validerSansCondition(){
   constructeurActuel = 6
   text_requete.value += ";"
@@ -332,6 +358,10 @@ function sendRequestFromConstructor() {
   sendRequest(text_requete.value);
 }
 
+function retour(valeur){
+  constructeurActuel = valeur
+  console.log(constructeurActuel + " " + commande_selectionnee)
+}
 
 </script>
 
