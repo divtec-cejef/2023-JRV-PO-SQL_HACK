@@ -37,7 +37,7 @@ function removeAccents(chaine) {
 }
 
 /**
- * retire les caractères suivant : " ' ; dans une chaine de caractère.
+ * Retire les caractères suivant : " ' ; dans une chaine de caractère.
  * @param chaine La chaine de caractère à traiter.
  * @returns {*} La chaine de caractère sans les caractères sélectionnés.
  */
@@ -85,11 +85,18 @@ function executeInsertRequest(request) {
  */
 function executeUpdateRequest(request) {
     const table = getWord(request, 1);
-    const champsModif = getWord(request, 3);
+    const champsModif = cleanString(getWord(request, 3));
     const nouvelleValeur = cleanString(getWord(request, 5));
-    const valeurID = getWord(request, 9);
-    console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
-    update(table, parseInt(valeurID), champsModif, nouvelleValeur);
+    const valeurID = getWord(request, 11);
+    if (checkFields(table, champsModif) === true) {
+        const nouvelleValeurProprio = cleanString(getWord(request, 5)) + ' ' + cleanString(getWord(request, 6));
+        const valeurID = getWord(request, 12);
+        console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
+        update(table, parseInt(valeurID), champsModif, nouvelleValeurProprio);
+    }else {
+        update(table, parseInt(valeurID), champsModif, nouvelleValeur);
+        console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
+    }
 }
 
 /**
@@ -101,6 +108,22 @@ function executeDeleteRequest(request) {
     const valeurID = getWord(request, 6);
     console.log(table, champsID, valeurID);
     Delete(table, parseInt(valeurID));
+}
+
+/**
+ * Vérifie si le champs à modifier correspond au champs 'propriétaire'.
+ * @param table Table qui contient le champs.
+ * @param champsConcerner Le champs à vérifier.
+ * @returns {boolean} Vrai si le champs correspond au champs 'propriétaire', sinon faux.
+ */
+function checkFields(table, champsConcerner) {
+    if (table === "tb_voiture") {
+        if (champsConcerner === "proprietaire") {
+            return true;
+        }
+    }else {
+        return false;
+    }
 }
 
 /**
