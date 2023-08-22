@@ -22,6 +22,7 @@
 
 <script>
 import { register } from 'vue-advanced-chat'
+import * as timers from "timers";
 register()
 
 export default {
@@ -43,7 +44,8 @@ export default {
       messagesVoleur: [
         "Salut hackeur, envoie-moi le code pour déverrouiller la porte. Le nom du patron est Martin Dupont.",
         "Parfait, c'était ça",
-        "Qu'est-ce que tu as fait, sérieux ? Tu veux que je me fasse arrêter ou quoi ? Donne-moi le bon code maintenant, sinon j'appelle la police."
+        "Qu'est-ce que tu as fait, sérieux ? Tu veux que je me fasse arrêter ou quoi ? Donne-moi le bon code maintenant, sinon j'appelle la police.",
+        "Maintenant, il faut que tu modifies le propriétaire de la tesla noire et tu la mets à mon nom."
       ],
       messagesLoaded: false
     }
@@ -80,9 +82,11 @@ export default {
       }
 
       if (message.content === '1986-04-26' || message.content === '26-04-1986') {
-        this.addNewMessage(1)
+        this.addNewMessage(1, 2000)
+
+        this.addNewMessage(3, 3000)
       } else {
-        this.addNewMessage(2)
+        this.addNewMessage(2, 2000)
 
       }
 
@@ -91,7 +95,7 @@ export default {
       console.log(message.content)
     },
 
-    addNewMessage(index) {
+    addNewMessage(index, timeout) {
       setTimeout(() => {
         this.messages = [
           ...this.messages,
@@ -103,7 +107,7 @@ export default {
             date: new Date().toDateString()
           }
         ]
-      }, 2000)
+      }, timeout)
     }
   }
 }
