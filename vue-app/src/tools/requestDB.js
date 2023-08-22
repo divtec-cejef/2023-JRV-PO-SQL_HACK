@@ -1,6 +1,8 @@
 // const requestSaisie = '';
 
 
+import {ref} from "vue";
+
 /**
  * Récupère les mots de la chaine de caractère.
  * @param request La chaine de caractère à traiter.
@@ -26,15 +28,38 @@ function numberWordInRequest(request) {
 }
 
 /**
+ * Retire tout les accents d'une chaine de caractère.
+ * @param chaine La chaine de caractère à traiter.
+ * @returns {*} La chaine de caractère sans les accents.
+ */
+function removeAccents(chaine) {
+    return chaine.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+/**
+ * retire les caractères suivant : " ' ; dans une chaine de caractère.
+ * @param chaine La chaine de caractère à traiter.
+ * @returns {*} La chaine de caractère sans les caractères sélectionnés.
+ */
+function cleanString(chaine) {
+    return chaine.replace(/"|'|;|/g, "");
+}
+
+/**
  * Récupère toutes les informations nécessaires pour exécuter une requête SELECT.
  */
 function executeSelectRequest(request) {
-    const table = getWord(request, 3).replace(/"|'|;|/g, "");
+    const table = cleanString(getWord(request, 3));
     if (numberWordInRequest(request) > 5 ) {
-        const champsCondition = getWord(request, 5);
-        const valeur = getWord(request, 7).replace(/"|'|;|/g, "");
+        const champsCondition = removeAccents(getWord(request, 5));
+        const valeur = cleanString(getWord(request, 7));
+        if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
+            select(table, champsCondition, parseInt(valeur));
+        }
+        else {
+            select(table, champsCondition, valeur);
+        }
         console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
-        select(table, champsCondition, valeur);
     } else {
         console.log('table : ' + table);
         select(table);
@@ -48,11 +73,11 @@ function executeInsertRequest(request) {
     const table = getWord(request, 2);
     const dataArray = ref([]);
     for (let i = 5; i <= numberWordInRequest(request) - 1; i++) {
-        const dataClean = getWord(request, i).replace(/"|,|;|\(|\)/g, "");
+        const dataClean = getWord(request, i).replace(/'|"|,|;|\(|\)/g, "");
         dataArray.value.push(dataClean);
     }
     console.log(table, ',', dataArray.value);
-    insert(table,dataArray.value);
+    insert(table, dataArray.value);
 }
 
 /**
@@ -61,8 +86,8 @@ function executeInsertRequest(request) {
 function executeUpdateRequest(request) {
     const table = getWord(request, 1);
     const champsModif = getWord(request, 3);
-    const nouvelleValeur = getWord(request, 5).replace(/"|'|;|/g, "");
-    const valeurID = getWord(request, 9);
+    const nouvelleValeur = cleanString(getWord(request, 5));
+    const valeurID = cleanString(getWord(request, 11));
     console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
     update(table, parseInt(valeurID), champsModif, nouvelleValeur);
 }

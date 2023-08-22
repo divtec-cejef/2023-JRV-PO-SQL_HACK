@@ -1,19 +1,19 @@
 // Ouverture de la base de données "maBaseDeDonnees"
 window.indexedDB.deleteDatabase("maBaseDeDonnees");
-var request = window.indexedDB.open("maBaseDeDonnees");
+let request = window.indexedDB.open("maBaseDeDonnees");
 request.onerror = function(event) {
     console.log("Erreur d'ouverture de la base de données");
 };
 
 // Création des tables dans la base de données
 request.onupgradeneeded = function(event) {
-    var db = event.target.result;
+    let db = event.target.result;
 
     // Création table tb_personnel
-    var objectStore =  db.createObjectStore("tb_personne", { keyPath: "idPersonne", autoIncrement:true });
+    let objectStore =  db.createObjectStore("tb_personne", { keyPath: "idPersonne", autoIncrement:true });
     objectStore.createIndex("nom", "nom", { unique: false });
     objectStore.createIndex("prenom", "prenom", { unique: false });
-    objectStore.createIndex("date_de_naissance", "Date_de_naissance", { unique: false });
+    objectStore.createIndex("date_de_naissance", "date_de_naissance", { unique: false });
     objectStore.createIndex("numero_de_tel", "numero_de_tel", { unique: true });
 
     // Création table tb_materiel
@@ -31,15 +31,15 @@ request.onupgradeneeded = function(event) {
 
 
 request.onsuccess = function(event) {
-    var db = event.target.result;
+    let db = event.target.result;
 
     // Générer 100 enregistrements avec des noms et prénoms existants
-    var noms = ["Dupont", "Durand", "Martin", "Lefevre", "Dubois","Santin", "Pinto", "Zuber", "Glauser", "Renaud","Beuchat", "Fresard", "Odiet", "Mertz", "Rondez","Reist", "Broquet", "Demars", "Choulat", "Jubin","Caillet", "Aubry", "Marti", "Yerly", "Gerber","Crelier", "Piloti", "Hays", "Burkalthere", "Rion","Marchand", "Constantin", "Willemin", "Giullieri", "Wuthrich","Bandelier", "Raval", "Saner", "Clerc", "Theuvenat"];
-    var prenoms = ["Jean", "Pierre", "Marie", "Sophie", "Julie","Liam", "Luca", "Evan", "Tobias", "Chloé","Odin", "Alexis", "Mathilde", "Rayan", "Colin","Ryan", "Michael Elliot", "Gauthier", "Noé", "Mael","Thomas", "Simon", "Loic", "Line", "Zoé","Basile", "Hugo", "Tom", "Melio", "Malo","Rémy", "Tifan", "Noah", "Yanis", "Alois","Nolan", "Jerome", "Kevin", "Jules", "Bernard"];
-    var marques = ["Tesla", "Ferrari", "Lamborghini", "Volvo", "BMW", "Mercedes", "Ferrari", "Touc-touc"];
-    var couleurs = ["Bleu", "Rouge", "Vert", "Noir", "Blanc", "Gris", "Blouge", "Marron"];
+    let noms = ["Dupont", "Durand", "Lefevre", "Dubois","Santin", "Pinto", "Zuber", "Glauser", "Renaud","Beuchat", "Fresard", "Odiet", "Mertz", "Rondez","Reist", "Broquet", "Demars", "Choulat", "Jubin","Caillet", "Aubry", "Marti", "Yerly", "Gerber","Crelier", "Piloti", "Hays", "Burkalthere", "Rion","Marchand", "Constantin", "Willemin", "Giullieri", "Wuthrich","Bandelier", "Raval", "Saner", "Clerc", "Theuvenat"];
+    let prenoms = ["Jean", "Pierre", "Marie", "Sophie", "Julie","Liam", "Luca", "Evan", "Tobias", "Chloé","Odin", "Alexis", "Mathilde", "Rayan", "Colin","Ryan", "Michael Elliot", "Gauthier", "Noé", "Mael","Thomas", "Simon", "Loic", "Line", "Zoé","Basile", "Hugo", "Tom", "Melio", "Malo","Rémy", "Tifan", "Noah", "Yanis", "Alois","Nolan", "Jerome", "Kevin", "Jules", "Bernard"];
+    let marques = ["Tesla", "Ferrari", "Lamborghini", "Volvo", "BMW", "Mercedes", "Ferrari", "Touc-touc"];
+    let couleurs = ["Bleu", "Rouge", "Vert", "Noir", "Blanc", "Gris", "Blouge", "Marron"];
     // Ajouter 20 enregistrements fictifs dans la table tb_materiel
-    var materiels = [
+    let materiels = [
         { nom_materiel: "Clé à molette", quantite: 5 },
         { nom_materiel: "Tournevis", quantite: 10 },
         { nom_materiel: "Marteau", quantite: 3 },
@@ -62,53 +62,69 @@ request.onsuccess = function(event) {
         { nom_materiel: "Rouleau à peinture", quantite: 6 }
     ];
 
-    for (var i = 0; i < 100; i++) {
-        var nom = noms[Math.floor(Math.random() * noms.length)];
-        var prenom = prenoms[Math.floor(Math.random() * prenoms.length)];
-        var dateNaissance = new Date(generateRandomDateOfBirth());
-        var numTelephone = generateRandomPhoneNumber();
+    let dupontPlace = Math.floor(Math.random() * 100) + 1;
 
-        var nouveauPersonne = {
+    for (let i = 0; i < 100; i++) {
+        let nom = noms[Math.floor(Math.random() * noms.length)];
+        let prenom = prenoms[Math.floor(Math.random() * prenoms.length)];
+        let dateNaissance = new Date(generateRandomDateOfBirth());
+        let numTelephone = generateRandomPhoneNumber();
+
+        let nouveauPersonne = {
             nom: nom,
             prenom: prenom,
             date_de_naissance: dateNaissance,
             numero_de_tel: numTelephone
         };
 
-        var numeroPlaque = generatePlaqueNumber();
-        var propri = nom + " " + prenom;
 
-        var nouvelleVoiture = {
+
+        let numeroPlaque = generatePlaqueNumber();
+        let propri = nom + " " + prenom;
+
+        let nouvelleVoiture = {
             couleur: couleurs[Math.floor(Math.random() * couleurs.length)],
-            numerp_de_plaque: numeroPlaque,
+            numero_plaque: numeroPlaque,
             proprietaire: propri,
             marque: marques[Math.floor(Math.random() * marques.length)]
         }
+        // Ajouter chaque enregistrement dans la table tb_personne
+        let transactionVoiture = db.transaction(["tb_personne"], "readwrite");
+        let objectStoreVoiture = transactionVoiture.objectStore("tb_personne");
+        let requestVoiture = objectStoreVoiture.add(nouveauPersonne);
 
         // Ajouter chaque enregistrement dans la table tb_personne
-        var transactionVoiture = db.transaction(["tb_personne"], "readwrite");
-        var objectStoreVoiture = transactionVoiture.objectStore("tb_personne");
-        var requestVoiture = objectStoreVoiture.add(nouveauPersonne);
-
-        // Ajouter chaque enregistrement dans la table tb_personne
-        var transactionPersonne = db.transaction(["tb_voiture"], "readwrite");
-        var objectStorePersonne = transactionPersonne.objectStore("tb_voiture");
-        var requestPersonne = objectStorePersonne.add(nouvelleVoiture);
+        let transactionPersonne = db.transaction(["tb_voiture"], "readwrite");
+        let objectStorePersonne = transactionPersonne.objectStore("tb_voiture");
+        let requestPersonne = objectStorePersonne.add(nouvelleVoiture);
 
         if (i<20){
-            var materiel = materiels[i];
+            let materiel = materiels[i];
 
             // Ajouter chaque enregistrement dans la table tb_materiel
-            var transactionMat = db.transaction(["tb_materiel"], "readwrite");
-            var objectStoreMat = transactionMat.objectStore("tb_materiel");
-            var requestMat = objectStoreMat.add(materiel);
-
+            let transactionMat = db.transaction(["tb_materiel"], "readwrite");
+            let objectStoreMat = transactionMat.objectStore("tb_materiel");
+            let requestMat = objectStoreMat.add(materiel);
+            requestMat.onerror = function(event) {
+                console.log("Erreur lors de l'ajout du matériel");
+            };
         }
+        if (i === dupontPlace){
+            let Dupont = {
+                nom: 'Dupont',
+                prenom: 'Martin',
+                date_de_naissance: new  Date('1986-04-26'),
+                numero_de_tel: '0763772504'
+            };
 
-        requestMat.onerror = function(event) {
-            console.log("Erreur lors de l'ajout du matériel");
-        };
-
+            // Ajouter chaque enregistrement dans la table tb_personne
+            let transactionDupont = db.transaction(["tb_personne"], "readwrite");
+            let objectStoreDupont = transactionDupont.objectStore("tb_personne");
+            let requestDupont = objectStoreDupont.add(Dupont);
+            requestDupont.onerror = function(event) {
+                console.log("Erreur lors de l'ajout du Dupont");
+            };
+        }
         requestPersonne.onerror = function(event) {
             console.log("Erreur lors de l'ajout de la personne");
         };
@@ -121,26 +137,27 @@ request.onsuccess = function(event) {
 };
 
 function generateRandomPhoneNumber() {
-    var numTelephone = "041";
-    for (var i = 0; i < 7; i++) {
+    let numTelephone = "041";
+    for (let i = 0; i < 7; i++) {
         numTelephone += Math.floor(Math.random() * 10);
     }
     return numTelephone;
 }
 
 function generatePlaqueNumber() {
-    var numTelephone = "JU";
-    for (var i = 0; i < 5; i++) {
-        numTelephone += Math.floor(Math.random() * 10);
+    let numPlaque = "JU";
+    for (let i = 0; i < 5; i++) {
+        numPlaque += Math.floor(Math.random() * 10);
     }
-    return numTelephone;
+    console.log(numPlaque)
+    return numPlaque;
 }
 
 // Fonction pour générer une date de naissance aléatoire
 function generateRandomDateOfBirth() {
-    var year = Math.floor(Math.random() * (2003 - 1950) + 1950); // Année entre 1950 et 2002
-    var month = Math.floor(Math.random() * 12) + 1; // Mois entre 1 et 12
-    var day = Math.floor(Math.random() * 28) + 1; // Jour entre 1 et 28
+    let year = Math.floor(Math.random() * (2003 - 1950) + 1950); // Année entre 1950 et 2002
+    let month = Math.floor(Math.random() * 12) + 1; // Mois entre 1 et 12
+    let day = Math.floor(Math.random() * 28) + 1; // Jour entre 1 et 28
 
     return new Date(year, month - 1, day);
 }

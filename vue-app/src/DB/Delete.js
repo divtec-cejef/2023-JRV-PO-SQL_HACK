@@ -1,16 +1,16 @@
 function Delete(tableName, id){
-    var request = window.indexedDB.open("maBaseDeDonnees");
+    let request = window.indexedDB.open("maBaseDeDonnees");
 
     request.onerror = function(event) {
         console.log("Erreur d'ouverture de la base de données");
     };
 
     request.onsuccess = function(event) {
-        var db = event.target.result;
-        var transaction = db.transaction([tableName], "readwrite");
-        var objectStore = transaction.objectStore(tableName);
-        var deleteRequest = objectStore.delete(id);
-        var oldTable = document.getElementById("tableHtml");
+        let db = event.target.result;
+        let transaction = db.transaction([tableName], "readwrite");
+        let objectStore = transaction.objectStore(tableName);
+        let deleteRequest = objectStore.delete(id);
+        let oldTable = document.getElementById("tableHtml");
         if (oldTable) {
             oldTable.remove();
         }

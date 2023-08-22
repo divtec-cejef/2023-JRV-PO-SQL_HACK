@@ -1,7 +1,7 @@
 
 function select(table, condition = 0, valeurCondition = 0){
     // Ouverture de la base de données "maBaseDeDonnees"
-    var request = window.indexedDB.open("maBaseDeDonnees");
+    let request = window.indexedDB.open("maBaseDeDonnees");
 
     request.onerror = function(event) {
         console.log("Erreur d'ouverture de la base de données");
@@ -9,13 +9,13 @@ function select(table, condition = 0, valeurCondition = 0){
 
 // Sélection des enregistrements dans la table "personne"
     request.onsuccess = function(event) {
-        var db = event.target.result;
-        var transaction = db.transaction([table], "readonly");
-        var objectStore = transaction.objectStore(table);
-        var request = objectStore.getAll();
+        let db = event.target.result;
+        let transaction = db.transaction([table], "readonly");
+        let objectStore = transaction.objectStore(table);
+        let request = objectStore.getAll();
 
         request.onsuccess = function(event) {
-            var data = event.target.result;
+            let data = event.target.result;
             return afficherTablePersonne(data,table,condition,valeurCondition)
         };
     };
@@ -25,7 +25,7 @@ function select(table, condition = 0, valeurCondition = 0){
 function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
 
 // Créer un nouvel élément <table>
-    var table = document.createElement("table");
+    let table = document.createElement("table");
     table.id = "table_result";
     table.classList.add("table_result");
     if (nomTable === "tb_personne"){
@@ -40,13 +40,14 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
 
 
     for(let i = 0; i < data.length; i++) {
-        if (data[i][conditionl] === valeurCondition || valeurCondition === 0) {
+        if (data[i][conditionl] === valeurCondition || valeurCondition === 0 || formatDate(data[i].date_de_naissance) === valeurCondition) {
             let tr = document.createElement("tr");
+            tr.classList.add("tr_result");
             if (nomTable === "tb_personne"){
                 tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom + "</td><td>" + data[i].prenom + "</td><td>" + formatDate(data[i].date_de_naissance) + "</td><td>" + data[i].numero_de_tel + "</td>";
             }
             else if (nomTable === "tb_materiel"){
-                tr.innerHTML = "<td>" + data[i].idMateriel + "</td><td>" + data[i].nom_materiel + "</td>" + data[i].quantite + "<td>";
+                tr.innerHTML = "<td>" + data[i].idMateriel + "</td><td>" + data[i].nom_materiel + "</td><td>" + data[i].quantite + "</td>";
             }
             else if (nomTable === "tb_voiture"){
                 tr.innerHTML = "<td>" + data[i].idVoiture + "</td><td>" + data[i].couleur + "</td><td>" + data[i].numero_plaque + "</td><td>" + data[i].proprietaire + "</td><td>" + data[i].marque + "</td>";
@@ -60,11 +61,11 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
 
 // Fonction pour formater une date au format jj/mm/aaaa
 function formatDate(date) {
-    var d = new Date(date);
-    var day = ("0" + d.getDate()).slice(-2);
-    var month = ("0" + (d.getMonth() + 1)).slice(-2);
-    var year = d.getFullYear();
-    return year + "-" + day + "-" + month;
+    let d = new Date(date);
+    let day = ("0" + d.getDate()).slice(-2);
+    let month = ("0" + (d.getMonth() + 1)).slice(-2);
+    let year = d.getFullYear();
+    return year + "-" + month + "-" + day ;
 }
 
 

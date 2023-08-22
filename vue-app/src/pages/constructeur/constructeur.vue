@@ -139,7 +139,6 @@ let cle = ref(0)
 const tailleDivResultatRequete = ref({
   height: '270px',
   width: '600px',
-  border: 'red solid 1px'
 });
 
 function changeTailleTextarea(){
@@ -449,9 +448,11 @@ button{
   pointer-events: none;
   color: gray;
 }
+
 .text_saisie_id{
   color: white;
   font-size: 32px;
   padding-top: 30px;
 }
+
 </style>
