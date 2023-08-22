@@ -87,10 +87,10 @@ function executeUpdateRequest(request) {
     const table = getWord(request, 1);
     const champsModif = cleanString(getWord(request, 3));
     const nouvelleValeur = cleanString(getWord(request, 5));
-    const valeurID = getWord(request, 11);
+    const valeurID = cleanString(getWord(request, 11));
     if (checkFields(table, champsModif) === true) {
         const nouvelleValeurProprio = cleanString(getWord(request, 5)) + ' ' + cleanString(getWord(request, 6));
-        const valeurID = getWord(request, 12);
+        const valeurID = cleanString(getWord(request, 12));
         console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
         update(table, parseInt(valeurID), champsModif, nouvelleValeurProprio);
     }else {

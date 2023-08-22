@@ -9,7 +9,7 @@
       </ul>
       <ul class="table_personne" :class="{'disabled': disabledTablePersonne}">
         <p>Personne</p>
-        <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')">
+        <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')" v-if="index !==0">
           {{ propriete }}
         </li>
       </ul>
