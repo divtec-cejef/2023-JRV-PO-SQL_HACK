@@ -48,8 +48,11 @@
               <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="btn_condition">
-              <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="num_id">
-              <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
+              <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
+              <div class="saisie_id">
+                <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="num_id">
+                <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
+              </div>
             </div>
           </div>
 
@@ -101,7 +104,6 @@
     <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
 
     </div>
-
   </div>
 </template>
 
@@ -443,5 +445,9 @@ button{
   pointer-events: none;
   color: gray;
 }
-
+.text_saisie_id{
+  color: white;
+  font-size: 32px;
+  padding-top: 30px;
+}
 </style>
