@@ -25,16 +25,27 @@
 </template>
 
 <script setup>
-import {computed, reactive, ref, resolveDirective} from "vue";
+import {computed, onMounted, reactive, ref, resolveDirective} from "vue";
 
-/* déclarations des 3 tableau pour les propriété des tables*/
+// déclarations des 3 tableaux qui contiennent les "propriétés" des tables
 const tb_voiture = ["idVoiture", "couleur", "marque", "propriétaire", "numéro_plaque"]
 const tb_personne = ["idPersonne", "nom", "prénom", "date_de_naissance", "numéro_de_tel"]
 const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
 
+/***
+ * Au lancement du composant, si isUpdate est "True", alors
+ * on supprime le premier élément des listes (l'id) pour éviter un bug
+ * dans la base de donnée
+ */
+if (props.isUpdate) {
+  tb_personne.shift()
+  tb_voiture.shift()
+  tb_materiel.shift()
+}
+
 /* émet*/
 const propriete = defineEmits(['propriete','propriete_selectionnee', 'table_selectionnee'])
-const props = defineProps(['where', 'commande', 'table']);
+const props = defineProps(['where', 'commande', 'table', 'isUpdate']);
 
 // style de la table qui est indisponible
 let disabledTableVoiture = false

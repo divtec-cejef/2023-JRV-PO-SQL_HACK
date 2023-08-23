@@ -29,7 +29,8 @@
                                             @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition">
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Text de la condition" class="text_condition">
+              <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="saisissez ici" class="text_condition">
               <button class="btnValider" @click="valideRequete('select')">Valider</button>
             </div>
           </div>
@@ -39,7 +40,7 @@
             <div v-if="constructeurActuel === 1">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
-                                            @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
+                                            @table_selectionnee="changeTableSelectionnee" :is-update="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition">
@@ -75,7 +76,7 @@
               <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
               <div class="saisie_id">
                 <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="num_id">
-                <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
+                <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
               </div>
             </div>
           </div>
@@ -85,9 +86,9 @@
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
-      <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}"
-              v-if="constructeurActuel === 6" :disabled="buttonEnvoyerIsDisabled">Envoyer la requête</button>
-      <button @click="effacer">Recommencer</button>
+<!--      <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}"-->
+<!--              v-if="constructeurActuel === 6" :disabled="buttonEnvoyerIsDisabled">Envoyer la requête</button>-->
+      <button @click="effacer" class="bouton_recommencer">Recommencer</button>
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
@@ -124,7 +125,7 @@ let table_selectionnee = ""
 let propriete_selectionnee = ""
 let etatBtnEnvoiRequete = true
 let cle = ref(0)
-const buttonEnvoyerIsDisabled = ref(false)
+let texteTitreSaisieID = ref()
 
 const tailleDivResultatRequete = ref({
   height: '270px',
@@ -135,6 +136,7 @@ function changeTailleTextarea(){
   tailleDivResultatRequete.value.height = '580px'
   tailleDivResultatRequete.value.maxHeight = '580px'
   tailleDivResultatRequete.value.overflow = 'auto'
+
 }
 
 function changeEtatBtnEnvoiRequete(){
@@ -190,6 +192,7 @@ function propriété(valeur){
 function validerValuesInsert(valeur){
   addValeurToTextRequete(valeur)
   constructeurActuel = 6
+  sendRequestFromConstructor()
 }
 
 
@@ -224,8 +227,6 @@ function effacer(){
   textCondition.value = ""
   constructeurActuel = 0
   tailleDivResultatRequete.value.height = '270px'
-  etatBtnEnvoiRequete = true
-  buttonEnvoyerIsDisabled.value = false
 }
 
 function proprieteInsert(valeur) {
@@ -245,13 +246,6 @@ function proprieteDelete(valeur){
   constructeurActuel++
 }
 
-/****
- * Affiche la requête dans un window alert
- */
-function envoyer(){
-  window.alert(text_requete.value)
-}
-
 /**
  * Fonction qui permet de changer la variable "propriete_selectionnee"
  * avec la valeur passé en paramètre
@@ -260,11 +254,27 @@ function envoyer(){
 function changeProprieteSelectionnee(valeur){
   propriete_selectionnee = valeur
   textCondition.value = ""
+  changeTextEnCasDeID(valeur)
 }
 
+/***
+ * Fonction qui change la table_selectionnee
+ * avec la valeur passé en paramètre
+ * @param valeur table_selectionnee
+ */
 function changeTableSelectionnee(valeur){
   table_selectionnee = valeur
   console.log(valeur)
+}
+
+function changeTextEnCasDeID(propriete_selectionnee){
+  if (propriete_selectionnee === "idVoiture" ||
+      propriete_selectionnee === "idPersonne" ||
+      propriete_selectionnee === "idMateriel") {
+    texteTitreSaisieID.value = "Saisissez l'id (numéro) correspondant"
+  } else {
+    texteTitreSaisieID.value = "Saisissez le texte de la condition"
+  }
 }
 
 /***
@@ -278,7 +288,7 @@ function valideRequete(commande) {
     if (Number.isInteger(parseInt(textCondition.value))) {
       addValeurToTextRequete(textCondition.value);
     } else {
-      window.alert("Vous devez saisir un nombre");
+      window.alert("Vous devez saisir un nombre (ID)");
       return;
     }
   } else if (propriete_selectionnee === "date_de_naissance") {
@@ -311,6 +321,7 @@ function valideRequete(commande) {
     changeTailleTextarea()
   }
   etatBtnEnvoiRequete = false
+  sendRequestFromConstructor()
 }
 
 /***
@@ -340,23 +351,27 @@ function valideRequeteUpdate() {
   } else {
     window.alert("Vous devez saisir un nombre")
   }
+  sendRequestFromConstructor()
 }
 
+/***
+ * Fonction qui valide la requête
+ */
 function validerSansCondition(){
   constructeurActuel = 6
   text_requete.value += ";"
   changeTailleTextarea()
   etatBtnEnvoiRequete = false
+  sendRequestFromConstructor()
 }
 
+/***
+ * Fonction qui exécute la fonction qui envoie la requête
+ * en chaine de caractère STRING passé en paramètre de la fonction
+ * "sendRequest"
+ */
 function sendRequestFromConstructor() {
-  buttonEnvoyerIsDisabled.value = true
   sendRequest(text_requete.value);
-}
-
-function retour(valeur){
-  constructeurActuel = valeur
-  console.log(constructeurActuel + " " + commande_selectionnee)
 }
 
 </script>
@@ -427,9 +442,9 @@ button{
 .saisie_condition{
   display: inline-block;
   text-align: center;
-  padding-top: 100px;
-  padding-right: 200px;
-  padding-left: 200px;
+  padding-right: 80px;
+  padding-left: 80px;
+  padding-top: 50px;
 }
 .property_insert{
   margin-left: 150px;
@@ -442,8 +457,11 @@ button{
 
 .text_saisie_id{
   color: white;
-  font-size: 32px;
-  padding-top: 30px;
+  font-size: 36px;
+  padding-top: 32px;
 }
 
+.bouton_recommencer {
+  margin: 10px;
+}
 </style>
