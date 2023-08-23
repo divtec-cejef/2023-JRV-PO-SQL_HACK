@@ -1,3 +1,6 @@
+
+
+
 function update(tableName,  id, propriete, updatedData) {
     console.log("id" + id)
     let request = window.indexedDB.open("maBaseDeDonnees");

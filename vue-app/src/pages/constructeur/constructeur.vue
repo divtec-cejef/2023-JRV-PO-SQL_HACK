@@ -43,15 +43,14 @@
                                             @table_selectionnee="changeTableSelectionnee" :is-update="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
+              <div class="text_saisie_id">Saisissez la condition</div>
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition">
               <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
             </div>
-            <div v-if="constructeurActuel===3" class="btn_condition">
+            <div v-if="constructeurActuel===3" class="saisie_condition">
               <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
-              <div class="saisie_id">
-                <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="num_id">
-                <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
-              </div>
+              <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition">
+              <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
             </div>
           </div>
 
@@ -73,9 +72,9 @@
                                   @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2" class="btn_condition">
-              <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
-              <div class="saisie_id">
-                <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="num_id">
+              <div class="saisie_condition">
+                <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
+                <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition">
                 <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
               </div>
             </div>
@@ -86,10 +85,9 @@
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
-<!--      <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}"-->
-<!--              v-if="constructeurActuel === 6" :disabled="buttonEnvoyerIsDisabled">Envoyer la requête</button>-->
       <button @click="effacer" class="bouton_recommencer">Recommencer</button>
-      <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
+      <button @click="retour">Retour</button>
+      <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
     <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
@@ -126,6 +124,7 @@ let propriete_selectionnee = ""
 let etatBtnEnvoiRequete = true
 let cle = ref(0)
 let texteTitreSaisieID = ref()
+let text_requete_temp = ""
 
 const tailleDivResultatRequete = ref({
   height: '270px',
@@ -177,8 +176,17 @@ function commandeSelectionee(valeur) {
 function propriété(valeur){
   commandeSelectionee(valeur)
   addValeurToTextRequete(valeur)
-  constructeurActuel++
   console.log(constructeurActuel + " " + commande_selectionnee)
+  if (constructeurActuel === 1){
+    text_requete_temp = valeur
+  } else if (constructeurActuel === 2){
+    text_requete_temp = text_requete.value
+    console.log(text_requete_temp)
+  }
+  console.log("constructeur actuel : "+constructeurActuel)
+  console.log("texte temp : "+text_requete_temp)
+  console.log("----------------------")
+  constructeurActuel++
 }
 
 /****
@@ -227,6 +235,12 @@ function effacer(){
   textCondition.value = ""
   constructeurActuel = 0
   tailleDivResultatRequete.value.height = '270px'
+}
+
+function retour(){
+  text_requete.value = text_requete_temp
+  constructeurActuel--
+
 }
 
 function proprieteInsert(valeur) {
@@ -374,9 +388,25 @@ function sendRequestFromConstructor() {
   sendRequest(text_requete.value);
 }
 
+
 </script>
 
 <style scoped>
+
+/* Animation d'écriture du texte */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.typing-animation{
+  animation: typing 3s steps(30, end) infinite;
+}
+
 *{
   margin: 0;
 }
@@ -415,6 +445,7 @@ button{
   width: 99%;
   margin: 0;
 }
+
 #text-requete{
   width: 588px;
   font-size: 28px;

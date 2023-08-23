@@ -1,4 +1,6 @@
 
+
+
 function select(table, condition = 0, valeurCondition = 0){
     // Ouverture de la base de données "maBaseDeDonnees"
     let request = window.indexedDB.open("maBaseDeDonnees");
