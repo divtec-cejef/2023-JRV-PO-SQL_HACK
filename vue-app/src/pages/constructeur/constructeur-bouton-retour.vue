@@ -10,7 +10,7 @@ function decrement(){
   let constActu = props.constructeur_actuel
   constActu--
   console.log(constActu)
-  emits("btn-retour", constActu)
+  emits('btn-retour', constActu)
   // if (props.constructeur_actuel !== 0){
   //   console.log(props.constructeur_actuel)
   //   emits("btn-retour", props.constructeur_actuel--)

@@ -22,6 +22,7 @@
 
 <script>
 import { register } from 'vue-advanced-chat'
+import * as timers from "timers";
 register()
 
 export default {
@@ -119,7 +120,7 @@ export default {
       console.log(message.content)
     },
 
-    addNewMessage(index) {
+    addNewMessage(index, timeout) {
       setTimeout(() => {
         this.messages = [
           ...this.messages,
@@ -131,7 +132,7 @@ export default {
             date: new Date().toDateString()
           }
         ]
-      }, 2000)
+      }, timeout)
     }
   }
 }
