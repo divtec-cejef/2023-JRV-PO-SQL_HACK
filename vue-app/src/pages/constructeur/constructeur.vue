@@ -94,13 +94,12 @@
     <div class="text_requete">
       <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}" v-if="constructeurActuel === 6">Envoyer la requête</button>
       <button @click="effacer">Recommencer</button>
-      <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
+      <textarea ref="textarea1" name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
     <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
 
     </div>
-
   </div>
 
 </template>
@@ -112,7 +111,7 @@ import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
 
-import {reactive, ref} from "vue";
+import {reactive, ref, onMounted, onUnmounted} from "vue";
 import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-valider-sans-condition.vue"
 import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
 
@@ -364,6 +363,15 @@ function retour(valeur){
   constructeurActuel = valeur
   console.log(constructeurActuel + " " + commande_selectionnee)
 }
+
+function updateTextarea(info) {
+  console.log("lala");
+  text_requete.value = info;
+}
+
+window.addEventListener('updateTextareaEvent', (event) => {
+  updateTextarea(event.detail);
+});
 
 </script>
 
