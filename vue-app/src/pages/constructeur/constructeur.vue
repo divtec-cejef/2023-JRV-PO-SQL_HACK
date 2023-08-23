@@ -72,13 +72,6 @@
                                   @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2" class="btn_condition">
-              <constructeur-condition @where="propriété" :etat="false"></constructeur-condition>
-            </div>
-            <div v-if="constructeurActuel === 2" class="saisie_condition">
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition">
-              <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
-            </div>
-            <div v-if="constructeurActuel===3" class="btn_condition">
               <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
               <div class="saisie_id">
                 <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="num_id">
@@ -92,7 +85,8 @@
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
-      <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}" v-if="constructeurActuel === 6">Envoyer la requête</button>
+      <button @click="sendRequestFromConstructor()" :class="{'disabled': etatBtnEnvoiRequete}"
+              v-if="constructeurActuel === 6" :disabled="buttonEnvoyerIsDisabled">Envoyer la requête</button>
       <button @click="effacer">Recommencer</button>
       <textarea name="text_requete" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
@@ -130,6 +124,7 @@ let table_selectionnee = ""
 let propriete_selectionnee = ""
 let etatBtnEnvoiRequete = true
 let cle = ref(0)
+const buttonEnvoyerIsDisabled = ref(false)
 
 const tailleDivResultatRequete = ref({
   height: '270px',
@@ -230,7 +225,7 @@ function effacer(){
   constructeurActuel = 0
   tailleDivResultatRequete.value.height = '270px'
   etatBtnEnvoiRequete = true
-
+  buttonEnvoyerIsDisabled.value = false
 }
 
 function proprieteInsert(valeur) {
@@ -355,6 +350,7 @@ function validerSansCondition(){
 }
 
 function sendRequestFromConstructor() {
+  buttonEnvoyerIsDisabled.value = true
   sendRequest(text_requete.value);
 }
 

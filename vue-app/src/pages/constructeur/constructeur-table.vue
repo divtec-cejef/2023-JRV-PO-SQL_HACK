@@ -18,6 +18,11 @@
 const propriete = defineEmits(['propriete', 'props-delete'])
 const props = defineProps(['table'])
 
+/***
+ * Fonction qui permet d'émettre la valeur passer en paramètre
+ * dans le constructeur principal
+ * @param valeur nom de la table passé en paramètre dans le code html
+ */
 function emitsTableSelectionnee(valeur){
   propriete('propriete', valeur)
   propriete('props-delete', valeur)
