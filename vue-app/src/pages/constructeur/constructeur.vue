@@ -34,7 +34,7 @@
             </div>
           </div>
 
-          <!-- requête UPDATE -->s
+          <!-- requête UPDATE -->
           <div class="requete_update, constructeur_table_et_propriete" v-if="commande_selectionnee===2">
             <div v-if="constructeurActuel === 1">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
