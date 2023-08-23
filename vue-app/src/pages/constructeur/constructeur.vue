@@ -93,7 +93,6 @@
     <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
 
     </div>
-
   </div>
 
 </template>
@@ -105,15 +104,15 @@ import ConstructeurTable from "@/pages/constructeur/constructeur-table.vue";
 import ConstructeurCondition from "@/pages/constructeur/constructeur-condition.vue";
 import ConstructeurPropertyInsert from "@/pages/constructeur/constructeur-property-insert.vue";
 
-import {reactive, ref} from "vue";
+import {reactive, ref, onMounted, onUnmounted} from "vue";
 import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-valider-sans-condition.vue"
 import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
-
 
 import { sendRequest } from "@/tools/requestDB";
 
 
 /* déclarations des variables*/
+const textareaContent = ref('');
 const text_requete = ref('')
 const textCondition = ref()
 const numId = ref()
@@ -127,6 +126,8 @@ let texteTitreSaisieID = ref()
 let text_requete_temp = ""
 let btnRetourIsDisabled = true
 let historiqueTextRequete = ref([])
+
+
 
 const tailleDivResultatRequete = ref({
   height: '270px',
@@ -408,6 +409,15 @@ function sendRequestFromConstructor() {
   sendRequest(text_requete.value);
 }
 
+
+function updateTextarea(info) {
+  console.log("lala");
+  text_requete.value = info;
+}
+
+window.addEventListener('updateTextareaEvent', (event) => {
+  updateTextarea(event.detail);
+});
 
 </script>
 

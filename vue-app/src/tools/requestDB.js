@@ -2,7 +2,9 @@
 
 
 import {ref} from "vue";
-
+import { update } from '@/DB/Update.js';
+import { Delete } from '@/DB/Delete.js';
+import { insert } from '@/DB/Insert.js';
 /**
  * Récupère les mots de la chaine de caractère.
  * @param request La chaine de caractère à traiter.
@@ -37,7 +39,7 @@ function removeAccents(chaine) {
 }
 
 /**
- * retire les caractères suivant : " ' ; dans une chaine de caractère.
+ * Retire les caractères suivant : " ' ; dans une chaine de caractère.
  * @param chaine La chaine de caractère à traiter.
  * @returns {*} La chaine de caractère sans les caractères sélectionnés.
  */
@@ -46,13 +48,27 @@ function cleanString(chaine) {
 }
 
 /**
+ * Ajoute une majuscule à la 1ère lettre de la saisie de l'utilisateur.
+ * @param saisie Le texte saisi par l'utilisateur.
+ * @returns {string} La saisie de l'utilisateur avec la 1ère lettre en majuscule.
+ */
+function firstLetterToUpper(saisie) {
+    if (saisie.length === 1) {
+        return saisie.toUpperCase();
+    }else if (saisie.length > 1){
+        return saisie.charAt(0).toUpperCase() +  saisie.slice(1);
+    }
+}
+
+/**
  * Récupère toutes les informations nécessaires pour exécuter une requête SELECT.
  */
 function executeSelectRequest(request) {
-    const table = cleanString(getWord(request, 3));
+    let table = cleanString(getWord(request, 3));
     if (numberWordInRequest(request) > 5 ) {
-        const champsCondition = removeAccents(getWord(request, 5));
-        const valeur = cleanString(getWord(request, 7));
+        let champsCondition = removeAccents(getWord(request, 5));
+        let valeur = cleanString(getWord(request, 7));
+        valeur = firstLetterToUpper(valeur);
         if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
             select(table, champsCondition, parseInt(valeur));
         }
@@ -70,37 +86,70 @@ function executeSelectRequest(request) {
  * Récupère toutes les informations nécessaires pour exécuter une requête INSERT.
  */
 function executeInsertRequest(request) {
-    const table = getWord(request, 2);
-    const dataArray = ref([]);
+    let table = getWord(request, 2);
+    let dataArray = ref([]);
     for (let i = 5; i <= numberWordInRequest(request) - 1; i++) {
-        const dataClean = getWord(request, i).replace(/'|"|,|;|\(|\)/g, "");
+        let dataClean = getWord(request, i).replace(/'|"|,|;|\(|\)/g, "");
+        dataClean = firstLetterToUpper(dataClean);
+
         dataArray.value.push(dataClean);
     }
-    console.log(table, ',', dataArray.value);
-    insert(table, dataArray.value);
+    if (table === 'tb_voiture') {
+        dataArray.value[2] = dataArray.value[2] + " " + dataArray.value[3];
+        dataArray.value.splice(3, 1);
+        console.log(table, ',', dataArray.value);
+        insert(table, dataArray.value);
+    }else {
+        console.log(table, ',', dataArray.value);
+        insert(table, dataArray.value);
+    }
 }
 
 /**
  * Récupère toutes les informations nécessaires pour exécuter une requête UPDATE.
  */
 function executeUpdateRequest(request) {
-    const table = getWord(request, 1);
-    const champsModif = getWord(request, 3);
-    const nouvelleValeur = cleanString(getWord(request, 5));
-    const valeurID = cleanString(getWord(request, 11));
-    console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
-    update(table, parseInt(valeurID), champsModif, nouvelleValeur);
+    let table = getWord(request, 1);
+    let champsModif = cleanString(getWord(request, 3));
+    let nouvelleValeur = cleanString(getWord(request, 5));
+    nouvelleValeur = firstLetterToUpper(nouvelleValeur);
+    let valeurID = cleanString(getWord(request, 9));
+    if (checkFields(table, champsModif) === true) {
+        let nouvelleValeurProprio = cleanString(getWord(request, 5)) + ' ' + cleanString(getWord(request, 6));
+        let valeurID = cleanString(getWord(request, 10));
+        console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
+        update(table, parseInt(valeurID), champsModif, nouvelleValeurProprio);
+    }else {
+        update(table, parseInt(valeurID), champsModif, nouvelleValeur);
+        console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
+    }
 }
 
 /**
  * Récupère toutes les informations nécessaires pour exécuter une requête DELETE.
  */
 function executeDeleteRequest(request) {
-    const table = getWord(request, 2);
-    const champsID = getWord(request, 4);
-    const valeurID = getWord(request, 6);
+    let table = getWord(request, 2);
+    let champsID = getWord(request, 4);
+    let valeurID = getWord(request, 6);
     console.log(table, champsID, valeurID);
     Delete(table, parseInt(valeurID));
+}
+
+/**
+ * Vérifie si le champs à modifier correspond au champs 'propriétaire'.
+ * @param table Table qui contient le champs.
+ * @param champsConcerner Le champs à vérifier.
+ * @returns {boolean} Vrai si le champs correspond au champs 'propriétaire', sinon faux.
+ */
+function checkFields(table, champsConcerner) {
+    if (table === 'tb_voiture') {
+        if (champsConcerner === 'proprietaire') {
+            return true;
+        }
+    }else {
+        return false;
+    }
 }
 
 /**

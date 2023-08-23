@@ -1,3 +1,8 @@
+// Importez createApp depuis Vue
+import { createApp } from 'vue';
+
+// Créez une instance d'application Vue
+const app = createApp({});
 function Delete(tableName, id){
     let request = window.indexedDB.open("maBaseDeDonnees");
 
@@ -16,10 +21,14 @@ function Delete(tableName, id){
         }
 
         deleteRequest.onsuccess = function(event) {
+            const updateEvent = new CustomEvent('updateTextareaEvent', { detail: 'Suppression réussie' });
+            window.dispatchEvent(updateEvent);
             console.log("Suppression réussie");
         };
 
         deleteRequest.onerror = function(event) {
+            const updateEvent = new CustomEvent('updateTextareaEvent', { detail: 'Erreur lors de la suppression de l\'enregistrement' });
+            window.dispatchEvent(updateEvent);
             console.log("Erreur lors de la suppression de l'enregistrement");
         };
 
@@ -33,3 +42,4 @@ function Delete(tableName, id){
     };
 
 }
+export { Delete };

@@ -1,3 +1,9 @@
+// Importez createApp depuis Vue
+import { createApp } from 'vue';
+
+// Créez une instance d'application Vue
+const app = createApp({});
+
 function insert(table, donnes){
     let request = window.indexedDB.open("maBaseDeDonnees");
 
@@ -20,15 +26,15 @@ function insert(table, donnes){
             };
         } else if (table === "tb_voiture") {
             Ajouts = {
-                couleur: donnes[1],
-                numero_plaque: donnes[2],
-                proprietaire: donnes[3],
-                marque: donnes[4]
+                couleur: donnes[0],
+                numero_plaque: donnes[1],
+                proprietaire: donnes[2],
+                marque: donnes[3]
             }
         } else {
             Ajouts = {
-                nom_materiel: donnes[1],
-                quantite: donnes[2]
+                nom_materiel: donnes[0],
+                quantite: donnes[1]
             };
         }
         // Ajouter chaque enregistrement
@@ -37,9 +43,13 @@ function insert(table, donnes){
         let request = objectStore.add(Ajouts);
 
         request.onerror = function (event) {
+            const updateEvent = new CustomEvent('updateTextareaEvent', { detail: 'Erreur lors de l\'ajout' });
+            window.dispatchEvent(updateEvent);
             console.log("Erreur lors de l'ajout");
         };
         request.onsuccess = function (event){
+            const updateEvent = new CustomEvent('updateTextareaEvent', { detail: 'Donnée ajoutée!' });
+            window.dispatchEvent(updateEvent);
             console.log("Donné ajouté!");
         };
     }
@@ -48,3 +58,4 @@ function insert(table, donnes){
         oldTable.remove();
     }
 }
+export { insert };

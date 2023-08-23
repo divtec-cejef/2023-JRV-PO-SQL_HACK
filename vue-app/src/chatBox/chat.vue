@@ -22,6 +22,7 @@
 
 <script>
 import { register } from 'vue-advanced-chat'
+import * as timers from "timers";
 register()
 
 export default {
@@ -43,9 +44,16 @@ export default {
       messagesVoleur: [
         "Salut hackeur, envoie-moi le code pour déverrouiller la porte. Le nom du patron est Martin Dupont.",
         "Parfait, c'était ça",
-        "Qu'est-ce que tu as fait, sérieux ? Tu veux que je me fasse arrêter ou quoi ? Donne-moi le bon code maintenant, sinon j'appelle la police."
+        "Qu'est-ce que tu as fait, sérieux ? Tu veux que je me fasse arrêter ou quoi ? Donne-moi le bon code maintenant, sinon j'appelle la police.",
+        "Maintenant, il faut que tu modifies le propriétaire de la tesla noire et tu la mets au nom de John Doe. D'abord trouve le propriétaire d'une tesla noir et donne moi son nom",
+        "Niquel, c'est la bonne personne",
+        "Même pas en rêve, je le connais",
+        "Retiens son id et grâce à cela change de propriétaire et met toi à sa place et écrit moi OK quand c'est fait",
+        "Parfait, bien joué tu peux partir avec maintenant",
+        "Essaye de partir avec et on t'arrêtera, alors fais pas le mariole et change de propriétaire"
       ],
-      messagesLoaded: false
+      messagesLoaded: false,
+      etape: 1
     }
   },
 
@@ -78,12 +86,33 @@ export default {
         timestamp: new Date().toString().substring(16, 21),
         date: new Date().toDateString()
       }
-
-      if (message.content === '1986-04-26' || message.content === '26-04-1986') {
-        this.addNewMessage(1)
-      } else {
-        this.addNewMessage(2)
-
+      if (this.etape === 1){
+        if (message.content === '1986-04-26' || message.content === '26-04-1986') {
+          this.addNewMessage(1)
+          this.etape = this.etape+1;
+          setTimeout(() =>{
+            this.addNewMessage(3)
+          }, 2000)
+        } else {
+          this.addNewMessage(2)
+        }
+      } else if (this.etape === 2){
+        if (message.content === 'Rejome Viral') {
+          this.addNewMessage(4)
+          this.etape = this.etape+1;
+          setTimeout(() =>{
+            this.addNewMessage(6)
+          }, 2000)
+        } else {
+          this.addNewMessage(5)
+        }
+      } else if (this.etape === 3){
+        if (message.content === 'OK') {
+          this.addNewMessage(7)
+          this.etape = this.etape+1;
+        } else {
+          this.addNewMessage(8);
+        }
       }
 
       this.messages = [...this.messages, newMessage]
@@ -91,7 +120,7 @@ export default {
       console.log(message.content)
     },
 
-    addNewMessage(index) {
+    addNewMessage(index, timeout) {
       setTimeout(() => {
         this.messages = [
           ...this.messages,
@@ -103,7 +132,7 @@ export default {
             date: new Date().toDateString()
           }
         ]
-      }, 2000)
+      }, timeout)
     }
   }
 }
