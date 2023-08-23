@@ -34,10 +34,10 @@ request.onsuccess = function(event) {
     let db = event.target.result;
 
     // Générer 100 enregistrements avec des noms et prénoms existants
-    let noms = ["Dupont", "Durand", "Lefevre", "Dubois","Santin", "Pinto", "Zuber", "Glauser", "Renaud","Beuchat", "Fresard", "Odiet", "Mertz", "Rondez","Reist", "Broquet", "Demars", "Choulat", "Jubin","Caillet", "Aubry", "Marti", "Yerly", "Gerber","Crelier", "Piloti", "Hays", "Burkalthere", "Rion","Marchand", "Constantin", "Willemin", "Giullieri", "Wuthrich","Bandelier", "Raval", "Saner", "Clerc", "Theuvenat"];
-    let prenoms = ["Jean", "Pierre", "Marie", "Sophie", "Julie","Liam", "Luca", "Evan", "Tobias", "Chloé","Odin", "Alexis", "Mathilde", "Rayan", "Colin","Ryan", "Michael Elliot", "Gauthier", "Noé", "Mael","Thomas", "Simon", "Loic", "Line", "Zoé","Basile", "Hugo", "Tom", "Melio", "Malo","Rémy", "Tifan", "Noah", "Yanis", "Alois","Nolan", "Jerome", "Kevin", "Jules", "Bernard"];
-    let marques = ["Tesla", "Ferrari", "Lamborghini", "Volvo", "BMW", "Mercedes", "Ferrari", "Touc-touc"];
-    let couleurs = ["Bleu", "Rouge", "Vert", "Noir", "Blanc", "Gris", "Blouge", "Marron"];
+    let noms = ["Dupont", "Durand", "Lefevre", "Dubois", "Santin", "Pinto", "Zuber", "Glauser", "Renaud", "Beuchat", "Fresard", "Odiet", "Mertz", "Rondez", "Reist", "Broquet", "Demars", "Choulat", "Jubin", "Caillet", "Aubry", "Marti", "Yerly", "Gerber", "Crelier", "Piloti", "Hays", "Burkalthere", "Rion", "Marchand", "Constantin", "Willemin", "Giullieri", "Wuthrich", "Bandelier", "Raval", "Saner", "Clerc", "Theuvenat", "Morin", "Gagnon", "Roy", "Lévesque", "Johnson", "Smith", "Brown", "Tremblay", "Martin", "García", "Martínez", "Rodríguez", "Pérez", "López", "González", "Hernández", "Moreno", "Álvarez", "Romero", "Fernández", "Müller", "Schmidt", "Schneider", "Fischer", "Weber", "Wagner", "Becker", "Russo", "Bianchi", "Romano", "Ferrari", "Esposito", "Ricci", "Gallo"];
+    let prenoms = ["Jean", "Pierre", "Marie", "Sophie", "Julie", "Liam", "Luca", "Evan", "Tobias", "Chloé", "Odin", "Alexis", "Mathilde", "Rayan", "Colin", "Ryan", "Michael", "Elliot", "Gauthier", "Noé", "Mael", "Thomas", "Simon", "Loic", "Line", "Zoé", "Basile", "Hugo", "Tom", "Melio", "Malo", "Rémy", "Tifan", "Noah", "Yanis", "Alois", "Nolan", "Jerome", "Kevin", "Jules", "Bernard", "Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia", "Harper", "Evelyn", "Liam", "Noah", "Oliver", "Elijah", "William", "James", "Benjamin", "Lucas", "Henry", "Alexander", "Alejandro", "Sofía", "Javier", "Valentina", "Diego", "Camila", "Carlos", "Élise", "Julien", "Lucie", "Mathieu", "Sophie", "Antoine", "Laure", "Hannah", "Leon", "Emma", "Maximilian", "Lena", "Paul", "Mia", "Alessia", "Luca", "Sofia", "Gabriele", "Giulia", "Marco", "Emma", "Yamamoto", "Suzuki", "Takahashi", "Tanaka", "Watanabe", "Ito", "Nakamura", "Kobayashi", "Sato", "Kato", "Leong", "Chong", "Lau", "Tan", "Chen", "Wang", "Li", "Huang", "Wong", "Kim", "Lee", "Park", "Choi", "Nguyen", "Tran", "Nguyen", "Pham", "Huynh", "Truong", "Vo", "Hoang", "Nguyen", "Kim", "Bui", "Vu"];
+    let marques = ["Toyota", "Ford", "Chevrolet", "Honda", "Volkswagen", "Nissan", "Mercedes-Benz", "BMW", "Audi", "Hyundai", "Kia", "Mazda", "Subaru", "Lexus", "Volvo", "Porsche", "Ferrari", "Lamborghini", "Maserati", "Jaguar", "Land Rover", "Tesla", "Buick", "Cadillac", "Chrysler", "Dodge", "Jeep", "GMC", "Lincoln", "Mitsubishi", "Ram", "Acura", "Alfa Romeo", "Genesis", "Infiniti", "MINI", "Smart", "Suzuki", "Aston Martin", "Bentley", "Bugatti", "Lotus", "McLaren", "Rolls-Royce"];
+    let couleurs = ["Blanc", "Gris", "Argent", "Bleu foncé", "Bleu clair", "Rouge", "Rouge foncé", "Rouge métallique", "Vert foncé", "Vert clair", "Jaune", "Orange", "Brun", "Beige", "Marron", "Violet", "Rose", "Turquoise", "Bleu marine", "Gris anthracite", "Blanc perle", "Bleu électrique", "Vert pomme", "Rouge rubis", "Gris métallique", "Noir métallique", "Gris métal", "Brun métallique", "Gris perle", "Vert olive", "Bleu glacier", "Bleu ciel", "Rouge passion", "Rouge intense", "Jaune citron", "Orange vif", "Marron chocolat", "Violet profond", "Bleu saphir", "Gris étain", "Blanc glacier", "Rouge flamme", "Vert émeraude", "Vert forêt", "Bleu océan", "Rouge bordeaux", "Rouge carmin", "Bleu nuit", "Blanc ivoire", "Brun cuir", "Vert citron", "Bleu perle", "Gris acier", "Noir ébène"];
     // Ajouter 20 enregistrements fictifs dans la table tb_materiel
     let materiels = [
         { nom_materiel: "Clé à molette", quantite: 5 },
@@ -64,7 +64,7 @@ request.onsuccess = function(event) {
 
     let dupontPlace = Math.floor(Math.random() * 100) + 1;
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10000; i++) {
         let nom = noms[Math.floor(Math.random() * noms.length)];
         let prenom = prenoms[Math.floor(Math.random() * prenoms.length)];
         let dateNaissance = new Date(generateRandomDateOfBirth());
@@ -93,7 +93,7 @@ request.onsuccess = function(event) {
         let objectStoreVoiture = transactionVoiture.objectStore("tb_personne");
         let requestVoiture = objectStoreVoiture.add(nouveauPersonne);
 
-        // Ajouter chaque enregistrement dans la table tb_personne
+        // Ajouter chaque enregistrement dans la table tb_voiture
         let transactionPersonne = db.transaction(["tb_voiture"], "readwrite");
         let objectStorePersonne = transactionPersonne.objectStore("tb_voiture");
         let requestPersonne = objectStorePersonne.add(nouvelleVoiture);
@@ -116,6 +116,17 @@ request.onsuccess = function(event) {
                 date_de_naissance: new  Date('1986-04-26'),
                 numero_de_tel: '0763772504'
             };
+
+            let VoiturePinto = {
+                couleur: "Noir",
+                numero_plaque: 123456789,
+                proprietaire: 'Rejome Viral',
+                marque: 'Tesla'
+            }
+            // Ajouter chaque enregistrement dans la table tb_voiture
+            let transactionPersonne = db.transaction(["tb_voiture"], "readwrite");
+            let objectStorePersonne = transactionPersonne.objectStore("tb_voiture");
+            let requestPersonne = objectStorePersonne.add(VoiturePinto);
 
             // Ajouter chaque enregistrement dans la table tb_personne
             let transactionDupont = db.transaction(["tb_personne"], "readwrite");

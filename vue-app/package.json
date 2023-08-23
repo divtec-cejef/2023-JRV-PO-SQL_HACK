@@ -12,6 +12,7 @@
     "@cometchat-pro/chat": "^3.0.12",
     "dateformat": "^4.5.1",
     "emoji-mart-vue-fast": "^10.0.1",
+    "faker": "^6.6.6",
     "firebase": "^8.0.0",
     "libphonenumber-js": "^1.10.30",
     "save": "^2.9.0",
