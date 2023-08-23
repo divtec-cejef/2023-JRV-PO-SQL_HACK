@@ -86,7 +86,7 @@
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
       <button @click="effacer" class="bouton_recommencer">Recommencer</button>
-      <button @click="retour">Retour</button>
+      <button @click="retour" :disabled="btnRetourIsDisabled">Retour</button>
       <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
@@ -125,6 +125,7 @@ let etatBtnEnvoiRequete = true
 let cle = ref(0)
 let texteTitreSaisieID = ref()
 let text_requete_temp = ""
+let btnRetourIsDisabled = true
 
 const tailleDivResultatRequete = ref({
   height: '270px',
@@ -174,19 +175,15 @@ function commandeSelectionee(valeur) {
  * @param valeur Valeur de la propriété que l'utilisateur à cliqué
  */
 function propriété(valeur){
+  text_requete_temp = text_requete.value
   commandeSelectionee(valeur)
   addValeurToTextRequete(valeur)
   console.log(constructeurActuel + " " + commande_selectionnee)
-  if (constructeurActuel === 1){
-    text_requete_temp = valeur
-  } else if (constructeurActuel === 2){
-    text_requete_temp = text_requete.value
-    console.log(text_requete_temp)
-  }
   console.log("constructeur actuel : "+constructeurActuel)
   console.log("texte temp : "+text_requete_temp)
   console.log("----------------------")
   constructeurActuel++
+  btnRetourIsDisabled = false
 }
 
 /****
@@ -234,20 +231,32 @@ function effacer(){
   text_requete.value = ""
   textCondition.value = ""
   constructeurActuel = 0
+  if (constructeurActuel === 0) {
+
+  }
   tailleDivResultatRequete.value.height = '270px'
+  btnRetourIsDisabled = true
 }
 
 function retour(){
+  if (!btnRetourIsDisabled.value) {
+    btnRetourIsDisabled  = true
+  }
+
   text_requete.value = text_requete_temp
-  constructeurActuel--
+
+    constructeurActuel--
+
 
 }
 
 function proprieteInsert(valeur) {
+  text_requete_temp = text_requete.value
   commande_selectionnee = 3;
   text_requete.value += " INTO " + valeur;
   table_selectionnee = valeur;
   constructeurActuel++;
+  btnRetourIsDisabled = false
 }
 
 /***
@@ -297,6 +306,7 @@ function changeTextEnCasDeID(propriete_selectionnee){
  */
 function valideRequete(commande) {
   console.log(propriete_selectionnee);
+  text_requete_temp = text_requete.value
 
   if (["idVoiture", "idPersonne", "idMateriel"].includes(propriete_selectionnee)) {
     if (Number.isInteger(parseInt(textCondition.value))) {
@@ -334,7 +344,10 @@ function valideRequete(commande) {
     text_requete.value += ";"
     changeTailleTextarea()
   }
+
   etatBtnEnvoiRequete = false
+  btnRetourIsDisabled = false
+
   sendRequestFromConstructor()
 }
 
