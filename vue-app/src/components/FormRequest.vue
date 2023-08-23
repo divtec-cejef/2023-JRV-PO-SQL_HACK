@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-
+import { update } from '@/DB/Update.js';
 const titre = ref('TRY SQL-HACK');
 const txtSaisie = ref('');
 

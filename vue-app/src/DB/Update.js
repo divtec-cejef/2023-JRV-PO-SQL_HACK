@@ -1,3 +1,10 @@
+// Importez createApp depuis Vue
+import { createApp } from 'vue';
+
+// Créez une instance d'application Vue
+const app = createApp({});
+
+// Définissez la fonction de mise à jour
 function update(tableName, id, propriete, updatedData) {
     let request = window.indexedDB.open("maBaseDeDonnees");
     request.onsuccess = function (event) {
@@ -23,14 +30,19 @@ function update(tableName, id, propriete, updatedData) {
                 let updateRequest = objectStore.put(record);
 
                 updateRequest.onsuccess = function (event) {
-                    // Émettre un événement personnalisé pour mettre à jour la textarea dans le composant
+                    const updateEvent = new CustomEvent('updateTextareaEvent', { detail: 'Mise à jour effectuée avec succès' });
+                    window.dispatchEvent(updateEvent);
                     console.log("Mise à jour effectuée avec succès");
                 };
 
                 updateRequest.onerror = function (event) {
+                    const updateEvent = new CustomEvent('updateTextareaEvent', { detail: 'Erreur lors de la mise à jour de l\'enregistrement' });
+                    window.dispatchEvent(updateEvent);
                     console.log("Erreur lors de la mise à jour de l'enregistrement");
                 };
             } else {
+                const updateEvent = new CustomEvent('updateTextareaEvent', { detail: 'Enregistrement non trouvé' });
+                window.dispatchEvent(updateEvent);
                 console.log("Enregistrement non trouvé");
             }
         };
@@ -54,4 +66,5 @@ function update(tableName, id, propriete, updatedData) {
     }
 }
 
-
+// Exportez la fonction de mise à jour
+export { update };
