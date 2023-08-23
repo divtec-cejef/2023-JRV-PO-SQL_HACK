@@ -50,9 +50,9 @@ import {defineEmits, ref} from 'vue'
 
 .page1 button{
   border: none;
-  font-size: 26px;
-  margin: 20px;
-  padding: 1em;
+  font-size: 28px;
+  margin: 15px;
+  padding: 30px;
   border-radius: 20px;
 }
 
