@@ -20,15 +20,15 @@ function insert(table, donnes){
             };
         } else if (table === "tb_voiture") {
             Ajouts = {
-                couleur: donnes[1],
-                numero_plaque: donnes[2],
-                proprietaire: donnes[3],
-                marque: donnes[4]
+                couleur: donnes[0],
+                numero_plaque: donnes[1],
+                proprietaire: donnes[2],
+                marque: donnes[3]
             }
         } else {
             Ajouts = {
-                nom_materiel: donnes[1],
-                quantite: donnes[2]
+                nom_materiel: donnes[0],
+                quantite: donnes[1]
             };
         }
         // Ajouter chaque enregistrement

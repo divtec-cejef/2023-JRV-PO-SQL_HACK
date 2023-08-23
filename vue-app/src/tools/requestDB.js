@@ -74,10 +74,18 @@ function executeInsertRequest(request) {
     const dataArray = ref([]);
     for (let i = 5; i <= numberWordInRequest(request) - 1; i++) {
         const dataClean = getWord(request, i).replace(/'|"|,|;|\(|\)/g, "");
+
         dataArray.value.push(dataClean);
     }
-    console.log(table, ',', dataArray.value);
-    insert(table, dataArray.value);
+    if (table === 'tb_voiture') {
+        dataArray.value[2] = dataArray.value[2] + " " + dataArray.value[3];
+        dataArray.value.splice(3, 1);
+        console.log(table, ',', dataArray.value);
+        insert(table, dataArray.value);
+    }else {
+        console.log(table, ',', dataArray.value);
+        insert(table, dataArray.value);
+    }
 }
 
 /**
@@ -117,8 +125,8 @@ function executeDeleteRequest(request) {
  * @returns {boolean} Vrai si le champs correspond au champs 'propriétaire', sinon faux.
  */
 function checkFields(table, champsConcerner) {
-    if (table === "tb_voiture") {
-        if (champsConcerner === "proprietaire") {
+    if (table === 'tb_voiture') {
+        if (champsConcerner === 'proprietaire') {
             return true;
         }
     }else {
