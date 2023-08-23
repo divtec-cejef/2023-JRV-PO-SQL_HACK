@@ -126,6 +126,7 @@ let cle = ref(0)
 let texteTitreSaisieID = ref()
 let text_requete_temp = ""
 let btnRetourIsDisabled = true
+let historiqueTextRequete = ref([])
 
 const tailleDivResultatRequete = ref({
   height: '270px',
@@ -175,12 +176,18 @@ function commandeSelectionee(valeur) {
  * @param valeur Valeur de la propriété que l'utilisateur à cliqué
  */
 function propriété(valeur){
-  text_requete_temp = text_requete.value
+
+  if (constructeurActuel !== 0){
+    historiqueTextRequete.push(text_requete.value)
+  }
+
+
   commandeSelectionee(valeur)
   addValeurToTextRequete(valeur)
   console.log(constructeurActuel + " " + commande_selectionnee)
   console.log("constructeur actuel : "+constructeurActuel)
   console.log("texte temp : "+text_requete_temp)
+  console.log(historiqueTextRequete)
   console.log("----------------------")
   constructeurActuel++
   btnRetourIsDisabled = false
@@ -228,9 +235,12 @@ function effacer(){
   if (oldTable) {
     oldTable.remove();
   }
+  // reset tout à 0
   text_requete.value = ""
   textCondition.value = ""
   constructeurActuel = 0
+  historiqueTextRequete = []
+
   if (constructeurActuel === 0) {
 
   }
@@ -239,15 +249,12 @@ function effacer(){
 }
 
 function retour(){
-  if (!btnRetourIsDisabled.value) {
-    btnRetourIsDisabled  = true
-  }
 
-  text_requete.value = text_requete_temp
-
-    constructeurActuel--
-
-
+  console.log(historiqueTextRequete)
+  text_requete.value = historiqueTextRequete[constructeurActuel - 1]
+  console.log(historiqueTextRequete[constructeurActuel])
+  historiqueTextRequete.pop()
+  constructeurActuel--
 }
 
 function proprieteInsert(valeur) {
