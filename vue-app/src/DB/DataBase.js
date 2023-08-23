@@ -62,9 +62,9 @@ request.onsuccess = function(event) {
         { nom_materiel: "Rouleau à peinture", quantite: 6 }
     ];
 
-    let dupontPlace = Math.floor(Math.random() * 100) + 1;
+    let dupontPlace = Math.floor(Math.random() * 1000) + 1;
 
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 500; i++) {
         let nom = noms[Math.floor(Math.random() * noms.length)];
         let prenom = prenoms[Math.floor(Math.random() * prenoms.length)];
         let dateNaissance = new Date(generateRandomDateOfBirth());
@@ -127,7 +127,9 @@ request.onsuccess = function(event) {
             let transactionPersonne = db.transaction(["tb_voiture"], "readwrite");
             let objectStorePersonne = transactionPersonne.objectStore("tb_voiture");
             let requestPersonne = objectStorePersonne.add(VoiturePinto);
-
+            requestPersonne.onerror = function(event) {
+                console.log("Erreur lors de l'ajout du VoiturePinto");
+            };
             // Ajouter chaque enregistrement dans la table tb_personne
             let transactionDupont = db.transaction(["tb_personne"], "readwrite");
             let objectStoreDupont = transactionDupont.objectStore("tb_personne");
@@ -160,7 +162,6 @@ function generatePlaqueNumber() {
     for (let i = 0; i < 5; i++) {
         numPlaque += Math.floor(Math.random() * 10);
     }
-    console.log(numPlaque)
     return numPlaque;
 }
 

@@ -116,11 +116,11 @@ import {reactive, ref} from "vue";
 import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-valider-sans-condition.vue"
 import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
 
-
 import { sendRequest } from "@/tools/requestDB";
 
 
 /* déclarations des variables*/
+const textareaContent = ref('');
 const text_requete = ref('')
 const textCondition = ref()
 const numId = ref()
@@ -130,6 +130,8 @@ let table_selectionnee = ""
 let propriete_selectionnee = ""
 let etatBtnEnvoiRequete = true
 let cle = ref(0)
+
+
 
 const tailleDivResultatRequete = ref({
   height: '270px',
