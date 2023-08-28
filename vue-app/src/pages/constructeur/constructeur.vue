@@ -31,7 +31,7 @@
             <div v-if="constructeurActuel === 4" class="saisie_condition">
               <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="saisissez ici" class="text_condition">
-              <button class="btnValider" @click="valideRequete('select')">Valider</button>
+              <button class="btnValider" @click="valideRequete(false)">Valider</button>
             </div>
           </div>
 
@@ -45,7 +45,7 @@
             <div v-if="constructeurActuel === 2" class="saisie_condition">
               <div class="text_saisie_id">Saisissez la condition</div>
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition">
-              <button class="btnValider" @click="valideRequete('conditionUpdate1')">Continuer</button>
+              <button class="btnValider" @click="valideRequete(true)">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="saisie_condition">
               <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
@@ -86,7 +86,8 @@
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
       <button @click="effacer" class="bouton_recommencer">Recommencer</button>
-      <button @click="retour" :disabled="btnRetourIsDisabled">Retour</button>
+      <button @click="retour" :disabled="btnRetourIsDisabled"
+              v-if="constructeurActuel!==0 && constructeurActuel!==6">Retour</button>
       <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
@@ -109,6 +110,7 @@ import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-
 import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
 
 import { sendRequest } from "@/tools/requestDB";
+import {stringifyQuery} from "vue-router";
 
 
 /* déclarations des variables*/
@@ -125,8 +127,7 @@ let cle = ref(0)
 let texteTitreSaisieID = ref()
 let text_requete_temp = ""
 let btnRetourIsDisabled = true
-let historiqueTextRequete = ref([])
-
+let historiqueTextRequete = []
 
 
 const tailleDivResultatRequete = ref({
@@ -178,10 +179,7 @@ function commandeSelectionee(valeur) {
  */
 function propriété(valeur){
 
-  if (constructeurActuel !== 0){
-    historiqueTextRequete.push(text_requete.value)
-  }
-
+  historiqueTextRequete.push(text_requete.value)
 
   commandeSelectionee(valeur)
   addValeurToTextRequete(valeur)
@@ -208,7 +206,6 @@ function validerValuesInsert(valeur){
   sendRequestFromConstructor()
 }
 
-
 /***
  * Teste si le champs de saisie de texte pour
  * la condition est vide ou non
@@ -216,7 +213,7 @@ function validerValuesInsert(valeur){
  * Si non : On ajoute le texte au textarea de la requete
  *          et on incrément le constructeur actuel
  */
-function testerInputText(){
+function testerInputText() {
   if (textCondition.value === ""){
     window.alert("Veuillez remplir le champs de saisie")
   } else {
@@ -240,26 +237,44 @@ function effacer(){
   text_requete.value = ""
   textCondition.value = ""
   constructeurActuel = 0
+
   historiqueTextRequete = []
-
-  if (constructeurActuel === 0) {
-
-  }
+  
   tailleDivResultatRequete.value.height = '270px'
   btnRetourIsDisabled = true
 }
 
+/***
+ * Fonction qui permet de retourner dans le constructeur précédent
+ * en cas d'erreur de la part de l'utilisateur
+ * Fonctionnement : ajouter le texte de la requête (text_requete)
+ *                  dans un tablea à chaque fois qu'on passe au
+ *                  prochain constructeur (pas dans cette fonction).
+ *                  Quand on clique sur le bouton, le constructeur actuel
+ *                  se décrémente et le text de la requête change pour
+ */
 function retour(){
 
   console.log(historiqueTextRequete)
   text_requete.value = historiqueTextRequete[constructeurActuel - 1]
   console.log(historiqueTextRequete[constructeurActuel])
   historiqueTextRequete.pop()
+
   constructeurActuel--
 }
 
 function proprieteInsert(valeur) {
   text_requete_temp = text_requete.value
+
+  /*** Fonctionnalité btn Retour ****/
+  historiqueTextRequete.push(text_requete.value)
+  console.log(constructeurActuel + " " + commande_selectionnee)
+  console.log("constructeur actuel : "+constructeurActuel)
+  console.log("texte temp : "+text_requete_temp)
+  console.log(historiqueTextRequete)
+  console.log("----------------------")
+  /******/
+
   commande_selectionnee = 3;
   text_requete.value += " INTO " + valeur;
   table_selectionnee = valeur;
@@ -272,6 +287,15 @@ function proprieteInsert(valeur) {
  * @param valeur
  */
 function proprieteDelete(valeur){
+  /*** Fonctionnalité btn Retour ****/
+  historiqueTextRequete.push(text_requete.value)
+  console.log(constructeurActuel + " " + commande_selectionnee)
+  console.log("constructeur actuel : "+constructeurActuel)
+  console.log("texte temp : "+text_requete_temp)
+  console.log(historiqueTextRequete)
+  console.log("----------------------")
+  /******/
+
   commande_selectionnee = 4
   text_requete.value += " FROM " + valeur
   constructeurActuel++
@@ -312,9 +336,21 @@ function changeTextEnCasDeID(propriete_selectionnee){
  * Fonction qui permet de tester le champs de saisie de la condition
  * @param commande si la commande correspond au constructeur actuel update
  */
-function valideRequete(commande) {
+function valideRequete(commandeUpdate) {
   console.log(propriete_selectionnee);
   text_requete_temp = text_requete.value
+
+  if (commandeUpdate)  {
+    historiqueTextRequete.push(text_requete.value)
+    console.log(constructeurActuel + " " + commande_selectionnee)
+    console.log("constructeur actuel : "+constructeurActuel)
+    console.log("texte temp : "+text_requete_temp)
+    console.log(historiqueTextRequete)
+    console.log("----------------------")
+    constructeurActuel++
+    btnRetourIsDisabled = true
+  }
+
 
   if (["idVoiture", "idPersonne", "idMateriel"].includes(propriete_selectionnee)) {
     if (Number.isInteger(parseInt(textCondition.value))) {
@@ -345,18 +381,16 @@ function valideRequete(commande) {
     }
   }
 
-  if (commande === "conditionUpdate1"){
-    constructeurActuel++
-  } else {
+  if (!commandeUpdate){
     constructeurActuel = 6
     text_requete.value += ";"
     changeTailleTextarea()
+    sendRequestFromConstructor()
   }
 
   etatBtnEnvoiRequete = false
   btnRetourIsDisabled = false
 
-  sendRequestFromConstructor()
 }
 
 /***
@@ -364,6 +398,7 @@ function valideRequete(commande) {
  * update et ensuite les ajouter les saisies au text area
  */
 function valideRequeteUpdate() {
+
   if (!isNaN(numId.value)) {
     if (commande_selectionnee !== "DELETE") {
       text_requete.value += " WHERE "
