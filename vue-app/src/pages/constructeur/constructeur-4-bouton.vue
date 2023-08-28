@@ -37,6 +37,7 @@ import {defineEmits, ref} from 'vue'
 </script>
 
 <style scoped>
+
 /* page 1 */
 .page1 {
   width: 500px;
@@ -54,6 +55,9 @@ import {defineEmits, ref} from 'vue'
   margin: 15px;
   padding: 30px;
   border-radius: 20px;
+  background-color: #8f10ff;
+  color: white;
+
 }
 
 button{

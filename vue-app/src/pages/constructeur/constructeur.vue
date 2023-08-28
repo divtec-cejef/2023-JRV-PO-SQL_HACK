@@ -10,7 +10,7 @@
         <div class="commande">
 
           <!-- Boutons des 4 commandes -->
-          <div v-if="constructeurActuel === 0">
+          <div v-if="constructeurActuel === 0" class="constructeur4bouton">
             <constructeur4-bouton @select="propriété"></constructeur4-bouton>
           </div>
 
@@ -468,10 +468,6 @@ window.addEventListener('updateTextareaEvent', (event) => {
   }
 }
 
-.typing-animation{
-  animation: typing 3s steps(30, end) infinite;
-}
-
 *{
   margin: 0;
 }
@@ -481,14 +477,24 @@ div{
 button{
   width: 30%;
   height: 40px;
+
 }
 #text-conditon{
   height: 50px;
 }
 .btnValider{
-
+  background-color: #8f10ff;
+  color: white;
 }
 
+.btnValider:hover{
+  transform: scale(1.10);
+  transition: transform 500ms ease;
+}
+
+input {
+  margin-right: 30px;
+}
 /* écran gauche */
 .ecran_gauche{
   background-color: black;
@@ -514,7 +520,7 @@ button{
 #text-requete{
   width: 588px;
   font-size: 28px;
-  color: white;
+  color: #27FF16;
   height: 100px;
   margin: 0;
   background-color: black;
@@ -559,5 +565,8 @@ button{
 
 .bouton_recommencer {
   margin: 10px;
+}
+.constructeur4bouton{
+  margin-left: 20px;
 }
 </style>
