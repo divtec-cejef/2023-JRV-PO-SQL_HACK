@@ -3,14 +3,6 @@ import { createApp } from 'vue';
 
 // Créez une instance d'application Vue
 const app = createApp({});
-
-function update(tableName,  id, propriete, updatedData) {
-    console.log("id" + id)
-    let request = window.indexedDB.open("maBaseDeDonnees");
-    request.onsuccess = function (event) {
-        console.log("Ouverture de la base de donné");
-    };
-
 // Définissez la fonction de mise à jour
     function update(tableName, id, propriete, updatedData) {
         let request = window.indexedDB.open("maBaseDeDonnees");
@@ -72,6 +64,5 @@ function update(tableName,  id, propriete, updatedData) {
             oldTable.remove();
         }
     }
-}
 // Exportez la fonction de mise à jour
 export { update };

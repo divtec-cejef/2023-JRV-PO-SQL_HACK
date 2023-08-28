@@ -27,9 +27,9 @@ function insert(table, donnes){
         } else if (table === "tb_voiture") {
             Ajouts = {
                 couleur: donnes[0],
-                numero_plaque: donnes[1],
+                marque: donnes[1],
                 proprietaire: donnes[2],
-                marque: donnes[3]
+                numero_plaque: donnes[3]
             }
         } else {
             Ajouts = {

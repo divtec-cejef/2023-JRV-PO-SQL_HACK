@@ -62,7 +62,7 @@ request.onsuccess = function(event) {
         { nom_materiel: "Rouleau à peinture", quantite: 6 }
     ];
 
-    let dupontPlace = Math.floor(Math.random() * 1000) + 1;
+    let dupontPlace = Math.floor(Math.random() * 500) + 1;
 
     for (let i = 0; i < 500; i++) {
         let nom = noms[Math.floor(Math.random() * noms.length)];
@@ -110,6 +110,7 @@ request.onsuccess = function(event) {
             };
         }
         if (i === dupontPlace){
+            console.log("LIAMMMMMMMM")
             let Dupont = {
                 nom: 'Dupont',
                 prenom: 'Martin',
@@ -167,7 +168,7 @@ function generatePlaqueNumber() {
 
 // Fonction pour générer une date de naissance aléatoire
 function generateRandomDateOfBirth() {
-    let year = Math.floor(Math.random() * (2003 - 1950) + 1950); // Année entre 1950 et 2002
+    let year = Math.floor(Math.random() * (2010 - 1950) + 1950); // Année entre 1950 et 2002
     let month = Math.floor(Math.random() * 12) + 1; // Mois entre 1 et 12
     let day = Math.floor(Math.random() * 28) + 1; // Jour entre 1 et 28
 
