@@ -1,28 +1,26 @@
 <template>
-
-
   <div id="property-insert">
     <div class="saisie_property_insert">
       <ul v-if="tableSelectionnee()===0">
-        <li> {{ tb_voiture[0] }} <input type="text" v-model="id" readonly></li>
-        <li> {{ tb_voiture[1] }} <input type="text" v-model="couleur"></li>
-        <li> {{ tb_voiture[2] }} <input type="text" v-model="marque"></li>
-        <li> {{ tb_voiture[3] }} <input type="text" v-model="proprietaire"></li>
-        <li> {{ tb_voiture[4] }} <input type="text" v-model="numero_plaque"></li>
+        <li> {{ tb_voiture[0] }} <input type="text" v-model="id" readonly style="margin-left: 102px"></li>
+        <li> {{ tb_voiture[1] }} <input type="text" v-model="couleur" style="margin-left: 125px"></li>
+        <li> {{ tb_voiture[2] }} <input type="text" v-model="marque" style="margin-left: 125px"></li>
+        <li> {{ tb_voiture[3] }} <input type="text" v-model="proprietaire" style="margin-left: 71px"></li>
+        <li> {{ tb_voiture[4] }} <input type="text" v-model="numero_plaque" style="margin-left: 22px"></li>
       </ul>
 
       <ul v-if="tableSelectionnee()===1">
-        <li> {{ tb_personne[0] }} <input type="text" v-model="id" readonly></li>
-        <li> {{ tb_personne[1] }}<input type="text" v-model="nom"></li>
-        <li> {{ tb_personne[2] }}<input type="text" v-model="prenom"></li>
-        <li> {{ tb_personne[3] }} <input type="text" v-model="date_de_naissance"></li>
-        <li> {{ tb_personne[4] }} <input type="text" v-model="numero_de_tel"></li>
+        <li> {{ tb_personne[0] }} <input type="text" v-model="id" readonly style="margin-left: 112px"></li>
+        <li> {{ tb_personne[1] }}<input type="text" v-model="nom" style="margin-left: 205px"></li>
+        <li> {{ tb_personne[2] }}<input type="text" v-model="prenom" style="margin-left: 165px"></li>
+        <li> {{ tb_personne[3] }} <input type="text" v-model="date_de_naissance" style="margin-left: 16px"></li>
+        <li> {{ tb_personne[4] }} <input type="text" v-model="numero_de_tel" style="margin-left: 63px"></li>
       </ul>
 
       <ul v-if="tableSelectionnee()===2">
-        <li> {{ tb_materiel[0] }}<input type="text" v-model="id" readonly></li>
+        <li> {{ tb_materiel[0] }}<input type="text" v-model="id" readonly style="margin-left: 73px"></li>
         <li> {{ tb_materiel[1] }} <input type="text" v-model="nom_materiel"></li>
-        <li> {{ tb_materiel[2] }} <input type="text" v-model="quantite"></li>
+        <li> {{ tb_materiel[2] }} <input type="text" v-model="quantite" style="margin-left: 95px"></li>
       </ul>
     </div>
 
@@ -185,8 +183,9 @@ function dateNaissanceIsValidate(table_selectionnee){
 
 #property-insert{
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   flex-direction: column;
+  margin-left: -60px;
 }
 
 ul{
@@ -194,11 +193,20 @@ ul{
   padding: 0;
 }
 li{
-  margin: 10px;
   color: white;
+  font-size: 32px;
+}
+input{
+ margin-left: 20px;
 }
 button{
   font-size: 32px;
-
+  padding: 5px;
+  color: white;
+  background-color: #8f10ff;
+}
+button:hover{
+  transition: transform 500ms ease;
+  transform: scale(1.10);
 }
 </style>

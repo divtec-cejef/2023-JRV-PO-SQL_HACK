@@ -35,6 +35,7 @@ function changerEcran(valeur){
 </template>
 
 <style>
+
 header {
   line-height: 1.5;
 }

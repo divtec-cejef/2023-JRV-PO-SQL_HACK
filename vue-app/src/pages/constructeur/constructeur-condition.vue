@@ -36,7 +36,7 @@ button {
   margin: 3px;
   font-size: 32px;
   width: fit-content;
-  background-color: orange;
+  background-color: #8f10ff;
   color: white;
   padding: 20px;
   border-radius: 20px;

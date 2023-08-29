@@ -30,8 +30,9 @@ button {
   margin: 20px;
   font-size: 32px;
   transition: transform 500ms ease;
-  background-color: white;
+  background-color: #8f10ff;
   border-radius: 20px;
+  color: white;
 }
 
 .page2 {
@@ -50,12 +51,9 @@ p {
 }
 
 button:hover {
-  border: 1px yellow solid;
-  transform: scale(1.05);
+  transform: scale(1.10);
 
 }
 
-li:hover {
-  color: yellow;
-}
+
 </style>

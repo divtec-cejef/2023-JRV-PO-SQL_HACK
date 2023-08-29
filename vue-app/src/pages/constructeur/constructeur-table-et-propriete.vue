@@ -118,21 +118,21 @@ ul {
   margin: 20px;
   border: 1px black solid;
   transition: transform 500ms ease;
-  background-color: white;
   border-radius: 14px;
+  background-color: #8f10ff;
 }
 
 li {
   list-style-type: none;
   margin: 5px;
   font-family: 'Roboto', sans-serif;
+  color: white;
 }
 
 .tables {
   width: fit-content;
   display: flex;
   color: black;
-
 }
 
 p {
@@ -141,20 +141,20 @@ p {
   padding: 5px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
+  color: white;
 }
 
 ul:hover {
-  border: 1px yellow solid;
-  transform: scale(1.05);
+  transform: scale(1.10);
 }
 
 li:hover {
-  color: yellow;
+  color: #27FF16;
 }
 
 .disabled{
   pointer-events: none;
-  color: gray;
+  background-color: #cccccc;
 }
 
 </style>

@@ -10,7 +10,7 @@
         <div class="commande">
 
           <!-- Boutons des 4 commandes -->
-          <div v-if="constructeurActuel === 0">
+          <div v-if="constructeurActuel === 0" class="constructeur4bouton">
             <constructeur4-bouton @select="propriété"></constructeur4-bouton>
           </div>
 
@@ -128,6 +128,7 @@ let texteTitreSaisieID = ref()
 let text_requete_temp = ""
 let btnRetourIsDisabled = true
 let historiqueTextRequete = []
+let ajouterText = true
 
 
 const tailleDivResultatRequete = ref({
@@ -152,10 +153,13 @@ function changeEtatBtnEnvoiRequete(){
  * @param valeur
  */
 function addValeurToTextRequete(valeur){
+  text_requete_temp = valeur
   if (constructeurActuel === 0){
     text_requete.value = ""
   }
+
   text_requete.value += valeur
+  // ajouterLettresAvecEffet(valeur)
 }
 
 /****
@@ -237,6 +241,7 @@ function effacer(){
   text_requete.value = ""
   textCondition.value = ""
   constructeurActuel = 0
+  numId.value = ''
 
   historiqueTextRequete = []
   
@@ -454,6 +459,24 @@ window.addEventListener('updateTextareaEvent', (event) => {
   updateTextarea(event.detail);
 });
 
+
+const effetLettres = async (inputText) => {
+  for (const letter of inputText) {
+    text_requete.value += letter;
+    await new Promise(resolve => setTimeout(resolve, 200));
+    ajouterText = false
+  }
+  ajouterText = true
+}
+
+function ajouterLettresAvecEffet(valeur) {
+  if (ajouterText) {
+    effetLettres(valeur)
+  } else {
+    text_requete.value += valeur
+  }
+}
+
 </script>
 
 <style scoped>
@@ -468,10 +491,6 @@ window.addEventListener('updateTextareaEvent', (event) => {
   }
 }
 
-.typing-animation{
-  animation: typing 3s steps(30, end) infinite;
-}
-
 *{
   margin: 0;
 }
@@ -481,14 +500,24 @@ div{
 button{
   width: 30%;
   height: 40px;
+
 }
 #text-conditon{
   height: 50px;
 }
 .btnValider{
-
+  background-color: #8f10ff;
+  color: white;
 }
 
+.btnValider:hover{
+  transform: scale(1.10);
+  transition: transform 500ms ease;
+}
+
+input {
+  margin-right: 30px;
+}
 /* écran gauche */
 .ecran_gauche{
   background-color: black;
@@ -514,7 +543,7 @@ button{
 #text-requete{
   width: 588px;
   font-size: 28px;
-  color: white;
+  color: #27FF16;
   height: 100px;
   margin: 0;
   background-color: black;
@@ -559,5 +588,8 @@ button{
 
 .bouton_recommencer {
   margin: 10px;
+}
+.constructeur4bouton{
+  margin-left: 20px;
 }
 </style>
