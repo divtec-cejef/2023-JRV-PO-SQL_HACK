@@ -4,7 +4,7 @@ let request = window.indexedDB.open("maBaseDeDonnees");
 request.onerror = function(event) {
     console.log("Erreur d'ouverture de la base de données");
 };
-
+let dupontPlace = Math.floor(Math.random() * 500) + 1;
 // Création des tables dans la base de données
 request.onupgradeneeded = function(event) {
     let db = event.target.result;
@@ -62,7 +62,8 @@ request.onsuccess = function(event) {
         { nom_materiel: "Rouleau à peinture", quantite: 6 }
     ];
 
-    let dupontPlace = Math.floor(Math.random() * 500) + 1;
+
+
 
     for (let i = 0; i < 500; i++) {
         let nom = noms[Math.floor(Math.random() * noms.length)];
@@ -175,3 +176,4 @@ function generateRandomDateOfBirth() {
     return new Date(year, month - 1, day);
 }
 
+export { dupontPlace };
