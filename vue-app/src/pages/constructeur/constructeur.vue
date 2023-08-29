@@ -128,6 +128,7 @@ let texteTitreSaisieID = ref()
 let text_requete_temp = ""
 let btnRetourIsDisabled = true
 let historiqueTextRequete = []
+let ajouterText = true
 
 
 const tailleDivResultatRequete = ref({
@@ -152,10 +153,13 @@ function changeEtatBtnEnvoiRequete(){
  * @param valeur
  */
 function addValeurToTextRequete(valeur){
+  text_requete_temp = valeur
   if (constructeurActuel === 0){
     text_requete.value = ""
   }
+
   text_requete.value += valeur
+  // ajouterLettresAvecEffet(valeur)
 }
 
 /****
@@ -237,6 +241,7 @@ function effacer(){
   text_requete.value = ""
   textCondition.value = ""
   constructeurActuel = 0
+  numId.value = ''
 
   historiqueTextRequete = []
   
@@ -453,6 +458,24 @@ function updateTextarea(info) {
 window.addEventListener('updateTextareaEvent', (event) => {
   updateTextarea(event.detail);
 });
+
+
+const effetLettres = async (inputText) => {
+  for (const letter of inputText) {
+    text_requete.value += letter;
+    await new Promise(resolve => setTimeout(resolve, 200));
+    ajouterText = false
+  }
+  ajouterText = true
+}
+
+function ajouterLettresAvecEffet(valeur) {
+  if (ajouterText) {
+    effetLettres(valeur)
+  } else {
+    text_requete.value += valeur
+  }
+}
 
 </script>
 

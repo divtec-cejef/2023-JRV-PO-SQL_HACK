@@ -154,7 +154,7 @@ li:hover {
 
 .disabled{
   pointer-events: none;
-  color: gray;
+  background-color: #cccccc;
 }
 
 </style>
