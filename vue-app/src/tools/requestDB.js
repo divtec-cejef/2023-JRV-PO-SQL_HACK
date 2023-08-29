@@ -14,6 +14,7 @@ import { insert } from '@/DB/Insert.js';
 function getWord(request, index) {
     console.info(request);
     const mots = request.split(' ');
+
     return mots[index];
 }
 
@@ -25,6 +26,7 @@ function getWord(request, index) {
 function numberWordInRequest(request) {
     const mots = request.split(' ');
     const nbreMots = mots.length;
+
     console.log(nbreMots);
     return nbreMots;
 }
@@ -66,15 +68,21 @@ function firstLetterToUpper(saisie) {
 function executeSelectRequest(request) {
     let table = cleanString(getWord(request, 3));
     if (numberWordInRequest(request) > 5 ) {
-        let champsCondition = removeAccents(getWord(request, 5));
         let valeur = cleanString(getWord(request, 7));
         valeur = firstLetterToUpper(valeur);
+
+        let champsCondition = removeAccents(getWord(request, 5));
+        if (checkFieldsProprio(table, champsCondition) === true) {
+            valeur = cleanString(getWord(request, 7)) + ' ' + cleanString(getWord(request, 8));
+        }
+
         if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
             select(table, champsCondition, parseInt(valeur));
         }
         else {
             select(table, champsCondition, valeur);
         }
+
         console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
     } else {
         console.log('table : ' + table);
@@ -94,9 +102,11 @@ function executeInsertRequest(request) {
 
         dataArray.value.push(dataClean);
     }
+
     if (table === 'tb_voiture') {
         dataArray.value[2] = dataArray.value[2] + " " + dataArray.value[3];
         dataArray.value.splice(3, 1);
+
         console.log(table, ',', dataArray.value);
         insert(table, dataArray.value);
         select(table);
@@ -116,9 +126,11 @@ function executeUpdateRequest(request) {
     let nouvelleValeur = cleanString(getWord(request, 5));
     nouvelleValeur = firstLetterToUpper(nouvelleValeur);
     let valeurID = cleanString(getWord(request, 9));
-    if (checkFields(table, champsModif) === true) {
+
+    if (checkFieldsProprio(table, champsModif) === true) {
         let nouvelleValeurProprio = cleanString(getWord(request, 5)) + ' ' + cleanString(getWord(request, 6));
         let valeurID = cleanString(getWord(request, 10));
+
         console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
         update(table, parseInt(valeurID), champsModif, nouvelleValeurProprio);
         select(table);
@@ -136,6 +148,7 @@ function executeDeleteRequest(request) {
     let table = getWord(request, 2);
     let champsID = getWord(request, 4);
     let valeurID = getWord(request, 6);
+
     console.log(table, champsID, valeurID);
     Delete(table, parseInt(valeurID));
     select(table);
@@ -147,7 +160,7 @@ function executeDeleteRequest(request) {
  * @param champsConcerner Le champs à vérifier.
  * @returns {boolean} Vrai si le champs correspond au champs 'propriétaire', sinon faux.
  */
-function checkFields(table, champsConcerner) {
+function checkFieldsProprio(table, champsConcerner) {
     if (table === 'tb_voiture') {
         if (champsConcerner === 'proprietaire') {
             return true;
