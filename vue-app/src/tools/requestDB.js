@@ -99,9 +99,11 @@ function executeInsertRequest(request) {
         dataArray.value.splice(3, 1);
         console.log(table, ',', dataArray.value);
         insert(table, dataArray.value);
+        select(table);
     }else {
         console.log(table, ',', dataArray.value);
         insert(table, dataArray.value);
+        select(table);
     }
 }
 
@@ -110,7 +112,7 @@ function executeInsertRequest(request) {
  */
 function executeUpdateRequest(request) {
     let table = getWord(request, 1);
-    let champsModif = cleanString(getWord(request, 3));
+    let champsModif = cleanString(removeAccents(getWord(request, 3)));
     let nouvelleValeur = cleanString(getWord(request, 5));
     nouvelleValeur = firstLetterToUpper(nouvelleValeur);
     let valeurID = cleanString(getWord(request, 9));
@@ -119,8 +121,10 @@ function executeUpdateRequest(request) {
         let valeurID = cleanString(getWord(request, 10));
         console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
         update(table, parseInt(valeurID), champsModif, nouvelleValeurProprio);
+        select(table);
     }else {
         update(table, parseInt(valeurID), champsModif, nouvelleValeur);
+        select(table);
         console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
     }
 }
@@ -134,6 +138,7 @@ function executeDeleteRequest(request) {
     let valeurID = getWord(request, 6);
     console.log(table, champsID, valeurID);
     Delete(table, parseInt(valeurID));
+    select(table);
 }
 
 /**
