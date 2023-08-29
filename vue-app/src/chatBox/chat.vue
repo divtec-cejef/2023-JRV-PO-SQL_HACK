@@ -22,7 +22,8 @@
 
 <script>
 import { dupontPlace } from "@/DB/DataBase";
-import { register } from 'vue-advanced-chat'
+import { register } from 'vue-advanced-chat';
+import avatarImage from '@/img/MicrosoftTeams-image.png';
 register()
 
 export default {
@@ -32,8 +33,8 @@ export default {
       rooms: [
         {
           roomId: '1',
-          roomName: 'Le Voleur',
-          avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
+          roomName: 'John Doe',
+          avatar: avatarImage,
           users: [
             { _id: '1234', username: 'John Doe' },
             { _id: '4321', username: 'John Snow' }
@@ -48,7 +49,7 @@ export default {
         "À présent, il est nécessaire que tu changes le propriétaire de la Tesla noire et que tu la transfères à mon nom, John Doe. Commence par identifier le propriétaire d'une Tesla noire et donne-moi son nom et son prénom.",
         "Parfait, c'est bien la bonne personne.",
         "Absolument pas, je le connais.",
-        "Mémorise son ID, et grâce à cela, effectue le changement de propriétaire en me mettant à sa place. Une fois terminé, envoie-moi un 'OK'.",
+        "Mémorise son ID, et grâce à cela, effectue le changement de propriétaire en mettant John Doe à sa place. Une fois terminé, envoie-moi un 'OK'.",
         "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.",
         "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire."
       ],
