@@ -50,7 +50,7 @@ export default {
         "de la voiture qui a une couleur <strong>noire</strong> et donne-moi son nom et son prénom.",
         "Parfait, c'est bien la bonne personne.",
         "Absolument pas, je le connais.",
-        "<strong>Mémorise son ID</strong>. Modifie le propriétaire de la voiture au nom de John Doe grâce à l'ID que tu as mémorisé. Quand tu as fini, envoie-moi 'OK'",
+        "<strong>Mémorise son ID</strong>. Modifie le <strong>propriétaire</strong> de la <strong>voiture</strong> au nom de <strong>John Doe</strong> grâce à <strong>'ID</strong> que tu as mémorisé. Quand tu as fini, envoie-moi 'OK'",
         "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.",
         "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire."
       ],
