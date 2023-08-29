@@ -21,8 +21,8 @@
 </template>
 
 <script>
+import { dupontPlace } from "@/DB/DataBase";
 import { register } from 'vue-advanced-chat'
-import * as timers from "timers";
 register()
 
 export default {
@@ -42,18 +42,19 @@ export default {
       ],
       messages: [],
       messagesVoleur: [
-        "Salut hackeur, envoie-moi le code pour déverrouiller la porte. Le nom du patron est Martin Dupont.",
-        "Parfait, c'était ça",
-        "Qu'est-ce que tu as fait, sérieux ? Tu veux que je me fasse arrêter ou quoi ? Donne-moi le bon code maintenant, sinon j'appelle la police.",
-        "Maintenant, il faut que tu modifies le propriétaire de la tesla noire et tu la mets au nom de John Doe. D'abord trouve le propriétaire d'une tesla noir et donne moi son nom",
-        "Niquel, c'est la bonne personne",
-        "Même pas en rêve, je le connais",
-        "Retiens son id et grâce à cela change de propriétaire et met toi à sa place et écrit moi OK quand c'est fait",
-        "Parfait, bien joué tu peux partir avec maintenant",
-        "Essaye de partir avec et on t'arrêtera, alors fais pas le mariole et change de propriétaire"
+        "Envoie-moi le mot de passe de l'alarme. Il me semble que c'est la date de naissance de Martin Dupont.",
+        "Exact, c'était bien ça.",
+        "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.",
+        "À présent, il est nécessaire que tu changes le propriétaire de la Tesla noire et que tu la transfères à mon nom, John Doe. Commence par identifier le propriétaire d'une Tesla noire et donne-moi son nom et son prénom.",
+        "Parfait, c'est bien la bonne personne.",
+        "Absolument pas, je le connais.",
+        "Mémorise son ID, et grâce à cela, effectue le changement de propriétaire en me mettant à sa place. Une fois terminé, envoie-moi un 'OK'.",
+        "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.",
+        "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire."
       ],
       messagesLoaded: false,
-      etape: 1
+      etape: 1,
+      DupontPlace: 0
     }
   },
 
@@ -106,10 +107,33 @@ export default {
         } else {
           this.addNewMessage(5)
         }
-      } else if (this.etape === 3){
+      } else if (this.etape === 3) {
         if (message.content === 'OK') {
-          this.addNewMessage(7)
-          this.etape = this.etape+1;
+          this.DupontPlace = dupontPlace + 1;
+          // Ouverture de la base de données "maBaseDeDonnees"
+          let request = window.indexedDB.open("maBaseDeDonnees");
+
+          request.onerror = (event) => {
+            console.log("Erreur d'ouverture de la base de données");
+          };
+
+          request.onsuccess = (event) => {
+            let db = event.target.result;
+            let transaction = db.transaction(["tb_voiture"], "readonly");
+            let objectStore = transaction.objectStore("tb_voiture");
+            let request = objectStore.getAll();
+
+            request.onsuccess = (event) => {
+              let data = event.target.result;
+              console.log(data[this.DupontPlace].proprietaire);
+              if (data[this.DupontPlace].proprietaire === "John Doe") {
+                this.addNewMessage(7);
+                this.etape = this.etape + 1;
+              } else {
+                this.addNewMessage(8);
+              }
+            };
+          };
         } else {
           this.addNewMessage(8);
         }
@@ -133,9 +157,11 @@ export default {
           }
         ]
       }, timeout)
-    }
+    },
   }
 }
+
+
 </script>
 
 
