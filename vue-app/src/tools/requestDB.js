@@ -128,7 +128,8 @@ function executeUpdateRequest(request) {
     let valeurID = cleanString(getWord(request, 9));
 
     if (checkFieldsProprio(table, champsModif) === true) {
-        let nouvelleValeurProprio = cleanString(getWord(request, 5)) + ' ' + cleanString(getWord(request, 6));
+        let nouvelleValeurProprio = firstLetterToUpper(cleanString(getWord(request, 5))) + ' ' +
+                                           firstLetterToUpper(cleanString(getWord(request, 6)));
         let valeurID = cleanString(getWord(request, 10));
 
         console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
