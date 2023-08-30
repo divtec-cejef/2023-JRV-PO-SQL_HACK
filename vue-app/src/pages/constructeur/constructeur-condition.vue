@@ -1,8 +1,8 @@
 <template>
 
   <div>
-    <button @click="addWhere">Ajouter une condition +</button>
-    <button @click="validerSansCondition" v-if="etat">Valider sans condition</button>
+    <button @click="addWhere">Ajouter un filtre + </button>
+    <button @click="validerSansCondition" v-if="etat">Valider sans filtre</button>
   </div>
 
 </template>
