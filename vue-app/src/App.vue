@@ -26,18 +26,15 @@ function changerEcran(valeur){
   <main>
 
     <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
-
     <div v-if="ecranJeu" class="ecran_hackeur">
-      <div class="barre_lateral_gauche">
+        <div class="barre_lateral_gauche"></div>
+        <div class="constructeur animation_descente">
+          <constructeur></constructeur>
+        </div>
 
-      </div>
-      <div class="constructeur">
-        <constructeur></constructeur>
-      </div>
-      <div class="chat_box">
-        <chat class="chat"></chat>
-      </div>
-
+        <div class="chat_box animation_cote">
+          <chat class="chat"></chat>
+        </div>
     </div>
 
   </main>
@@ -47,6 +44,10 @@ function changerEcran(valeur){
 
 header {
   line-height: 1.5;
+}
+
+html {
+  background-image: url("./assets/img/pexels-cottonbro-4480505-2-scaled.jpg");
 }
 
 .barre_lateral_gauche{
@@ -59,13 +60,48 @@ header {
 }
 
 .constructeur{
-  margin-left: 400px;
+  margin-left: 500px;
   margin-top: 50px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+
 }
 
 .chat_box {
-  margin-left: 100px;
+  margin-left: 200px;
 }
+
+
+.animation_descente {
+  animation: descend 1s ease-in-out;
+  position: relative;
+}
+
+.animation_cote {
+  animation: arrive 1s ease-in-out;
+  position: relative;
+}
+
+/* Définition de l'animation 'descend' */
+@keyframes descend {
+  from {
+    top: -200px; /* Position initiale en haut de la fenêtre */
+  }
+  to {
+    top: 0; /* Position finale, la div est affichée en bas */
+  }
+}
+
+/* Définition de l'animation 'arrive' */
+@keyframes arrive {
+  from {
+    left: 200px /* Position initiale complètement à droite de la fenêtre */
+  }
+  to {
+    left: 0; /* Position finale, la div est affichée à gauche */
+  }
+}
+
+
 
 @media (min-width: 1024px) {
   header {
@@ -114,7 +150,6 @@ header {
 
 .ecran_hackeur {
   display: flex;
-  justify-content: space-around;
 }
 
 .chat {

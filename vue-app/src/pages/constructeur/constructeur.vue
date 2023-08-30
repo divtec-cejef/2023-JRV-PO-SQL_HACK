@@ -574,7 +574,6 @@ input {
 .saisie_condition{
   display: inline-block;
   text-align: center;
-  padding-right: 70px;
   padding-left: 70px;
   padding-top: 50px;
   margin-left: -60px;
@@ -582,7 +581,6 @@ input {
 .saisie_condition_select{
   display: inline-block;
   text-align: center;
-  padding-right: 70px;
   padding-left: 70px;
   padding-top: 50px;
 }
@@ -607,7 +605,7 @@ input {
   margin-top: 10px;
   width: 170px;
   height: 50px;
-  border: #8f10ff 4px solid;
+  border: #8f10ff 5px solid;
   border-radius: 15px;
   background-color: black;
   font-family: 'Lato', sans-serif;
