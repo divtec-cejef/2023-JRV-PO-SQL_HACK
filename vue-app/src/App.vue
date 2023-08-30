@@ -26,8 +26,8 @@ function changerEcran(valeur){
   <main>
 
     <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
-
     <div v-if="ecranJeu" class="ecran_hackeur">
+
       <div class="barre_lateral_gauche">
         <h1>Comment ça fonctionne ?</h1>
         <p>Pour interagir avec la base de données, on utilise un langage informatique qui s’appelle le <strong>SQL</strong>.
@@ -64,11 +64,6 @@ header {
   line-height: 1.5;
 }
 
-.constructeur{
-  margin-left: 500px;
-  margin-top: 50px;
-}
-
 .barre_lateral_gauche{
   background-color: #8f10ff;
   width: 20%;
@@ -80,11 +75,51 @@ header {
   font-family: 'Lato', sans-serif;
   text-align: justify;
   box-shadow: 0 0 5px 0 black;
+
+}
+
+.constructeur{
+  margin-left: 500px;
+  margin-top: 50px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .chat_box {
-  margin-left: 100px;
+  margin-left: 200px;
 }
+
+
+.animation_descente {
+  animation: descend 1s ease-in-out;
+  position: relative;
+}
+
+.animation_cote {
+  animation: arrive 1s ease-in-out;
+  position: relative;
+}
+
+/* Définition de l'animation 'descend' */
+@keyframes descend {
+  from {
+    top: -200px; /* Position initiale en haut de la fenêtre */
+  }
+  to {
+    top: 0; /* Position finale, la div est affichée en bas */
+  }
+}
+
+/* Définition de l'animation 'arrive' */
+@keyframes arrive {
+  from {
+    left: 200px /* Position initiale complètement à droite de la fenêtre */
+  }
+  to {
+    left: 0; /* Position finale, la div est affichée à gauche */
+  }
+}
+
+
 
 @media (min-width: 1024px) {
   header {
@@ -133,7 +168,6 @@ header {
 
 .ecran_hackeur {
   display: flex;
-  justify-content: space-around;
 }
 
 .chat {
