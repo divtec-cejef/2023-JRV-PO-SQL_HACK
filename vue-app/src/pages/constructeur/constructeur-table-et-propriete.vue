@@ -29,7 +29,7 @@ import {computed, onMounted, reactive, ref, resolveDirective} from "vue";
 
 // déclarations des 3 tableaux qui contiennent les "propriétés" des tables
 const tb_voiture = ["idVoiture", "couleur", "marque", "propriétaire", "numéro_plaque"]
-const tb_personne = ["idPersonne", "nom", "prénom", "date_de_naissance", "numéro_de_tel"]
+const tb_personne = ["idPersonne", "prénom", "nom", "date_de_naissance", "numéro_de_tel"]
 const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
 
 /***
