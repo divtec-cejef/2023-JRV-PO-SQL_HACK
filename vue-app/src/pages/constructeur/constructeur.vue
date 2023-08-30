@@ -522,7 +522,7 @@ button{
 }
 
 input {
-  margin-right: 30px;
+  margin-right: 3s0px;
 }
 /* écran gauche */
 .ecran_gauche{
