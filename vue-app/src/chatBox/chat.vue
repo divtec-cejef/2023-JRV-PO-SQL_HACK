@@ -46,11 +46,13 @@ export default {
         "Envoie-moi le mot de passe de l'alarme. C'est la <strong>date de naissance</strong> de <strong>Martin Dupont</strong>.",
         "Exact, c'était bien ça.",
         "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.",
+
         "À présent, modifie le propriétaire de la Tesla noire en la mettant à mon nom, John Doe. Pour commencer, Sélectionne le <strong>propriétaire</strong> " +
         "de la <strong>voiture</strong> qui a une couleur <strong>noire</strong> et donne-moi son nom et son prénom.",
         "Parfait, c'est bien la bonne personne.",
         "Absolument pas, je le connais.",
         "<strong>Mémorise son ID</strong>. Modifie le <strong>propriétaire</strong> de la <strong>voiture</strong> au nom de <strong>John Doe</strong> grâce à <strong>'ID'</strong> que tu as mémorisé. Quand tu as fini, vérifie si le proprio à bien changer et envoie-moi 'OK'",
+
         "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.",
         "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire."
       ],
@@ -103,6 +105,7 @@ export default {
         if (message.content === 'Rejome Viral') {
           this.addNewMessage(4)
           this.etape = this.etape+1;
+
           setTimeout(() =>{
             this.addNewMessage(6)
           }, 2000)
@@ -111,7 +114,8 @@ export default {
         }
       } else if (this.etape === 3) {
         if (message.content === 'OK') {
-          this.DupontPlace = dupontPlace + 1;
+          this.DupontPlace = dupontPlace;
+          console.log(this.DupontPlace + "compar")
           // Ouverture de la base de données "maBaseDeDonnees"
           let request = window.indexedDB.open("maBaseDeDonnees");
 
