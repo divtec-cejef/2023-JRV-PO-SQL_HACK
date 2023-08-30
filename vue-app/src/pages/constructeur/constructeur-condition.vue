@@ -28,8 +28,10 @@ function validerSansCondition(){
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@600');
+
 div{
-  padding: 70px;
+  padding: 50px;
   text-align: center;
 }
 button {
@@ -40,10 +42,12 @@ button {
   color: white;
   padding: 20px;
   border-radius: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lato', sans-serif;
+  font-weight: 800;
 }
 button {
   transition: transform 500ms ease;
+  margin-bottom: 10px;
 }
 button:hover{
   transform: scale(1.1);

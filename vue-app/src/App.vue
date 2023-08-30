@@ -24,11 +24,20 @@ function changerEcran(valeur){
   </header>
 
   <main>
+
     <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
 
     <div v-if="ecranJeu" class="ecran_hackeur">
-      <constructeur></constructeur>
-      <chat class="chat"></chat>
+      <div class="barre_lateral_gauche">
+
+      </div>
+      <div class="constructeur">
+        <constructeur></constructeur>
+      </div>
+      <div class="chat_box">
+        <chat class="chat"></chat>
+      </div>
+
     </div>
 
   </main>
@@ -38,6 +47,24 @@ function changerEcran(valeur){
 
 header {
   line-height: 1.5;
+}
+
+.barre_lateral_gauche{
+  background-color: #8f10ff;
+  width: 400px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.constructeur{
+  margin-left: 400px;
+  margin-top: 50px;
+}
+
+.chat_box {
+  margin-left: 100px;
 }
 
 @media (min-width: 1024px) {
