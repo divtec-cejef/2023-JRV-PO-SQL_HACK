@@ -28,9 +28,9 @@
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
                                             @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
-            <div v-if="constructeurActuel === 4" class="saisie_condition">
+            <div v-if="constructeurActuel === 4" class="saisie_condition_select">
               <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="saisissez ici" class="text_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Saisissez ici" class="text_condition">
               <button class="btnValider" @click="valideRequete(false)">Valider</button>
             </div>
           </div>
@@ -43,12 +43,12 @@
                                             @table_selectionnee="changeTableSelectionnee" :is-update="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
-              <div class="text_saisie_id">Saisissez la condition</div>
+              <div class="text_saisie_id">Saisissez la nouvelle valeur</div>
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition">
               <button class="btnValider" @click="valideRequete(true)">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="saisie_condition">
-              <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
+              <div class="text_saisie_id">Saisissez l'id correspondant</div>
               <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition">
               <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
             </div>
@@ -72,7 +72,7 @@
                                   @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2" class="btn_condition">
-              <div class="saisie_condition">
+              <div class="saisie_condition_select">
                 <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
                 <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition">
                 <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
@@ -85,9 +85,9 @@
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
-      <button @click="effacer" class="bouton_recommencer">Recommencer</button>
+      <button @click="effacer" class="bouton_finaux">Recommencer</button>
       <button @click="retour" :disabled="btnRetourIsDisabled"
-              v-if="constructeurActuel!==0 && constructeurActuel!==6">Retour</button>
+              v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour</button>
       <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
@@ -333,7 +333,7 @@ function changeTextEnCasDeID(propriete_selectionnee){
       propriete_selectionnee === "idMateriel") {
     texteTitreSaisieID.value = "Saisissez l'id (numéro) correspondant"
   } else {
-    texteTitreSaisieID.value = "Saisissez le texte de la condition"
+    texteTitreSaisieID.value = "Saisissez le texte du filtre"
   }
 }
 
@@ -344,18 +344,6 @@ function changeTextEnCasDeID(propriete_selectionnee){
 function valideRequete(commandeUpdate) {
   console.log(propriete_selectionnee);
   text_requete_temp = text_requete.value
-
-  if (commandeUpdate)  {
-    historiqueTextRequete.push(text_requete.value)
-    console.log(constructeurActuel + " " + commande_selectionnee)
-    console.log("constructeur actuel : "+constructeurActuel)
-    console.log("texte temp : "+text_requete_temp)
-    console.log(historiqueTextRequete)
-    console.log("----------------------")
-    constructeurActuel++
-    btnRetourIsDisabled = true
-  }
-
 
   if (["idVoiture", "idPersonne", "idMateriel"].includes(propriete_selectionnee)) {
     if (Number.isInteger(parseInt(textCondition.value))) {
@@ -368,6 +356,7 @@ function valideRequete(commandeUpdate) {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     if (regex.test(textCondition.value)) {
       addValeurToTextRequete(textCondition.value);
+      constructeurActuel++
     } else {
       window.alert("Le format de la date doit être : aaaa-mm-jj");
       return;
@@ -379,6 +368,16 @@ function valideRequete(commandeUpdate) {
       addValeurToTextRequete(textCondition.value);
       text_requete.value += "'";
       console.log(text_requete.value);
+      if (commandeUpdate)  {
+        historiqueTextRequete.push(text_requete.value)
+        console.log(constructeurActuel + " " + commande_selectionnee)
+        console.log("constructeur actuel : "+constructeurActuel)
+        console.log("texte temp : "+text_requete_temp)
+        console.log(historiqueTextRequete)
+        console.log("----------------------")
+        btnRetourIsDisabled = true
+      }
+      constructeurActuel++
     } else {
       console.log("champs vide")
       window.alert("Vous ne pouvez pas insérer de chaîne vide");
@@ -480,6 +479,8 @@ function ajouterLettresAvecEffet(valeur) {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@700&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@600');
 
 /* Animation d'écriture du texte */
 @keyframes typing {
@@ -491,6 +492,8 @@ function ajouterLettresAvecEffet(valeur) {
   }
 }
 
+
+
 *{
   margin: 0;
 }
@@ -500,6 +503,7 @@ div{
 button{
   width: 30%;
   height: 40px;
+  font-family: 'Leelawadee', sans-serif;
 
 }
 #text-conditon{
@@ -513,6 +517,8 @@ button{
 .btnValider:hover{
   transform: scale(1.10);
   transition: transform 500ms ease;
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
 }
 
 input {
@@ -526,6 +532,7 @@ input {
 }
 .text_requete textarea{
   resize: none;
+  font-family: 'Jura', sans-serif;
 }
 
 /* Constructeur */
@@ -567,29 +574,54 @@ input {
 .saisie_condition{
   display: inline-block;
   text-align: center;
-  padding-right: 80px;
-  padding-left: 80px;
+  padding-right: 70px;
+  padding-left: 70px;
+  padding-top: 50px;
+  margin-left: -60px;
+}
+.saisie_condition_select{
+  display: inline-block;
+  text-align: center;
+  padding-right: 70px;
+  padding-left: 70px;
   padding-top: 50px;
 }
 .property_insert{
   margin-left: 150px;
   padding-top: 30px;
 }
-.disabled{
-  pointer-events: none;
-  color: gray;
-}
 
 .text_saisie_id{
   color: white;
+  display: flex;
+  width: 500px;
   font-size: 36px;
   padding-top: 32px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
 }
 
-.bouton_recommencer {
-  margin: 10px;
+.bouton_finaux {
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 170px;
+  height: 50px;
+  border: #8f10ff 4px solid;
+  border-radius: 15px;
+  background-color: black;
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: white;
+}
+
+.bouton_finaux:hover{
+  transform: scale(1.10);
+  transition: transform 500ms ease;
 }
 .constructeur4bouton{
   margin-left: 20px;
 }
+
 </style>

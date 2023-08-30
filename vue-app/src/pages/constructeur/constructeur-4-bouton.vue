@@ -37,6 +37,7 @@ import {defineEmits, ref} from 'vue'
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@600');
 
 /* page 1 */
 .page1 {
@@ -57,7 +58,8 @@ import {defineEmits, ref} from 'vue'
   border-radius: 20px;
   background-color: #8f10ff;
   color: white;
-
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
 }
 
 button{

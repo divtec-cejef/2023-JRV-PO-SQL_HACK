@@ -48,7 +48,7 @@ export default {
         "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.",
 
         "À présent, modifie le propriétaire de la Tesla noire en la mettant à mon nom, John Doe. Pour commencer, Sélectionne le <strong>propriétaire</strong> " +
-        "de la <strong>voiture</strong> qui a une couleur <strong>noire</strong> et donne-moi son nom et son prénom.",
+        "de la <strong>voiture</strong> qui a une couleur <strong>noire</strong>, donne-moi son nom et son prénom et <strong>mémorise son ID</strong>.",
         "Parfait, c'est bien la bonne personne.",
         "Absolument pas, je le connais.",
         "<strong>Mémorise son ID</strong>. Modifie le <strong>propriétaire</strong> de la <strong>voiture</strong> au nom de <strong>John Doe</strong> grâce à <strong>'ID'</strong> que tu as mémorisé. Quand tu as fini, vérifie si le proprio à bien changer et envoie-moi 'OK'",

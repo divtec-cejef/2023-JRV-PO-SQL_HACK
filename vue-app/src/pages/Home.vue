@@ -19,6 +19,7 @@ import Constructeur from "@/App.vue";
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
 }
@@ -26,6 +27,12 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+
+.barre_lateral_gauche {
+  background-color: black;
+  width: 200px;
+  height: 200px;
 }
 
 @media (min-width: 1024px) {

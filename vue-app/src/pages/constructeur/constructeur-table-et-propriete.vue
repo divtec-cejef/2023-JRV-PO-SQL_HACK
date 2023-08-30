@@ -113,6 +113,8 @@ function addPropriety(valeur, table) {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@600');
+
 ul {
   padding: 0;
   margin: 20px;
@@ -120,6 +122,12 @@ ul {
   transition: transform 500ms ease;
   border-radius: 14px;
   background-color: #8f10ff;
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+}
+
+ul p {
+  font-family: 'Lato', sans-serif;
 }
 
 li {
@@ -150,11 +158,13 @@ ul:hover {
 
 li:hover {
   color: #27FF16;
+  cursor: default;
 }
 
 .disabled{
   pointer-events: none;
   background-color: #cccccc;
 }
+
 
 </style>
