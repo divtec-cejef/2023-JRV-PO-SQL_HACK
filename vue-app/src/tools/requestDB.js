@@ -128,15 +128,17 @@ function executeUpdateRequest(request) {
     let valeurID = cleanString(getWord(request, 9));
 
     if (checkFieldsProprio(table, champsModif) === true) {
-        let nouvelleValeurProprio = cleanString(getWord(request, 5)) + ' ' + cleanString(getWord(request, 6));
+        let nouvelleValeurProprio = firstLetterToUpper(cleanString(getWord(request, 5))) + ' ' +
+                                           firstLetterToUpper(cleanString(getWord(request, 6)));
         let valeurID = cleanString(getWord(request, 10));
 
         console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
         update(table, parseInt(valeurID), champsModif, nouvelleValeurProprio);
-        select(table);
+
+        displayModificationUpdate(table, valeurID);
     }else {
         update(table, parseInt(valeurID), champsModif, nouvelleValeur);
-        select(table);
+        displayModificationUpdate(table, valeurID);
         console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
     }
 }
@@ -167,6 +169,24 @@ function checkFieldsProprio(table, champsConcerner) {
         }
     }else {
         return false;
+    }
+}
+
+/**
+ * Affiche uniquement le champs qui a été mofifié après une requête UPDATE.
+ * @param table La table sur lequel on fait la modification.
+ * @param valeurID L'id du champs sur lequel on fait la modification.
+ */
+function displayModificationUpdate(table, valeurID) {
+    switch (table) {
+        case 'tb_voiture':
+            select(table, 'idVoiture', parseInt(valeurID));
+            break;
+        case 'tb_personne':
+            select(table, 'idPersonne', parseInt(valeurID));
+            break;
+        case 'tb_materiel':
+            select(table, 'idMateriel', parseInt(valeurID));
     }
 }
 
