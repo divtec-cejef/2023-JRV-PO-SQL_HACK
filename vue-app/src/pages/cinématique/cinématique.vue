@@ -9,6 +9,7 @@ const listeTexte = ["Pour entrer, il faut que tu trouves le mot de passe de l’
 var questionActuelle = 0
 const emits = defineEmits(['changement-ecran'])
 
+
 function nextText(){
   if (listeTexte.length < questionActuelle + 1){
     emits('changement-ecran', true)
