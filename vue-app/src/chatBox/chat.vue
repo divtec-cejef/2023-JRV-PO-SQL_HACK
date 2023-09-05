@@ -3,7 +3,7 @@
     <div class="camera"></div>
     <div class="chat">
     <vue-advanced-chat
-        height="500px"
+        height="600px"
         :current-user-id="currentUserId"
         :rooms="JSON.stringify(rooms)"
         :rooms-loaded="true"
@@ -218,5 +218,4 @@ export default {
   background-color: #ccc;
   border-radius: 50%;
 }
-
 </style>

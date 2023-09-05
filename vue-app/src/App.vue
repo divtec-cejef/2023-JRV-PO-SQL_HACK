@@ -3,6 +3,7 @@ import FormRequest from "@/components/FormRequest.vue";
 import Constructeur from "@/pages/constructeur/constructeur.vue";
 import Chat from "@/chatBox/chat.vue";
 import Cinématique from "@/pages/cinématique/cinématique.vue";
+import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
 import {ref} from "vue";
 
 let ecranJeu = ref(false)
@@ -50,7 +51,8 @@ function changerEcran(valeur){
         <constructeur></constructeur>
       </div>
       <div class="chat_box">
-        <chat class="chat"></chat>
+<!--          <chat class="chat"></chat>-->
+       <ComponentsMessagerie></ComponentsMessagerie>
       </div>
 
     </div>
