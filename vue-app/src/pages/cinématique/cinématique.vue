@@ -41,6 +41,7 @@ function nextText(){
 
 <style scoped>
 
+
 * {
   margin: 0;
 }

@@ -3,6 +3,7 @@ import Constructeur from "@/pages/constructeur/constructeur.vue";
 import Chat from "@/chatBox/chat.vue";
 import Cinématique from "@/pages/cinématique/cinématique.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
+import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
 import {ref} from "vue";
 
 let ecranJeu = ref(false)
@@ -33,7 +34,8 @@ function changerEcran(valeur){
         <constructeur></constructeur>
       </div>
       <div class="chat_box">
-        <chat class="chat"></chat>
+<!--          <chat class="chat"></chat>-->
+       <ComponentsMessagerie></ComponentsMessagerie>
       </div>
 
     </div>
@@ -42,6 +44,14 @@ function changerEcran(valeur){
 </template>
 
 <style>
+
+html {
+  background-image: url("../src/assets/img/");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  zoom: 110%;
+}
 
 header {
   line-height: 1.5;
@@ -58,10 +68,12 @@ header {
   margin-left: 500px;
   margin-top: 50px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transition: top 3s ease;
 }
 
 .chat_box {
-  margin-left: 200px;
+  margin-left: 160px;
+  margin-top: 60px;
 }
 
 .animation_descente {
