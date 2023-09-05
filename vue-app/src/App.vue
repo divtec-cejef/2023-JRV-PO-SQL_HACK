@@ -60,6 +60,14 @@ function changerEcran(valeur){
 
 <style>
 
+html {
+  background-image: url("../src/assets/img/");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  zoom: 110%;
+}
+
 header {
   line-height: 1.5;
 }
@@ -82,10 +90,12 @@ header {
   margin-left: 500px;
   margin-top: 50px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  transition: top 3s ease;
 }
 
 .chat_box {
-  margin-left: 200px;
+  margin-left: 160px;
+  margin-top: 60px;
 }
 
 

@@ -3,7 +3,7 @@
   <div>
     <button @click="addWhere">Ajouter un filtre + </button>
     <div class="bubble">ça sert à filtrer les données et ne pas donner toutes les données de la bases de donnée d'un coup</div>
-    <button @click="validerSansCondition" v-if="etat">Valider sans filtre</button>
+    <button @click="validerSansCondition" v-if="etat" class="no_filter">Valider sans filtre</button>
   </div>
 
 </template>
@@ -79,6 +79,10 @@ button:hover + .bubble {
   100% {
     transform: translateX(-50%) scale(1); /* La bulle atteint sa taille normale */
   }
+}
+
+.no_filter {
+  margin-top: -200px;
 }
 
 </style>

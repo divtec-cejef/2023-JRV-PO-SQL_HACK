@@ -85,9 +85,10 @@
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="text_requete">
-      <button @click="effacer" class="bouton_finaux">Recommencer</button>
+      <button @click="effacer" class="bouton_finaux bouton_recommencer">Recommencer <img src="../../assets/img/annuler.png" class="img_recommencer"></button>
       <button @click="retour" :disabled="btnRetourIsDisabled"
-              v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour</button>
+              v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
+      class="img_retour"></button>
       <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
@@ -137,8 +138,8 @@ const tailleDivResultatRequete = ref({
 });
 
 function changeTailleTextarea(){
-  tailleDivResultatRequete.value.height = '580px'
-  tailleDivResultatRequete.value.maxHeight = '580px'
+  tailleDivResultatRequete.value.height = '508px'
+  tailleDivResultatRequete.value.maxHeight = '508px'
   tailleDivResultatRequete.value.overflow = 'auto'
 
 }
@@ -204,7 +205,7 @@ function propriété(valeur){
  * s'active et enlève le constructeur lorsqu'on valide
  * @param valeur
  */
-function validerValuesInsert(valeur){
+function validerValuesInsert(valeur){s
   addValeurToTextRequete(valeur)
   constructeurActuel = 6
   sendRequestFromConstructor()
@@ -461,9 +462,9 @@ window.addEventListener('updateTextareaEvent', (event) => {
 
 const effetLettres = async (inputText) => {
   for (const letter of inputText) {
+    ajouterText = false
     text_requete.value += letter;
     await new Promise(resolve => setTimeout(resolve, 200));
-    ajouterText = false
   }
   ajouterText = true
 }
@@ -472,7 +473,7 @@ function ajouterLettresAvecEffet(valeur) {
   if (ajouterText) {
     effetLettres(valeur)
   } else {
-    text_requete.value += valeur
+    text_requete.value = text_requete_temp
   }
 }
 
@@ -522,7 +523,7 @@ button{
 }
 
 input {
-  margin-right: 3s0px;
+  margin-right: 30px;
 }
 /* écran gauche */
 .ecran_gauche{
@@ -543,7 +544,7 @@ input {
 
 /* Text requête */
 .text_requete{
-  width: 99%;
+  width: 100%;
   margin: 0;
 }
 
@@ -603,9 +604,9 @@ input {
   margin-left: 20px;
   margin-bottom: 10px;
   margin-top: 10px;
-  width: 170px;
+  width: 150px;
   height: 50px;
-  border: #8f10ff 5px solid;
+  border: #8f10ff 4px solid;
   border-radius: 15px;
   background-color: black;
   font-family: 'Lato', sans-serif;
@@ -622,4 +623,24 @@ input {
   margin-left: 20px;
 }
 
+.img_recommencer {
+  width: 12%;
+  margin-bottom: -7px;
+  margin-left: 8px;
+}
+
+.img_retour {
+  width: 20%;
+  margin-bottom: -8px;
+  margin-left: 5px;
+}
+
+.bouton_recommencer {
+  width: 220px;
+}
+
+.ecran_gauche {
+  border: white 3px solid;
+  user-select: none;
+}
 </style>
