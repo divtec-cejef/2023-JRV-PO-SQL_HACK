@@ -138,8 +138,8 @@ const tailleDivResultatRequete = ref({
 });
 
 function changeTailleTextarea(){
-  tailleDivResultatRequete.value.height = '580px'
-  tailleDivResultatRequete.value.maxHeight = '580px'
+  tailleDivResultatRequete.value.height = '508px'
+  tailleDivResultatRequete.value.maxHeight = '508px'
   tailleDivResultatRequete.value.overflow = 'auto'
 
 }
@@ -462,9 +462,9 @@ window.addEventListener('updateTextareaEvent', (event) => {
 
 const effetLettres = async (inputText) => {
   for (const letter of inputText) {
+    ajouterText = false
     text_requete.value += letter;
     await new Promise(resolve => setTimeout(resolve, 200));
-    ajouterText = false
   }
   ajouterText = true
 }
@@ -473,7 +473,7 @@ function ajouterLettresAvecEffet(valeur) {
   if (ajouterText) {
     effetLettres(valeur)
   } else {
-    text_requete.value += valeur
+    text_requete.value = text_requete_temp
   }
 }
 
@@ -624,14 +624,14 @@ input {
 }
 
 .img_recommencer {
-  width: 13%;
+  width: 12%;
   margin-bottom: -7px;
   margin-left: 8px;
 }
 
 .img_retour {
-  width: 25%;
-  margin-bottom: -10px;
+  width: 20%;
+  margin-bottom: -8px;
   margin-left: 5px;
 }
 
