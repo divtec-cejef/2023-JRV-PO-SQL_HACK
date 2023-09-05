@@ -606,7 +606,7 @@ input {
   margin-top: 10px;
   width: 150px;
   height: 50px;
-  border: #8f10ff 5px solid;
+  border: #8f10ff 4px solid;
   border-radius: 15px;
   background-color: black;
   font-family: 'Lato', sans-serif;
@@ -631,11 +631,16 @@ input {
 
 .img_retour {
   width: 25%;
-  margin-bottom: -9.5px;
+  margin-bottom: -10px;
   margin-left: 5px;
 }
 
 .bouton_recommencer {
   width: 220px;
+}
+
+.ecran_gauche {
+  border: white 3px solid;
+  user-select: none;
 }
 </style>
