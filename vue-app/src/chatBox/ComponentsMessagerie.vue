@@ -58,10 +58,6 @@ export default {
   justify-content: flex-start; /* Inverse l'alignement horizontal */
 }
 
-.sent {
-  background-color: #d3fca8; /* Vert pour les messages envoyés */
-  justify-content: flex-end; /* Inverse l'alignement horizontal pour les messages envoyés */
-}
 /* Styles pour l'iPhone 11 */
 .iphone-11 {
   position: relative;
@@ -117,7 +113,6 @@ export default {
   background-repeat: no-repeat; /* Pour éviter que l'image ne se répète */
   background-position: center center; /* Pour centrer l'image horizontalement et verticalement */
   /* Autres styles de votre conteneur */
-  width: 100%;
   height: 100%; /* Définissez la hauteur souhaitée */
 }
 </style>

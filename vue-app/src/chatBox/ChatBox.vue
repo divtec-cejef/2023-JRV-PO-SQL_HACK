@@ -45,7 +45,7 @@ export default {
   padding: 10px;
   background-color: #f0f0f0; /* Couleur de fond de la zone de texte et du bouton */
   position: fixed;
-  top: 541px;
+  top: 600px;
   width: 280px;
   border-top: black 1px solid;
 }
@@ -81,7 +81,7 @@ export default {
   border-bottom: #222222 1px solid;
   color: #fff;
   position: fixed;
-  top: 88px;
+  top: 148px;
   width: 280px;
   margin-bottom: 40px;
 }
