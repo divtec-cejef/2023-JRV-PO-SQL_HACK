@@ -1,8 +1,8 @@
 <script setup>
-import FormRequest from "@/components/FormRequest.vue";
 import Constructeur from "@/pages/constructeur/constructeur.vue";
 import Chat from "@/chatBox/chat.vue";
 import Cinématique from "@/pages/cinématique/cinématique.vue";
+import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import {ref} from "vue";
 
 let ecranJeu = ref(false)
@@ -28,24 +28,8 @@ function changerEcran(valeur){
     <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
     <div v-if="ecranJeu" class="ecran_hackeur">
 
-      <div class="barre_lateral_gauche">
-        <h1>Comment ça fonctionne ?</h1>
-        <p>Pour interagir avec la base de données, on utilise un langage informatique qui s’appelle le <strong>SQL</strong>.
-          Ce langage permet d’utiliser 4 commandes pour exécuter des requêtes sur une base de données.</p>
+      <barre-laterale></barre-laterale>
 
-        <h2>Les 4 commandes </h2>
-        <p><strong>SELECT</strong> sert à sélectionner et afficher certaines informations de la base de données
-          qui correspondent aux champs que vous aurez choisi.</p>
-        <p><strong>UPDATE</strong> sert à modifier une information précise qui se trouve dans la base de données. Pour y arriver,
-          il suffit de choisir le champ sur lequel vous voulez faire votre modification, saisir votre nouvelle information,
-          saisir l’ID pour appliquer la modification sur une information précise de la base de données. </p>
-        <p><strong>INSERT</strong> sert à insérer une nouvelle information dans la base de données.
-          Pour y arriver, il suffit de choisir où vous voulez l’insérer et remplir chaque champ de saisie proposé.</p>
-        <p><strong>DELETE</strong> sert à supprimer une information qui se trouve dans la base de données.
-          Pour y arriver, il suffit choisir où se trouve l’information et saisir l’ID pour savoir quelle information précise vous voulez supprimer.</p>
-        <p><strong>L'ID</strong> est un nombre unique que chaque information possède. Ce numéro est utilisé pour permettre d’identifier une information.</p>
-
-      </div>
       <div class="constructeur">
         <constructeur></constructeur>
       </div>
@@ -64,8 +48,8 @@ header {
   line-height: 1.5;
 }
 
-.barre_lateral_gauche{
-  background-color: #8f10ff;
+.barre_lateral_gauche {
+  background-image: linear-gradient(to bottom right, #8f10ff, black 70%);
   width: 20%;
   height: 100%;
   position: fixed;
@@ -75,13 +59,20 @@ header {
   font-family: 'Lato', sans-serif;
   text-align: justify;
   box-shadow: 0 0 5px 0 black;
+  //border-top-right-radius: 15px;
+}
 
+.logo {
+  max-height: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .constructeur{
   margin-left: 500px;
   margin-top: 50px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .chat_box {
@@ -187,6 +178,7 @@ h2 {
 }
 
 p {
+  //color: #ffffff;
   color: #ffffff;
   font-size: 16px;
 }
