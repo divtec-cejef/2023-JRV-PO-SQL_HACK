@@ -1,12 +1,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-
 import './assets/main.css';
 import Home from "@/pages/Home.vue";
 import { createWebHistory, createRouter } from "vue-router";
 import Cinematique from "@/pages/cinématique/cinématique.vue";
 import Constructeur from "@/pages/constructeur/constructeur.vue";
-
+import store from '@/chatBox/store';
 
 
 
@@ -21,4 +20,5 @@ const router = createRouter({
 
 const app = createApp(App);
 app.use(router);
+app.use(store);
 app.mount('#app');
