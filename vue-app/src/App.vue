@@ -24,7 +24,6 @@ function changerEcran(valeur){
   </header>
 
   <main>
-
     <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
     <div v-if="ecranJeu" class="ecran_hackeur">
 
@@ -48,20 +47,6 @@ header {
   line-height: 1.5;
 }
 
-.barre_lateral_gauche {
-  background-image: linear-gradient(to bottom right, #8f10ff, black 70%);
-  width: 20%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  padding: 25px;
-  font-family: 'Lato', sans-serif;
-  text-align: justify;
-  box-shadow: 0 0 5px 0 black;
-  //border-top-right-radius: 15px;
-}
-
 .logo {
   max-height: 100%;
   max-width: 100%;
@@ -78,7 +63,6 @@ header {
 .chat_box {
   margin-left: 200px;
 }
-
 
 .animation_descente {
   animation: descend 1s ease-in-out;
@@ -109,8 +93,6 @@ header {
     left: 0; /* Position finale, la div est affichée à gauche */
   }
 }
-
-
 
 @media (min-width: 1024px) {
   header {
@@ -163,24 +145,6 @@ header {
 
 .chat {
   align-self: flex-end;
-}
-
-h1, h2 {
-  color: #ffffff;
-}
-
-h1 {
-  font-size: 30px;
-}
-
-h2 {
-  font-size: 24px;
-}
-
-p {
-  //color: #ffffff;
-  color: #ffffff;
-  font-size: 16px;
 }
 
 </style>
