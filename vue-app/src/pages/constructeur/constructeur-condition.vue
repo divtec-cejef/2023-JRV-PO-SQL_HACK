@@ -39,8 +39,8 @@ button {
   margin: 3px;
   font-size: 32px;
   width: fit-content;
-  background-color: #8f10ff;
-  color: white;
+  background-color: #FFFFFF;
+  color: black;
   padding: 20px;
   border-radius: 20px;
   font-family: 'Lato', sans-serif;

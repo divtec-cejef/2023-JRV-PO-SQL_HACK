@@ -30,7 +30,8 @@
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition_select">
               <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Saisissez ici" class="text_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Saisissez ici" class="text_condition"
+                     @keydown.enter.prevent="valideRequete(false)">
               <button class="btnValider" @click="valideRequete(false)">Valider</button>
             </div>
           </div>
@@ -44,12 +45,14 @@
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
               <div class="text_saisie_id">Saisissez la nouvelle valeur</div>
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition">
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition"
+                     @keydown.enter.prevent="valideRequete(true)">
               <button class="btnValider" @click="valideRequete(true)">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="saisie_condition">
               <div class="text_saisie_id">Saisissez l'id correspondant</div>
-              <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition">
+              <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition"
+                     @keydown.enter.prevent="valideRequeteUpdate">
               <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
             </div>
           </div>
@@ -74,7 +77,8 @@
             <div v-if="constructeurActuel===2" class="btn_condition">
               <div class="saisie_condition_select">
                 <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
-                <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition">
+                <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition"
+                       @keydown.enter.prevent="valideRequeteUpdate">
                 <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
               </div>
             </div>
@@ -265,6 +269,8 @@ function retour(){
   text_requete.value = historiqueTextRequete[constructeurActuel - 1]
   console.log(historiqueTextRequete[constructeurActuel])
   historiqueTextRequete.pop()
+  numId.value = ""
+  textCondition.value = ""
 
   constructeurActuel--
 }
@@ -343,7 +349,6 @@ function changeTextEnCasDeID(propriete_selectionnee){
  * @param commande si la commande correspond au constructeur actuel update
  */
 function valideRequete(commandeUpdate) {
-  console.log(propriete_selectionnee);
   text_requete_temp = text_requete.value
 
   if (["idVoiture", "idPersonne", "idMateriel"].includes(propriete_selectionnee)) {
@@ -364,11 +369,6 @@ function valideRequete(commandeUpdate) {
     }
   } else {
     if (textCondition.value !== "") {
-      console.log("champs rempli")
-      text_requete.value += "'";
-      addValeurToTextRequete(textCondition.value);
-      text_requete.value += "'";
-      console.log(text_requete.value);
       if (commandeUpdate)  {
         historiqueTextRequete.push(text_requete.value)
         console.log(constructeurActuel + " " + commande_selectionnee)
@@ -376,8 +376,12 @@ function valideRequete(commandeUpdate) {
         console.log("texte temp : "+text_requete_temp)
         console.log(historiqueTextRequete)
         console.log("----------------------")
-        btnRetourIsDisabled = true
       }
+      console.log("champs rempli")
+      text_requete.value += "'";
+      addValeurToTextRequete(textCondition.value);
+      text_requete.value += "'";
+      console.log(text_requete.value);
       constructeurActuel++
     } else {
       console.log("champs vide")
@@ -403,8 +407,8 @@ function valideRequete(commandeUpdate) {
  * update et ensuite les ajouter les saisies au text area
  */
 function valideRequeteUpdate() {
-
-  if (!isNaN(numId.value)) {
+  console.log(numId.value)
+  if (!isNaN(numId.value) && numId.value !== "") {
     if (commande_selectionnee !== "DELETE") {
       text_requete.value += " WHERE "
     }
@@ -423,10 +427,10 @@ function valideRequeteUpdate() {
     constructeurActuel = 6
     text_requete.value += ";"
     changeTailleTextarea()
+    sendRequestFromConstructor()
   } else {
     window.alert("Vous devez saisir un nombre")
   }
-  sendRequestFromConstructor()
 }
 
 /***
@@ -511,8 +515,8 @@ button{
   height: 50px;
 }
 .btnValider{
-  background-color: #8f10ff;
-  color: white;
+  background-color: #ffffff;
+  color: black;
 }
 
 .btnValider:hover{
@@ -565,7 +569,8 @@ input {
   margin-top: 30px;
 }
 .constructeur_table_et_propriete{
-  margin-left: 40px;
+  margin-left: 25px;
+  margin-top: 30px;
 }
 .btnValider{
   margin-top: 25px;
@@ -606,7 +611,7 @@ input {
   margin-top: 10px;
   width: 150px;
   height: 50px;
-  border: #8f10ff 4px solid;
+  border: #ffffff 4px solid;
   border-radius: 15px;
   background-color: black;
   font-family: 'Lato', sans-serif;
