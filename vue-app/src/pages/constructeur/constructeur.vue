@@ -205,7 +205,7 @@ function propriété(valeur){
  * s'active et enlève le constructeur lorsqu'on valide
  * @param valeur
  */
-function validerValuesInsert(valeur){s
+function validerValuesInsert(valeur){
   addValeurToTextRequete(valeur)
   constructeurActuel = 6
   sendRequestFromConstructor()
