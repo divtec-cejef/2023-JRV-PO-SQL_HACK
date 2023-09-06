@@ -1,11 +1,15 @@
 <template>
-  <div class="iphone-11">
-    <div class="camera"></div>
+ <div v-if="showComponent" class="onglet-telephone">
+   <div class="barre-onglet">
+     <button><img src="../assets/icon/minus.png" alt="" class="minus"></button>
+     <button><img src="../assets/icon/square.png" alt="" class="square"></button>
+     <button @click="close" ><img src="../assets/icon/close.png" alt="" class="close"></button>
+   </div>
     <div class="chat">
-      <ChatBox :sendMessage="sendMessage" />
+    <ChatBox :sendMessage="sendMessage" />
     <MessageList :messages="messages"  class="message" />
     </div>
-  </div>
+ </div>
 </template>
 
 <script>
@@ -17,6 +21,7 @@ export default {
   components: { MessageList, ChatBox },
   data() {
     return {
+      showComponent: true,
       messages: [
         { text: "Envoie-moi le mot de passe de l'alarme. C'est la date de naissance de Martin Dupont.", id: 1, isSent: false },
       ],
@@ -35,6 +40,9 @@ export default {
     };
   },
   methods: {
+    close(){
+      this.showComponent = false;
+    },
     sendMessage(newMessageText) {
       // Ajoutez la logique de gestion des messages ici
       // Par exemple, ajoutez le nouveau message à la liste des messages avec un nouvel ID
@@ -137,6 +145,62 @@ export default {
 </script>
 
 <style>
+/* Styles pour l'iPhone 11 */
+.onglet-telephone {
+  position: relative;
+  width: 400px;
+  height: 600px;
+  //background-color: #fff;
+  //border: 7px solid #000;
+  //border-radius: 30px;
+  //overflow: hidden;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  //border-top: 4px solid #cccccc;
+  //border-radius: 10px;
+  box-shadow: 5px 5px 5px black;
+  display: flex; /* Utilisez l'affichage flex */
+  flex-direction: column; /* Les éléments flex s'étendront verticalement */
+}
+
+.barre-onglet {
+  //padding: 5px;
+  //margin: 5px;
+  height: 30px;
+  background-color: #cccccc;
+  display: flex;
+  padding-top: 3px;
+  justify-content: flex-end;
+}
+
+.barre-onglet button {
+  background-color: transparent;
+  border: none;
+}
+
+/* Barre supérieure */
+.iphone-11::before {
+  //content: "";
+  //position: absolute;
+  //top: 0;
+  //left: 0;
+  //right: 0;
+  //height: 42px;
+  //background-color: #000;
+}
+
+.iphone-11::after {
+  //content: "";
+  //position: absolute;
+  //bottom: 0;
+  //left: 0;
+  //right: 0;
+  //height: 42px;
+  //background-color: #000;
+}
+
+
 .message {
   margin: 5px;
   max-width: 70%; /* Limite la largeur des messages pour éviter qu'ils ne s'étendent trop */
@@ -144,55 +208,10 @@ export default {
   justify-content: flex-start; /* Inverse l'alignement horizontal */
 }
 
-/* Styles pour l'iPhone 11 */
-.iphone-11 {
-  position: relative;
-  width: 300px;
-  height: 600px;
-  background-color: #fff;
-  border: 7px solid #000;
-  border-radius: 30px;
-  overflow: hidden;
-  display: flex; /* Utilisez l'affichage flex */
-  flex-direction: column; /* Les éléments flex s'étendront verticalement */
-}
-
-/* Barre supérieure */
-.iphone-11::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 42px;
-  background-color: #000;
-}
-
-.iphone-11::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 42px;
-  background-color: #000;
-}
-
-/* Caméra */
-.iphone-11 .camera {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  background-color: #ccc;
-  border-radius: 50%;
-}
 .chat{
-  flex: 1; /* Faites en sorte que .chat utilise tout l'espace vertical disponible */
+  //flex: 1; /* Faites en sorte que .chat utilise tout l'espace vertical disponible */
   width: 100%; /* Utilisez toute la largeur disponible */
-  max-height: 444px; /* Hauteur maximale pour la liste de messages, ajustez selon vos besoins */
+  max-height: 544px; /* Hauteur maximale pour la liste de messages, ajustez selon vos besoins */
   overflow-y: auto; /* Affiche une barre de défilement en cas de dépassement de la hauteur maximale */
   background-image: url('@/img/watsapp.png');
   background-size: cover; /* Pour redimensionner l'image pour qu'elle couvre tout le conteneur */
@@ -201,4 +220,10 @@ export default {
   /* Autres styles de votre conteneur */
   height: 100%; /* Définissez la hauteur souhaitée */
 }
+
+.minus, .square, .close{
+ height: 20px;
+  width: 20px;
+}
+
 </style>
