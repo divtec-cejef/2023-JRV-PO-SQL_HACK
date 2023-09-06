@@ -172,50 +172,5 @@ export default {
 
 
 <style>
-.chat{
-  margin-top: 50px;
-}
-/* Styles pour l'iPhone 11 */
-.iphone-11 {
-  position: relative;
-  width: 300px;
-  height: 600px;
-  background-color: #fff;
-  border: 7px solid #000;
-  border-radius: 30px;
-  overflow: hidden;
-}
 
-/* Barre supérieure */
-.iphone-11::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 42px;
-  background-color: #000;
-}
-
-.iphone-11::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 42px;
-  background-color: #000;
-}
-
-/* Caméra */
-.iphone-11 .camera {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  background-color: #ccc;
-  border-radius: 50%;
-}
 </style>
