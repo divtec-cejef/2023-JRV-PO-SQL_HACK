@@ -30,9 +30,9 @@ button {
   margin: 20px;
   font-size: 32px;
   transition: transform 500ms ease;
-  background-color: #8f10ff;
+  background-color: white;
   border-radius: 20px;
-  color: white;
+  color: black;
 }
 
 .page2 {

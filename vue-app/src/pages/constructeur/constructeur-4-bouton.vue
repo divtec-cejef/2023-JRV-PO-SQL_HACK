@@ -56,8 +56,8 @@ import {defineEmits, ref} from 'vue'
   margin: 15px;
   padding: 30px;
   border-radius: 20px;
-  background-color: #8f10ff;
-  color: white;
+  background-color: #FFFFFF;
+  color: black;
   font-family: 'Lato', sans-serif;
   font-weight: 600;
 }

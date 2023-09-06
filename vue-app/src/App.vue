@@ -6,13 +6,13 @@ import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
 import {ref} from "vue";
 
-let ecranJeu = ref(false)
+let jeu = ref(false)
 let cinematique = ref(true)
 let cle = ref(0)
 
 function changerEcran(valeur){
   console.log(valeur)
-  ecranJeu = valeur
+  jeu = valeur
   cinematique = false
   cle.value += 1
 }
@@ -25,18 +25,38 @@ function changerEcran(valeur){
   </header>
 
   <main>
+
     <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
-    <div v-if="ecranJeu" class="ecran_hackeur">
-
-      <barre-laterale></barre-laterale>
-
-      <div class="constructeur">
-        <constructeur></constructeur>
+    <div v-if="jeu" class="jeu">
+      <div>
+        <barre-laterale></barre-laterale>
       </div>
-      <div class="chat_box">
-<!--          <chat class="chat"></chat>-->
-       <ComponentsMessagerie></ComponentsMessagerie>
+
+      <div class="ecran_ordinateur">
+        <div class="ecran_application">
+          <div class="constructeur">
+            <constructeur></constructeur>
+          </div>
+          <div class="chat_box"></div>
+        </div>
+
+        <div class="barre_tache">
+          <img src="./img/icone_windows.png" alt="">
+          <img src="./img/loupe%20(1).png" alt="">
+          <img src="./img/icone_explorateur.png" alt="">
+          <img src="./img/icone_google.png" alt="">
+          <img src="./img/icone_base_donnee.png" alt="" class="app_ouvert">
+          <img src="./img/icone_messagerie.png" alt="" class="app_ouvert">
+        </div>
       </div>
+
+<!--      <div class="constructeur">-->
+<!--        <constructeur></constructeur>-->
+<!--      </div>-->
+<!--      <div class="chat_box">-->
+<!--&lt;!&ndash;          <chat class="chat"></chat>&ndash;&gt;-->
+<!--       <ComponentsMessagerie></ComponentsMessagerie>-->
+<!--      </div>-->
 
     </div>
   </main>
@@ -46,6 +66,7 @@ function changerEcran(valeur){
 
 * {
   font-family: 'Jura', sans-serif;
+  user-select: none;
 }
 
 body {
@@ -56,6 +77,7 @@ body {
   //background-position: center center;
   //background-attachment: fixed;
   zoom: 110%;
+  background-color: black;
 }
 
 
@@ -68,18 +90,6 @@ header {
   max-width: 100%;
   display: flex;
   justify-content: flex-end;
-}
-
-.constructeur{
-  margin-left: 500px;
-  margin-top: 50px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  transition: top 3s ease;
-}
-
-.chat_box {
-  margin-left: 160px;
-  margin-top: 60px;
 }
 
 .animation_descente {
@@ -157,12 +167,41 @@ header {
   color: #ffffff;
 }
 
-.ecran_hackeur {
+.ecran_ordinateur{
+  width: 1200px;
+  height: 800px;
+  border: 2px solid white;
+  position: fixed;
+  left: 480px;
+  top: 100px;
+}
+.ecran_application{
   display: flex;
+  justify-content: center;
 }
-
-.chat {
-  align-self: flex-end;
+.constructeur{
 }
+.chat_box{
+  background-color: #27FF16;
+  height: 100px;
+  width: 100px;
+}
+.barre_tache {
+  border-top: 1px gray solid;
+  position: absolute;
+  height: 60px;
+  width: 100%;
+  bottom: 0;
+}
+.barre_tache img {
+  width: 3%;
+  margin: 10px;
+  display: inline-block;
+}
+.barre_tache img:hover{
 
+}
+.app_ouvert{
+
+}
 </style>
