@@ -23,10 +23,10 @@ export default {
       messagesVoleur: [
         { text: "Parfait, c'est bien la bonne personne.", id: 2, isSent: false },
         { text: "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.", id: 3, isSent: false },
-        { text: "À présent, modifie le propriétaire de la Tesla noire en la mettant à mon nom, John Doe. Pour commencer, Sélectionne le propriétaire de la voiture qui a une couleur noire, donne-moi son nom et son prénom et mémorise son ID.", id: 4, isSent: false },
+        { text: "Sélectionne le propriétaire de la Tesla de couleur noire. Donne-moi son nom et son prénom. Mémorise son ID.", id: 4, isSent: false },
         { text: "Parfait, c'est bien la bonne personne.", id: 5, isSent: false },
         { text: "Absolument pas, je le connais.", id: 6, isSent: false },
-        { text: "Mémorise son ID. Modifie le propriétaire de la voiture au nom de John Doe grâce à 'ID' que tu as mémorisé. Quand tu as fini, vérifie si le proprio à bien changer et envoie-moi 'OK'", id: 7, isSent: false },
+        { text: "Mémorise son ID. Modifie le propriétaire de la voiture au nom de John Doe. Quand tu as finis. Envoie-moi 'OK'", id: 7, isSent: false },
         { text: "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.", id: 8, isSent: false },
         { text: "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire.", id: 9, isSent: false },
       ],
