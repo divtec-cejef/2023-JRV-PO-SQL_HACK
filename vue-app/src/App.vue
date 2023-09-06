@@ -9,12 +9,36 @@ import {ref} from "vue";
 let jeu = ref(false)
 let cinematique = ref(true)
 let cle = ref(0)
+let afficherChatBox = ref(false)
+// Créez une référence pour l'élément d'image
+const imageElement = ref(null);
 
 function changerEcran(valeur){
   console.log(valeur)
   jeu = valeur
   cinematique = false
   cle.value += 1
+}
+
+function close(valeur){
+  console.log(valeur)
+  afficherChatBox.value = valeur
+}
+function openChatBox(){
+  afficherChatBox.value = false
+}
+function easterEgg(){
+  // Créez un nouvel élément d'image
+  imageElement.value = new Image();
+
+  // Définissez l'URL du GIF que vous souhaitez afficher
+  imageElement.value.src = 'chemin_vers_votre_gif.gif';
+
+  // Vous pouvez également ajouter d'autres attributs à l'élément d'image si nécessaire
+  // imageElement.value.alt = 'Description du GIF';
+
+  // Ajoutez l'élément d'image au DOM pour l'afficher
+  document.body.appendChild(imageElement.value);
 }
 
 </script>
@@ -37,7 +61,9 @@ function changerEcran(valeur){
           <div class="constructeur">
             <constructeur></constructeur>
           </div>
-          <div class="chat_box"></div>
+          <div class="chat_box">
+            <ComponentsMessagerie @close="close" v-if="!afficherChatBox"></ComponentsMessagerie>
+          </div>
         </div>
 
         <div class="barre_tache">
@@ -45,8 +71,9 @@ function changerEcran(valeur){
           <img src="./img/loupe%20(1).png" alt="">
           <img src="./img/icone_explorateur.png" alt="">
           <img src="./img/icone_google.png" alt="">
-          <img src="./img/icone_base_donnee.png" alt="" class="app_ouvert">
-          <img src="./img/icone_messagerie.png" alt="" class="app_ouvert">
+          <img src="./img/icone_base_donnee.png" alt="" class="app_ouvert" >
+          <img src="./img/icone_messagerie.png" alt="" class="app_ouvert" @click="openChatBox">
+          <img src="./img/Fortnite_S1.png" alt="" @click="easterEgg">
         </div>
       </div>
 
@@ -73,11 +100,10 @@ body {
   background-blend-mode: color;
   background-image: url("../src/assets/img/background-sqlhack.jpg"), linear-gradient(to right, black 10%, rgba(0, 0, 0, 0.2) 100%);
   background-size: cover;
-  //position: relative;
-  //background-position: center center;
-  //background-attachment: fixed;
+  /*position: relative;*/
+  /*background-position: center center;*/
+  /*background-attachment: fixed;*/
   zoom: 110%;
-  background-color: black;
 }
 
 
@@ -172,19 +198,24 @@ header {
   height: 800px;
   border: 2px solid white;
   position: fixed;
-  left: 480px;
+  left: 500px;
   top: 100px;
+  background-color: #000000;
 }
 .ecran_application{
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  margin-top: 20px;
+  margin-left: 100px;
 }
 .constructeur{
+  margin-right: 50px;
 }
 .chat_box{
-  background-color: #27FF16;
   height: 100px;
   width: 100px;
+  margin-top: 50px;
+
 }
 .barre_tache {
   border-top: 1px gray solid;
