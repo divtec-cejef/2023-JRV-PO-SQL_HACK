@@ -7,7 +7,7 @@
     </div>
   </div>
 </div>
-  <div class="textBtn">
+  <div>
     <div class="message-input">
       <textarea v-model="newMessage" rows="1" placeholder="Saisissez votre message" class="message-text" @keydown.enter.prevent="send"></textarea>
       <button @click="send" class="send-button">
@@ -42,15 +42,12 @@ export default {
 .message-input {
   display: flex;
   align-items: center;
-  padding: 10px;
+  //padding: 10px;
   background-color: #f0f0f0; /* Couleur de fond de la zone de texte et du bouton */
   position: fixed;
-  top: 600px;
-  width: 280px;
+  top: 643px;
+  width: 400px;
   border-top: black 1px solid;
-}
-.textBtn{
-
 }
 
 .message-text {
@@ -59,8 +56,11 @@ export default {
   border: none;
   padding: 10px 5px 10px 5px;
   border-radius: 10px;
-  margin-right: 10px;
+  margin: 10px 10px 10px 10px;
+  //margin-right: 10px;
+  //margin-left: 10px;
   text-align: left;
+  font-size: 15px;
   overflow: hidden; /* Empêche le débordement du contenu */
   height: auto; /* La hauteur est automatiquement ajustée en fonction du contenu */
 }
@@ -72,18 +72,20 @@ export default {
   border: none;
   border-radius: 20px;
   cursor: pointer;
+
 }
 .banner {
   display: flex;
   align-items: center;
-  padding: 10px;
-  background-color: #8f10ff;
-  border-bottom: #222222 1px solid;
+  padding: 5px;
+  background-color: black;
+  border-bottom: #cccccc 1px solid;
+  border-top: #cccccc 1px solid;
   color: #fff;
   position: fixed;
-  top: 148px;
-  width: 280px;
-  margin-bottom: 40px;
+  top: 128px;
+  width: 390px;
+
 }
 
 .interlocuteur-photo {

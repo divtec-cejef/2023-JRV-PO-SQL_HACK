@@ -34,8 +34,8 @@ const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
 
 /***
  * Au lancement du composant, si isUpdate est "True", alors
- * on supprime le premier élément des listes (l'id) pour éviter un bug
- * dans la base de donnée
+ * on supprime le premier élément des listes (l'id) pour éviter de
+ * pouvoir séléctionner l'ID
  */
 if (props.isUpdate) {
   tb_personne.shift()
@@ -116,14 +116,16 @@ function addPropriety(valeur, table) {
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@600');
 
 ul {
-  padding: 0;
-  margin: 20px;
+  padding: 0 0 15px 0;
+  width: 160px;
   border: 1px black solid;
   transition: transform 500ms ease;
   border-radius: 14px;
-  background-color: #8f10ff;
+  background-color: white;
   font-family: 'Lato', sans-serif;
   font-weight: 600;
+  margin: 10px;
+  padding-bottom:
 }
 
 ul p {
@@ -132,9 +134,10 @@ ul p {
 
 li {
   list-style-type: none;
-  margin: 5px;
+  text-align: center;
   font-family: 'Roboto', sans-serif;
-  color: white;
+  color: black;
+  margin: 8px;
 }
 
 .tables {
@@ -144,21 +147,22 @@ li {
 }
 
 p {
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+  margin-top: 20px;
   font-size: 32px;
   padding: 5px;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
-  color: white;
+  color: black;
+  text-align: center;
 }
 
 ul:hover {
   transform: scale(1.10);
 }
 
-li:hover {
-  color: #27FF16;
-  cursor: default;
+li:hover{
+  color: #8f10ff;
 }
 
 .disabled{
