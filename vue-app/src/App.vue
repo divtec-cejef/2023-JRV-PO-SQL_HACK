@@ -37,7 +37,9 @@ function changerEcran(valeur){
           <div class="constructeur">
             <constructeur></constructeur>
           </div>
-          <div class="chat_box"></div>
+          <div class="chat_box">
+            <ComponentsMessagerie></ComponentsMessagerie>
+          </div>
         </div>
 
         <div class="barre_tache">
@@ -73,11 +75,10 @@ body {
   background-blend-mode: color;
   background-image: url("../src/assets/img/background-sqlhack.jpg"), linear-gradient(to right, black 10%, rgba(0, 0, 0, 0.2) 100%);
   background-size: cover;
-  //position: relative;
-  //background-position: center center;
-  //background-attachment: fixed;
+  /*position: relative;*/
+  /*background-position: center center;*/
+  /*background-attachment: fixed;*/
   zoom: 110%;
-  background-color: black;
 }
 
 
@@ -174,17 +175,22 @@ header {
   position: fixed;
   left: 480px;
   top: 100px;
+  background-color: #000000;
 }
 .ecran_application{
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  margin-top: 20px;
+  margin-left: 100px;
 }
 .constructeur{
+  margin-right: 50px;
 }
 .chat_box{
   background-color: #27FF16;
   height: 100px;
   width: 100px;
+
 }
 .barre_tache {
   border-top: 1px gray solid;
