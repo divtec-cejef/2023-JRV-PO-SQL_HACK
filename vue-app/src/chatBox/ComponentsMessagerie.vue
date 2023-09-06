@@ -43,7 +43,6 @@
     emits('close', true)
   }
 
-
   const sendMessage = (newMessageText) => {
   const newMessage = {
   text: newMessageText,

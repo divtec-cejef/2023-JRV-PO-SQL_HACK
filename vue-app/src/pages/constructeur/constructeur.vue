@@ -4,6 +4,7 @@
  et le résultat de la requête-->
   <div class="ecran_gauche">
 
+
     <!-- Constructeur de la requête-->
     <div v-if="constructeurActuel !== 6">
       <div class="constructeur">
@@ -96,7 +97,7 @@
       <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
     </div>
 
-    <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
+    <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
 
     </div>
   </div>
