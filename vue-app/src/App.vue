@@ -39,19 +39,25 @@ function changerEcran(valeur){
       </div>
 
     </div>
-
   </main>
 </template>
 
 <style>
 
-html {
-  background-image: url("../src/assets/img/");
+* {
+  font-family: 'Jura', sans-serif;
+}
+
+body {
+  background-blend-mode: color;
+  background-image: url("../src/assets/img/background-sqlhack.jpg"), linear-gradient(to right, black 10%, rgba(0, 0, 0, 0.2) 100%);
   background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
+  //position: relative;
+  //background-position: center center;
+  //background-attachment: fixed;
   zoom: 110%;
 }
+
 
 header {
   line-height: 1.5;
