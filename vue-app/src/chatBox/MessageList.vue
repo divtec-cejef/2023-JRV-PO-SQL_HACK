@@ -2,7 +2,7 @@
   <div v-for="message in messages" :key="message.id" :class="message.isSent ? 'sent' : 'received'">
     <div class="message-container">
         <div class="message-content">
-          {{ message.text }}
+          {{message.text}}
         </div>
       </div>
   </div>
@@ -10,8 +10,9 @@
 
 <script>
 export default {
-  props: ['messages']
+  props: ['messages'],
 }
+
 </script>
 
 <style scoped>

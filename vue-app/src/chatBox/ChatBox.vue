@@ -60,6 +60,7 @@ export default {
   //margin-right: 10px;
   //margin-left: 10px;
   text-align: left;
+  font-size: 15px;
   overflow: hidden; /* Empêche le débordement du contenu */
   height: auto; /* La hauteur est automatiquement ajustée en fonction du contenu */
 }
@@ -71,6 +72,7 @@ export default {
   border: none;
   border-radius: 20px;
   cursor: pointer;
+
 }
 .banner {
   display: flex;
