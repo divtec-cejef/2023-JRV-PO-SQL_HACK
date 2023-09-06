@@ -28,7 +28,7 @@ export default {
         { text: "Absolument pas, je le connais.", id: 6, isSent: false },
         { text: "Mémorise son ID. Modifie le propriétaire de la voiture au nom de John Doe. Quand tu as finis. Envoie-moi 'OK'", id: 7, isSent: false },
         { text: "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.", id: 8, isSent: false },
-        { text: "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire.", id: 9, isSent: false },
+        { text: "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire. ", id: 9, isSent: false },
       ],
       etape: 1,
       DupontPlace: 0
