@@ -12,6 +12,7 @@
  </div>
 </template>
 
+
 <script setup>
   import { ref, onMounted, onBeforeUnmount } from "vue";
   import MessageList from "@/chatBox/MessageList.vue";
@@ -49,6 +50,7 @@
   text: newMessageText,
   id: messages.value.length + 1, // Assurez-vous que l'ID est unique
   isSent: true,
+
 };
 
   messages.value.push(newMessage);
