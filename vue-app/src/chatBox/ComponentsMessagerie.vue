@@ -95,7 +95,7 @@ export default {
           }, 10);
         }
       } else if (this.etape === 3) {
-        if (newMessageText === 'OK') {
+        if (newMessageText === 'OK' || newMessageText === 'ok' || newMessageText === 'Ok' || newMessageText === 'oK' || newMessageText === 'OKEY') {
           this.DupontPlace = dupontPlace;
           console.log(this.DupontPlace + "compar")
           // Ouverture de la base de données "maBaseDeDonnees"
