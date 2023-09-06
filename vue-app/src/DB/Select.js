@@ -44,13 +44,13 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
             let tr = document.createElement("tr");
             tr.classList.add("tr_result");
             if (nomTable === "tb_personne"){
-                tr.innerHTML = "<td>" + data[i].idPersonne + "</td><td>" + data[i].nom + "</td><td>" + data[i].prenom + "</td><td>" + formatDate(data[i].date_de_naissance) + "</td><td>" + data[i].numero_de_tel + "</td>";
+                tr.innerHTML = "<td onclick=\"copierContenu(this)\">" + data[i].idPersonne + "</td><td onclick=\"copierContenu(this)\">" + data[i].nom + "</td><td onclick=\"copierContenu(this)\">" + data[i].prenom + "</td><td onclick=\"copierContenu(this)\">" + formatDate(data[i].date_de_naissance) + "</td><td onclick=\"copierContenu(this)\">" + data[i].numero_de_tel + "</td>";
             }
             else if (nomTable === "tb_materiel"){
-                tr.innerHTML = "<td>" + data[i].idMateriel + "</td><td>" + data[i].nom_materiel + "</td><td>" + data[i].quantite + "</td>";
+                tr.innerHTML = "<td onclick=\"copierContenu(this)\" >" + data[i].idMateriel + "</td><td onclick=\"copierContenu(this)\" >" + data[i].nom_materiel + "</td><td onclick=\"copierContenu(this)\" >" + data[i].quantite + "</td>";
             }
             else if (nomTable === "tb_voiture"){
-                tr.innerHTML = "<td>" + data[i].idVoiture + "</td><td>" + data[i].couleur + "</td><td>" + data[i].numero_plaque + "</td><td>" + data[i].proprietaire + "</td><td>" + data[i].marque + "</td>";
+                tr.innerHTML = "<td onclick=\"copierContenu(this)\">" + data[i].idVoiture + "</td><td onclick=\"copierContenu(this)\">" + data[i].couleur + "</td><td onclick=\"copierContenu(this)\">" + data[i].numero_plaque + "</td><td onclick=\"copierContenu(this)\">" + data[i].proprietaire + "</td><td onclick=\"copierContenu(this)\">" + data[i].marque + "</td>";
             }
             table.appendChild(tr);
         }
@@ -68,6 +68,11 @@ function formatDate(date) {
     return year + "-" + month + "-" + day ;
 }
 
+function copierContenu(cellule) {
+    // Sélectionnez le contenu de la cellule
+    var texte = cellule.innerText;
+    navigator.clipboard.writeText(texte)
+}
 
 
 
