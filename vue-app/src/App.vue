@@ -10,6 +10,7 @@ let jeu = ref(false)
 let cinematique = ref(true)
 let cle = ref(0)
 let afficherChatBox = ref(false)
+let afficherConstructeur = ref(false)
 // Créez une référence pour l'élément d'image
 const imageElement = ref(null);
 
@@ -20,12 +21,19 @@ function changerEcran(valeur){
   cle.value += 1
 }
 
-function close(valeur){
+function closeChatBox(valeur){
   console.log(valeur)
   afficherChatBox.value = valeur
 }
 function openChatBox(){
   afficherChatBox.value = false
+}
+
+function openConstructeur(){
+  afficherConstructeur.value = false
+}
+function closeConstructeur(valeur){
+  afficherConstructeur.value = valeur
 }
 function easterEgg(){
   // Créez un nouvel élément d'image
@@ -59,10 +67,10 @@ function easterEgg(){
       <div class="ecran_ordinateur">
         <div class="ecran_application">
           <div class="constructeur">
-            <constructeur></constructeur>
+            <constructeur @close-constructeur="closeConstructeur" v-if="!afficherConstructeur"></constructeur>
           </div>
           <div class="chat_box">
-            <ComponentsMessagerie @close="close" v-if="!afficherChatBox"></ComponentsMessagerie>
+            <ComponentsMessagerie @close-chatbox="closeChatBox" v-if="!afficherChatBox"></ComponentsMessagerie>
           </div>
         </div>
 
@@ -71,7 +79,7 @@ function easterEgg(){
           <img src="./img/loupe%20(1).png" alt="">
           <img src="./img/icone_explorateur.png" alt="">
           <img src="./img/icone_google.png" alt="">
-          <img src="./img/icone_base_donnee.png" alt="" class="app_ouvert" >
+          <img src="./img/icone_base_donnee.png" alt="" class="app_ouvert" @click="openConstructeur">
           <img src="./img/icone_messagerie.png" alt="" class="app_ouvert" @click="openChatBox">
           <img src="./img/Fortnite_S1.png" alt="" @click="easterEgg">
         </div>

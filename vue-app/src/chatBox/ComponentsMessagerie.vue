@@ -37,11 +37,11 @@
 
   const etape = ref(1);
   const DupontPlace = ref(0);
-  const emits = defineEmits(['close']);
+  const emits = defineEmits(['close-chatbox']);
 
   function close(){
     // emet false donc on affiche pas la fenetre
-    emits('close', true)
+    emits('close-chatbox', true)
   }
 
   const sendMessage = (newMessageText) => {

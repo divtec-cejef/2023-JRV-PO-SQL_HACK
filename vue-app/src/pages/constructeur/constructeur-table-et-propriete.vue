@@ -125,7 +125,7 @@ ul {
   font-family: 'Lato', sans-serif;
   font-weight: 600;
   margin: 10px;
-  padding-bottom:
+
 }
 
 ul p {
