@@ -105,7 +105,8 @@
       <button @click="retour" :disabled="btnRetourIsDisabled"
               v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
       class="img_retour"></button>
-      <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
+      <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2"
+                :value="text_requete" :style="styleTextArea" readonly></textarea>
     </div>
 
     <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
@@ -128,7 +129,6 @@ import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-r
 
 import { sendRequest } from "@/tools/requestDB";
 import {stringifyQuery} from "vue-router";
-
 
 /* déclarations des variables*/
 const textareaContent = ref('');
@@ -154,11 +154,15 @@ const tailleDivResultatRequete = ref({
   width: '600px',
 });
 
-function changeTailleTextarea(){
-  tailleDivResultatRequete.value.height = '508px'
-  tailleDivResultatRequete.value.maxHeight = '508px'
-  tailleDivResultatRequete.value.overflow = 'auto'
+const styleTextArea = ref({
+  height: '280px',
+})
 
+function changeTailleTextarea(){
+  tailleDivResultatRequete.value.height = '478px'
+  tailleDivResultatRequete.value.maxHeight = '478px'
+  tailleDivResultatRequete.value.overflow = 'auto'
+  styleTextArea.value.height = '100px'
 }
 
 function changeEtatBtnEnvoiRequete(){
@@ -574,10 +578,9 @@ input {
   width: 588px;
   font-size: 32px;
   color: #27FF16;
-  height: 100px;
   margin: 0;
   background-color: black;
-  border-top: 5px solid white;
+  border-top: 1px solid white;
   border-bottom: transparent;
   padding: 5px;
 }
@@ -603,7 +606,7 @@ input {
   padding-top: 50px;
   margin-left: -60px;
 }
-.saisie_condition_select{
+.saisie_condition_select {
   display: inline-block;
   text-align: center;
   padding-left: 70px;
@@ -676,11 +679,13 @@ input {
   display: flex;
   padding-top: 3px;
   justify-content: flex-end;
+  border-bottom: 2px solid white;
 }
 
 .barre-onglet .button_fenetre {
   background-color: transparent;
   border: none;
+  margin-top: -5px;
 }
 .minus, .square, .close{
   height: 20px;

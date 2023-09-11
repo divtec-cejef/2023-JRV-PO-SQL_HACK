@@ -11,8 +11,21 @@ let cinematique = ref(true)
 let cle = ref(0)
 let afficherChatBox = ref(false)
 let afficherConstructeur = ref(false)
+let isBordered = ref(false);
 // Créez une référence pour l'élément d'image
 const imageElement = ref(null);
+
+const styleAppConstructeur = ref({
+  borderBottom :'4px solid white',
+  paddingBottom : '6px',
+  marginBottom : '0px'
+})
+
+const styleAppChatBox = ref({
+  borderBottom :'4px solid white',
+  paddingBottom : '6px',
+  marginBottom : '0px'
+});
 
 function changerEcran(valeur){
   console.log(valeur)
@@ -21,19 +34,37 @@ function changerEcran(valeur){
   cle.value += 1
 }
 
+function openChatBox(){
+  afficherChatBox.value = false
+  // change le style de l'icone quand l'appli est ouverte
+  styleAppChatBox.value.borderBottom = '4px solid white';
+  styleAppChatBox.value.paddingBottom = '6px';
+  styleAppChatBox.value.marginBottom = '0px'
+  styleAppChatBox.value.transition = '0.5s ease'
+}
+function openConstructeur() {
+  afficherConstructeur.value = false
+  isBordered.value = !isBordered.value;
+  // change le style de l'icone quand l'appli est ouverte
+  styleAppConstructeur.value.borderBottom = '4px solid white';
+  styleAppConstructeur.value.paddingBottom = '6px';
+  styleAppConstructeur.value.marginBottom = '0px'
+  styleAppConstructeur.value.transition = '0.5s ease'
+}
 function closeChatBox(valeur){
   console.log(valeur)
   afficherChatBox.value = valeur
-}
-function openChatBox(){
-  afficherChatBox.value = false
-}
-
-function openConstructeur(){
-  afficherConstructeur.value = false
+  //sdasda
+  styleAppChatBox.value.borderBottom = '0px';
+  styleAppChatBox.value.paddingBottom = '6px';
+  styleAppChatBox.value.marginBottom = '3px'
 }
 function closeConstructeur(valeur){
   afficherConstructeur.value = valeur
+  styleAppConstructeur.value.borderBottom = '0px';
+  styleAppConstructeur.value.paddingBottom = '6px';
+  styleAppConstructeur.value.marginBottom = '3px'
+
 }
 function easterEgg(){
   // Créez un nouvel élément d'image
@@ -79,10 +110,13 @@ function easterEgg(){
           <img src="./img/loupe%20(1).png" alt="">
           <img src="./img/icone_explorateur.png" alt="">
           <img src="./img/icone_google.png" alt="">
-          <img src="./img/icone_base_donnee.png" alt="" class="app_ouvert" @click="openConstructeur">
-          <img src="./img/icone_messagerie.png" alt="" class="app_ouvert" @click="openChatBox">
+          <img src="./img/icone_base_donnee.png" alt="" :style="styleAppConstructeur" @click="openConstructeur" >
+          <img src="./img/icone_messagerie.png" alt="" :style="styleAppChatBox" @click="openChatBox">
           <img src="./img/Fortnite_S1.png" alt="" @click="easterEgg">
+          <div class="widget_barre_tache">14:01</div>
         </div>
+
+
       </div>
 
 <!--      <div class="constructeur">-->
@@ -126,15 +160,6 @@ header {
   justify-content: flex-end;
 }
 
-.animation_descente {
-  animation: descend 1s ease-in-out;
-  position: relative;
-}
-
-.animation_cote {
-  animation: arrive 1s ease-in-out;
-  position: relative;
-}
 
 /* Définition de l'animation 'descend' */
 @keyframes descend {
@@ -149,10 +174,10 @@ header {
 /* Définition de l'animation 'arrive' */
 @keyframes arrive {
   from {
-    left: 200px /* Position initiale complètement à droite de la fenêtre */
+    transform: translate(-100%, -100%);
   }
   to {
-    left: 0; /* Position finale, la div est affichée à gauche */
+    transform: translate(0, 0);
   }
 }
 
@@ -209,6 +234,7 @@ header {
   left: 500px;
   top: 100px;
   background-color: #000000;
+
 }
 .ecran_application{
   display: flex;
@@ -217,13 +243,12 @@ header {
   margin-left: 100px;
 }
 .constructeur{
-  margin-right: 50px;
+  margin-right: 50px;cd cd
 }
 .chat_box{
   height: 100px;
   width: 100px;
   margin-top: 50px;
-
 }
 .barre_tache {
   border-top: 1px gray solid;
@@ -237,10 +262,9 @@ header {
   margin: 10px;
   display: inline-block;
 }
-.barre_tache img:hover{
-
+.widget_barre_tache{
+  display: flex;
+  justify-content: right;
 }
-.app_ouvert{
 
-}
 </style>
