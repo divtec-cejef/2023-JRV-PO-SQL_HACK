@@ -27,7 +27,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  padding: 28px 0 0 28px;
+  padding: 35px 0 0 30px;
   text-align: justify;
   //box-shadow: 0 0 5px 0 black;
   //border-top-right-radius: 15px;

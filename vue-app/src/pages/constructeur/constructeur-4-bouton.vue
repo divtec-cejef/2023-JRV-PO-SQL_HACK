@@ -1,9 +1,9 @@
 <template>
   <div class="page1">
-    <button @click="addSelectToQuery(1)">SELECT</button>
-    <button @click="addSelectToQuery(2)">UPDATE</button>
-    <button @click="addSelectToQuery(3)">INSERT</button>
-    <button @click="addSelectToQuery(4)">DELETE</button>
+    <button @click="addSelectToQuery(1)" class="btn1">SELECT</button>
+    <button @click="addSelectToQuery(2)" class="btn2">UPDATE</button>
+    <button @click="addSelectToQuery(3)" class="btn3">INSERT</button>
+    <button @click="addSelectToQuery(4)" class="btn4">DELETE</button>
   </div>
 </template>
 
@@ -51,13 +51,13 @@ const emits = defineEmits(['select'])
 }
 
 .page1 button{
-  border: none;
+  border: 2px solid white;
   font-size: 28px;
   margin: 15px;
-  padding: 30px;
   border-radius: 20px;
-  background-color: #FFFFFF;
-  color: black;
+  padding: 30px;
+  background-color: black;
+  color: white;
   font-family: 'Lato', sans-serif;
   font-weight: 600;
 }
