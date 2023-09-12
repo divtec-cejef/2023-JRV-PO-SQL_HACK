@@ -2,10 +2,22 @@
 <template>
   <!-- Écran de gauche qui contient : constructeur, texte requête
  et le résultat de la requête-->
+
+
+
   <div class="ecran_gauche">
+
+    <div class="barre-onglet">
+      <div class="button_fenetre">
+        <button><img src="../../assets/icon/minus.png" alt="" class="minus"></button>
+        <button><img src="../../assets/icon/square.png" alt="" class="square"></button>
+        <button @click="close" ><img src="../../assets/icon/close.png" alt="" class="close"></button>
+      </div>
+    </div>
 
     <!-- Constructeur de la requête-->
     <div v-if="constructeurActuel !== 6">
+
       <div class="constructeur">
         <div class="commande">
 
@@ -93,10 +105,11 @@
       <button @click="retour" :disabled="btnRetourIsDisabled"
               v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
       class="img_retour"></button>
-      <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2" :value="text_requete" readonly></textarea>
+      <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2"
+                :value="text_requete" :style="styleTextArea" readonly></textarea>
     </div>
 
-    <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
+    <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
 
     </div>
   </div>
@@ -117,12 +130,12 @@ import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-r
 import { sendRequest } from "@/tools/requestDB";
 import {stringifyQuery} from "vue-router";
 
-
 /* déclarations des variables*/
 const textareaContent = ref('');
 const text_requete = ref('')
 const textCondition = ref()
 const numId = ref()
+const emits = defineEmits(['close-constructeur']);
 let constructeurActuel = 0
 let commande_selectionnee = 0
 let table_selectionnee = ""
@@ -137,15 +150,19 @@ let ajouterText = true
 
 
 const tailleDivResultatRequete = ref({
-  height: '270px',
+  height: '400px',
   width: '600px',
 });
 
-function changeTailleTextarea(){
-  tailleDivResultatRequete.value.height = '508px'
-  tailleDivResultatRequete.value.maxHeight = '508px'
-  tailleDivResultatRequete.value.overflow = 'auto'
+const styleTextArea = ref({
+  height: '280px',
+})
 
+function changeTailleTextarea(){
+  tailleDivResultatRequete.value.height = '478px'
+  tailleDivResultatRequete.value.maxHeight = '478px'
+  tailleDivResultatRequete.value.overflow = 'auto'
+  styleTextArea.value.height = '100px'
 }
 
 function changeEtatBtnEnvoiRequete(){
@@ -481,6 +498,11 @@ function ajouterLettresAvecEffet(valeur) {
   }
 }
 
+function close(){
+  // emet false donc on affiche pas la fenetre
+  emits('close-constructeur', true)
+}
+
 </script>
 
 <style scoped>
@@ -519,8 +541,7 @@ button{
   color: black;
 }
 
-.btnValider:hover{
-  transform: scale(1.10);
+.btnValider {
   transition: transform 500ms ease;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
@@ -544,6 +565,7 @@ input {
 .constructeur{
   height: 300px;
   margin: auto;
+
 }
 
 /* Text requête */
@@ -554,13 +576,12 @@ input {
 
 #text-requete{
   width: 588px;
-  font-size: 28px;
+  font-size: 32px;
   color: #27FF16;
-  height: 100px;
   margin: 0;
   background-color: black;
-  border-top: 5px solid white;
-  border-bottom: 5px solid white;
+  border-top: 1px solid white;
+  border-bottom: transparent;
   padding: 5px;
 }
 
@@ -570,7 +591,8 @@ input {
 }
 .constructeur_table_et_propriete{
   margin-left: 25px;
-  margin-top: 30px;
+  padding-top: 30px;
+
 }
 .btnValider{
   margin-top: 25px;
@@ -584,7 +606,7 @@ input {
   padding-top: 50px;
   margin-left: -60px;
 }
-.saisie_condition_select{
+.saisie_condition_select {
   display: inline-block;
   text-align: center;
   padding-left: 70px;
@@ -592,7 +614,7 @@ input {
 }
 .property_insert{
   margin-left: 150px;
-  padding-top: 30px;
+  padding-top: 15px;
 }
 
 .text_saisie_id{
@@ -647,5 +669,26 @@ input {
 .ecran_gauche {
   border: white 3px solid;
   user-select: none;
+}
+.barre-onglet {
+//padding: 5px;
+//margin: 5px;
+  height: 30px;
+  width: 600px;
+  background-color: #cccccc;
+  display: flex;
+  padding-top: 3px;
+  justify-content: flex-end;
+  border-bottom: 2px solid white;
+}
+
+.barre-onglet .button_fenetre {
+  background-color: transparent;
+  border: none;
+  margin-top: -5px;
+}
+.minus, .square, .close{
+  height: 20px;
+  width: 20px;
 }
 </style>
