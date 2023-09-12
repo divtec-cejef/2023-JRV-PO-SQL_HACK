@@ -62,11 +62,11 @@ request.onsuccess = function(event) {
         {nom_materiel: "Rouleau à peinture", quantite: 6}
     ];
 
+    let max = 500;
 
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < max; i++) {
         if (i === dupontPlace) {
-            console.log("LIAMMMMMMMM")
-            console.log(i + " ajout")
+            console.log(dupontPlace);
             let Dupont = {
                 nom: 'Dupont',
                 prenom: 'Martin',
@@ -127,7 +127,8 @@ request.onsuccess = function(event) {
             let objectStoreVoiture = transactionVoiture.objectStore("tb_personne");
             let requestVoiture = objectStoreVoiture.add(nouveauPersonne);
             requestVoiture.onerror = function (event) {
-                console.log("Erreur lors de l'ajout du matériel");
+                console.log("Erreur ajout TB_personne " + i);
+                i--;
             };
 
             // Ajouter chaque enregistrement dans la table tb_voiture
@@ -135,7 +136,8 @@ request.onsuccess = function(event) {
             let objectStorePersonne = transactionPersonne.objectStore("tb_voiture");
             let requestPersonne = objectStorePersonne.add(nouvelleVoiture);
             requestPersonne.onerror = function (event) {
-                console.log("Erreur lors de l'ajout du matériel");
+                console.log("Erreur ajout tb_voiture " + i);
+                i--;
             };
 
             if (i < 20) {
@@ -146,7 +148,8 @@ request.onsuccess = function(event) {
                 let objectStoreMat = transactionMat.objectStore("tb_materiel");
                 let requestMat = objectStoreMat.add(materiel);
                 requestMat.onerror = function (event) {
-                    console.log("Erreur lors de l'ajout du matériel");
+                    console.log("Erreur ajout tb_materiel" + 1);
+                    i--;
                 };
             }
         }

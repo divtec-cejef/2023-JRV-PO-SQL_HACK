@@ -9,7 +9,7 @@
 
 <script setup>
 import {defineEmits, ref} from 'vue'
-  const emits = defineEmits(['select'])
+const emits = defineEmits(['select'])
 
 
 /***

@@ -36,7 +36,6 @@
   ]);
 
   const etape = ref(1);
-  const DupontPlace = ref(0);
   const emits = defineEmits(['close']);
 
   function close(){
@@ -96,9 +95,7 @@
 }
 } else if (etape.value === 3) {
   if (newMessageText === 'OK') {
-  DupontPlace.value = dupontPlace;
-  console.log(DupontPlace.value + "compar");
-
+    console.log("OKEY")
   let request = window.indexedDB.open("maBaseDeDonnees");
 
   request.onsuccess = (event) => {
@@ -109,8 +106,17 @@
 
   request.onsuccess = (event) => {
   let data = event.target.result;
-  console.log(data[DupontPlace.value].proprietaire);
-  if (data[DupontPlace.value].proprietaire === "John Doe") {
+  let idDupont = 0;
+  let iDup = dupontPlace - 5;
+  console.log("idup = " + iDup)
+    for(let i = iDup; i < iDup+10; i++) {
+      console.log(data[i].proprietaire);
+      if (data[i].couleur === "Noire"){
+        idDupont = i;
+      }
+    }
+    console.log(data[idDupont].proprietaire);
+  if (data[idDupont].proprietaire === "John Doe") {
   messages.value.push(messagesVoleur.value[6]);
   setTimeout(() => {
   scrollToBottom();
@@ -186,26 +192,6 @@
   border: none;
 }
 
-/* Barre supérieure */
-.iphone-11::before {
-  //content: "";
-  //position: absolute;
-  //top: 0;
-  //left: 0;
-  //right: 0;
-  //height: 42px;
-  //background-color: #000;
-}
-
-.iphone-11::after {
-  //content: "";
-  //position: absolute;
-  //bottom: 0;
-  //left: 0;
-  //right: 0;
-  //height: 42px;
-  //background-color: #000;
-}
 
 
 .message {

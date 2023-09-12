@@ -97,7 +97,6 @@
     </div>
 
     <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete">
-
     </div>
   </div>
 
@@ -237,6 +236,8 @@ function testerInputText() {
  * + celui du constructeur et remet le constructeur actuel à 0
  */
 function effacer(){
+
+
   //Supprimer l'ancienne table s'il en existe une
   let oldTable = document.getElementById("table_result");
   if (oldTable) {
@@ -252,6 +253,8 @@ function effacer(){
   
   tailleDivResultatRequete.value.height = '270px'
   btnRetourIsDisabled = true
+  encadreActuel.parentNode.removeChild(encadreActuel);
+  encadreActuel = null;
 }
 
 /***
@@ -648,4 +651,6 @@ input {
   border: white 3px solid;
   user-select: none;
 }
+
+
 </style>

@@ -1,133 +1,76 @@
 <template>
   <div>
-    <button @click="afficherTablePersonne">Afficher la table</button>
-
-    <table v-if="tableData.length > 0" :id="tableId">
-      <template v-if="nomTable === 'tb_personne'">
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Date de naissance</th>
-          <th>Numéro de téléphone</th>
-        </tr>
-        <tr v-for="item in tableData" :key="item.idPersonne">
-          <td>{{ item.idPersonne }}</td>
-          <td>{{ item.nom }}</td>
-          <td>{{ item.prenom }}</td>
-          <td>{{ formatDate(item.date_de_naissance) }}</td>
-          <td>{{ item.numero_de_tel }}</td>
-        </tr>
-      </template>
-      <template v-else-if="nomTable === 'tb_materiel'">
-        <tr>
-          <th>ID</th>
-          <th>Nom matériel</th>
-          <th>Quantité</th>
-        </tr>
-        <tr v-for="item in tableData" :key="item.idMateriel">
-          <td>{{ item.idMateriel }}</td>
-          <td>{{ item.nom_materiel }}</td>
-          <td>{{ item.quantite }}</td>
-        </tr>
-      </template>
-      <template v-else-if="nomTable === 'tb_voiture'">
-        <tr>
-          <th>ID</th>
-          <th>Couleur</th>
-          <th>Plaque</th>
-          <th>Propriétaire</th>
-          <th>Marque</th>
-        </tr>
-        <tr v-for="item in tableData" :key="item.idVoiture">
-          <td>{{ item.idVoiture }}</td>
-          <td>{{ item.couleur }}</td>
-          <td>{{ item.numero_plaque }}</td>
-          <td>{{ item.proprietaire }}</td>
-          <td>{{ item.marque }}</td>
-        </tr>
-      </template>
+    <table class="table_result" id="table_result">
+      <thead>
+      <tr>
+        <th v-for="header in tableHeaders">{{ header }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(item, index) in filteredData" :key="index">
+        <td
+            class="copie-overlay"
+            v-for="(column, colIndex) in tableColumns"
+            :key="colIndex"
+            @click="afficherEncadre(item, colIndex)"
+        >
+          {{ item[column] }}
+        </td>
+      </tr>
+      </tbody>
     </table>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
 export default {
-  data() {
-    return {
-      tableData: ref([]),
-      tableId: '',
-      nomTable: '',
-      conditionl: '',
-      valeurCondition: '',
-    };
+  props: {
+    data: Array,
+    nomTable: String,
+    conditionl: String,
+    valeurCondition: String,
+  },
+  computed: {
+    tableColumns() {
+      if (this.nomTable === "tb_personne") {
+        return ["idPersonne", "nom", "prenom", "date_de_naissance", "numero_de_tel"];
+      } else if (this.nomTable === "tb_materiel") {
+        return ["idMateriel", "nom_materiel", "quantite"];
+      } else if (this.nomTable === "tb_voiture") {
+        return ["idVoiture", "couleur", "numero_plaque", "proprietaire", "marque"];
+      }
+      return [];
+    },
+    tableHeaders() {
+      if (this.nomTable === "tb_personne") {
+        return ["ID", "Nom", "Prénom", "Date de naissance", "Numéro de téléphone"];
+      } else if (this.nomTable === "tb_materiel") {
+        return ["ID", "Nom matériel", "Quantité"];
+      } else if (this.nomTable === "tb_voiture") {
+        return ["ID", "Couleur", "Plaque", "Propriétaire", "Marque"];
+      }
+      return [];
+    },
+    filteredData() {
+      return this.data.filter((item) =>
+          item[this.conditionl] === this.valeurCondition ||
+          this.valeurCondition === "0" ||
+          this.formatDate(item.date_de_naissance) === this.valeurCondition
+      );
+    },
   },
   methods: {
-    afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
-      // Supprimer l'ancienne table s'il en existe une
-      if (this.tableId) {
-        const oldTable = document.getElementById(this.tableId);
-        if (oldTable) {
-          oldTable.remove();
-        }
-      }
-
-      // Créer un nouvel élément <table>
-      const table = document.createElement('table');
-      this.tableId = 'tableHtml';
-      if (nomTable === 'tb_personne') {
-        table.innerHTML =
-            '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Date de naissance</th><th>Numéro de téléphone</th></tr>';
-      } else if (nomTable === 'tb_materiel') {
-        table.innerHTML = '<tr><th>ID</th><th>Nom matériel</th><th>Quantite</th></tr>';
-      } else if (nomTable === 'tb_voiture') {
-        table.innerHTML =
-            '<tr><th>ID</th><th>Couleur</th><th>plaque</th><th>Propriétaire</th><th>Marque</th></tr>';
-      }
-
-      for (let i = 0; i < data.length; i++) {
-        if (data[i][conditionl] === valeurCondition || valeurCondition === 0) {
-          const tr = document.createElement('tr');
-          if (nomTable === 'tb_personne') {
-            tr.innerHTML =
-                '<td>' +
-                data[i].idPersonne +
-                '</td><td>' +
-                data[i].nom +
-                '</td><td>' +
-                data[i].prenom +
-                '</td><td>' +
-                formatDate(data[i].date_de_naissance) +
-                '</td><td>' +
-                data[i].numero_de_tel +
-                '</td>';
-          } else if (nomTable === 'tb_materiel') {
-            tr.innerHTML =
-                '<td>' + data[i].idMateriel + '</td><td>' + data[i].nom_materiel + '</td>' + data[i].quantite + '<td>';
-          } else if (nomTable === 'tb_voiture') {
-            tr.innerHTML =
-                '<td>' +
-                data[i].idVoiture +
-                '</td><td>' +
-                data[i].couleur +
-                '</td><td>' +
-                data[i].numero_plaque +
-                '</td><td>' +
-                data[i].proprietaire +
-                '</td><td>' +
-                data[i].marque +
-                '</td>';
-          }
-          table.appendChild(tr);
-        }
-      }
-
-      // Ajouter la nouvelle table au document body
-      document.body.appendChild(table);
+    formatDate(date) {
+      let d = new Date(date);
+      let day = ("0" + d.getDate()).slice(-2);
+      let month = ("0" + (d.getMonth() + 1)).slice(-2);
+      let year = d.getFullYear();
+      return year + "-" + month + "-" + day;
+    },
+    afficherEncadre(item, colIndex) {
+      // Mettez ici votre logique pour afficher l'encadré en fonction de l'élément "item" et "colIndex"
+      console.log("Cliqué sur la colonne #" + colIndex + " de l'élément ID #" + item.id);
     },
   },
 };
 </script>
-<style>
-</style>
