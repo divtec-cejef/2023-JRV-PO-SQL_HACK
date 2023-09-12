@@ -42,7 +42,6 @@ export default {
 .message-input {
   display: flex;
   align-items: center;
-  //padding: 10px;
   background-color: #f0f0f0; /* Couleur de fond de la zone de texte et du bouton */
   position: fixed;
   top: 694px;
@@ -57,8 +56,6 @@ export default {
   padding: 10px 5px 10px 5px;
   border-radius: 10px;
   margin: 10px 10px 10px 10px;
-  //margin-right: 10px;
-  //margin-left: 10px;
   text-align: left;
   font-size: 15px;
   overflow: hidden; /* Empêche le débordement du contenu */

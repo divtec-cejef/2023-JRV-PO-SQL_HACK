@@ -1,3 +1,4 @@
+import ChatBox from "@/chatBox/ChatBox.vue";
 
 function select(table, condition = 0, valeurCondition = 0){
     // Ouverture de la base de données "maBaseDeDonnees"
@@ -35,7 +36,7 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
         table.innerHTML = "<tr><th>ID</th><th>Nom matériel</th><th>Quantite</th></tr>";
     }
     else if (nomTable === "tb_voiture"){
-        table.innerHTML = "<tr><th>ID</th><th>Couleur</th><th>plaque</th><th>Propriétaire</th><th>Marque</th></tr>";
+        table.innerHTML = "<tr><th>ID</th><th>Couleur</th><th>Plaque</th><th>Propriétaire</th><th>Marque</th></tr>";
     }
 
 
@@ -44,13 +45,13 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
             let tr = document.createElement("tr");
             tr.classList.add("tr_result");
             if (nomTable === "tb_personne"){
-                tr.innerHTML = "<td onclick=\"copierContenu(this)\">" + data[i].idPersonne + "</td><td onclick=\"copierContenu(this)\">" + data[i].nom + "</td><td onclick=\"copierContenu(this)\">" + data[i].prenom + "</td><td onclick=\"copierContenu(this)\">" + formatDate(data[i].date_de_naissance) + "</td><td onclick=\"copierContenu(this)\">" + data[i].numero_de_tel + "</td>";
+                tr.innerHTML = "<td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].idPersonne + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].nom + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].prenom + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + formatDate(data[i].date_de_naissance) + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].numero_de_tel + "</td>";
             }
             else if (nomTable === "tb_materiel"){
-                tr.innerHTML = "<td onclick=\"copierContenu(this)\" >" + data[i].idMateriel + "</td><td onclick=\"copierContenu(this)\" >" + data[i].nom_materiel + "</td><td onclick=\"copierContenu(this)\" >" + data[i].quantite + "</td>";
+                tr.innerHTML = "<td class='copie-overlay' onclick=\"afficherEncadre(this)\" >" + data[i].idMateriel + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\" >" + data[i].nom_materiel + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\" >" + data[i].quantite + "</td>";
             }
             else if (nomTable === "tb_voiture"){
-                tr.innerHTML = "<td onclick=\"copierContenu(this)\">" + data[i].idVoiture + "</td><td onclick=\"copierContenu(this)\">" + data[i].couleur + "</td><td onclick=\"copierContenu(this)\">" + data[i].numero_plaque + "</td><td onclick=\"copierContenu(this)\">" + data[i].proprietaire + "</td><td onclick=\"copierContenu(this)\">" + data[i].marque + "</td>";
+                tr.innerHTML = "<td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].idVoiture + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].couleur + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].numero_plaque + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].proprietaire + "</td><td class='copie-overlay' onclick=\"afficherEncadre(this)\">" + data[i].marque + "</td>";
             }
             table.appendChild(tr);
         }
@@ -69,10 +70,43 @@ function formatDate(date) {
 }
 
 function copierContenu(cellule) {
+    console.log("Copierrr")
     // Sélectionnez le contenu de la cellule
-    var texte = cellule.innerText;
+    let texte = cellule.innerText;
     navigator.clipboard.writeText(texte)
 }
 
+let encadreActuel = null;
+// Fonction pour afficher l'encadré et le bouton "Copier"
+function afficherEncadre(cellule) {
+    console.log("ENTRE");
+    if (encadreActuel) {
+        // Supprimez l'encadré actuellement affiché
+        encadreActuel.parentNode.removeChild(encadreActuel);
+    }
 
+    // Créez un encadré
+    let encadre = document.createElement("div");
+    encadre.className = "encadrer";
 
+    // Positionnez l'encadrement au-dessus de la cellule
+    encadre.style.position = "absolute";
+    encadre.style.top = cellule.offsetTop+226 + "px";
+    encadre.style.left = cellule.offsetLeft+110 + "px";
+
+    // Créez un bouton avec un gestionnaire d'événement pour copier le contenu
+    let copierBouton = document.createElement("button");
+    copierBouton.innerText = "Copier";
+    copierBouton.onclick = function() {
+        copierContenu(cellule);
+    };
+
+    encadre.appendChild(copierBouton);
+
+    // Ajoutez l'encadré au-dessus de la cellule
+    let Affichage = document.getElementById("resultat_requete");
+    Affichage.appendChild(encadre);
+
+    // Mettez à jour la variable encadreActuel avec le nouvel encadré
+    encadreActuel = encadre;
+}

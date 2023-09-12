@@ -109,8 +109,8 @@
                 :value="text_requete" :style="styleTextArea" readonly></textarea>
     </div>
 
-    <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
 
+    <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
     </div>
   </div>
 
@@ -254,6 +254,8 @@ function testerInputText() {
  * + celui du constructeur et remet le constructeur actuel à 0
  */
 function effacer(){
+
+
   //Supprimer l'ancienne table s'il en existe une
   let oldTable = document.getElementById("table_result");
   if (oldTable) {
@@ -269,6 +271,8 @@ function effacer(){
   
   tailleDivResultatRequete.value.height = '270px'
   btnRetourIsDisabled = true
+  encadreActuel.parentNode.removeChild(encadreActuel);
+  encadreActuel = null;
 }
 
 /***
@@ -670,6 +674,7 @@ input {
   border: white 3px solid;
   user-select: none;
 }
+
 .barre-onglet {
 //padding: 5px;
 //margin: 5px;
@@ -693,4 +698,5 @@ input {
   height: 20px;
   width: 20px;
 }
+
 </style>

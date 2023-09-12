@@ -1,6 +1,5 @@
 <script setup>
 import Constructeur from "@/pages/constructeur/constructeur.vue";
-import Chat from "@/chatBox/chat.vue";
 import Cinématique from "@/pages/cinématique/cinématique.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
@@ -208,6 +207,8 @@ header {
 .table_result th, .table_result td {
   border: 1px solid #000000 ;
   padding: 5px ;
+  max-width: 129px;
+  max-height: 29px;
 }
 
 /* Paramètres pour les lignes d'en-tête uniquement */
@@ -222,10 +223,6 @@ header {
   background-color: lightgray;
 }
 
-.table_result td:hover {
-  background-color: #8f10ff ;
-  color: #ffffff;
-}
 
 .ecran_ordinateur{
   width: 1200px;
@@ -253,7 +250,7 @@ header {
   margin-top: 50px;
 }
 .barre_tache {
-  border-top: 1px gray solid;
+  border-top: 1px solid #808080;
   position: absolute;
   height: 60px;
   width: 100%;
@@ -268,5 +265,19 @@ header {
   display: flex;
   justify-content: right;
 }
-
+.encadrer {
+  max-width: 60px; /* Largeur fixe */
+  max-height: 30px; /* Hauteur fixe */
+  overflow: hidden; /* Cacher le contenu dépassant */
+  display: inline-block;
+  background-color: #4CAF50; /* Fond vert */
+  color: #fff; /* Texte blanc */
+  padding: 10px 20px; /* Espacement interne */
+  border-radius: 5px; /* Coins arrondis */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère */
+  opacity: 1; /* Initialement cachée */
+  transform: translateY(-60px); /* Initialement décalée vers le haut */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Transition d'opacité et de transformation */
+  z-index: 1;
+}
 </style>
