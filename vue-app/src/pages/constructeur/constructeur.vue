@@ -633,7 +633,7 @@ input {
   margin-top: 10px;
   width: 150px;
   height: 50px;
-  border: #ffffff 4px solid;
+  border: #ffffff 2px solid;
   border-radius: 15px;
   background-color: black;
   font-family: 'Lato', sans-serif;

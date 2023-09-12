@@ -156,15 +156,7 @@
   position: relative;
   width: 400px;
   height: 578px;
-  //background-color: #fff;
-  //border: 7px solid #000;
-  //border-radius: 30px;
-  //overflow: hidden;
-  border-left: 1px solid #cccccc;
-  border-right: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
-  //border-top: 4px solid #cccccc;
-  //border-radius: 10px;
+  border: 3px solid white;
   box-shadow: 5px 5px 5px black;
   display: flex; /* Utilisez l'affichage flex */
   flex-direction: column; /* Les éléments flex s'étendront verticalement */
@@ -175,6 +167,7 @@
   //margin: 5px;
   height: 30px;
   background-color: #cccccc;
+  border-bottom: 1px solid white;
   display: flex;
   padding-top: 3px;
   justify-content: flex-end;
