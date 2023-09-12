@@ -1,4 +1,3 @@
-import ChatBox from "@/chatBox/ChatBox.vue";
 
 function select(table, condition = 0, valeurCondition = 0){
     // Ouverture de la base de données "maBaseDeDonnees"
@@ -88,11 +87,17 @@ function afficherEncadre(cellule) {
     // Créez un encadré
     let encadre = document.createElement("div");
     encadre.className = "encadrer";
+    const parentTable = cellule.closest("table"); // Trouver le tableau parent
+    const parentContainer = parentTable.parentElement; // Trouver le conteneur du tableau avec défilement
 
+    const scrollTop = parentContainer.scrollTop; // Obtenez la valeur de défilement verticale
     // Positionnez l'encadrement au-dessus de la cellule
     encadre.style.position = "absolute";
-    encadre.style.top = cellule.offsetTop+226 + "px";
-    encadre.style.left = cellule.offsetLeft+110 + "px";
+    encadre.style.top = cellule.offsetTop - scrollTop +256 + "px";
+    encadre.style.left = cellule.offsetLeft+ 105 + "px";
+    console.log(cellule.offsetTop + "px");
+    console.log(encadre.offsetHeight);
+    console.log(scrollTop);
 
     // Créez un bouton avec un gestionnaire d'événement pour copier le contenu
     let copierBouton = document.createElement("button");

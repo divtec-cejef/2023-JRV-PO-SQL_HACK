@@ -110,7 +110,7 @@
     </div>
 
 
-    <div class="resultat_requete" id="resultat_requete" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
+    <div class="resultat_requete" id="resultat_requete" @scroll="handleScroll" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
     </div>
   </div>
 
@@ -249,6 +249,14 @@ function testerInputText() {
   }
 }
 
+/***
+ * efface le contenu de l'input qui contient la requête
+ * + celui du constructeur et remet le constructeur actuel à 0
+ */
+function handleScroll(){
+  encadreActuel.parentNode.removeChild(encadreActuel);
+  encadreActuel = null;
+}
 /***
  * efface le contenu de l'input qui contient la requête
  * + celui du constructeur et remet le constructeur actuel à 0
