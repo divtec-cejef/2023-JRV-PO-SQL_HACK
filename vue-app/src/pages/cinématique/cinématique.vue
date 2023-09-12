@@ -34,7 +34,7 @@ function nextText(){
       @click="nextText"
   >Continuer</button>
 
-  <RouterLink to="/">retour</RouterLink>
+<!--  <RouterLink to="/">retour</RouterLink>-->
 
 
 </template>

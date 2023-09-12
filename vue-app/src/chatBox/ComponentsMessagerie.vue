@@ -167,7 +167,7 @@
   //margin: 5px;
   height: 30px;
   background-color: #cccccc;
-  border-bottom: 1px solid white;
+  border-bottom: 2px solid white;
   display: flex;
   padding-top: 3px;
   justify-content: flex-end;
@@ -176,29 +176,8 @@
 .barre-onglet button {
   background-color: transparent;
   border: none;
+  padding: 0 10px 0 5px;
 }
-
-/* Barre supérieure */
-.iphone-11::before {
-  //content: "";
-  //position: absolute;
-  //top: 0;
-  //left: 0;
-  //right: 0;
-  //height: 42px;
-  //background-color: #000;
-}
-
-.iphone-11::after {
-  //content: "";
-  //position: absolute;
-  //bottom: 0;
-  //left: 0;
-  //right: 0;
-  //height: 42px;
-  //background-color: #000;
-}
-
 
 .message {
   margin: 5px;
@@ -221,7 +200,7 @@
 }
 
 .minus, .square, .close{
- height: 20px;
+  height: 20px;
   width: 20px;
 }
 

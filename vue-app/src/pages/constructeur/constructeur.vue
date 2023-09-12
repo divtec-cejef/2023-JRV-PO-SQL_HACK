@@ -682,11 +682,13 @@ input {
   border-bottom: 2px solid white;
 }
 
-.barre-onglet .button_fenetre {
+.barre-onglet button {
   background-color: transparent;
   border: none;
   margin-top: -5px;
+  padding: 0 5px 0 12px;
 }
+
 .minus, .square, .close{
   height: 20px;
   width: 20px;
