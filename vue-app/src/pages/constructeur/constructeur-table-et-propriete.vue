@@ -162,7 +162,7 @@ ul:hover {
 }
 
 li:hover{
-  color: #8f10ff;
+  color: #cccccc;
 }
 
 .disabled{

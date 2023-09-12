@@ -150,7 +150,7 @@ let ajouterText = true
 
 
 const tailleDivResultatRequete = ref({
-  height: '270px',
+  height: '400px',
   width: '600px',
 });
 
@@ -541,8 +541,7 @@ button{
   color: black;
 }
 
-.btnValider:hover{
-  transform: scale(1.10);
+.btnValider {
   transition: transform 500ms ease;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
@@ -566,6 +565,7 @@ input {
 .constructeur{
   height: 300px;
   margin: auto;
+
 }
 
 /* Text requête */
@@ -614,7 +614,7 @@ input {
 }
 .property_insert{
   margin-left: 150px;
-  padding-top: 30px;
+  padding-top: 15px;
 }
 
 .text_saisie_id{

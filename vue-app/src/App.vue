@@ -65,6 +65,7 @@ function closeConstructeur(valeur){
   styleAppConstructeur.value.paddingBottom = '6px';
   styleAppConstructeur.value.marginBottom = '3px'
 
+
 }
 function easterEgg(){
   // Créez un nouvel élément d'image
@@ -234,7 +235,8 @@ header {
   left: 500px;
   top: 100px;
   background-color: #000000;
-
+  background-image: url("../src/img/fond_ecran_anonymous.jpg");
+  background-position: center;
 }
 .ecran_application{
   display: flex;
@@ -243,7 +245,7 @@ header {
   margin-left: 100px;
 }
 .constructeur{
-  margin-right: 50px;cd cd
+  margin-right: 50px;
 }
 .chat_box{
   height: 100px;
