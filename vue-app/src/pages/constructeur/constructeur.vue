@@ -41,10 +41,17 @@
                                             @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition_select">
-              <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Saisissez ici" class="text_condition"
-                     @keydown.enter.prevent="valideRequete(false)">
-              <button class="btnValider" @click="valideRequete(false)">Valider</button>
+
+              <div class="saisie_condition_delete">
+                <div class="text_saisie_id_et_input">
+                  <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
+                  <input type="text" id="text-conditon" v-model="textCondition" placeholder="Filtre" class="text_condition"
+                         @keydown.enter.prevent="valideRequete(false)">
+                </div>
+                <div>
+                  <button class="btnValider" @click="valideRequete(false)">Exécuter la requête</button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -157,6 +164,7 @@ let ajouterText = true
 const tailleDivResultatRequete = ref({
   height: '400px',
   width: '600px',
+  borderTop: '1px solid white'
 });
 
 const styleTextArea = ref({
@@ -611,16 +619,12 @@ input {
   border-top: 1px solid white;
   border-bottom: transparent;
   padding: 5px;
+  padding-bottom: 7px;
 }
 
 .bouton_finaux button{
   width: 150px;
   margin-top: 30px;
-}
-.constructeur_table_et_propriete{
-  margin-left: 25px;
-  padding-top: 30px;
-
 }
 
 /************** Bouton valide requête **************/
@@ -641,11 +645,14 @@ input {
   margin-left: 40px;
   margin-top: 30px;
 }
+
+
+/************** Saisie condition SELECT ********/
 .saisie_condition_select {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding-left: 70px;
-  padding-top: 50px;
 }
 .property_insert{
   margin-left: 150px;
