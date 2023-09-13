@@ -19,6 +19,7 @@
   import ChatBox from "@/chatBox/ChatBox.vue";
   import { dupontPlace } from "@/DB/DataBase";
 
+  const etape = ref(1);
   const showComponent = ref(true);
   const messages = ref([
   { text: "Envoie-moi le mot de passe de l'alarme. C'est la date de naissance de Martin Dupont.", id: 1, isSent: false },
@@ -37,6 +38,7 @@
 
   const DupontPlace = ref(0);
   const emits = defineEmits(['close-chatbox']);
+
 
   function close(){
     // emet false donc on affiche pas la fenetre
