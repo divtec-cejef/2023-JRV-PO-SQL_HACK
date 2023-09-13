@@ -106,6 +106,7 @@ function afficherEncadre(cellule) {
 
     // Créez un bouton avec un gestionnaire d'événement pour copier le contenu
     let copierBouton = document.createElement("button");
+    copierBouton.className = "BtnCopier";
     copierBouton.innerText = "Copier";
     copierBouton.onclick = function() {
         copierContenu(cellule, this);
@@ -119,4 +120,8 @@ function afficherEncadre(cellule) {
 
     // Mettez à jour la variable encadreActuel avec le nouvel encadré
     encadreActuel = encadre;
+    setTimeout(() => {
+        encadreActuel.parentNode.removeChild(encadreActuel);
+        encadreActuel = null;
+    }, 5000);
 }

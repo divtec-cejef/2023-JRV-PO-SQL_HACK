@@ -44,7 +44,7 @@ export default {
   align-items: center;
   background-color: #f0f0f0; /* Couleur de fond de la zone de texte et du bouton */
   position: fixed;
-  top: 694px;
+  top: 695px;
   width: 400px;
   border-top: black 1px solid;
 }
