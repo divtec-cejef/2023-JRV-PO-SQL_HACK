@@ -67,5 +67,6 @@ button{
 }
 button:hover{
   transform: scale(1.1);
+  border: #27FF16 2px solid;
 }
 </style>

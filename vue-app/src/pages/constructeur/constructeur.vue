@@ -87,11 +87,16 @@
                                   @propriete="changeTableSelectionnee"></constructeur-table>
             </div>
             <div v-if="constructeurActuel===2" class="btn_condition">
-              <div class="saisie_condition_select">
-                <div class="text_saisie_id">Saisissez l'id dont vous voulez faire une modification</div>
-                <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition"
-                       @keydown.enter.prevent="valideRequeteUpdate">
-                <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
+              <div class="saisie_condition_delete">
+                <div class="text_saisie_id_et_input">
+                  <div class="text_saisie_id">Saisissez l'id </div>
+                  <input type="text" id="num-id" v-model="numId" placeholder="ID" class="text_condition"
+                         @keydown.enter.prevent="valideRequeteUpdate">
+                </div>
+                <div>
+                  <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
+                </div>
+
               </div>
             </div>
           </div>
@@ -545,6 +550,16 @@ button{
   font-family: 'Leelawadee', sans-serif;
 
 }
+
+.constructeur {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 600px;
+}
+
 #text-conditon{
   height: 50px;
 }
@@ -557,6 +572,7 @@ button{
   transition: transform 500ms ease;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
+  margin-top: 20px;
 }
 
 input {
@@ -606,17 +622,24 @@ input {
   padding-top: 30px;
 
 }
+
+/************** Bouton valide requête **************/
 .btnValider{
-  margin-top: 25px;
-  width: 100px;
+  font-size: 18px;
+  width: 200px;
   height: 50px;
+  border-radius: 8px;
 }
+.btnValider:hover {
+  transform: scale(1.10);
+}
+/****************************************************/
+
 .saisie_condition{
   display: inline-block;
   text-align: center;
-  padding-left: 70px;
-  padding-top: 50px;
-  margin-left: -60px;
+  margin-left: 40px;
+  margin-top: 30px;
 }
 .saisie_condition_select {
   display: inline-block;
@@ -629,15 +652,38 @@ input {
   padding-top: 15px;
 }
 
+
+/***************** saisie id  DELETE ***************************/
+.saisie_condition_delete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.text_saisie_id_et_input{
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid white;
+  padding-bottom: 15px;
+}
+
 .text_saisie_id{
   color: white;
-  display: flex;
-  width: 500px;
-  font-size: 36px;
-  padding-top: 32px;
+  font-size: 32px;
   font-family: 'Lato', sans-serif;
   font-weight: 600;
 }
+
+#num-id{
+  height: 30px;
+  width: 80px;
+  margin-left: 30px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/*************************************************************************/
 
 .bouton_finaux {
   margin-left: 20px;
