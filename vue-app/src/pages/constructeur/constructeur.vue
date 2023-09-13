@@ -595,6 +595,7 @@ input {
 .text_requete textarea{
   resize: none;
   font-family: 'Jura', sans-serif;
+  border: none;
 }
 
 /* Constructeur */
@@ -618,8 +619,9 @@ input {
   background-color: black;
   border-top: 1px solid white;
   border-bottom: transparent;
-  padding: 5px;
-  padding-bottom: 7px;
+
+  padding: 5px 5px 10px 5px;
+
 }
 
 .bouton_finaux button{

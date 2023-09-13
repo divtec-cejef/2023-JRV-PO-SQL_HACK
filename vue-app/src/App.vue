@@ -194,36 +194,6 @@ header {
     flex-wrap: wrap;
   }
 }
-
-/* Paramètres pour la totalité du tableau */
-.table_result {
-  width: 100%;
-  margin: auto ;
-  border-collapse: collapse ;
-  background: white;
-}
-
-/* Paramètres pour les cellules classiques ET les cellules d'en-tête */
-.table_result th, .table_result td {
-  border: 1px solid #000000 ;
-  padding: 5px ;
-  max-width: 129px;
-  max-height: 29px;
-}
-
-/* Paramètres pour les lignes d'en-tête uniquement */
-.table_result th {
-  background-color: #8f10ff ;
-  color: #ffffff ;
-}
-
-
-/* Paramètres pour les lignes de contenu paires */
-.table_result tr:not(:first-child):nth-child(even){
-  background-color: lightgray;
-}
-
-
 .ecran_ordinateur{
   width: 1200px;
   height: 800px;
@@ -265,19 +235,54 @@ header {
   display: flex;
   justify-content: right;
 }
+
+
+
+/* Paramètres pour la totalité du tableau */
+.table_result {
+  width: 100%;
+  margin: auto ;
+  background: white;
+  border-collapse: collapse; /* Pour éviter les espaces entre les cellules */
+  border: 1px solid #ffffff; /* Bordure extérieure blanche */
+}
+
+/* Paramètres pour les cellules classiques ET les cellules d'en-tête */
+.table_result th, .table_result td {
+  border: 1px solid #000000 ;
+  padding: 5px ;
+  max-width: 129px;
+  max-height: 29px;
+}
+
+/* Paramètres pour les lignes d'en-tête uniquement */
+.table_result th {
+  background-color: #27FF16;
+  color: #000000;
+  font-weight: bold;
+}
+
+
+/* Paramètres pour les lignes de contenu paires */
+.table_result tr:not(:first-child):nth-child(even){
+  background-color: #ffffff;
+}
+
 .encadrer {
-  max-width: 60px; /* Largeur fixe */
-  max-height: 30px; /* Hauteur fixe */
+
   overflow: hidden; /* Cacher le contenu dépassant */
   display: inline-block;
-  background-color: #4CAF50; /* Fond vert */
-  color: #fff; /* Texte blanc */
-  padding: 10px 20px; /* Espacement interne */
+  background-color: lightgray; /* Fond vert */
+  border: black 1px solid;
+  padding: 5px 10px; /* Espacement interne */
   border-radius: 5px; /* Coins arrondis */
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère */
-  opacity: 1; /* Initialement cachée */
-  transform: translateY(-60px); /* Initialement décalée vers le haut */
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Transition d'opacité et de transformation */
+  transform: translateY(-50px); /* Initialement décalée vers le haut */
   z-index: 1;
+}
+
+.BtnCopier{
+  background-color: transparent; /* Couleur de fond transparente */
+  color: #000; /* Couleur du texte (noir par défaut) */
+  border: 1px solid transparent; /* Bordure transparente */
 }
 </style>

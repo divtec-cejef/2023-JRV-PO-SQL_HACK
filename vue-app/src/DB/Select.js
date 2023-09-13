@@ -67,15 +67,20 @@ function formatDate(date) {
     let year = d.getFullYear();
     return year + "-" + month + "-" + day ;
 }
+let encadreActuel = null;
 
-function copierContenu(cellule) {
+function copierContenu(cellule, bouton) {
     console.log("Copierrr")
     // Sélectionnez le contenu de la cellule
     let texte = cellule.innerText;
     navigator.clipboard.writeText(texte)
+    bouton.innerText = "✓"
+    setTimeout(() => {
+        encadreActuel.parentNode.removeChild(encadreActuel);
+        encadreActuel = null;
+    }, 1000);
 }
 
-let encadreActuel = null;
 // Fonction pour afficher l'encadré et le bouton "Copier"
 function afficherEncadre(cellule) {
     console.log("ENTRE");
@@ -101,9 +106,10 @@ function afficherEncadre(cellule) {
 
     // Créez un bouton avec un gestionnaire d'événement pour copier le contenu
     let copierBouton = document.createElement("button");
+    copierBouton.className = "BtnCopier";
     copierBouton.innerText = "Copier";
     copierBouton.onclick = function() {
-        copierContenu(cellule);
+        copierContenu(cellule, this);
     };
 
     encadre.appendChild(copierBouton);
@@ -114,4 +120,8 @@ function afficherEncadre(cellule) {
 
     // Mettez à jour la variable encadreActuel avec le nouvel encadré
     encadreActuel = encadre;
+    setTimeout(() => {
+        encadreActuel.parentNode.removeChild(encadreActuel);
+        encadreActuel = null;
+    }, 5000);
 }
