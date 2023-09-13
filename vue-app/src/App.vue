@@ -270,7 +270,7 @@ header {
   max-height: 30px; /* Hauteur fixe */
   overflow: hidden; /* Cacher le contenu dépassant */
   display: inline-block;
-  background-color: #4CAF50; /* Fond vert */
+  background-color: #27FF16; /* Fond vert */
   color: #fff; /* Texte blanc */
   padding: 10px 20px; /* Espacement interne */
   border-radius: 5px; /* Coins arrondis */
