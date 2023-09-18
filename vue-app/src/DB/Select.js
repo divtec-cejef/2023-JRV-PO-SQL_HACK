@@ -73,8 +73,10 @@ function copierContenu(cellule, bouton) {
     console.log("Copierrr")
     // Sélectionnez le contenu de la cellule
     let texte = cellule.innerText;
-    navigator.clipboard.writeText(texte)
-    bouton.innerText = "✓"
+    const textarea = document.getElementById("message-text")
+    textarea.value = texte;
+    navigator.clipboard.writeText(texte);
+    bouton.innerText = "✓";
     setTimeout(() => {
         encadreActuel.parentNode.removeChild(encadreActuel);
         encadreActuel = null;

@@ -711,6 +711,7 @@ input {
 .bouton_finaux:hover{
   transform: scale(1.10);
   transition: transform 500ms ease;
+  border: #27FF16 1px solid;
 }
 .constructeur4bouton{
   margin-left: 20px;

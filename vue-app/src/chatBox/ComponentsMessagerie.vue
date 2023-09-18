@@ -20,6 +20,7 @@
   import { dupontPlace } from "@/DB/DataBase";
 
   const etape = ref(1);
+
   const showComponent = ref(true);
 
   const valeur = ref()
