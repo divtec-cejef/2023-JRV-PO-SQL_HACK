@@ -74,7 +74,7 @@
               <div class="text_saisie_id">Saisissez l'id correspondant :</div>
               <input type="number" id="num-id" v-model="numId" placeholder="Ecrire ici" class="text_condition"
                      @keydown.enter.prevent="valideRequeteUpdate">
-              <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
+              <button class="btnValider" @click="valideRequeteUpdate">Envoyer la requête</button>
             </div>
           </div>
 
