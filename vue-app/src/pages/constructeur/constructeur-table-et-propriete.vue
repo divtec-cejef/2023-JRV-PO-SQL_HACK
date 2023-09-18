@@ -113,29 +113,31 @@ function addPropriety(valeur, table) {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@600');
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600;700&display=swap');
 
 ul {
   padding: 0 0 15px 0;
-  width: 160px;
+  width: 175px;
   border: 1px black solid;
   transition: transform 500ms ease;
   border-radius: 14px;
   background-color: white;
-  font-family: 'Lato', sans-serif;
-  font-weight: 600;
-  margin: 10px;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
+  margin: 8px;
 
 }
 
 ul p {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
 }
 
 li {
   list-style-type: none;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
   color: black;
   margin: 8px;
 }
@@ -158,7 +160,7 @@ p {
 }
 
 ul:hover {
-  transform: scale(1.10);
+  transform: scale(1.05);
 }
 
 li:hover{

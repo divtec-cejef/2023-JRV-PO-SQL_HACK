@@ -65,7 +65,7 @@
                                             @table_selectionnee="changeTableSelectionnee" :is-update="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
-              <div class="text_saisie_id">Saisissez la nouvelle valeur :</div>
+              <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Ecrire ici" class="text_condition"
                      @keydown.enter.prevent="valideRequete(true)" autofocus>
               <button class="btnValider" @click="valideRequete(true)">Continuer</button>
@@ -386,21 +386,42 @@ function changeTextEnCasDeID(propriete_selectionnee){
     } else {
       inputIsNumber = false
     }
-    switch (propriete_selectionnee) {
-      case "idVoiture" : texteTitreSaisieID.value = "Saisissez l'ID (numéro) de la voiture";  break;
-      case "idPersonne" : texteTitreSaisieID.value = "Saisissez l'ID (numéro) de la personne";  break;
-      case "idMateriel" : texteTitreSaisieID.value = "Saisissez l'ID (numéro) du matériel"; break;
-      case "prénom" : texteTitreSaisieID.value = "Saisissez le prénom :";  break;
-      case "nom" : texteTitreSaisieID.value = "Saisissez le nom";  break;
-      case "date_de_naissance" : texteTitreSaisieID.value = "Saisissez la date de naissance";  break;
-      case "numéro_de_tel" : texteTitreSaisieID.value = "Saisissez le numéro de téléphone";  break;
-      case "couleur" : texteTitreSaisieID.value = "Saisissez la couleur"; break;
-      case "marque" : texteTitreSaisieID.value = "Saisissez la marque"; break;
-      case "propriétaire" : texteTitreSaisieID.value = "Saisissez le propriétaire"; break;
-      case "numéro_plaque": texteTitreSaisieID.value = "Saisissez le numéro de plaque"; break;
-      case "nom_matériel" : texteTitreSaisieID.value = "Saisissez le nom du matériel"; break;
-      case "quantité": texteTitreSaisieID.value = "Saisissez la quantité"
+
+    let texteExplicationSaisie = "Saisissez "
+
+
+    if (commande_selectionnee === 1) {
+      switch (propriete_selectionnee) {
+        case "idVoiture" : texteExplicationSaisie += "l'ID (numéro) de la voiture"; break;
+        case "idPersonne" : texteExplicationSaisie += "l'ID (numéro) de la personne";  break;
+        case "idMateriel" : texteExplicationSaisie += "l'ID (numéro) du matériel"; break;
+        case "prénom" : texteExplicationSaisie += "le prénom :";  break;
+        case "nom" : texteExplicationSaisie += "le nom";  break;
+        case "date_de_naissance" : texteExplicationSaisie += "la date de naissance";  break;
+        case "numéro_de_tel" : texteExplicationSaisie += "le numéro de téléphone";  break;
+        case "couleur" : texteExplicationSaisie += "la couleur"; break;
+        case "marque" : texteExplicationSaisie += "la marque"; break;
+        case "propriétaire" : texteExplicationSaisie += "le propriétaire"; break;
+        case "numéro_plaque": texteExplicationSaisie += "le numéro de plaque"; break;
+        case "nom_matériel" : texteExplicationSaisie += "le nom du matériel"; break;
+        case "quantité": texteExplicationSaisie += "la quantité"
+      }
+    } else if (commande_selectionnee === 2) {
+      switch (propriete_selectionnee) {
+        case "prénom" : texteExplicationSaisie += "le nouveau prénom :";  break;
+        case "nom" : texteExplicationSaisie += "le nouveau nom";  break;
+        case "date_de_naissance" : texteExplicationSaisie += "la nouvelle date de naissance";  break;
+        case "numéro_de_tel" : texteExplicationSaisie += "le nouveau numéro de téléphone";  break;
+        case "couleur" : texteExplicationSaisie += "la nouvelle couleur"; break;
+        case "marque" : texteExplicationSaisie += "la nouvelle marque"; break;
+        case "propriétaire" : texteExplicationSaisie += "le nouveau propriétaire"; break;
+        case "numéro_plaque": texteExplicationSaisie += "le nouveau numéro de plaque"; break;
+        case "nom_matériel" : texteExplicationSaisie += "le nouveau nom du matériel"; break;
+        case "quantité": texteExplicationSaisie += "la nouvelle quantité"
+      }
     }
+
+    texteTitreSaisieID.value = texteExplicationSaisie
 }
 
 /***
@@ -567,7 +588,7 @@ function close(){
   margin: 0;
 }
 div{
-  width: fit-content;
+
 }
 button{
   width: 30%;
@@ -593,15 +614,8 @@ button{
   color: black;
 }
 
-.btnValider {
-  transition: transform 500ms ease;
-  font-family: 'Lato', sans-serif;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
 input {
-  margin-right: 30px;
+  margin-right: 20px;
 }
 /* écran gauche */
 .ecran_gauche{
@@ -619,7 +633,6 @@ input {
 .constructeur{
   height: 300px;
   margin: auto;
-
 }
 
 /* Text requête */
@@ -631,6 +644,8 @@ input {
 #text-requete{
   width: 588px;
   font-size: 32px;
+  font-family: 'Jura', sans-serif;
+  font-weight: 600;
   color: #27FF16;
   margin: 0;
   background-color: black;
@@ -648,9 +663,12 @@ input {
 /************** Bouton valide requête **************/
 .btnValider{
   font-size: 18px;
+  font-family: 'Jura', sans-serif;
+  font-weight: bold;
   width: 200px;
   height: 50px;
   border-radius: 8px;
+  transition: transform 500ms ease;
 }
 .btnValider:hover {
   transform: scale(1.10);
@@ -670,20 +688,26 @@ input {
   align-items: center;
   text-align: center;
 }
+.input_et_bouton{
+  display: flex;
+  align-items: center;
+}
 .text_indication_saisie{
   color: white;
   font-size: 32px;
   font-family: 'Jura', sans-serif;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 #text-conditon{
   height: 40px;
   width: 200px;
   border-radius: 20px;
   padding-left: 10px;
+  font-size: 18px;
 }
 
-/***************** saisie id  DELETE ***************************/
+/***************** saisie id  DELETE et UPDATE***************************/
 .saisie_condition_delete {
   display: flex;
   flex-direction: column;
@@ -700,9 +724,9 @@ input {
 .text_saisie_id{
   color: white;
   font-size: 32px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Jura', sans-serif;
   font-weight: 600;
-
+  margin-bottom: 20px;
 }
 
 #num-id{

@@ -37,7 +37,7 @@ const emits = defineEmits(['select'])
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@600');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700');
 
 /* page 1 */
 .page1 {
@@ -58,8 +58,8 @@ const emits = defineEmits(['select'])
   padding: 30px;
   background-color: black;
   color: white;
-  font-family: 'Lato', sans-serif;
-  font-weight: 600;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
 }
 
 button{

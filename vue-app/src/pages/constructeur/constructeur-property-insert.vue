@@ -194,7 +194,7 @@ ul{
 li{
   color: white;
   font-size: 32px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'jura', sans-serif;
 }
 input{
  margin-left: 20px;
