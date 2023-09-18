@@ -21,6 +21,7 @@
 
   const etape = ref(1);
 
+
   const showComponent = ref(true);
 
   const valeur = ref()

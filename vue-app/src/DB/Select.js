@@ -73,8 +73,10 @@ function copierContenu(cellule, bouton) {
     console.log("Copierrr")
     // Sélectionnez le contenu de la cellule
     let texte = cellule.innerText;
-    const textarea = document.getElementById("message-text")
-    textarea.value = texte;
+    const textarea = document.getElementById("message-text");
+    textarea.value = "";
+    textarea.value += texte;
+    textarea.focus();
     navigator.clipboard.writeText(texte);
     bouton.innerText = "✓";
     setTimeout(() => {
@@ -98,7 +100,6 @@ function afficherEncadre(cellule) {
     const parentContainer = parentTable.parentElement; // Trouver le conteneur du tableau avec défilement
 
     const scrollTop = parentContainer.scrollTop; // Obtenez la valeur de défilement verticale
-    // Positionnez l'encadrement au-dessus de la cellule
     encadre.style.position = "absolute";
     encadre.style.top = cellule.offsetTop - scrollTop +256 + "px";
     encadre.style.left = cellule.offsetLeft+ 105 + "px";
@@ -111,11 +112,8 @@ function afficherEncadre(cellule) {
     copierBouton.className = "BtnCopier";
     copierBouton.innerText = "Copier";
     copierBouton.onclick = function() {
-        const event = new CustomEvent('resultat_copier', {
-            detail: cellule,
-        })
-        window.dispatchEvent(event);
-    };
+        copierContenu(cellule, this);
+    }
 
     encadre.appendChild(copierBouton);
 
