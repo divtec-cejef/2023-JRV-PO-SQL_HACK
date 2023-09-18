@@ -52,7 +52,6 @@ p {
 
 button:hover {
   transform: scale(1.10);
-
 }
 
 

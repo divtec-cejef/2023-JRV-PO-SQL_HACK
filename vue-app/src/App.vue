@@ -248,8 +248,9 @@ header {
 }
 
 /* Paramètres pour les cellules classiques ET les cellules d'en-tête */
-.table_result th, .table_result td {
-  border: 1px solid #000000 ;
+.table_result td {
+  border: black 1px solid;
+  text-align: center;
   padding: 5px ;
   max-width: 129px;
   max-height: 29px;
@@ -257,8 +258,14 @@ header {
 
 /* Paramètres pour les lignes d'en-tête uniquement */
 .table_result th {
-  background-color: #27FF16;
-  color: #000000;
+  border-left: black 1px solid;
+  border-right: black 1px solid;
+  border-top: #FFFFFF 2px solid;
+  padding: 5px ;
+  max-width: 129px;
+  max-height: 29px;
+  background-color: #000000;
+  color: #27FF16;
   font-weight: bold;
 }
 
