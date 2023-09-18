@@ -5,6 +5,7 @@ import {ref} from "vue";
 import { update } from '@/DB/Update.js';
 import { Delete } from '@/DB/Delete.js';
 import { insert } from '@/DB/Insert.js';
+
 /**
  * Récupère les mots de la chaine de caractère.
  * @param request La chaine de caractère à traiter.

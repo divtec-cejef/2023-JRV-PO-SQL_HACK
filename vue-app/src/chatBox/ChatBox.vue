@@ -9,7 +9,7 @@
 </div>
   <div>
     <div class="message-input">
-      <textarea v-model="newMessage" rows="1" placeholder="Saisissez votre message" class="message-text" @keydown.enter.prevent="send"></textarea>
+      <textarea v-model="newMessage" rows="1" placeholder="Saisissez votre message" class="message-text" id="message-text" @keydown.enter.prevent="send"></textarea>
       <button @click="send" class="send-button">
         <img src="../img/send-message.png" height="20" width="20"/>
       </button>
