@@ -42,14 +42,16 @@
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition_select">
 
-              <div class="saisie_condition_delete">
-                <div class="text_saisie_id_et_input">
-                  <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
-                  <input type="text" id="text-conditon" v-model="textCondition" placeholder="Filtre" class="text_condition"
-                         @keydown.enter.prevent="valideRequete(false)">
-                </div>
-                <div>
-                  <button class="btnValider" @click="valideRequete(false)">Exécuter la requête</button>
+              <div class="condition_select">
+                <div class="text_indication_saisie">{{ texteTitreSaisieID }}</div>
+                <div class="input_et_bouton">
+                  <!-- input pour la saisie d'un nombre (id)-->
+                  <input type="number" id="text-conditon" v-model="textCondition" placeholder="Ecrire ici" class="text_condition_select"
+                         @keydown.enter.prevent="valideRequete(false)" v-if="inputIsNumber">
+                  <!-- input pour la saisie d'un texte -->
+                  <input type="text" id="text-conditon" v-model="textCondition" placeholder="Ecrire ici" class="text_condition_select"
+                         @keydown.enter.prevent="valideRequete(false)" v-if="!inputIsNumber">
+                  <button class="btnValider" @click="valideRequete(false)">Envoyer la requête</button>
                 </div>
               </div>
             </div>
@@ -63,16 +65,16 @@
                                             @table_selectionnee="changeTableSelectionnee" :is-update="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
-              <div class="text_saisie_id">Saisissez la nouvelle valeur</div>
-              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Texte" class="text_condition"
-                     @keydown.enter.prevent="valideRequete(true)">
+              <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
+              <input type="text" id="text-conditon" v-model="textCondition" placeholder="Ecrire ici" class="text_condition"
+                     @keydown.enter.prevent="valideRequete(true)" autofocus>
               <button class="btnValider" @click="valideRequete(true)">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="saisie_condition">
-              <div class="text_saisie_id">Saisissez l'id correspondant</div>
-              <input type="text" id="num-id" v-model="numId" placeholder="Texte" class="text_condition"
+              <div class="text_saisie_id">Saisissez l'id correspondant :</div>
+              <input type="number" id="num-id" v-model="numId" placeholder="Ecrire ici" class="text_condition"
                      @keydown.enter.prevent="valideRequeteUpdate">
-              <button class="btnValider" @click="valideRequeteUpdate">Continuer</button>
+              <button class="btnValider" @click="valideRequeteUpdate">Envoyer la requête</button>
             </div>
           </div>
 
@@ -96,11 +98,11 @@
             <div v-if="constructeurActuel===2" class="btn_condition">
               <div class="saisie_condition_delete">
                 <div class="text_saisie_id_et_input">
-                  <div class="text_saisie_id">Saisissez l'id </div>
-                  <input type="text" id="num-id" v-model="numId" placeholder="ID" class="text_condition"
-                         @keydown.enter.prevent="valideRequeteUpdate">
+                  <div class="text_saisie_id">Saisissez l'id :</div>
                 </div>
                 <div>
+                  <input type="number" id="num-id" v-model="numId" placeholder="ID" class="text_condition"
+                         @keydown.enter.prevent="valideRequeteUpdate">
                   <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
                 </div>
 
@@ -159,6 +161,7 @@ let text_requete_temp = ""
 let btnRetourIsDisabled = true
 let historiqueTextRequete = []
 let ajouterText = true
+let inputIsNumber = ref()
 
 
 const tailleDivResultatRequete = ref({
@@ -377,13 +380,48 @@ function changeTableSelectionnee(valeur){
 }
 
 function changeTextEnCasDeID(propriete_selectionnee){
-  if (propriete_selectionnee === "idVoiture" ||
-      propriete_selectionnee === "idPersonne" ||
-      propriete_selectionnee === "idMateriel") {
-    texteTitreSaisieID.value = "Saisissez l'id (numéro) correspondant"
-  } else {
-    texteTitreSaisieID.value = "Saisissez le texte du filtre"
-  }
+    if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne" ||
+        propriete_selectionnee === "idMateriel"){
+      inputIsNumber = true;
+    } else {
+      inputIsNumber = false
+    }
+
+    let texteExplicationSaisie = "Saisissez "
+
+
+    if (commande_selectionnee === 1) {
+      switch (propriete_selectionnee) {
+        case "idVoiture" : texteExplicationSaisie += "l'ID (numéro) de la voiture"; break;
+        case "idPersonne" : texteExplicationSaisie += "l'ID (numéro) de la personne";  break;
+        case "idMateriel" : texteExplicationSaisie += "l'ID (numéro) du matériel"; break;
+        case "prénom" : texteExplicationSaisie += "le prénom :";  break;
+        case "nom" : texteExplicationSaisie += "le nom";  break;
+        case "date_de_naissance" : texteExplicationSaisie += "la date de naissance";  break;
+        case "numéro_de_tel" : texteExplicationSaisie += "le numéro de téléphone";  break;
+        case "couleur" : texteExplicationSaisie += "la couleur"; break;
+        case "marque" : texteExplicationSaisie += "la marque"; break;
+        case "propriétaire" : texteExplicationSaisie += "le propriétaire"; break;
+        case "numéro_plaque": texteExplicationSaisie += "le numéro de plaque"; break;
+        case "nom_matériel" : texteExplicationSaisie += "le nom du matériel"; break;
+        case "quantité": texteExplicationSaisie += "la quantité"
+      }
+    } else if (commande_selectionnee === 2) {
+      switch (propriete_selectionnee) {
+        case "prénom" : texteExplicationSaisie += "le nouveau prénom :";  break;
+        case "nom" : texteExplicationSaisie += "le nouveau nom";  break;
+        case "date_de_naissance" : texteExplicationSaisie += "la nouvelle date de naissance";  break;
+        case "numéro_de_tel" : texteExplicationSaisie += "le nouveau numéro de téléphone";  break;
+        case "couleur" : texteExplicationSaisie += "la nouvelle couleur"; break;
+        case "marque" : texteExplicationSaisie += "la nouvelle marque"; break;
+        case "propriétaire" : texteExplicationSaisie += "le nouveau propriétaire"; break;
+        case "numéro_plaque": texteExplicationSaisie += "le nouveau numéro de plaque"; break;
+        case "nom_matériel" : texteExplicationSaisie += "le nouveau nom du matériel"; break;
+        case "quantité": texteExplicationSaisie += "la nouvelle quantité"
+      }
+    }
+
+    texteTitreSaisieID.value = texteExplicationSaisie
 }
 
 /***
@@ -450,7 +488,7 @@ function valideRequete(commandeUpdate) {
  */
 function valideRequeteUpdate() {
   console.log(numId.value)
-  if (!isNaN(numId.value) && numId.value !== "") {
+  if (!isNaN(numId.value) && numId.value !== "" && numId.value >= 1) {
     if (commande_selectionnee !== "DELETE") {
       text_requete.value += " WHERE "
     }
@@ -471,7 +509,7 @@ function valideRequeteUpdate() {
     changeTailleTextarea()
     sendRequestFromConstructor()
   } else {
-    window.alert("Vous devez saisir un nombre")
+    window.alert("Vous devez saisir un nombre valide")
   }
 }
 
@@ -550,7 +588,7 @@ function close(){
   margin: 0;
 }
 div{
-  width: fit-content;
+
 }
 button{
   width: 30%;
@@ -576,15 +614,8 @@ button{
   color: black;
 }
 
-.btnValider {
-  transition: transform 500ms ease;
-  font-family: 'Lato', sans-serif;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
 input {
-  margin-right: 30px;
+  margin-right: 20px;
 }
 /* écran gauche */
 .ecran_gauche{
@@ -602,7 +633,6 @@ input {
 .constructeur{
   height: 300px;
   margin: auto;
-
 }
 
 /* Text requête */
@@ -614,6 +644,8 @@ input {
 #text-requete{
   width: 588px;
   font-size: 32px;
+  font-family: 'Jura', sans-serif;
+  font-weight: 600;
   color: #27FF16;
   margin: 0;
   background-color: black;
@@ -631,9 +663,12 @@ input {
 /************** Bouton valide requête **************/
 .btnValider{
   font-size: 18px;
+  font-family: 'Jura', sans-serif;
+  font-weight: bold;
   width: 200px;
   height: 50px;
   border-radius: 8px;
+  transition: transform 500ms ease;
 }
 .btnValider:hover {
   transform: scale(1.10);
@@ -643,25 +678,36 @@ input {
 .saisie_condition{
   display: inline-block;
   text-align: center;
-  margin-left: 40px;
-  margin-top: 30px;
 }
 
 
 /************** Saisie condition SELECT ********/
-.saisie_condition_select {
+.condition_select{
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
-.property_insert{
-  margin-left: 150px;
-  padding-top: 15px;
+.input_et_bouton{
+  display: flex;
+  align-items: center;
+}
+.text_indication_saisie{
+  color: white;
+  font-size: 32px;
+  font-family: 'Jura', sans-serif;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+#text-conditon{
+  height: 40px;
+  width: 200px;
+  border-radius: 20px;
+  padding-left: 10px;
+  font-size: 18px;
 }
 
-
-/***************** saisie id  DELETE ***************************/
+/***************** saisie id  DELETE et UPDATE***************************/
 .saisie_condition_delete {
   display: flex;
   flex-direction: column;
@@ -672,22 +718,22 @@ input {
 .text_saisie_id_et_input{
   display: flex;
   align-items: center;
-  border-bottom: 1px solid white;
   padding-bottom: 15px;
 }
 
 .text_saisie_id{
   color: white;
   font-size: 32px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Jura', sans-serif;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 
 #num-id{
-  height: 30px;
-  width: 80px;
-  margin-left: 30px;
-  border-radius: 8px;
+  height: 40px;
+  width: 100px;
+  border-radius: 20px;
+  padding-left: 10px;
   font-size: 16px;
 }
 

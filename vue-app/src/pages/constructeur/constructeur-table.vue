@@ -29,6 +29,8 @@ button {
   padding: 30px;
   margin: 20px;
   font-size: 32px;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
   transition: transform 500ms ease;
   background-color: white;
   border-radius: 20px;

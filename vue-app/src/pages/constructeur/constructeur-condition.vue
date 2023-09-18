@@ -43,8 +43,8 @@ button {
   color: black;
   padding: 20px;
   border-radius: 20px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 800;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
 }
 button {
   transition: transform 500ms ease;

@@ -113,6 +113,9 @@ function easterEgg(){
           <img src="./img/icone_base_donnee.png" alt="" :style="styleAppConstructeur" @click="openConstructeur" >
           <img src="./img/icone_messagerie.png" alt="" :style="styleAppChatBox" @click="openChatBox">
           <img src="./img/Fortnite_S1.png" alt="" @click="easterEgg">
+          <img src="./img/word-logo-8-removebg-preview%20(1).png" alt="">
+          <img src="./img/Microsoft_Office_Excel__2019_present_.svg-removebg-preview.png" alt="">
+          <img src="./img/5968827-removebg-preview.png" alt="">
           <div class="widget_barre_tache">14:01</div>
         </div>
 
@@ -225,6 +228,7 @@ header {
   height: 60px;
   width: 100%;
   bottom: 0;
+  background-color: #222222;
 }
 .barre_tache img {
   width: 3%;

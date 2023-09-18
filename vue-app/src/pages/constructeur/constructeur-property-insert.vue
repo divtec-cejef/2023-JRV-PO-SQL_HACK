@@ -194,14 +194,21 @@ ul{
 li{
   color: white;
   font-size: 32px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Jura', sans-serif;
+  font-weight: 500;
 }
 input{
- margin-left: 20px;
+  font-size: 18px;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
+  width: 150px;
 }
 button{
-  font-size: 32px;
+  font-size: 18px;
   padding: 5px;
+  border-radius: 20px;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
   color: black;
   background-color: #FFFFFF;
 }
