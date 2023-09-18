@@ -109,7 +109,10 @@ function afficherEncadre(cellule) {
     copierBouton.className = "BtnCopier";
     copierBouton.innerText = "Copier";
     copierBouton.onclick = function() {
-        copierContenu(cellule, this);
+        const event = new CustomEvent('resultat_copier', {
+            detail: cellule,
+        })
+        window.dispatchEvent(event);
     };
 
     encadre.appendChild(copierBouton);

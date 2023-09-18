@@ -606,7 +606,7 @@ input {
 }
 
 /* Text requête */
-.text_requete{
+.text_requete {
   width: 100%;
   margin: 0;
 }
@@ -619,7 +619,6 @@ input {
   background-color: black;
   border-top: 1px solid white;
   border-bottom: transparent;
-
   padding: 5px 5px 10px 5px;
 
 }
