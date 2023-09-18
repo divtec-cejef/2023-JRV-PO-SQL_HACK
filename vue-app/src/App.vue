@@ -228,6 +228,7 @@ header {
   height: 60px;
   width: 100%;
   bottom: 0;
+  background-color: #222222;
 }
 .barre_tache img {
   width: 3%;
