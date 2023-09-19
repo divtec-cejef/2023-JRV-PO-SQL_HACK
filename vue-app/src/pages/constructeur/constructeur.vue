@@ -47,10 +47,10 @@
                 <div class="input_et_bouton">
                   <!-- input pour la saisie d'un nombre (id)-->
                   <input type="number" id="text-conditon" v-model="textCondition" placeholder="Ecrire ici" class="text_condition_select"
-                         @keydown.enter.prevent="valideRequete(false)" v-if="inputIsNumber">
+                         @keydown.enter.prevent="valideRequete(false)" v-if="inputIsNumber" autocomplete="off">
                   <!-- input pour la saisie d'un texte -->
                   <input type="text" id="text-conditon" v-model="textCondition" placeholder="Ecrire ici" class="text_condition_select"
-                         @keydown.enter.prevent="valideRequete(false)" v-if="!inputIsNumber">
+                         @keydown.enter.prevent="valideRequete(false)" v-if="!inputIsNumber" autocomplete="off">
                   <button class="btnValider" @click="valideRequete(false)">Envoyer la requête</button>
                 </div>
               </div>
@@ -67,13 +67,13 @@
             <div v-if="constructeurActuel === 2" class="saisie_condition">
               <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
               <input type="text" id="text-conditon" v-model="textCondition" placeholder="Ecrire ici" class="text_condition"
-                     @keydown.enter.prevent="valideRequete(true)" autofocus>
+                     @keydown.enter.prevent="valideRequete(true)" autofocus autocomplete="off">
               <button class="btnValider" @click="valideRequete(true)">Continuer</button>
             </div>
             <div v-if="constructeurActuel===3" class="saisie_condition">
               <div class="text_saisie_id">Saisissez l'id correspondant :</div>
               <input type="number" id="num-id" v-model="numId" placeholder="Ecrire ici" class="text_condition"
-                     @keydown.enter.prevent="valideRequeteUpdate">
+                     @keydown.enter.prevent="valideRequeteUpdate" autofocus autocomplete="off">
               <button class="btnValider" @click="valideRequeteUpdate">Envoyer la requête</button>
             </div>
           </div>
@@ -102,7 +102,7 @@
                 </div>
                 <div>
                   <input type="number" id="num-id" v-model="numId" placeholder="ID" class="text_condition"
-                         @keydown.enter.prevent="valideRequeteUpdate">
+                         @keydown.enter.prevent="valideRequeteUpdate" autocomplete="off">
                   <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
                 </div>
 
@@ -113,12 +113,13 @@
       </div>
     </div>
 
+    <button @click="effacer" class="bouton_finaux bouton_recommencer">Recommencer <img src="../../assets/img/annuler.png" class="img_recommencer"></button>
+    <button @click="retour" :disabled="btnRetourIsDisabled"
+            v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
+                                                                                                      class="img_retour"></button>
+
     <!-- Texte de la requête dans l'input read only -->
-    <div class="text_requete">
-      <button @click="effacer" class="bouton_finaux bouton_recommencer">Recommencer <img src="../../assets/img/annuler.png" class="img_recommencer"></button>
-      <button @click="retour" :disabled="btnRetourIsDisabled"
-              v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
-      class="img_retour"></button>
+    <div class="div_text_requete">
       <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2"
                 :value="text_requete" :style="styleTextArea" readonly></textarea>
     </div>
@@ -165,13 +166,13 @@ let inputIsNumber = ref()
 
 
 const tailleDivResultatRequete = ref({
-  height: '400px',
+  height: '300px',
   width: '600px',
   borderTop: '1px solid white'
 });
 
 const styleTextArea = ref({
-  height: '280px',
+  height: '245px',
 })
 
 function changeTailleTextarea(){
@@ -293,7 +294,7 @@ function effacer(){
 
   historiqueTextRequete = []
   
-  tailleDivResultatRequete.value.height = '270px'
+  tailleDivResultatRequete.value.height = '200px'
   btnRetourIsDisabled = true
   encadreActuel.parentNode.removeChild(encadreActuel);
   encadreActuel = null;
@@ -410,7 +411,7 @@ function changeTextEnCasDeID(propriete_selectionnee){
       switch (propriete_selectionnee) {
         case "prénom" : texteExplicationSaisie += "le nouveau prénom :";  break;
         case "nom" : texteExplicationSaisie += "le nouveau nom";  break;
-        case "date_de_naissance" : texteExplicationSaisie += "la nouvelle date de naissance";  break;
+        case "date_de_naissance" : texteExplicationSaisie += "la nouvelle date de naissance (aaaa-mm-jj)";  break;
         case "numéro_de_tel" : texteExplicationSaisie += "le nouveau numéro de téléphone";  break;
         case "couleur" : texteExplicationSaisie += "la nouvelle couleur"; break;
         case "marque" : texteExplicationSaisie += "la nouvelle marque"; break;
@@ -602,7 +603,6 @@ button{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   width: 600px;
 }
 
@@ -636,9 +636,9 @@ input {
 }
 
 /* Text requête */
-.text_requete {
+.div_text_requete {
   width: 100%;
-  margin: 0;
+  border-top: white solid 1px;
 }
 
 #text-requete{
@@ -649,10 +649,10 @@ input {
   color: #27FF16;
   margin: 0;
   background-color: black;
-  border-top: 1px solid white;
   border-bottom: transparent;
+  border-top: transparent;
   padding: 5px 5px 10px 5px;
-
+  resize: none;
 }
 
 .bouton_finaux button{
@@ -806,6 +806,13 @@ input {
 .minus, .square, .close{
   height: 20px;
   width: 20px;
+}
+.titre_text_area{
+  color: white;
+  font-family: 'Jura', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-left: 2%;
 }
 
 </style>
