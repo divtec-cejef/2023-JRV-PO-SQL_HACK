@@ -28,10 +28,10 @@
   const messagesVoleur = ref([
   { text: "Parfait, c'est bien la bonne personne.", id: 2, isSent: false },
   { text: "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.", id: 3, isSent: false },
-  { text: "À présent, modifie le propriétaire de la Tesla noire en la mettant à mon nom, John Doe. Pour commencer, Sélectionne le propriétaire de la voiture qui a une couleur noire, donne-moi son nom et son prénom et mémorise son ID.", id: 4, isSent: false },
+  { text: "Pour commencer, Sélectionne le propriétaire de la tesla de couleur noire, donne-moi son nom et son prénom et mémorise son ID.", id: 4, isSent: false },
   { text: "Parfait, c'est bien la bonne personne.", id: 5, isSent: false },
   { text: "Absolument pas, je le connais.", id: 6, isSent: false },
-  { text: "Mémorise son ID. Modifie le propriétaire de la voiture au nom de John Doe grâce à 'ID' que tu as mémorisé. Quand tu as fini, vérifie si le proprio à bien changer et envoie-moi 'OK'", id: 7, isSent: false },
+  { text: "Modifie le propriétaire de la voiture au nom de John Doe grâce à 'ID' que tu as mémorisé. Quand tu as fini, vérifie si le proprio à bien changer et envoie-moi 'OK'", id: 7, isSent: false },
   { text: "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.", id: 8, isSent: false },
   { text: "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire.", id: 9, isSent: false },
   ]);
@@ -60,39 +60,48 @@
 
   if (etape.value === 1) {
   if (newMessageText === '1986-04-26' || newMessageText === '26-04-1986') {
-  messages.value.push(messagesVoleur.value[0]);
+    setTimeout(() => {
+      messages.value.push(messagesVoleur.value[0]);
+    }, 1500);
   etape.value = etape.value + 1;
   setTimeout(() => {
   messages.value.push(messagesVoleur.value[2]);
-}, 2000);
+}, 2500);
   setTimeout(() => {
   scrollToBottom();
-}, 2010);
+}, 2510);
 } else {
-  messages.value.push(messagesVoleur.value[1]);
+    setTimeout(() => {
+      messages.value.push(messagesVoleur.value[1]);
+    }, 1500);
   setTimeout(() => {
   scrollToBottom();
-}, 10);
+}, 1510);
 }
 } else if (etape.value === 2) {
   if (newMessageText === 'Rejome Viral') {
-  messages.value.push(messagesVoleur.value[3]);
+    setTimeout(() => {
+      messages.value.push(messagesVoleur.value[3]);
+    }, 1500);
+
   setTimeout(() => {
   scrollToBottom();
-}, 10);
+}, 1510);
   etape.value = etape.value + 1;
 
   setTimeout(() => {
   messages.value.push(messagesVoleur.value[5]);
-}, 2000);
+}, 2500);
   setTimeout(() => {
   scrollToBottom();
-}, 2010);
+}, 2510);
 } else {
-  messages.value.push(messagesVoleur.value[4]);
+    setTimeout(() => {
+      messages.value.push(messagesVoleur.value[4]);
+    }, 1500);
   setTimeout(() => {
   scrollToBottom();
-}, 10);
+}, 1510);
 }
 } else if (etape.value === 3) {
   if (newMessageText === 'OK') {
@@ -118,24 +127,30 @@
     }
     console.log(data[idDupont].proprietaire);
   if (data[idDupont].proprietaire === "John Doe") {
-  messages.value.push(messagesVoleur.value[6]);
+    setTimeout(() => {
+      messages.value.push(messagesVoleur.value[6]);
+    }, 1500);
   setTimeout(() => {
   scrollToBottom();
-}, 10);
+}, 1510);
   etape.value = etape.value + 1;
 } else {
-  messages.value.push(messagesVoleur.value[7]);
+    setTimeout(() => {
+      messages.value.push(messagesVoleur.value[7]);
+    }, 1500);
   setTimeout(() => {
   scrollToBottom();
-}, 10);
+}, 1510);
 }
 };
 };
 } else {
-  messages.value.push(messagesVoleur.value[7]);
+    setTimeout(() => {
+      messages.value.push(messagesVoleur.value[7]);
+    }, 1500);
   setTimeout(() => {
   scrollToBottom();
-}, 10);
+}, 1510);
 }
 }
 };

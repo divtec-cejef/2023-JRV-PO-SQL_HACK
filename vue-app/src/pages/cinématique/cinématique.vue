@@ -22,7 +22,7 @@ function nextText(){
 </script>
 
 <template>
-  <img src="../../img/garage-vu-dehors.jpg" id="image-fond" alt="">
+  <img src="../../img/Dehors.jpg" id="image-fond" alt="">
   <img src="../../img/personnage.png" id="personnage" alt="">
 
   <div class="texte-bulle">
@@ -62,25 +62,25 @@ img {
 }
 
 #personnage{
-  width: 220px;
-  height: 460px;
+  width: auto;
+  height: 500px;
   position: fixed;
-  left: 35%;
-  bottom: 8%;
+  left: 200px;
+  bottom: 0;
 }
 
 .texte-bulle{
   position: fixed;
   bottom: 400px;
-  right: 300px;
+  right: 970px;
 }
 
  .btnContinuer{
    position: fixed;
    bottom: 100px;
    right: 100px;
-   color: white;
-   background-color: orange;
+   color: #FFFFFF;
+   background-color: #000000;
    width: 15%;
    height: 70px;
    border: none;
