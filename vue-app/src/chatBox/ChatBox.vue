@@ -27,6 +27,8 @@ export default {
   },
   methods: {
     send() {
+      const textarea = document.getElementById("message-text");
+      this.newMessage = textarea.value;
       if (this.newMessage.trim() !== '') {
         // Appelez la méthode sendMessage passée en prop depuis le composant parent
         this.sendMessage(this.newMessage);
