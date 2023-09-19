@@ -25,7 +25,7 @@ const props = defineProps(["message"])
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 24px;
+  font-size: 22px;
   color: #222222;
   width: 400px;
   padding-left: 90px;
