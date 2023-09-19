@@ -72,7 +72,7 @@ img {
 .texte-bulle{
   position: fixed;
   bottom: 400px;
-  right: 970px;
+  right: 800px;
 }
 
  .btnContinuer{

@@ -26,6 +26,7 @@
 
   const valeur = ref()
 
+
   const messages = ref([
   { text: "Envoie-moi le mot de passe de l'alarme. C'est la date de naissance de Martin Dupont.", id: 1, isSent: false },
   ]);
@@ -195,7 +196,7 @@
   //margin: 5px;
   height: 30px;
   background-color: #cccccc;
-  border-bottom: 2px solid white;
+  border-bottom: 1px solid white;
   display: flex;
   padding-top: 3px;
   justify-content: flex-end;
