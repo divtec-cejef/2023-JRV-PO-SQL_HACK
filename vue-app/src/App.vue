@@ -3,7 +3,7 @@ import Constructeur from "@/pages/constructeur/constructeur.vue";
 import Cinématique from "@/pages/cinématique/cinématique.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
-import {ref} from "vue";
+import {ref, onMounted} from "vue";
 
 
 let jeu = ref(false)
@@ -14,6 +14,8 @@ let afficherConstructeur = ref(false)
 let isBordered = ref(false);
 let afficherVideo = ref(false)
 let afficherVideoTemp = true
+const heureActuelle = ref('');
+const dateActuelle = ref('');
 
 const styleAppConstructeur = ref({
   borderBottom :'4px solid white',
@@ -25,6 +27,36 @@ const styleAppChatBox = ref({
   borderBottom :'4px solid white',
   paddingBottom : '6px',
   marginBottom : '0px'
+});
+
+// Fonction pour mettre à jour l'heure
+const mettreAJourHeure = () => {
+  const maintenant = new Date();
+  const heure = maintenant.getHours();
+  const minute = maintenant.getMinutes();
+  const seconde = maintenant.getSeconds();
+
+  // Formattez l'heure sous forme de chaîne HH:MM:SS
+  heureActuelle.value = `${heure.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+};
+
+const mettreAJourDate = () => {
+  const maintenant = new Date();
+  const annee = maintenant.getFullYear();
+  const mois = maintenant.getMonth() + 1;
+  const jour = maintenant.getDate();
+
+  // Formattez la date sous forme de chaîne AAAA-MM-JJ
+  dateActuelle.value = `${jour.toString().padStart(2, '0')}.${mois.toString().padStart(2, '0')}.${annee}`;
+}
+
+// Appelez la fonction au moment de la création du composant
+onMounted(() => {
+  mettreAJourHeure();
+  mettreAJourDate();
+
+  // Mettez à jour l'heure chaque seconde (1000 millisecondes)
+  setInterval(mettreAJourHeure, 1000);
 });
 
 function changerEcran(valeur){
@@ -64,9 +96,10 @@ function closeConstructeur(valeur){
   styleAppConstructeur.value.borderBottom = '0px';
   styleAppConstructeur.value.paddingBottom = '6px';
   styleAppConstructeur.value.marginBottom = '3px'
-
-
 }
+
+
+
 function easterEgg(){
   if (afficherVideoTemp) {
     afficherVideo = true
@@ -111,17 +144,24 @@ function easterEgg(){
         </div>
 
         <div class="barre_tache">
-          <img src="./img/icone_windows.png" alt="">
-          <img src="./img/loupe%20(1).png" alt="">
-          <img src="./img/icone_explorateur.png" alt="">
-          <img src="./img/icone_google.png" alt="">
-          <img src="./img/icone_base_donnee.png" alt="" :style="styleAppConstructeur" @click="openConstructeur" >
-          <img src="./img/icone_messagerie.png" alt="" :style="styleAppChatBox" @click="openChatBox">
-          <img src="./img/Fortnite_S1.png" alt="" @click="easterEgg">
-          <img src="./img/word-logo-8-removebg-preview%20(1).png" alt="">
-          <img src="./img/Microsoft_Office_Excel__2019_present_.svg-removebg-preview.png" alt="">
-          <img src="./img/5968827-removebg-preview.png" alt="">
-          <div class="widget_barre_tache">14:01</div>
+          <div class="app">
+            <img src="./img/icone_windows.png" alt="">
+            <img src="./img/loupe%20(1).png" alt="">
+            <img src="./img/icone_explorateur.png" alt="">
+            <img src="./img/icone_google.png" alt="">
+            <img src="./img/icone_base_donnee.png" alt="" :style="styleAppConstructeur" @click="openConstructeur" >
+            <img src="./img/icone_messagerie.png" alt="" :style="styleAppChatBox" @click="openChatBox">
+            <img src="./img/Fortnite_S1.png" alt="" @click="easterEgg">
+            <img src="./img/word-logo-8-removebg-preview%20(1).png" alt="">
+            <img src="./img/Microsoft_Office_Excel__2019_present_.svg-removebg-preview.png" alt="">
+            <img src="./img/5968827-removebg-preview.png" alt="">
+          </div>
+          <div class="widget_barre_tache">
+            <div class="heure">{{ heureActuelle }}</div>
+            <div class="date">{{ dateActuelle }}</div>
+          </div>
+
+
         </div>
 
 
@@ -205,7 +245,7 @@ header {
 .ecran_ordinateur{
   width: 1200px;
   height: 800px;
-  border: 2px solid white;
+  border: 2px solid #808080;
   position: fixed;
   left: 500px;
   top: 100px;
@@ -231,19 +271,27 @@ header {
 .barre_tache {
   border-top: 1px solid #808080;
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 60px;
   width: 100%;
   bottom: 0;
   background-color: #222222;
 }
 .barre_tache img {
-  width: 3%;
+  width: 3.2%;
   margin: 10px;
   display: inline-block;
 }
+.app{
+
+}
 .widget_barre_tache{
-  display: flex;
-  justify-content: right;
+  display: block;
+  text-align: right;
+  padding: 20px;
+  color: white;
 }
 
 
@@ -310,5 +358,8 @@ header {
   position: fixed;
   left: 800px;
   top: 400px;
+}
+.date{
+  margin-left: -50px;
 }
 </style>
