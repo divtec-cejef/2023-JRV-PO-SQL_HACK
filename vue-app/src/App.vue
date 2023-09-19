@@ -5,14 +5,15 @@ import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
 import {ref} from "vue";
 
+
 let jeu = ref(false)
 let cinematique = ref(true)
 let cle = ref(0)
 let afficherChatBox = ref(false)
 let afficherConstructeur = ref(false)
 let isBordered = ref(false);
-// Créez une référence pour l'élément d'image
-const imageElement = ref(null);
+let afficherVideo = ref(false)
+let afficherVideoTemp = true
 
 const styleAppConstructeur = ref({
   borderBottom :'4px solid white',
@@ -67,17 +68,14 @@ function closeConstructeur(valeur){
 
 }
 function easterEgg(){
-  // Créez un nouvel élément d'image
-  imageElement.value = new Image();
-
-  // Définissez l'URL du GIF que vous souhaitez afficher
-  imageElement.value.src = 'chemin_vers_votre_gif.gif';
-
-  // Vous pouvez également ajouter d'autres attributs à l'élément d'image si nécessaire
-  // imageElement.value.alt = 'Description du GIF';
-
-  // Ajoutez l'élément d'image au DOM pour l'afficher
-  document.body.appendChild(imageElement.value);
+  if (afficherVideoTemp) {
+    afficherVideo = true
+    afficherVideoTemp = false
+  } else {
+    afficherVideo = false
+    afficherVideoTemp = true
+  }
+  cle.value += 1
 }
 
 </script>
@@ -97,6 +95,13 @@ function easterEgg(){
 
       <div class="ecran_ordinateur">
         <div class="ecran_application">
+
+          <div :class="{ 'slide-down': afficherVideo }" :key="cle">
+            <video height="400" width="400" controls v-if="afficherVideo" autoplay muted playsinline loop>
+              <source src="../src/video/video_test.webm" type="video/webm"/>
+            </video>
+          </div>
+
           <div class="constructeur">
             <constructeur @close-constructeur="closeConstructeur" v-if="!afficherConstructeur"></constructeur>
           </div>
@@ -216,6 +221,7 @@ header {
 }
 .constructeur{
   margin-right: 50px;
+  background-color: black;
 }
 .chat_box{
   height: 100px;
@@ -295,5 +301,14 @@ header {
   background-color: transparent; /* Couleur de fond transparente */
   color: #000; /* Couleur du texte (noir par défaut) */
   border: 1px solid transparent; /* Bordure transparente */
+}
+.slide-down {
+  position: absolute;
+}
+.img_jeu_easterEgg{
+  width: 2.7%;
+  position: fixed;
+  left: 800px;
+  top: 400px;
 }
 </style>

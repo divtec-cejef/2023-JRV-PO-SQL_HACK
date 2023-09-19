@@ -2,25 +2,25 @@
   <div id="property-insert">
     <div class="saisie_property_insert">
       <ul v-if="tableSelectionnee()===0">
-        <li> {{ tb_voiture[0] }} <input type="text" v-model="id" readonly style="margin-left: 117px" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_voiture[1] }} <input type="text" v-model="couleur" style="margin-left: 137px" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_voiture[2] }} <input type="text" v-model="marque" style="margin-left: 134px" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_voiture[3] }} <input type="text" v-model="proprietaire" style="margin-left: 82px" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_voiture[4] }} <input type="text" v-model="numero_plaque" style="margin-left: 22px" @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_voiture[0] }} <input type="text" v-model="id" readonly  @click="addValuesForInsert"></li>
+        <li> {{ tb_voiture[1] }} <input type="text" v-model="couleur"  @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_voiture[2] }} <input type="text" v-model="marque"  @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_voiture[3] }} <input type="text" v-model="proprietaire"  @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_voiture[4] }} <input type="text" v-model="numero_plaque"  @keydown.enter.prevent="addValuesForInsert"></li>
       </ul>
 
-      <ul v-if="tableSelectionnee()===1">
-        <li> {{ tb_personne[0] }} <input type="text" v-model="id" readonly style="margin-left: 123px" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_personne[1] }}<input type="text" v-model="nom" style="margin-left: 232px" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_personne[2] }}<input type="text" v-model="prenom" style="margin-left: 187px" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_personne[3] }} <input type="text" v-model="date_de_naissance" style="margin-left: 10px" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_personne[4] }} <input type="text" v-model="numero_de_tel" style="margin-left: 74px" @keydown.enter.prevent="addValuesForInsert"></li>
+      <ul v-if="tableSelectionnee()===1" class="saisie_property_insert_tb_personne">
+        <li> {{ tb_personne[0] }} <input type="text" v-model="id" readonly  @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_personne[1] }}<input type="text" v-model="nom"  @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_personne[2] }}<input type="text" v-model="prenom"  @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_personne[3] }} <input type="text" v-model="date_de_naissance"  @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_personne[4] }} <input type="text" v-model="numero_de_tel"  @keydown.enter.prevent="addValuesForInsert"></li>
       </ul>
 
       <ul v-if="tableSelectionnee()===2">
-        <li> {{ tb_materiel[0] }}<input type="text" v-model="id" readonly style="margin-left: 83px" @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_materiel[0] }}<input type="text" v-model="id" readonly  @keydown.enter.prevent="addValuesForInsert"></li>
         <li> {{ tb_materiel[1] }} <input type="text" v-model="nom_materiel" @keydown.enter.prevent="addValuesForInsert"></li>
-        <li> {{ tb_materiel[2] }} <input type="text" v-model="quantite" style="margin-left: 100px" @keydown.enter.prevent="addValuesForInsert"></li>
+        <li> {{ tb_materiel[2] }} <input type="text" v-model="quantite"  @keydown.enter.prevent="addValuesForInsert"></li>
       </ul>
     </div>
 
@@ -181,12 +181,15 @@ function dateNaissanceIsValidate(table_selectionnee){
 <style scoped>
 
 #property-insert{
-  display: flex;
-  align-items: flex-end;
-  flex-direction: column;
-  margin-left: -60px;
-}
 
+}
+.saisie_property_insert{
+  width: 430px;
+}
+.saisie_property_insert_tb_personne{
+  width: 500px;
+  margin-left: -30px;
+}
 ul{
   list-style-type: none;
   padding: 0;
@@ -194,6 +197,8 @@ ul{
 li{
   color: white;
   font-size: 32px;
+  display: flex;
+  justify-content: space-between;
   font-family: 'Jura', sans-serif;
   font-weight: 500;
 }
@@ -201,16 +206,17 @@ input{
   font-size: 18px;
   font-family: 'Jura', sans-serif;
   font-weight: 700;
+  height: 30px;
   width: 150px;
 }
 button{
   font-size: 18px;
-  padding: 5px;
-  border-radius: 20px;
   font-family: 'Jura', sans-serif;
-  font-weight: 700;
-  color: black;
-  background-color: #FFFFFF;
+  font-weight: bold;
+  width: 200px;
+  height: 50px;
+  border-radius: 8px;
+  transition: transform 500ms ease;
 }
 button:hover{
   transition: transform 500ms ease;
