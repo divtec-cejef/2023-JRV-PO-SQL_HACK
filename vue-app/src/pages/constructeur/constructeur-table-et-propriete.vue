@@ -84,6 +84,7 @@ switch (props.table) {
  */
 function addPropriety(valeur, table) {
   if (valeur === "propriétaire"){
+
     valeur = "proprietaire"
   }
   let props_select = valeur
