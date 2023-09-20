@@ -1,9 +1,10 @@
 <template>
-  <div class="page2">
+  <div class="label">Choisissez la {{ label }}</div>
     <div class="tables">
       <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}" @click="addPropriety('*', 'tb_voiture')">
         <p>Voiture</p>
-        <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
+        <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')"
+        :class="{'liHover': liIsHover}">
           {{ propriete }}
         </li>
       </ul>
@@ -19,18 +20,19 @@
           {{ propriete }}
         </li>
       </ul>
-    </div>
   </div>
 
 </template>
 
 <script setup>
 import {computed, onMounted, reactive, ref, resolveDirective} from "vue";
+import {tr} from "faker/lib/locales";
 
 // déclarations des 3 tableaux qui contiennent les "propriétés" des tables
 const tb_voiture = ["idVoiture", "couleur", "marque", "propriétaire", "numéro_plaque"]
 const tb_personne = ["idPersonne", "prénom", "nom", "date_de_naissance", "numéro_de_tel"]
 const tb_materiel = ["idMateriel", "nom_matériel", "quantité"]
+
 
 /***
  * Au lancement du composant, si isUpdate est "True", alors
@@ -45,12 +47,15 @@ if (props.isUpdate) {
 
 /* émet*/
 const propriete = defineEmits(['propriete','propriete_selectionnee', 'table_selectionnee'])
-const props = defineProps(['where', 'commande', 'table', 'isUpdate']);
+const props = defineProps(['where', 'commande', 'table', 'isUpdate', 'label', 'isHover']);
+
 
 // style de la table qui est indisponible
 let disabledTableVoiture = false
 let disabledTablePersonne = false
 let disabledTableMateriel = false
+
+let liIsHover = props.isHover
 
 // Grise les tables qui n'ont pas été sélectionné précédement
 switch (props.table) {
@@ -102,7 +107,7 @@ function addPropriety(valeur, table) {
       valeur = valeur + " = "
     } else {
       // * pour la première séléction de la table
-      valeur =  " * " + " FROM " + table
+      valeur =  " *" + " FROM " + table
     }
 
     // update
@@ -140,7 +145,7 @@ ul {
   margin: 8px;
 }
 ul:hover{
-  border: #27FF16 2px solid;
+  border: #27FF16 3px solid;
 }
 
 ul p {
@@ -158,9 +163,8 @@ li {
 }
 
 .tables {
-  width: fit-content;
   display: flex;
-  color: black;
+  height: 240px;
 }
 
 p {
@@ -182,6 +186,17 @@ ul:hover {
   pointer-events: none;
   background-color: #cccccc;
 }
-
+.label {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.liHover:hover {
+  color: #27FF16;
+}
 
 </style>
