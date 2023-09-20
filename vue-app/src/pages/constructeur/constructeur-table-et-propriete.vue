@@ -10,13 +10,15 @@
       </ul>
       <ul class="table_personne" :class="{'disabled': disabledTablePersonne}" @click="addPropriety('*', 'tb_personne')">
         <p>Personne</p>
-        <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')" v-if="index !==0">
+        <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')" v-if="index !==0"
+            :class="{'liHover': liIsHover}">
           {{ propriete }}
         </li>
       </ul>
       <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}" @click="addPropriety('*', 'tb_materiel')">
         <p>Materiel</p>
-        <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
+        <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')"
+            :class="{'liHover': liIsHover}">
           {{ propriete }}
         </li>
       </ul>
