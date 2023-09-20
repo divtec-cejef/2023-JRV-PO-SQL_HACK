@@ -56,7 +56,6 @@ function cleanString(chaine) {
  * @returns {string} La saisie de l'utilisateur avec la 1ère lettre en majuscule.
  */
 function firstLetterToUppercase(saisie) {
-    saisie = saisie.toLowerCase();
     if (saisie.length === 1) {
         return saisie.toUpperCase();
     }else if (saisie.length > 1) {
