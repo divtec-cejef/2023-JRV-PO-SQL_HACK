@@ -83,6 +83,11 @@ switch (props.table) {
  * @param table Nom du tableau
  */
 function addPropriety(valeur, table) {
+
+  if ((valeur === "*" && props.where === true) || (valeur === "*" && props.commande === 2)) {
+    return
+  }
+
   if (valeur === "propriétaire"){
     valeur = "proprietaire"
   }
