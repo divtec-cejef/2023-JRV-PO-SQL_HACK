@@ -5,6 +5,7 @@
       <button @click="emitsTableSelectionnee('tb_personne')" class="table_voiture">Personne</button>
       <button @click="emitsTableSelectionnee('tb_materiel')" class="table_voiture">Matériel</button>
     </div>
+
   </div>
 </template>
 
