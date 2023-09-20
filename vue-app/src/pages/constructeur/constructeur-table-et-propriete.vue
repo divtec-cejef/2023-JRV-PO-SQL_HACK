@@ -1,19 +1,19 @@
 <template>
   <div class="page2">
     <div class="tables">
-      <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}">
+      <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}" @click="addPropriety('*', 'tb_voiture')">
         <p>Voiture</p>
         <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')">
           {{ propriete }}
         </li>
       </ul>
-      <ul class="table_personne" :class="{'disabled': disabledTablePersonne}">
+      <ul class="table_personne" :class="{'disabled': disabledTablePersonne}" @click="addPropriety('*', 'tb_personne')">
         <p>Personne</p>
         <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')" v-if="index !==0">
           {{ propriete }}
         </li>
       </ul>
-      <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}">
+      <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}" @click="addPropriety('*', 'tb_materiel')">
         <p>Materiel</p>
         <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')">
           {{ propriete }}
@@ -83,24 +83,37 @@ switch (props.table) {
  * @param table Nom du tableau
  */
 function addPropriety(valeur, table) {
+
+  if ((valeur === "*" && props.where === true) || (valeur === "*" && props.commande === 2)) {
+    return
+  }
+
   if (valeur === "propriétaire"){
     valeur = "proprietaire"
   }
   let props_select = valeur
-  /* Test pour savoir si on a choisit SELECT*/
   valeur = " " + valeur
+
+  // select
   if (props.commande === 1){
+    // choix du filtre
     if (props.where) {
+      // propriété de la table en cas de filtre
       valeur = valeur + " = "
     } else {
-      valeur =  valeur + " FROM " + table
+      // * pour la première séléction de la table
+      valeur =  " * " + " FROM " + table
     }
+
+    // update
   } else if (props.commande === 2){
     if (props.where) {
       valeur = valeur + " = "
     } else {
       valeur = " " + table + " SET" + valeur + " = "
     }
+
+    // delete
   } else if (props.commande === 4){
     valeur = valeur + " = "
   }
@@ -125,7 +138,9 @@ ul {
   font-family: 'Jura', sans-serif;
   font-weight: 700;
   margin: 8px;
-
+}
+ul:hover{
+  border: #27FF16 2px solid;
 }
 
 ul p {
@@ -161,10 +176,6 @@ p {
 
 ul:hover {
   transform: scale(1.05);
-}
-
-li:hover{
-  color: #27FF16;
 }
 
 .disabled{
