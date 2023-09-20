@@ -30,7 +30,7 @@
           <div class="requete_select" v-if="commande_selectionnee===1" :key="cle">
             <div v-if="constructeurActuel === 1" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
-                                            @table_selectionnee="changeTableSelectionnee"></ConstructeurTableEtPropriete>
+                                            @table_selectionnee="changeTableSelectionnee" :label="'table'"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
               <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"
@@ -38,7 +38,8 @@
             </div>
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
-                                            @propriete_selectionnee="changeProprieteSelectionnee" :table="table_selectionnee"></ConstructeurTableEtPropriete>
+                                            @propriete_selectionnee="changeProprieteSelectionnee"
+                                            :table="table_selectionnee" :label="'propriété'" :is-hover="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition_select">
 
@@ -163,7 +164,7 @@ let btnRetourIsDisabled = true
 let historiqueTextRequete = []
 let ajouterText = true
 let inputIsNumber = ref()
-
+let label = ref()
 
 const tailleDivResultatRequete = ref({
   height: '300px',
