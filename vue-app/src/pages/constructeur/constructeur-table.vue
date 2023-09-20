@@ -39,7 +39,6 @@ button {
 }
 
 .page2 {
-  width: fit-content;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
