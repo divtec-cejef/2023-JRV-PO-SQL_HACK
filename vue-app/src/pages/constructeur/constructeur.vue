@@ -30,7 +30,7 @@
           <div class="requete_select" v-if="commande_selectionnee===1" :key="cle">
             <div v-if="constructeurActuel === 1" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
-                                            @table_selectionnee="changeTableSelectionnee" :label="'table'"></ConstructeurTableEtPropriete>
+                                            @table_selectionnee="changeTableSelectionnee" :label="'table'" :li-is-hover="false" :ul-is-hover="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
               <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"
@@ -39,7 +39,7 @@
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
-                                            :table="table_selectionnee" :label="'propriété'" :is-hover="true"></ConstructeurTableEtPropriete>
+                                            :table="table_selectionnee" :label="'propriété'" :li-is-hover="true" :ul-is-hover="false"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition_select">
 
@@ -63,7 +63,8 @@
             <div v-if="constructeurActuel === 1">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
-                                            @table_selectionnee="changeTableSelectionnee" :is-update="true"></ConstructeurTableEtPropriete>
+                                            @table_selectionnee="changeTableSelectionnee" :is-update="true"
+                                            :label="'table'" :ul-is-hover="false" :li-is-hover="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
               <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
@@ -294,11 +295,12 @@ function effacer(){
   numId.value = ''
 
   historiqueTextRequete = []
-  
-  tailleDivResultatRequete.value.height = '200px'
+
   btnRetourIsDisabled = true
   encadreActuel.parentNode.removeChild(encadreActuel);
   encadreActuel = null;
+
+  changeTailleTextarea()
 }
 
 /***
@@ -758,7 +760,7 @@ input {
 .bouton_finaux:hover{
   transform: scale(1.10);
   transition: transform 500ms ease;
-  border: #27FF16 1px solid;
+  border: #27FF16 3px solid;
 }
 .constructeur4bouton{
   margin-left: 20px;

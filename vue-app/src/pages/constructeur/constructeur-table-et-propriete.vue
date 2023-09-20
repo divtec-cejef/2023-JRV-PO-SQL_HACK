@@ -1,24 +1,22 @@
 <template>
   <div class="label">Choisissez la {{ label }}</div>
     <div class="tables">
-      <ul class="table_voiture" :class="{'disabled': disabledTableVoiture}" @click="addPropriety('*', 'tb_voiture')">
+      <ul class="table_voiture" :class="{'disabled': disabledTableVoiture, 'ulHover': ulIsHover}" @click="addPropriety('*', 'tb_voiture')">
         <p>Voiture</p>
         <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')"
         :class="{'liHover': liIsHover}">
           {{ propriete }}
         </li>
       </ul>
-      <ul class="table_personne" :class="{'disabled': disabledTablePersonne}" @click="addPropriety('*', 'tb_personne')">
+      <ul class="table_personne" :class="{'disabled': disabledTablePersonne, 'ulHover': ulIsHover}" @click="addPropriety('*', 'tb_personne')">
         <p>Personne</p>
-        <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')" v-if="index !==0"
-            :class="{'liHover': liIsHover}">
+        <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')" :class="{'liHover': liIsHover}" v-if="index !==0">
           {{ propriete }}
         </li>
       </ul>
-      <ul class="table_materiel" :class="{'disabled': disabledTableMateriel}" @click="addPropriety('*', 'tb_materiel')">
+      <ul class="table_materiel" :class="{'disabled': disabledTableMateriel, 'ulHover': ulIsHover}" @click="addPropriety('*', 'tb_materiel')">
         <p>Materiel</p>
-        <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')"
-            :class="{'liHover': liIsHover}">
+        <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')" :class="{'liHover': liIsHover}">
           {{ propriete }}
         </li>
       </ul>
@@ -49,7 +47,7 @@ if (props.isUpdate) {
 
 /* émet*/
 const propriete = defineEmits(['propriete','propriete_selectionnee', 'table_selectionnee'])
-const props = defineProps(['where', 'commande', 'table', 'isUpdate', 'label', 'isHover']);
+const props = defineProps(['where', 'commande', 'table', 'isUpdate', 'label', 'liIsHover', 'ulIsHover']);
 
 
 // style de la table qui est indisponible
@@ -57,7 +55,8 @@ let disabledTableVoiture = false
 let disabledTablePersonne = false
 let disabledTableMateriel = false
 
-let liIsHover = props.isHover
+let liIsHover = props.liIsHover
+let ulIsHover = props.ulIsHover
 
 // Grise les tables qui n'ont pas été sélectionné précédement
 switch (props.table) {
@@ -146,9 +145,6 @@ ul {
   font-weight: 700;
   margin: 8px;
 }
-ul:hover{
-  border: #27FF16 3px solid;
-}
 
 ul p {
   font-family: 'Jura', sans-serif;
@@ -187,6 +183,7 @@ ul:hover {
 .disabled{
   pointer-events: none;
   background-color: #cccccc;
+  border: 0 white solid;
 }
 .label {
   color: white;
@@ -199,6 +196,9 @@ ul:hover {
 }
 .liHover:hover {
   color: #27FF16;
+}
+.ulHover:hover{
+  border: 3px #27FF16 solid;
 }
 
 </style>
