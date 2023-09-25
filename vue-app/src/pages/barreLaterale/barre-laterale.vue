@@ -10,12 +10,11 @@
       Ce langage permet d’utiliser 4 commandes pour exécuter des requêtes sur une base de données.</p>
 
     <h2>Les 4 commandes </h2>
-    <p>SELECT est utilisée pour sélectionner et afficher certaines données dans votre base de données.</p>
-    <p>UPDATE est utilisée pour modifier des données existantes dans votre base de données.</p>
-    <p>INSERT est utilisée pour ajouter une nouvelle donnée dans votre base de données
-      sous forme d’une nouvelle ligne dans votre tableau.</p>
-    <p>DELETE est utilisée pour supprimer une donnée dans votre base de données.</p>
-    <p>L'ID est un nombre unique que chaque information possède. Ce numéro est utilisé pour permettre d’identifier une information.</p>
+    <p>SELECT est utilisée pour sélectionner et afficher des données.</p>
+    <p>UPDATE est utilisée pour modifier des données.</p>
+    <p>INSERT est utilisée pour ajouter des données.</p>
+    <p>DELETE est utilisée pour supprimer des données.</p>
+    <p>L'ID est utilisée pour identifier une donnée sous forme d'un nombre unique.</p>
   </div>
 </template>
 

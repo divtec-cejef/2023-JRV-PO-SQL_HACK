@@ -80,13 +80,12 @@ function executeSelectRequest(request) {
 
         if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
             select(table, champsCondition, parseInt(valeur));
-        }
-        else {
+        }else {
             select(table, champsCondition, valeur);
         }
 
         console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
-    } else {
+    }else {
         console.log('table : ' + table);
         select(table);
     }
