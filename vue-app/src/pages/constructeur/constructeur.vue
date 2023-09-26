@@ -176,7 +176,7 @@ let inputIsNumber = ref()
 let inputFocusRef = ref(null)
 
 const tailleDivResultatRequete = ref({
-  height: '300px',
+  height: '460px',
   width: '600px',
   borderTop: '1px solid white'
 });
@@ -438,7 +438,7 @@ function changeTextEnCasDeID(propriete_selectionnee){
         case "numéro_de_tel" : texteExplicationSaisie += "le nouveau numéro de téléphone";  break;
         case "couleur" : texteExplicationSaisie += "la nouvelle couleur"; break;
         case "marque" : texteExplicationSaisie += "la nouvelle marque"; break;
-        case "proprietaire" : texteExplicationSaisie += "le nouveau propriétaire"; break;
+        case "propriétaire" : texteExplicationSaisie += "le nouveau propriétaire"; break;
         case "numéro_plaque": texteExplicationSaisie += "le nouveau numéro de plaque"; break;
         case "nom_matériel" : texteExplicationSaisie += "le nouveau nom du matériel"; break;
         case "quantité": texteExplicationSaisie += "la nouvelle quantité"
@@ -669,7 +669,7 @@ input {
 
 #text-requete{
   width: 560px;
-  font-size: 32px;
+  font-size: 34px;
   font-family: 'Jura', sans-serif;
   font-weight: 600;
   color: #27FF16;
@@ -786,9 +786,9 @@ textarea:focus{
 }
 
 .bouton_finaux:hover{
-  transform: scale(1.10);
+  transform: scale(1.05);
   transition: transform 500ms ease;
-  border: #27FF16 3px solid;
+  border: #27FF16 2px solid;
 }
 .constructeur4bouton{
   margin-left: 20px;

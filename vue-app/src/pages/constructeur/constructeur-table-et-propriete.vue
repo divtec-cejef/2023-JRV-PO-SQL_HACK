@@ -106,12 +106,13 @@ function addPropriety(valeur, table) {
   }
 
   let stringRequete = "";
+  let props_select = valeur
 
   if (valeur === "propriétaire"){
     valeur = "proprietaire"
+    props_select = "propriétaire"
   }
 
-  let props_select = valeur
   stringRequete = " " + valeur
 
   // select

@@ -26,13 +26,14 @@
 
   const valeur = ref()
 
-
   const messages = ref([
   { text: "Envoie-moi le mot de passe de l'alarme. C'est la date de naissance de Martin Dupont.", id: 1, isSent: false },
   ]);
 
+
+
   const messagesVoleur = ref([
-  { text: "Parfait, c'est bien la bonne personne.", id: 2, isSent: false },
+  { text: "Parfait, c'est bien la bonne personne.", id: 2, isSent: false, isBold: true},
   { text: "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.", id: 3, isSent: false },
   { text: "Pour commencer, Sélectionne le propriétaire de la tesla de couleur noire, donne-moi son nom et son prénom et mémorise son ID.", id: 4, isSent: false },
   { text: "Parfait, c'est bien la bonne personne.", id: 5, isSent: false },
