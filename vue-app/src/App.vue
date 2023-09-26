@@ -86,7 +86,6 @@ function openConstructeur() {
 function closeChatBox(valeur){
   console.log(valeur)
   afficherChatBox.value = valeur
-  //sdasda
   styleAppChatBox.value.borderBottom = '0px';
   styleAppChatBox.value.paddingBottom = '6px';
   styleAppChatBox.value.marginBottom = '3px'
@@ -149,7 +148,6 @@ function easterEgg(){
             <img src="./img/icone_google.png" alt="">
             <img src="./img/icone_base_donnee.png" alt="" :style="styleAppConstructeur" @click="openConstructeur" >
             <img src="./img/icone_messagerie.png" alt="" :style="styleAppChatBox" @click="openChatBox">
-            <img src="./img/Fortnite_S1.png" alt="" @click="easterEgg">
             <img src="./img/word-logo-8-removebg-preview%20(1).png" alt="">
             <img src="./img/Microsoft_Office_Excel__2019_present_.svg-removebg-preview.png" alt="">
             <img src="./img/5968827-removebg-preview.png" alt="">

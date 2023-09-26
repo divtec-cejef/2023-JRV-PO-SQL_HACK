@@ -31,7 +31,7 @@
             <div v-if="constructeurActuel === 1" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
                                             @table_selectionnee="changeTableSelectionnee" :label="'table'"
-                                            :li-is-hover="false" :ul-is-hover="true"></ConstructeurTableEtPropriete>
+                                            :li-is-hover="false" :ul-is-hover="true" :p-is-hover="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
               <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"
@@ -41,7 +41,7 @@
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             :table="table_selectionnee" :label="'propriété'" :li-is-hover="true" :ul-is-hover="false"
-                                            @focus_input="focusInput"></ConstructeurTableEtPropriete>
+                                            @focus_input="focusInput" :p-is-hover="false"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition_select">
 
@@ -66,7 +66,8 @@
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             @table_selectionnee="changeTableSelectionnee" :is-update="true"
-                                            :label="'propriété'" :ul-is-hover="false" :li-is-hover="true"></ConstructeurTableEtPropriete>
+                                            :label="'propriété'" :ul-is-hover="false" :li-is-hover="true"
+                                            :p-is-hover="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
               <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
@@ -89,7 +90,7 @@
               <constructeur-table-et-propriete :label="'table'" :where="false" :commande="3" @propriete="propriété"
                                                @propriete_selectionnee="changeProprieteSelectionnee"
                                                @table_selectionnee="changeTableSelectionnee"
-                                               :ul-is-hover="true" :li-is-hover="false"></constructeur-table-et-propriete>
+                                               :ul-is-hover="true" :li-is-hover="false" :p-is-hover="true"></constructeur-table-et-propriete>
             </div>
             <div v-if="constructeurActuel===2" class="property_insert">
               <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"
@@ -103,7 +104,7 @@
               <constructeur-table-et-propriete :label="'table'" :where="false" :commande="4" @propriete="propriété"
                                                @propriete_selectionnee="changeProprieteSelectionnee"
                                                @table_selectionnee="changeTableSelectionnee"
-                                               :ul-is-hover="true" :li-is-hover="false"></constructeur-table-et-propriete>
+                                               :ul-is-hover="true" :li-is-hover="false" :p-is-hover="true"></constructeur-table-et-propriete>
             </div>
             <div v-if="constructeurActuel===2" class="btn_condition">
               <div class="saisie_condition_delete">
