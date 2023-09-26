@@ -136,10 +136,10 @@ function executeUpdateRequest(request) {
         console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
         update(table, parseInt(valeurID), champsModif, nouvelleValeurProprio);
 
-        displayModificationUpdate(table, valeurID);
+        displaydata(table, valeurID);
     }else {
         update(table, parseInt(valeurID), champsModif, nouvelleValeur);
-        displayModificationUpdate(table, valeurID);
+        displaydata(table, valeurID);
         console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
     }
 }
@@ -178,7 +178,7 @@ function checkFieldsProprio(table, champsConcerner) {
  * @param table La table sur lequel on fait la modification.
  * @param valeurID L'id du champs sur lequel on fait la modification.
  */
-function displayModificationUpdate(table, valeurID) {
+function displaydata(table, valeurID) {
     switch (table) {
         case 'tb_voiture':
             select(table, 'idVoiture', parseInt(valeurID));
