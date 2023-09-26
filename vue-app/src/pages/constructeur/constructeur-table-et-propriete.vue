@@ -2,20 +2,20 @@
   <div class="label">Choisissez la {{ label }}</div>
     <div class="tables">
       <ul class="table_voiture" :class="{'disabled': disabledTableVoiture, 'ulHover': ulIsHover}" @click="addPropriety('*', 'tb_voiture')">
-        <p>Voiture</p>
+        <div :class="{'pHover': pIsHover}">Voiture</div>
         <li v-for="(propriete, index) in tb_voiture" :key="index" @click="addPropriety(tb_voiture[index], 'tb_voiture')"
         :class="{'liHover': liIsHover}">
           {{ propriete }}
         </li>
       </ul>
       <ul class="table_personne" :class="{'disabled': disabledTablePersonne, 'ulHover': ulIsHover}" @click="addPropriety('*', 'tb_personne')">
-        <p>Personne</p>
+        <div :class="{'pHover': pIsHover}">Personne</div>
         <li v-for="(propriete, index) in tb_personne" :key="index" @click="addPropriety(tb_personne[index], 'tb_personne')" :class="{'liHover': liIsHover}" v-if="index !==0">
           {{ propriete }}
         </li>
       </ul>
       <ul class="table_materiel" :class="{'disabled': disabledTableMateriel, 'ulHover': ulIsHover}" @click="addPropriety('*', 'tb_materiel')">
-        <p>Materiel</p>
+        <div :class="{'pHover': pIsHover}">Materiel</div>
         <li v-for="(propriete, index) in tb_materiel" :key="index" @click="addPropriety(tb_materiel[index], 'tb_materiel')" :class="{'liHover': liIsHover}">
           {{ propriete }}
         </li>
@@ -47,7 +47,7 @@ if (props.isUpdate) {
 
 /* émet*/
 const propriete = defineEmits(['propriete','propriete_selectionnee', 'table_selectionnee', 'focus_input'])
-const props = defineProps(['where', 'commande', 'table', 'isUpdate', 'label', 'liIsHover', 'ulIsHover']);
+const props = defineProps(['where', 'commande', 'table', 'isUpdate', 'label', 'liIsHover', 'ulIsHover', 'pIsHover']);
 
 
 // style de la table qui est indisponible
@@ -57,6 +57,7 @@ let disabledTableMateriel = false
 
 let liIsHover = props.liIsHover
 let ulIsHover = props.ulIsHover
+let pIsHover = props.pIsHover
 
 // Grise les tables qui n'ont pas été sélectionné précédement
 switch (props.table) {
@@ -147,16 +148,6 @@ function addPropriety(valeur, table) {
 
 }
 
-/***
- * Fonction qui permet d'émettre la valeur passer en paramètre
- * dans le constructeur principal
- * @param valeur nom de la table passé en paramètre dans le code html
- */
-function emitsTableSelectionnee(valeur){
-  propriete('propriete', valeur)
-}
-
-
 </script>
 
 <style scoped>
@@ -201,15 +192,18 @@ li {
   height: 240px;
 }
 
-p {
+ul div {
   margin-bottom: 5px;
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 32px;
   padding: 5px;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Jura', sans-serif;
   color: black;
   text-align: center;
+}
+p:hover{
+  color: #27FF16;
 }
 
 ul:hover {
@@ -235,6 +229,9 @@ ul:hover {
 }
 .ulHover:hover{
   border: 2px #27FF16 solid;
+}
+.pHover:hover{
+  color: #27FF16;
 }
 
 </style>
