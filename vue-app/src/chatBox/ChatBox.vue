@@ -1,7 +1,7 @@
 <template>
   <div class="chat-container">
   <div class="banner">
-    <img src="@/img/MicrosoftTeams-image.png" alt="Photo de liam" class="interlocuteur-photo" />
+    <img src="../img/TeteLiam.png" alt="Photo de liam" class="interlocuteur-photo" />
     <div class="interlocuteur-info">
       <h2>John Doe</h2>
     </div>
@@ -11,7 +11,7 @@
     <div class="message-input">
       <textarea v-model="newMessage" rows="1" placeholder="Saisissez votre message" class="message-text" id="message-text" @keydown.enter.prevent="send"></textarea>
       <button @click="send" class="send-button">
-        <img src="../img/send-message.png" height="20" width="20"/>
+        <img src="../img/icone_send_message.png" height="20" width="20"/>
       </button>
     </div>
   </div>

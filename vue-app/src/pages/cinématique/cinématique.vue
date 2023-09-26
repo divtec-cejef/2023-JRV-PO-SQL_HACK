@@ -22,7 +22,7 @@ function nextText(){
 </script>
 
 <template>
-  <img src="../../img/Dehors.jpg" id="image-fond" alt="">
+  <img src="../../img/VuGarage.jpg" id="image-fond" alt="">
   <img src="../../img/personnage.png" id="personnage" alt="">
 
   <div class="texte-bulle">

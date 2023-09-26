@@ -20,40 +20,34 @@
   import { dupontPlace } from "@/DB/DataBase";
 
   const etape = ref(1);
-
-
   const showComponent = ref(true);
-
   const valeur = ref()
 
   const messages = ref([
   { text: "Envoie-moi le mot de passe de l'alarme.", id: 1, isSent: false, },
   { text: "C'est la date de naissance de Martin Dupont.", id: 2, isSent: false },
   ]);
-
-
-
+  
   const messagesVoleur = ref([
+    { text: "Parfait, c'est bien le bon code.", id: 3, isSent: false },
+    { text: "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.", id: 4, isSent: false },
+    { text: "Pour commencer, Sélectionne le propriétaire de la tesla de couleur noire", id: 5, isSent: false },
+    { text: "Donne-moi son nom et son prénom.", id: 6, isSent: false },
+    { text: "Parfait, c'est bien la bonne personne.", id: 7, isSent: false },
+    { text: "Absolument pas, je le connais.", id: 8, isSent: false },
+    { text: "Donne-moi son ID", id: 9, isSent: false },
+    { text: "Excellent, c'est le bon", id: 10, isSent: false },
+    { text: "Tu as besoin de lunettes, mon pauvre ami", id: 11, isSent: false },
+    { text: "Maintenant tu dois changer le propriétaire de cette voiture", id: 12, isSent: false },
+    { text: 'Mets-la au nom de "John Doe"', id: 13, isSent: false },
+    { text: 'Et envoie "OK" quand tu as modifié le propriétaire', id: 14, isSent: false },
+    { text: "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.", id: 15, isSent: false },
+    { text: "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire.", id: 16, isSent: false },
 
-  { text: "Parfait, c'est bien la bonne personne.", id: 3, isSent: false },
-  { text: "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.", id: 4, isSent: false },
-  { text: "Pour commencer, Sélectionne le propriétaire de la tesla de couleur noire", id: 5, isSent: false },
-  { text: "Donne-moi son nom et son prénom et mémorise son ID.", id: 6, isSent: false },
-  { text: "Parfait, c'est bien la bonne personne.", id: 7, isSent: false },
-  { text: "Absolument pas, je le connais.", id: 8, isSent: false },
-  { text: "Donne-moi son ID", id: 9, isSent: false },
-  { text: "Excellent, c'est le bon", id: 10, isSent: false },
-  { text: "Tu as besoin de lunettes, mon pauvre ami", id: 11, isSent: false },
-  { text: "Maintenant tu dois changer le proprio de cette voiture", id: 12, isSent: false },
-  { text: 'Mets-la au nom de "John Doe"', id: 13, isSent: false },
-  { text: 'Et envoie "OK" quand tu as modifié le propriétaire', id: 14, isSent: false },
-  { text: "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.", id: 15, isSent: false },
-  { text: "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire.", id: 16, isSent: false },
+
   ]);
-
   const DupontPlace = ref(0);
-  const emits = defineEmits(['close-chatbox']);
-
+  const emits = defineEmits(['close-chatbox','cinematiqueFin']);
 
   function close(){
     // emet false donc on affiche pas la fenetre
@@ -240,6 +234,10 @@
                 scrollToBottom();
               }, 1510);
               etape.value = etape.value + 1;
+
+              setTimeout( () =>{
+                emits('cinematiqueFin', true);
+              }, 2500);
             } else {
               // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
               setTimeout(() => {
@@ -325,7 +323,7 @@
   width: 100%; /* Utilisez toute la largeur disponible */
   max-height: 489px; /* Hauteur maximale pour la liste de messages, ajustez selon vos besoins */
   overflow-y: auto; /* Affiche une barre de défilement en cas de dépassement de la hauteur maximale */
-  background-image: url('@/img/watsapp.png');
+  background-image: url('@/img/Fond_ecran_wattsap.png');
   background-size: cover; /* Pour redimensionner l'image pour qu'elle couvre tout le conteneur */
   background-repeat: no-repeat; /* Pour éviter que l'image ne se répète */
   background-position: center center; /* Pour centrer l'image horizontalement et verticalement */
