@@ -3,11 +3,13 @@ import Constructeur from "@/pages/constructeur/constructeur.vue";
 import Cinématique from "@/pages/cinématique/cinématique.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
-import {ref, onMounted} from "vue";
+import {ref, onMounted, toRef} from "vue";
+import FinCinematique from "@/pages/cinématique/FinCinematique.vue";
 
 
 let jeu = ref(false)
-let cinematique = ref(true)
+let cinematiqueDébut = ref(true)
+let cinematiqueFin = ref(false)
 let cle = ref(0)
 let afficherChatBox = ref(false)
 let afficherConstructeur = ref(false)
@@ -62,7 +64,7 @@ onMounted(() => {
 function changerEcran(valeur){
   console.log(valeur)
   jeu = valeur
-  cinematique = false
+  cinematiqueDébut = false
   cle.value += 1
 }
 
@@ -111,6 +113,13 @@ function easterEgg(){
   cle.value += 1
 }
 
+function finDeCinematique(valeur) {
+  cinematiqueFin.value = valeur
+  cle.value += 1
+  jeu.value = false
+  cinematiqueDébut.value = false
+}
+
 </script>
 
 <template>
@@ -120,7 +129,7 @@ function easterEgg(){
 
   <main>
 
-    <cinématique @changement-ecran="changerEcran" v-if="cinematique" :key="cle"></cinématique>
+    <cinématique @changement-ecran="changerEcran" v-if="cinematiqueDébut" :key="cle"></cinématique>
     <div v-if="jeu" class="jeu">
       <div>
         <barre-laterale></barre-laterale>
@@ -139,43 +148,35 @@ function easterEgg(){
             <constructeur @close-constructeur="closeConstructeur" v-if="!afficherConstructeur"></constructeur>
           </div>
           <div class="chat_box">
-            <ComponentsMessagerie @close-chatbox="closeChatBox" v-if="!afficherChatBox"></ComponentsMessagerie>
+            <ComponentsMessagerie @close-chatbox="closeChatBox" v-if="!afficherChatBox" @cinematique-fin="finDeCinematique"></ComponentsMessagerie>
           </div>
         </div>
 
         <div class="barre_tache">
           <div class="app">
-            <img src="./img/icone_windows.png" alt="">
-            <img src="./img/loupe%20(1).png" alt="">
-            <img src="./img/icone_explorateur.png" alt="">
-            <img src="./img/icone_google.png" alt="">
-            <img src="./img/icone_base_donnee.png" alt="" :style="styleAppConstructeur" @click="openConstructeur" >
-            <img src="./img/icone_messagerie.png" alt="" :style="styleAppChatBox" @click="openChatBox">
-            <img src="./img/Fortnite_S1.png" alt="" @click="easterEgg">
-            <img src="./img/word-logo-8-removebg-preview%20(1).png" alt="">
-            <img src="./img/Microsoft_Office_Excel__2019_present_.svg-removebg-preview.png" alt="">
-            <img src="./img/5968827-removebg-preview.png" alt="">
+            <img src="@/img/icone_windows.png" alt="">
+            <img src="@/img/icone_loupe.png" alt="">
+            <img src="@/img/icone_explorateur.png" alt="">
+            <img src="@/img/icone_google.png" alt="">
+            <img src="@/img/icone_base_donnee.png" alt="" :style="styleAppConstructeur" @click="openConstructeur" >
+            <img src="@/img/icone_messagerie.png" alt="" :style="styleAppChatBox" @click="openChatBox">
+            <img src="@/img/Fortnite_Logo.png" alt="" @click="easterEgg">
+            <img src="@/img/icone_word.png" alt="">
+            <img src="@/img/icone_excel.png" alt="">
+            <img src="@/img/icone_firefox.png" alt="">
           </div>
           <div class="widget_barre_tache">
             <div class="heure">{{ heureActuelle }}</div>
             <div class="date">{{ dateActuelle }}</div>
           </div>
-
-
         </div>
-
-
       </div>
-
-<!--      <div class="constructeur">-->
-<!--        <constructeur></constructeur>-->
-<!--      </div>-->
-<!--      <div class="chat_box">-->
-<!--&lt;!&ndash;          <chat class="chat"></chat>&ndash;&gt;-->
-<!--       <ComponentsMessagerie></ComponentsMessagerie>-->
-<!--      </div>-->
-
     </div>
+
+
+      <FinCinematique :key="cle" v-if="cinematiqueFin"></FinCinematique>
+
+
   </main>
 </template>
 
