@@ -164,8 +164,11 @@ function emitsTableSelectionnee(valeur){
 ul {
   padding: 0 0 15px 0;
   width: 175px;
-  border: 1px black solid;
   transition: transform 500ms ease;
+  /* mettre une bordure transparent pour empecher de déplacer
+  les éléments lors du survole
+   */
+  border: 2px black solid;
   border-radius: 14px;
   background-color: white;
   font-family: 'Jura', sans-serif;
@@ -210,7 +213,6 @@ p {
 
 ul:hover {
   transform: scale(1.05);
-  transform-origin: center center;
 }
 
 .disabled{
@@ -231,7 +233,7 @@ ul:hover {
   color: #27FF16;
 }
 .ulHover:hover{
-  border: 3px #27FF16 solid;
+  border: 2px #27FF16 solid;
 }
 
 </style>
