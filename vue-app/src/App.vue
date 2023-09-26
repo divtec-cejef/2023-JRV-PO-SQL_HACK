@@ -88,7 +88,6 @@ function openConstructeur() {
 function closeChatBox(valeur){
   console.log(valeur)
   afficherChatBox.value = valeur
-  //sdasda
   styleAppChatBox.value.borderBottom = '0px';
   styleAppChatBox.value.paddingBottom = '6px';
   styleAppChatBox.value.marginBottom = '3px'
@@ -99,8 +98,6 @@ function closeConstructeur(valeur){
   styleAppConstructeur.value.paddingBottom = '6px';
   styleAppConstructeur.value.marginBottom = '3px'
 }
-
-
 
 function easterEgg(){
   if (afficherVideoTemp) {

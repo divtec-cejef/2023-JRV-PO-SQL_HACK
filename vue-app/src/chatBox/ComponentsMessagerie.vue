@@ -22,10 +22,12 @@
   const etape = ref(1);
   const showComponent = ref(true);
   const valeur = ref()
+
   const messages = ref([
   { text: "Envoie-moi le mot de passe de l'alarme.", id: 1, isSent: false, },
   { text: "C'est la date de naissance de Martin Dupont.", id: 2, isSent: false },
   ]);
+  
   const messagesVoleur = ref([
     { text: "Parfait, c'est bien le bon code.", id: 3, isSent: false },
     { text: "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.", id: 4, isSent: false },
@@ -41,6 +43,7 @@
     { text: 'Et envoie "OK" quand tu as modifié le propriétaire', id: 14, isSent: false },
     { text: "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.", id: 15, isSent: false },
     { text: "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire.", id: 16, isSent: false },
+
 
   ]);
   const DupontPlace = ref(0);
