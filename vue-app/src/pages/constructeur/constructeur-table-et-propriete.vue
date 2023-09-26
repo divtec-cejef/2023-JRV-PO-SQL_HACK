@@ -46,7 +46,7 @@ if (props.isUpdate) {
 }
 
 /* émet*/
-const propriete = defineEmits(['propriete','propriete_selectionnee', 'table_selectionnee'])
+const propriete = defineEmits(['propriete','propriete_selectionnee', 'table_selectionnee', 'focus_input'])
 const props = defineProps(['where', 'commande', 'table', 'isUpdate', 'label', 'liIsHover', 'ulIsHover']);
 
 
@@ -80,6 +80,16 @@ switch (props.table) {
     break;
 }
 
+function convertId(table) {
+  if (table === "tb_voiture") {
+    return "idVoiture"
+  } else if (table === "tb_personne") {
+    return "idPersonne"
+  } else if (table === "tb_materiel") {
+    return "idMateriel"
+  }
+}
+
 /**
  * Teste si le constructeur de la table est après
  * les 4 boutons ou après la condition
@@ -90,45 +100,62 @@ switch (props.table) {
  */
 function addPropriety(valeur, table) {
 
+  // empêche de cliquer sur une propriété quand il faut juste sélectionner la table
   if ((valeur === "*" && props.where === true) || (valeur === "*" && props.commande === 2)) {
     return
   }
 
+  let stringRequete = "";
+
   if (valeur === "propriétaire"){
     valeur = "proprietaire"
   }
+
   let props_select = valeur
-  valeur = " " + valeur
+  stringRequete = " " + valeur
 
   // select
   if (props.commande === 1){
     // choix du filtre
     if (props.where) {
       // propriété de la table en cas de filtre
-      valeur = valeur + " = "
+      stringRequete = " " + valeur + " = "
     } else {
       // * pour la première séléction de la table
-      valeur =  " *" + " FROM " + table
+      stringRequete =  " *" + " FROM " + table
     }
 
     // update
   } else if (props.commande === 2){
-    if (props.where) {
-      valeur = valeur + " = "
-    } else {
-      valeur = " " + table + " SET" + valeur + " = "
-    }
+      stringRequete = " " + table + " SET " + valeur + " = " /* + " WHERE " + convertId(table) */
+
+    // insert
+  } else if (props.commande === 3) {
+    stringRequete = " INTO " + table
 
     // delete
   } else if (props.commande === 4){
-    valeur = valeur + " = "
+    stringRequete = " FROM " + table + " WHERE " + convertId(table) + " = "
+
   }
 
-  propriete('propriete', valeur)
+  propriete('propriete', stringRequete)
   propriete('propriete_selectionnee', props_select)
   propriete('table_selectionnee', table)
+  propriete('focus_input', true)
 
 }
+
+/***
+ * Fonction qui permet d'émettre la valeur passer en paramètre
+ * dans le constructeur principal
+ * @param valeur nom de la table passé en paramètre dans le code html
+ */
+function emitsTableSelectionnee(valeur){
+  propriete('propriete', valeur)
+}
+
+
 </script>
 
 <style scoped>
@@ -144,20 +171,25 @@ ul {
   font-family: 'Jura', sans-serif;
   font-weight: 700;
   margin: 8px;
+  display: flex; /* Utilise Flexbox pour gérer le centrage */
+  flex-direction: column; /* Affiche les éléments de la liste en colonne */
+  align-items: center; /* Centre les éléments horizontalement */
+  list-style: none; /* Supprime les puces de la liste */
 }
 
 ul p {
   font-family: 'Jura', sans-serif;
   font-weight: 700;
+  margin-top: 10px;
 }
 
 li {
   list-style-type: none;
-  text-align: center;
   font-family: 'Jura', sans-serif;
   font-weight: 700;
   color: black;
-  margin: 8px;
+  width: fit-content;
+  padding: 5px;
 }
 
 .tables {
@@ -178,6 +210,7 @@ p {
 
 ul:hover {
   transform: scale(1.05);
+  transform-origin: center center;
 }
 
 .disabled{

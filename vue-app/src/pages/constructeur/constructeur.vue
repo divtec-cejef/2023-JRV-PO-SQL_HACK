@@ -30,7 +30,8 @@
           <div class="requete_select" v-if="commande_selectionnee===1" :key="cle">
             <div v-if="constructeurActuel === 1" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="1"
-                                            @table_selectionnee="changeTableSelectionnee" :label="'table'" :li-is-hover="false" :ul-is-hover="true"></ConstructeurTableEtPropriete>
+                                            @table_selectionnee="changeTableSelectionnee" :label="'table'"
+                                            :li-is-hover="false" :ul-is-hover="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="btn_condition">
               <constructeur-condition @where="propriété" @valider_sans_condition="validerSansCondition"
@@ -39,7 +40,8 @@
             <div v-if="constructeurActuel === 3" class="constructeur_table_et_propriete">
               <ConstructeurTableEtPropriete @propriete="propriété" :where="true" :commande="1"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
-                                            :table="table_selectionnee" :label="'propriété'" :li-is-hover="true" :ul-is-hover="false"></ConstructeurTableEtPropriete>
+                                            :table="table_selectionnee" :label="'propriété'" :li-is-hover="true" :ul-is-hover="false"
+                                            @focus_input="focusInput"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 4" class="saisie_condition_select">
 
@@ -51,7 +53,7 @@
                          @keydown.enter.prevent="valideRequete(false)" v-if="inputIsNumber" autocomplete="off">
                   <!-- input pour la saisie d'un texte -->
                   <input type="text" id="text-conditon" v-model="textCondition" placeholder="Ecrire ici" class="text_condition_select"
-                         @keydown.enter.prevent="valideRequete(false)" v-if="!inputIsNumber" autocomplete="off">
+                         @keydown.enter.prevent="valideRequete(false)" v-if="!inputIsNumber" autocomplete="off" autofocus>
                   <button class="btnValider" @click="valideRequete(false)">Envoyer la requête</button>
                 </div>
               </div>
@@ -64,7 +66,7 @@
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             @table_selectionnee="changeTableSelectionnee" :is-update="true"
-                                            :label="'table'" :ul-is-hover="false" :li-is-hover="true"></ConstructeurTableEtPropriete>
+                                            :label="'propriété'" :ul-is-hover="false" :li-is-hover="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
               <div class="text_saisie_id">{{ texteTitreSaisieID }}</div>
@@ -83,7 +85,11 @@
           <!-- requête INSERT -->
           <div class="requete_insert" v-if="commande_selectionnee===3">
             <div v-if="constructeurActuel===1">
-              <constructeur-table @propriete="proprieteInsert"></constructeur-table>
+<!--              <constructeur-table @propriete="proprieteInsert"></constructeur-table>-->
+              <constructeur-table-et-propriete :label="'table'" :where="false" :commande="3" @propriete="propriété"
+                                               @propriete_selectionnee="changeProprieteSelectionnee"
+                                               @table_selectionnee="changeTableSelectionnee"
+                                               :ul-is-hover="true" :li-is-hover="false"></constructeur-table-et-propriete>
             </div>
             <div v-if="constructeurActuel===2" class="property_insert">
               <constructeur-property-insert :table="table_selectionnee" @datainsert="validerValuesInsert"
@@ -94,8 +100,10 @@
           <!-- DELETE -->
           <div class="requete_delete" v-if="commande_selectionnee===4">
             <div v-if="constructeurActuel===1">
-              <constructeur-table @props-delete="proprieteDelete"
-                                  @propriete="changeTableSelectionnee"></constructeur-table>
+              <constructeur-table-et-propriete :label="'table'" :where="false" :commande="4" @propriete="propriété"
+                                               @propriete_selectionnee="changeProprieteSelectionnee"
+                                               @table_selectionnee="changeTableSelectionnee"
+                                               :ul-is-hover="true" :li-is-hover="false"></constructeur-table-et-propriete>
             </div>
             <div v-if="constructeurActuel===2" class="btn_condition">
               <div class="saisie_condition_delete">
@@ -165,7 +173,7 @@ let btnRetourIsDisabled = true
 let historiqueTextRequete = []
 let ajouterText = true
 let inputIsNumber = ref()
-let label = ref()
+let inputFocusRef = ref(null)
 
 const tailleDivResultatRequete = ref({
   height: '300px',
@@ -177,9 +185,15 @@ const styleTextArea = ref({
   height: '245px',
 })
 
+function focusInput(valeur) {
+    if (valeur) {
+      inputFocusRef.value.focus();
+    }
+}
+
 function changeTailleTextarea(){
-  tailleDivResultatRequete.value.height = '478px'
-  tailleDivResultatRequete.value.maxHeight = '478px'
+  tailleDivResultatRequete.value.height = '460px'
+  tailleDivResultatRequete.value.maxHeight = '460px'
   tailleDivResultatRequete.value.overflow = 'auto'
   styleTextArea.value.height = '100px'
 }
@@ -199,7 +213,13 @@ function addValeurToTextRequete(valeur){
     text_requete.value = ""
   }
 
-  text_requete.value += valeur
+  if (commande_selectionnee === 2 && constructeurActuel === 2){
+    console.log(table_selectionnee)
+    changeTableSelectionnee()
+  } else {
+    text_requete.value += valeur
+  }
+
   // ajouterLettresAvecEffet(valeur)
 }
 
@@ -418,7 +438,7 @@ function changeTextEnCasDeID(propriete_selectionnee){
         case "numéro_de_tel" : texteExplicationSaisie += "le nouveau numéro de téléphone";  break;
         case "couleur" : texteExplicationSaisie += "la nouvelle couleur"; break;
         case "marque" : texteExplicationSaisie += "la nouvelle marque"; break;
-        case "propriétaire" : texteExplicationSaisie += "le nouveau propriétaire"; break;
+        case "proprietaire" : texteExplicationSaisie += "le nouveau propriétaire"; break;
         case "numéro_plaque": texteExplicationSaisie += "le nouveau numéro de plaque"; break;
         case "nom_matériel" : texteExplicationSaisie += "le nouveau nom du matériel"; break;
         case "quantité": texteExplicationSaisie += "la nouvelle quantité"
@@ -426,6 +446,15 @@ function changeTextEnCasDeID(propriete_selectionnee){
     }
 
     texteTitreSaisieID.value = texteExplicationSaisie
+}
+
+function convertId(table_selectionnee){
+  switch (table_selectionnee) {
+    case "tb_voiture" : return "idVoiture";
+    case "tb_personne" : return "idPersonne";
+    case "tb_materiel" : return "idMateriel";
+    default: return -1;
+  }
 }
 
 /***
@@ -462,9 +491,15 @@ function valideRequete(commandeUpdate) {
         console.log("----------------------")
       }
       console.log("champs rempli")
-      text_requete.value += "'";
-      addValeurToTextRequete(textCondition.value);
-      text_requete.value += "'";
+
+      if (commande_selectionnee === 2 && constructeurActuel === 2){
+        text_requete.value += "'" + textCondition.value + "'" + " WHERE " + convertId(table_selectionnee) + " = "
+      } else {
+        text_requete.value += "'";
+        addValeurToTextRequete(textCondition.value);
+        text_requete.value += "'";
+      }
+
       console.log(text_requete.value);
       constructeurActuel++
     } else {
@@ -493,21 +528,8 @@ function valideRequete(commandeUpdate) {
 function valideRequeteUpdate() {
   console.log(numId.value)
   if (!isNaN(numId.value) && numId.value !== "" && numId.value >= 1) {
-    if (commande_selectionnee !== "DELETE") {
-      text_requete.value += " WHERE "
-    }
-    switch (table_selectionnee) {
-      case "tb_personne":
-        text_requete.value += "idPersonne"
-        break
-      case "tb_voiture":
-        text_requete.value += "idVoiture"
-        break
-      case "tb_materiel":
-        text_requete.value += "idMateriel"
-        break
-    }
-    text_requete.value += " = " + numId.value
+
+    text_requete.value += numId.value
     constructeurActuel = 6
     text_requete.value += ";"
     changeTailleTextarea()
@@ -630,6 +652,7 @@ input {
   resize: none;
   font-family: 'Jura', sans-serif;
   border: none;
+
 }
 
 /* Constructeur */
@@ -645,7 +668,7 @@ input {
 }
 
 #text-requete{
-  width: 588px;
+  width: 560px;
   font-size: 32px;
   font-family: 'Jura', sans-serif;
   font-weight: 600;
@@ -654,8 +677,13 @@ input {
   background-color: black;
   border-bottom: transparent;
   border-top: transparent;
-  padding: 5px 5px 10px 5px;
+  padding: 15px;
   resize: none;
+  border: none;
+}
+textarea:focus{
+  border: none;
+  outline: none;
 }
 
 .bouton_finaux button{
@@ -816,6 +844,9 @@ input {
   font-size: 28px;
   font-weight: 700;
   margin-left: 2%;
+}
+.constructeur_table_et_propriete{
+  margin: 0;
 }
 
 </style>
