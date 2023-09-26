@@ -1,9 +1,11 @@
 <template>
   <div class="page1">
-    <button @click="addSelectToQuery(1)" class="btn1">SELECT</button>
-    <button @click="addSelectToQuery(2)" class="btn2">UPDATE</button>
-    <button @click="addSelectToQuery(3)" class="btn3">INSERT</button>
-    <button @click="addSelectToQuery(4)" class="btn4">DELETE</button>
+
+      <button @click="addSelectToQuery(1)" class="btn1">SELECT</button>
+      <button @click="addSelectToQuery(2)" class="btn2">UPDATE</button>
+      <button @click="addSelectToQuery(3)" class="btn3">INSERT</button>
+      <button @click="addSelectToQuery(4)" class="btn4">DELETE</button>
+
   </div>
 </template>
 
@@ -47,7 +49,10 @@ const emits = defineEmits(['select'])
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 100%;
+
+}
+.btn {
+
 }
 
 .page1 button{
@@ -67,6 +72,7 @@ button{
 }
 button:hover{
   transform: scale(1.1);
-  border: #27FF16 solid;
+  border: #27FF16 solid 2px;
+
 }
 </style>

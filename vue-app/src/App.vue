@@ -98,8 +98,6 @@ function closeConstructeur(valeur){
   styleAppConstructeur.value.marginBottom = '3px'
 }
 
-
-
 function easterEgg(){
   if (afficherVideoTemp) {
     afficherVideo = true

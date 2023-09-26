@@ -25,7 +25,7 @@
     </div>
 
     <div class="bouton_valider">
-      <button @click="addValuesForInsert">Valider</button>
+      <button @click="addValuesForInsert">Envoyer la requête</button>
     </div>
   </div>
 
@@ -209,17 +209,21 @@ input{
   height: 30px;
   width: 150px;
 }
-button{
-  font-size: 18px;
-  font-family: 'Jura', sans-serif;
-  font-weight: bold;
-  width: 200px;
-  height: 50px;
-  border-radius: 8px;
-  transition: transform 500ms ease;
-}
 button:hover{
   transition: transform 500ms ease;
   transform: scale(1.10);
+}
+.bouton_valider {
+  display: flex;
+  justify-content: center;
+}
+.bouton_valider button {
+  font-size: 18px;
+  font-family: 'Jura', sans-serif;
+  font-weight: bold;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 8px;
+  transition: transform 500ms ease;
 }
 </style>
