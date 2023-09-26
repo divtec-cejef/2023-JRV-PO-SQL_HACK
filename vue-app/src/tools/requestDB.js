@@ -55,10 +55,11 @@ function cleanString(chaine) {
  * @param saisie Le texte saisi par l'utilisateur.
  * @returns {string} La saisie de l'utilisateur avec la 1ère lettre en majuscule.
  */
-function firstLetterToUpper(saisie) {
+function firstLetterToUppercase(saisie) {
+    saisie = saisie.toLowerCase();
     if (saisie.length === 1) {
         return saisie.toUpperCase();
-    }else if (saisie.length > 1){
+    }else if (saisie.length > 1) {
         return saisie.charAt(0).toUpperCase() +  saisie.slice(1);
     }
 }
@@ -70,7 +71,7 @@ function executeSelectRequest(request) {
     let table = cleanString(getWord(request, 3));
     if (numberWordInRequest(request) > 5 ) {
         let valeur = cleanString(getWord(request, 7));
-        valeur = firstLetterToUpper(valeur);
+        valeur = firstLetterToUppercase(valeur);
 
         let champsCondition = removeAccents(getWord(request, 5));
         if (checkFieldsProprio(table, champsCondition) === true) {
@@ -79,13 +80,12 @@ function executeSelectRequest(request) {
 
         if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
             select(table, champsCondition, parseInt(valeur));
-        }
-        else {
+        }else {
             select(table, champsCondition, valeur);
         }
 
         console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
-    } else {
+    }else {
         console.log('table : ' + table);
         select(table);
     }
@@ -99,7 +99,7 @@ function executeInsertRequest(request) {
     let dataArray = ref([]);
     for (let i = 5; i <= numberWordInRequest(request) - 1; i++) {
         let dataClean = getWord(request, i).replace(/'|"|,|;|\(|\)/g, "");
-        dataClean = firstLetterToUpper(dataClean);
+        dataClean = firstLetterToUppercase(dataClean);
 
         dataArray.value.push(dataClean);
     }
@@ -125,12 +125,12 @@ function executeUpdateRequest(request) {
     let table = getWord(request, 1);
     let champsModif = cleanString(removeAccents(getWord(request, 3)));
     let nouvelleValeur = cleanString(getWord(request, 5));
-    nouvelleValeur = firstLetterToUpper(nouvelleValeur);
+    nouvelleValeur = firstLetterToUppercase(nouvelleValeur);
     let valeurID = cleanString(getWord(request, 9));
 
     if (checkFieldsProprio(table, champsModif) === true) {
-        let nouvelleValeurProprio = firstLetterToUpper(cleanString(getWord(request, 5))) + ' ' +
-                                           firstLetterToUpper(cleanString(getWord(request, 6)));
+        let nouvelleValeurProprio = firstLetterToUppercase(cleanString(getWord(request, 5))) + ' ' +
+                                           firstLetterToUppercase(cleanString(getWord(request, 6)));
         let valeurID = cleanString(getWord(request, 10));
 
         console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
