@@ -52,10 +52,20 @@ const mettreAJourDate = () => {
   dateActuelle.value = `${jour.toString().padStart(2, '0')}.${mois.toString().padStart(2, '0')}.${annee}`;
 }
 
+const handleKeyPress = (event) => {
+  if (event.key === 'F5') {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+};
+
 // Appelez la fonction au moment de la création du composant
 onMounted(() => {
   mettreAJourHeure();
   mettreAJourDate();
+
+  // désactive la touche F5 qui permet de rééinitialiser la page
+  document.addEventListener('keydown', handleKeyPress);
 
   // Mettez à jour l'heure chaque seconde (1000 millisecondes)
   setInterval(mettreAJourHeure, 1000);

@@ -1,11 +1,7 @@
 
 <template>
-  <!-- Écran de gauche qui contient : constructeur, texte requête
- et le résultat de la requête-->
 
-
-
-  <div class="ecran_gauche">
+  <div class="constructeur_app">
 
     <div class="barre-onglet">
       <div class="button_fenetre">
@@ -588,6 +584,10 @@ function ajouterLettresAvecEffet(valeur) {
   }
 }
 
+/***
+ * Emet le signal de la fermeture du constructeur quand on clique
+ * sur la croix
+ */
 function close(){
   // emet false donc on affiche pas la fenetre
   emits('close-constructeur', true)
@@ -609,14 +609,10 @@ function close(){
   }
 }
 
-
-
 *{
   margin: 0;
 }
-div{
 
-}
 button{
   width: 30%;
   height: 40px;
@@ -628,6 +624,7 @@ button{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: black;
   align-items: center;
   width: 600px;
 }
@@ -644,7 +641,7 @@ input {
   margin-right: 20px;
 }
 /* écran gauche */
-.ecran_gauche{
+.constructeur_app{
   background-color: black;
   width: 600px;
   height: 700px;
@@ -811,7 +808,7 @@ textarea:focus{
   width: 220px;
 }
 
-.ecran_gauche {
+.constructeur_app {
   border: white 3px solid;
   user-select: none;
 }

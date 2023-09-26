@@ -55,6 +55,7 @@ let disabledTableVoiture = false
 let disabledTablePersonne = false
 let disabledTableMateriel = false
 
+// propriété
 let liIsHover = props.liIsHover
 let ulIsHover = props.ulIsHover
 let pIsHover = props.pIsHover
@@ -81,6 +82,11 @@ switch (props.table) {
     break;
 }
 
+/***
+ * Converti la table (chaîne de caractère) passé en paramètre
+ * @param table table sélectionnée par l'utilisateur
+ * @returns {string} retourne l'ID correspondant à la table
+ */
 function convertId(table) {
   if (table === "tb_voiture") {
     return "idVoiture"
@@ -141,11 +147,11 @@ function addPropriety(valeur, table) {
 
   }
 
+  // émition
   propriete('propriete', stringRequete)
   propriete('propriete_selectionnee', props_select)
   propriete('table_selectionnee', table)
   propriete('focus_input', true)
-
 }
 
 </script>
