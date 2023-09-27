@@ -4,6 +4,7 @@
   <div class="constructeur_app">
 
     <div class="barre-onglet">
+      <div class="nomAppConstructeur">Constructeur</div>
       <div class="button_fenetre">
         <button><img src="../../assets/icon/moins.png" class="minus"></button>
         <button><img src="../../assets/icon/carre.png" alt="" class="square"></button>
@@ -854,16 +855,21 @@ textarea:focus{
   width: 600px;
   background-color: #222222;
   display: flex;
-  padding-top: 3px;
-  justify-content: flex-end;
+  justify-content: space-between;
   border-bottom: 1px solid white;
+}
+.nomAppConstructeur {
+  color: white;
+  font-family: 'Jura', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  padding-left: 10px;
 }
 
 .barre-onglet button {
   background-color: transparent;
   border: none;
   margin-top: -5px;
-  padding: 0 5px 0 12px;
 }
 
 .minus, .close{
@@ -872,6 +878,7 @@ textarea:focus{
 }
 .square {
   height: 17px;
+  width: 17px;
   margin-bottom: 2px;
 }
 .minus:hover, .close:hover {
