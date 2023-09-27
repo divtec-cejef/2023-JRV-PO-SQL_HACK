@@ -8,7 +8,7 @@ import FinCinematique from "@/pages/cinématique/FinCinematique.vue";
 
 
 let jeu = ref(false)
-let cinematiqueDébut = ref(true)
+let cinematiqueDebut = ref(true)
 let cinematiqueFin = ref(false)
 let cle = ref(0)
 let afficherChatBox = ref(false)
@@ -18,7 +18,7 @@ let afficherVideo = ref(false)
 let afficherVideoTemp = true
 const heureActuelle = ref('');
 const dateActuelle = ref('');
-let zIndexis3 = ref(true)
+let zIndexis4 = ref(true)
 
 const styleAppConstructeur = ref({
   borderBottom :'4px solid white',
@@ -73,8 +73,9 @@ onMounted(() => {
 
 function changerEcran(valeur){
   console.log(valeur)
-  jeu = valeur
-  cinematiqueDébut = false
+  jeu.value = valeur
+  cinematiqueDebut.value = false
+  cinematiqueFin.value = false
   cle.value += 1
 }
 
@@ -104,7 +105,6 @@ function closeChatBox(valeur){
 }
 function closeConstructeur(valeur){
   afficherConstructeur.value = valeur
-  styleAppConstructeur.value.opacity = '0.5'
   styleAppConstructeur.value.borderBottom = '0px';
   styleAppConstructeur.value.paddingBottom = '6px';
   styleAppConstructeur.value.marginBottom = '3px'
@@ -123,17 +123,15 @@ function easterEgg(){
 
 function finDeCinematique(valeur) {
   cinematiqueFin.value = valeur
-  cle.value += 1
-  jeu.value = false
-  zIndexis3 = true
-  cinematiqueDébut.value = false
+  zIndexis4 = true
+  cinematiqueDebut.value = false
 }
 
 function Niveau2(valeur){
   console.log(valeur)
-  jeu = valeur
-  cinematiqueFin = false
-  cle.value += 1
+  cinematiqueDebut.value = false
+  cinematiqueFin.value = false
+  zIndexis4 = false
 }
 
 </script>
@@ -145,8 +143,8 @@ function Niveau2(valeur){
 
   <main>
 
-    <cinématique @changement-ecran="changerEcran" v-if="cinematiqueDébut" :key="cle"></cinématique>
-    <div v-if="jeu" class="jeu" :key="cle">
+    <cinématique @changement-ecran="changerEcran" v-if="cinematiqueDebut" :key="cle" class="cinematiqueDebut"></cinématique>
+    <div class="jeu" :key="cle" v-if="jeu">
       <div>
         <barre-laterale></barre-laterale>
       </div>
@@ -157,7 +155,7 @@ function Niveau2(valeur){
           <img src="@/img/Fortnite_Logo.png" alt="" @click="easterEgg" class="icone_easter_egg">
 
           <div :class="{ 'slide-down': afficherVideo }" :key="cle">
-            <video height="400" width="400" controls v-if="afficherVideo" autoplay muted playsinline loop>
+            <video height="400" width="400" controls v-show="afficherVideo" autoplay muted playsinline loop>
               <source src="../src/video/video_test.webm" type="video/webm"/>
             </video>
           </div>
@@ -190,7 +188,7 @@ function Niveau2(valeur){
       </div>
     </div>
 
-      <div :key="cle" v-if="cinematiqueFin" :class="{'zindex': zIndexis3}">
+      <div :key="cle" v-if="cinematiqueFin" :class="{'zindex': zIndexis4}">
         <FinCinematique @Niv2="Niveau2" ></FinCinematique>
       </div>
 
@@ -388,6 +386,9 @@ header {
 }
 .date{
   margin-left: -50px;
+}
+.zindex {
+  z-index: 4;
 }
 
 </style>

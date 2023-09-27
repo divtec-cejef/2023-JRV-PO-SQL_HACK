@@ -1,9 +1,12 @@
 <template>
  <div class="onglet-telephone">
    <div class="barre-onglet">
-     <button><img src="../assets/icon/moins.png" alt="" class="minus"></button>
-     <button><img src="../assets/icon/carre.png" alt="" class="square"></button>
-     <button @click="close" ><img src="../assets/icon/traverser.png" alt="" class="close"></button>
+     <div class="nomAppMessagerie">Messagerie</div>
+     <div class="minus_square_plus">
+       <button><img src="../assets/icon/moins.png" alt="" class="minus"></button>
+       <button><img src="../assets/icon/carre.png" alt="" class="square"></button>
+       <button @click="close" ><img src="../assets/icon/traverser.png" alt="" class="close"></button>
+     </div>
    </div>
     <div class="chat">
     <ChatBox :sendMessage="sendMessage" />
@@ -378,13 +381,12 @@
   border-bottom: 1px solid white;
   display: flex;
   padding-top: 3px;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .barre-onglet button {
   background-color: transparent;
   border: none;
-  padding: 0 10px 0 5px;
 }
 
 .message {
@@ -413,6 +415,8 @@
 }
 .square {
   height: 15px;
+  width: 15px;
+  margin-bottom: 2px;
 }
 .square:hover, .minus:hover, .close:hover {
   transform: scale(1.1);
@@ -420,5 +424,14 @@
 }
 .square:hover {
   transform: scale(1.05);
+}
+.nomAppMessagerie {
+  color: white;
+  font-family: 'Jura', sans-serif;
+  font-size: 22px;
+  padding-left: 10px;
+}
+.minus_square_plus {
+  margin-top: 2px;
 }
 </style>
