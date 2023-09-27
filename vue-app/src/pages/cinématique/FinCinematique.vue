@@ -1,12 +1,12 @@
 
 
 <template>
-  <div class="MessageReussite">Bravo, tu as réussi !</div>
+  <div class="MessageReussite" v-if="showFel">Bravo, tu as réussi !</div>
     <video class="video" autoplay muted playsinline>
       <source src="@/video/fini.mp4" type="video/webm" />
     </video>
   <div class="bouton-quitter-rec" v-if="showContent">
-   <button class="Niveau2">Niveau 2</button>
+   <button class="Niveau2" @click="Niv2">Niveau 2</button>
    <button class="Quitter" @click="recommencer">Quitter</button>
   </div>
 </template>
@@ -14,21 +14,32 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+const emits = defineEmits(['Niv2']);
 const showContent = ref(false);
+const showFel = ref(false);
 
 const recommencer = () => {
   window.location.reload();
+};
+
+const Niv2 = () => {
+  emits('Niv2', true);
 };
 
 onMounted(() => {
   setTimeout(() => {
     showContent.value = true;
   }, 5000); // Délai de 5 secondes
+
+  setTimeout(() => {
+    showFel.value = true;
+  }, 1000); // Délai de 5 secondes
 });
 </script>
 
 <style scoped>
 .video{
+  z-index: 2;
   position: fixed;
   top: 0;
   left: 0;
@@ -36,12 +47,11 @@ onMounted(() => {
   min-height: 1080px;
   max-width: 1920px;
   max-height: 1080px;
-  z-index: -1;
 }
 
 .MessageReussite{
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   color: #FFFFFF;
   font-size: 150px;
   display: flex;
@@ -55,7 +65,7 @@ onMounted(() => {
 
 .bouton-quitter-rec{
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
