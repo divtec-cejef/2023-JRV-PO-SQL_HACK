@@ -103,6 +103,7 @@ function closeChatBox(valeur){
 }
 function closeConstructeur(valeur){
   afficherConstructeur.value = valeur
+  styleAppConstructeur.value.opacity = '0.5'
   styleAppConstructeur.value.borderBottom = '0px';
   styleAppConstructeur.value.paddingBottom = '6px';
   styleAppConstructeur.value.marginBottom = '3px'
@@ -153,10 +154,10 @@ function finDeCinematique(valeur) {
           </div>
 
           <div class="constructeur">
-            <constructeur @close-constructeur="closeConstructeur" v-if="!afficherConstructeur"></constructeur>
+            <constructeur @close-constructeur="closeConstructeur" v-show="!afficherConstructeur" ></constructeur>
           </div>
           <div class="chat_box">
-            <ComponentsMessagerie @close-chatbox="closeChatBox" v-if="!afficherChatBox" @cinematique-fin="finDeCinematique"></ComponentsMessagerie>
+            <ComponentsMessagerie @close-chatbox="closeChatBox" v-show="!afficherChatBox" @cinematique-fin="finDeCinematique"></ComponentsMessagerie>
           </div>
         </div>
 
@@ -376,6 +377,9 @@ header {
 }
 .date{
   margin-left: -50px;
+}
+.disabled {
+
 }
 
 </style>

@@ -21,7 +21,7 @@
       <ul>
         <li>Lis les messages du voleur sur le téléphone à droite de l'écran</li>
         <li>Cherche les informations grâce au constructeur de requête qui se situe sur la gauche de l'écran</li>
-        <li>Tu peux copier les informations directement dans le téléphone en cliquant sur une cellule du tableau</li>
+        <li>Tu peux copier les informations directement dans le téléphone en cliquant sur une cellule du tableau quand celui-ci apparaîtra</li>
       </ul>
     </div>
 
