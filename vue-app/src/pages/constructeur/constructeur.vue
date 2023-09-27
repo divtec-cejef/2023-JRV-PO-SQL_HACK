@@ -5,9 +5,9 @@
 
     <div class="barre-onglet">
       <div class="button_fenetre">
-        <button><img src="../../assets/icon/minus.png" alt="" class="minus"></button>
-        <button><img src="../../assets/icon/square.png" alt="" class="square"></button>
-        <button @click="close" ><img src="../../assets/icon/close.png" alt="" class="close"></button>
+        <button><img src="../../assets/icon/moins.png" class="minus"></button>
+        <button><img src="../../assets/icon/carre.png" alt="" class="square"></button>
+        <button @click="close" ><img src="../../assets/icon/traverser.png" alt="" class="close"></button>
       </div>
     </div>
 
@@ -102,7 +102,11 @@
                                                @table_selectionnee="changeTableSelectionnee"
                                                :ul-is-hover="true" :li-is-hover="false" :p-is-hover="true"></constructeur-table-et-propriete>
             </div>
+
             <div v-if="constructeurActuel===2" class="btn_condition">
+
+<!--              <button class="btn_redirection" @click="redirectionSelect">Sélectionner l'ID <img src="../../assets/icon/fleche-droite.png" alt=""></button>-->
+
               <div class="saisie_condition_delete">
                 <div class="text_saisie_id_et_input">
                   <div class="text_saisie_id">Saisissez l'id :</div>
@@ -110,7 +114,7 @@
                 <div>
                   <input type="number" id="num-id" v-model="numId" placeholder="ID" class="text_condition"
                          @keydown.enter.prevent="valideRequeteUpdate" autocomplete="off">
-                  <button class="btnValider" @click="valideRequeteUpdate">Exécuter la requête</button>
+                  <button class="btnValider" @click="valideRequeteUpdate">Envoyer la requête</button>
                 </div>
 
               </div>
@@ -124,6 +128,7 @@
     <button @click="retour" :disabled="btnRetourIsDisabled"
             v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
                                                                                                       class="img_retour"></button>
+    <button v-if="btnRetourRequeteDeleteIsVisibled" @click="retourAlaSuppression">Revenir à la suppression</button>
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="div_text_requete">
@@ -153,7 +158,6 @@ import { sendRequest } from "@/tools/requestDB";
 import {stringifyQuery} from "vue-router";
 
 /* déclarations des variables*/
-const textareaContent = ref('');
 const text_requete = ref('')
 const textCondition = ref()
 const numId = ref()
@@ -171,6 +175,9 @@ let historiqueTextRequete = []
 let ajouterText = true
 let inputIsNumber = ref()
 let inputFocusRef = ref(null)
+let btnRetourRequeteDeleteIsVisibled = ref(false)
+let stockRequeteDelete = ""
+let test1 = 0
 
 const tailleDivResultatRequete = ref({
   height: '460px',
@@ -252,6 +259,7 @@ function propriété(valeur){
   console.log("----------------------")
   constructeurActuel++
   btnRetourIsDisabled = false
+
 }
 
 /****
@@ -299,25 +307,28 @@ function handleScroll(){
  */
 function effacer(){
 
+  if (test1 !== 1){
+    //Supprimer l'ancienne table s'il en existe une
+    let oldTable = document.getElementById("table_result");
+    if (oldTable) {
+      oldTable.remove();
+    }
+    // reset tout à 0
+    text_requete.value = ""
+    textCondition.value = ""
+    constructeurActuel = 0
+    numId.value = ''
 
-  //Supprimer l'ancienne table s'il en existe une
-  let oldTable = document.getElementById("table_result");
-  if (oldTable) {
-    oldTable.remove();
+    historiqueTextRequete = []
+
+    btnRetourIsDisabled = true
+    encadreActuel.parentNode.removeChild(encadreActuel);
+    encadreActuel = null;
+    btnRetourRequeteDeleteIsVisibled = false
+
+    changeTailleTextarea()
   }
-  // reset tout à 0
-  text_requete.value = ""
-  textCondition.value = ""
-  constructeurActuel = 0
-  numId.value = ''
 
-  historiqueTextRequete = []
-
-  btnRetourIsDisabled = true
-  encadreActuel.parentNode.removeChild(encadreActuel);
-  encadreActuel = null;
-
-  changeTailleTextarea()
 }
 
 /***
@@ -593,6 +604,30 @@ function close(){
   emits('close-constructeur', true)
 }
 
+/***
+ *
+ */
+function redirectionSelect() {
+  stockRequeteDelete = text_requete.value
+  text_requete.value = "SELECT" + " * " + "FROM " + table_selectionnee + " WHERE"
+  historiqueTextRequete.push(text_requete.value)
+  commandeSelectionee("SELECT")
+  constructeurActuel = 3
+  btnRetourRequeteDeleteIsVisibled = true
+  btnRetourIsDisabled = true
+}
+
+/***
+ * Fonction qui permet de retourner sur le constructeur de la requête DELETE
+ * après avoir cliquer sur le bouton "Revenir à la suppression"
+ */
+function retourAlaSuppression() {
+  text_requete.value = stockRequeteDelete
+  commandeSelectionee("DELETE")
+  constructeurActuel = 2
+  btnRetourRequeteDeleteIsVisibled = false
+}
+
 </script>
 
 <style scoped>
@@ -747,7 +782,6 @@ textarea:focus{
 .text_saisie_id_et_input{
   display: flex;
   align-items: center;
-  padding-bottom: 15px;
 }
 
 .text_saisie_id{
@@ -781,12 +815,12 @@ textarea:focus{
   font-weight: 600;
   font-size: 20px;
   color: white;
+  transition: transform 500ms ease;
 }
 
 .bouton_finaux:hover{
   transform: scale(1.05);
-  transition: transform 500ms ease;
-  border: #27FF16 2px solid;
+
 }
 .constructeur4bouton{
   margin-left: 20px;
@@ -818,11 +852,11 @@ textarea:focus{
 //margin: 5px;
   height: 30px;
   width: 600px;
-  background-color: #cccccc;
+  background-color: #222222;
   display: flex;
   padding-top: 3px;
   justify-content: flex-end;
-  border-bottom: 2px solid white;
+  border-bottom: 1px solid white;
 }
 
 .barre-onglet button {
@@ -832,19 +866,55 @@ textarea:focus{
   padding: 0 5px 0 12px;
 }
 
-.minus, .square, .close{
+.minus, .close{
   height: 20px;
   width: 20px;
 }
-.titre_text_area{
-  color: white;
-  font-family: 'Jura', sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  margin-left: 2%;
+.square {
+  height: 17px;
+  margin-bottom: 2px;
 }
+.minus:hover, .close:hover {
+  transform: scale(1.1);
+  background-color: #28282f;
+}
+
+.square:hover {
+  transform: scale(1.05);
+}
+
 .constructeur_table_et_propriete{
   margin: 0;
 }
+.btn_condition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
+.btn_redirection {
+  margin-bottom: 40px;
+  width: 250px;
+  height: 50px;
+  border: #ffffff 2px solid;
+  border-radius: 15px;
+  background-color: black;
+  font-family: 'Jura', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: white;
+  transition: transform 500ms ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn_redirection img {
+  width: 7%;
+  margin-top: 2px;
+  margin-left: 10px;
+}
+.btn_redirection:hover {
+  transform: scale(1.1);
+}
 </style>
