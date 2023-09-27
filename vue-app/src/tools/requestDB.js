@@ -81,7 +81,7 @@ function executeSelectRequest(request) {
         if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
             select(table, champsCondition, parseInt(valeur));
         }else {
-            select(table, champsCondition, valeur);
+            select(table, champsCondition, checkValue(valeur));
         }
 
         console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
@@ -171,6 +171,22 @@ function checkFieldsProprio(table, champsConcerner) {
     }else {
         return false;
     }
+}
+
+/**
+ * Vérifie si la valeur saisie par l'utilisateur correspond à la couleur 'noire'.
+ * @param valeurSaisie La valeur saisie par l'utilisateur.
+ * @returns {string} 'Noire' si la couleur saisie correspond à la couleur 'noire', sinon une chaine vide.
+ */
+function checkValue(valeurSaisie) {
+    let valeurRetourne = '';
+    if (valeurSaisie === 'Noir') {
+        valeurRetourne = 'Noire';
+    } else {
+        valeurRetourne = valeurSaisie;
+    }
+
+    return valeurRetourne;
 }
 
 /**
