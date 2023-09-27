@@ -307,26 +307,24 @@
 
           request.onsuccess = (event) => {
             let data = event.target.result;
-              if (data[16].nom_materiel === "Batterie") {
+            console.log(data[16].nom_materiel);
+              if (data[16].nom_materiel === "Chalumeau") {
                 console.log("Evan")
                 setTimeout(() => {
-                  messages.value.push(messagesVoleur.value[18]);
+                  etape.value = etape.value + 1;
+                  messages.value.push(messagesVoleur.value[17]);
+                  //emits("cinematiqueFin", true);
                 }, 1500);
                 setTimeout(() => {
                   scrollToBottom();
                 }, 1510);
               }else{
               setTimeout(() => {
-                messages.value.push(messagesVoleur.value[19]);
+                messages.value.push(messagesVoleur.value[18]);
               }, 1500);
               setTimeout(() => {
                 scrollToBottom();
               }, 1510);
-              etape.value = etape.value + 1;
-
-              setTimeout( () =>{
-                //emits('cinematiqueFin', true);
-              }, 2500);
             }
             }
           }
