@@ -22,6 +22,9 @@ function addWhere(){
   emits('where', ' WHERE')
 }
 
+/***
+ * Emet qu'on ne veut pas de condition
+ */
 function validerSansCondition(){
   emits('valider_sans_condition', 'sans_condition')
 }
