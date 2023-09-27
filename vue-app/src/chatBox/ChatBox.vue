@@ -10,7 +10,7 @@
   <div>
     <div class="message-input">
       <textarea v-model="newMessage" rows="1" placeholder="Saisissez votre message" class="message-text" id="message-text" @keydown.enter.prevent="send"></textarea>
-      <button @click="send" class="send-button">
+      <button @click="send" class="send-button" id="send-button">
         <img src="../img/icone_send_message.png" height="20" width="20"/>
       </button>
     </div>
@@ -28,6 +28,11 @@ export default {
   methods: {
     send() {
       const textarea = document.getElementById("message-text");
+      textarea.disabled = true;
+      setTimeout(() => {
+        textarea.disabled = false;
+      }, 3000);
+
       this.newMessage = textarea.value;
       if (this.newMessage.trim() !== '') {
         // Appelez la méthode sendMessage passée en prop depuis le composant parent

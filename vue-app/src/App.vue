@@ -18,6 +18,7 @@ let afficherVideo = ref(false)
 let afficherVideoTemp = true
 const heureActuelle = ref('');
 const dateActuelle = ref('');
+let zIndexis3 = ref(true)
 
 const styleAppConstructeur = ref({
   borderBottom :'4px solid white',
@@ -114,7 +115,15 @@ function finDeCinematique(valeur) {
   cinematiqueFin.value = valeur
   cle.value += 1
   jeu.value = false
+  zIndexis3 = true
   cinematiqueDébut.value = false
+}
+
+function Niveau2(valeur){
+  console.log(valeur)
+  jeu = valeur
+  cinematiqueFin = false
+  cle.value += 1
 }
 
 </script>
@@ -127,7 +136,7 @@ function finDeCinematique(valeur) {
   <main>
 
     <cinématique @changement-ecran="changerEcran" v-if="cinematiqueDébut" :key="cle"></cinématique>
-    <div v-if="jeu" class="jeu">
+    <div v-if="jeu" class="jeu" :key="cle">
       <div>
         <barre-laterale></barre-laterale>
       </div>
@@ -145,7 +154,7 @@ function finDeCinematique(valeur) {
             <constructeur @close-constructeur="closeConstructeur" v-if="!afficherConstructeur"></constructeur>
           </div>
           <div class="chat_box">
-            <ComponentsMessagerie @close-chatbox="closeChatBox" v-if="!afficherChatBox" @cinematique-fin="finDeCinematique"></ComponentsMessagerie>
+            <ComponentsMessagerie @close-chatbox="closeChatBox" v-if="!afficherChatBox" @cinematique-fin="finDeCinematique" ></ComponentsMessagerie>
           </div>
         </div>
 
@@ -170,8 +179,10 @@ function finDeCinematique(valeur) {
       </div>
     </div>
 
+      <div :key="cle" v-if="cinematiqueFin" :class="{'zindex': zIndexis3}">
+        <FinCinematique @Niv2="Niveau2" ></FinCinematique>
+      </div>
 
-      <FinCinematique :key="cle" v-if="cinematiqueFin"></FinCinematique>
 
 
   </main>
@@ -359,5 +370,8 @@ header {
 }
 .date{
   margin-left: -50px;
+}
+.zindex{
+  z-index: 3;
 }
 </style>

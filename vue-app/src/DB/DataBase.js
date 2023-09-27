@@ -56,7 +56,7 @@ request.onsuccess = function(event) {
         {nom_materiel: "Ciseaux", quantite: 5},
         {nom_materiel: "Clef à cliquet", quantite: 3},
         {nom_materiel: "Meuleuse d'angle", quantite: 2},
-        {nom_materiel: "Compresseur d'air", quantite: 1},
+        {nom_materiel: "Batterie", quantite: 1},
         {nom_materiel: "Chalumeau", quantite: 2},
         {nom_materiel: "Pistolet de peinture", quantite: 4},
         {nom_materiel: "Rouleau à peinture", quantite: 6}
@@ -71,10 +71,17 @@ request.onsuccess = function(event) {
                 nom: 'Dupont',
                 prenom: 'Martin',
                 date_de_naissance: new Date('1986-04-26'),
-                numero_de_tel: '0763772504'
+                numero_de_tel: '0762876754'
             };
 
-            let VoiturePinto = {
+            let PersonneViral = {
+                nom: 'Viral',
+                prenom: 'Rejome',
+                date_de_naissance: new Date('1981.08.21'),
+                numero_de_tel: '0413772504'
+            };
+
+            let VoitureViral = {
                 couleur: "Noire",
                 numero_plaque: "JU25916",
                 proprietaire: 'Rejome Viral',
@@ -83,7 +90,7 @@ request.onsuccess = function(event) {
             // Ajouter chaque enregistrement dans la table tb_voiture
             let transactionPersonne = db.transaction(["tb_voiture"], "readwrite");
             let objectStorePersonne = transactionPersonne.objectStore("tb_voiture");
-            let requestPersonne = objectStorePersonne.add(VoiturePinto);
+            let requestPersonne = objectStorePersonne.add(VoitureViral);
             requestPersonne.onerror = function (event) {
                 console.log("Erreur lors de l'ajout du VoiturePinto");
             };
@@ -95,6 +102,16 @@ request.onsuccess = function(event) {
                 console.log("Erreur lors de l'ajout du Dupont");
             };
             requestPersonne.onerror = function (event) {
+                console.log("Erreur lors de l'ajout de du Dupont");
+            };
+            // Ajouter chaque enregistrement dans la table tb_personne
+            let transactionViral = db.transaction(["tb_personne"], "readwrite");
+            let objectStoreViral = transactionViral.objectStore("tb_personne");
+            let requestViral = objectStoreViral.add(PersonneViral);
+            requestViral.onerror = function (event) {
+                console.log("Erreur lors de l'ajout du Dupont");
+            };
+            requestViral.onerror = function (event) {
                 console.log("Erreur lors de l'ajout de la personne");
             };
         } else {

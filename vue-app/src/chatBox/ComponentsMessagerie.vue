@@ -26,28 +26,34 @@
   const messages = ref([
   { text: "Envoie-moi le mot de passe de l'alarme.", id: 1, isSent: false, },
   { text: "C'est la date de naissance de Martin Dupont.", id: 2, isSent: false },
+  { text: "Aide toi de Selectionner.", id: 2, isSent: false },
   ]);
   
   const messagesVoleur = ref([
-    { text: "Parfait, c'est bien le bon code.", id: 3, isSent: false },
+    { text: "Parfait, c'est bien le bon mot de passe.", id: 3, isSent: false },
     { text: "Sérieux, qu'est-ce que tu as fait ? Tu veux vraiment que je finisse par me faire arrêter ? Donne-moi le bon code maintenant, sinon je vais me faire arrêter par la police.", id: 4, isSent: false },
     { text: "Pour commencer, Sélectionne le propriétaire de la tesla de couleur noire", id: 5, isSent: false },
-    { text: "Donne-moi son nom et son prénom.", id: 6, isSent: false },
+    { text: "Donne-moi le propriétaire.", id: 6, isSent: false },
     { text: "Parfait, c'est bien la bonne personne.", id: 7, isSent: false },
     { text: "Absolument pas, je le connais.", id: 8, isSent: false },
     { text: "Donne-moi son ID", id: 9, isSent: false },
     { text: "Excellent, c'est le bon", id: 10, isSent: false },
-    { text: "Tu as besoin de lunettes, mon pauvre ami", id: 11, isSent: false },
-    { text: "Maintenant tu dois changer le propriétaire de cette voiture", id: 12, isSent: false },
+    { text: "Tu as besoin de lunettes, mon pauvre ami. Allez donne moi le bon.", id: 11, isSent: false },
+    { text: "Maintenant tu dois modifier le propriétaire de cette voiture", id: 12, isSent: false },
     { text: 'Mets-la au nom de "John Doe"', id: 13, isSent: false },
     { text: 'Et envoie "OK" quand tu as modifié le propriétaire', id: 14, isSent: false },
     { text: "Excellent, tu as bien réussi. Maintenant je peux m'en aller avec.", id: 15, isSent: false },
     { text: "Si j'essaie de partir avec ça va mal finir. Alors, ne joue pas au malin et change de propriétaire.", id: 16, isSent: false },
+    { text: "En partant, j'ai voler une batterie.", id: 17, isSent: false },
+    { text: "Alors, débrouille toi pour supprimer la batterie de la base de données", id: 18, isSent: false },
+    { text: 'Et envoie "OK" quand tu as supprimé la batterie', id: 19, isSent: false },
+    { text: "T'es le meilleur hackeur de tout mon répertoire Whatsapp !", id: 20, isSent: false },
+    { text: "T'es le plus nul hackeur de tout mon répertoire Whatsapp !", id: 21, isSent: false },
 
 
   ]);
   const DupontPlace = ref(0);
-  const emits = defineEmits(['close-chatbox','cinematiqueFin']);
+  const emits = defineEmits(['close-chatbox','cinematiqueFin','jeu']);
 
   function close(){
     // emet false donc on affiche pas la fenetre
@@ -151,13 +157,21 @@
         request.onsuccess = (event) => {
           let data = event.target.result;
           let idDupont = 0;
-          let iDup = dupontPlace - 50;
-          console.log("idup = " + iDup)
-
-          for (let i = iDup; i < iDup + 100; i++) {
+          let iDup = 0;
+          let dupontPlacev2 = 30;
+          if (dupontPlace > 20){
+            iDup = dupontPlace - 20;
+            dupontPlacev2 = dupontPlace+20;
+          }else if (dupontPlace > 470){
+            iDup = 450;
+            dupontPlacev2 = 500;
+          }
+          console.log("grr " + iDup)
+          for (let i = iDup; i < dupontPlacev2; i++) {
             if (data[i].couleur === "Noire") {
               idDupont = i+1;
               console.log(idDupont)
+              break;
             }
           }
           console.log(idDupont +  "WARRRR")
@@ -217,12 +231,21 @@
           request.onsuccess = (event) => {
             let data = event.target.result;
             let idDupont = 0;
-            let iDup = dupontPlace - 50;
-            console.log("idup = " + iDup)
-            for (let i = iDup; i < iDup + 100; i++) {
+            let iDup = 0;
+            let dupontPlacev2 = 30;
+            if (dupontPlace > 20){
+              iDup = dupontPlace - 20;
+              dupontPlacev2 = dupontPlace+20;
+            }else if (dupontPlace > 470){
+              iDup = 450;
+              dupontPlacev2 = 500;
+            }
+            console.log("pk" + iDup)
+            for (let i = iDup; i < dupontPlacev2; i++) {
               console.log(data[i].proprietaire);
               if (data[i].couleur === "Noire") {
                 idDupont = i;
+                break;
               }
             }
             console.log(data[idDupont].proprietaire);
@@ -237,7 +260,13 @@
 
               setTimeout( () =>{
                 emits('cinematiqueFin', true);
+                messages.value.push(messagesVoleur.value[14]);
+                messages.value.push(messagesVoleur.value[15]);
+                messages.value.push(messagesVoleur.value[16]);
               }, 2500);
+              setTimeout(() => {
+                scrollToBottom();
+              }, 2510);
             } else {
               // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
               setTimeout(() => {
@@ -255,6 +284,54 @@
         // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
         setTimeout(() => {
           messages.value.push(messagesVoleur.value[13]);
+        }, 1500);
+
+        // Fait défiler vers le bas après 1,51 secondes
+        setTimeout(() => {
+          scrollToBottom();
+        }, 1510);
+      }
+    }else if (etape.value === 5) {
+      // Si l'étape est 5, on vérifie le contenu du message
+      if (newMessageText.toLowerCase() === 'ok') {
+        // Si le message est "OK", on effectue des opérations supplémentaires
+        let request = window.indexedDB.open("maBaseDeDonnees");
+
+        request.onsuccess = (event) => {
+          let db = event.target.result;
+          let transaction = db.transaction(["tb_materiel"], "readonly");
+          let objectStore = transaction.objectStore("tb_materiel");
+          let request = objectStore.getAll();
+
+          request.onsuccess = (event) => {
+            let data = event.target.result;
+              if (data[16].nom_materiel === "Batterie") {
+                console.log("Evan")
+                setTimeout(() => {
+                  messages.value.push(messagesVoleur.value[18]);
+                }, 1500);
+                setTimeout(() => {
+                  scrollToBottom();
+                }, 1510);
+              }else{
+              setTimeout(() => {
+                messages.value.push(messagesVoleur.value[19]);
+              }, 1500);
+              setTimeout(() => {
+                scrollToBottom();
+              }, 1510);
+              etape.value = etape.value + 1;
+
+              setTimeout( () =>{
+                //emits('cinematiqueFin', true);
+              }, 2500);
+            }
+            }
+          }
+      }else{
+        // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
+        setTimeout(() => {
+          messages.value.push(messagesVoleur.value[18]);
         }, 1500);
 
         // Fait défiler vers le bas après 1,51 secondes
