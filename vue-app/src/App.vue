@@ -53,10 +53,19 @@ const mettreAJourDate = () => {
   dateActuelle.value = `${jour.toString().padStart(2, '0')}.${mois.toString().padStart(2, '0')}.${annee}`;
 }
 
+const disabledF5 = (event) => {
+  if (event.key === 'F5') {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+}
 // Appelez la fonction au moment de la création du composant
 onMounted(() => {
   mettreAJourHeure();
   mettreAJourDate();
+
+  // désactive la touche F5 qui permet de rééinitialiser la page
+  document.addEventListener('keydown', disabledF5);
 
   // Mettez à jour l'heure chaque seconde (1000 millisecondes)
   setInterval(mettreAJourHeure, 1000);
@@ -95,6 +104,7 @@ function closeChatBox(valeur){
 }
 function closeConstructeur(valeur){
   afficherConstructeur.value = valeur
+  styleAppConstructeur.value.opacity = '0.5'
   styleAppConstructeur.value.borderBottom = '0px';
   styleAppConstructeur.value.paddingBottom = '6px';
   styleAppConstructeur.value.marginBottom = '3px'
@@ -144,6 +154,8 @@ function Niveau2(valeur){
       <div class="ecran_ordinateur">
         <div class="ecran_application">
 
+          <img src="@/img/Fortnite_Logo.png" alt="" @click="easterEgg" class="icone_easter_egg">
+
           <div :class="{ 'slide-down': afficherVideo }" :key="cle">
             <video height="400" width="400" controls v-if="afficherVideo" autoplay muted playsinline loop>
               <source src="../src/video/video_test.webm" type="video/webm"/>
@@ -151,10 +163,10 @@ function Niveau2(valeur){
           </div>
 
           <div class="constructeur">
-            <constructeur @close-constructeur="closeConstructeur" v-if="!afficherConstructeur"></constructeur>
+            <constructeur @close-constructeur="closeConstructeur" v-show="!afficherConstructeur" ></constructeur>
           </div>
           <div class="chat_box">
-            <ComponentsMessagerie @close-chatbox="closeChatBox" v-if="!afficherChatBox" @cinematique-fin="finDeCinematique" ></ComponentsMessagerie>
+            <ComponentsMessagerie @close-chatbox="closeChatBox" v-show="!afficherChatBox" @cinematique-fin="finDeCinematique"></ComponentsMessagerie>
           </div>
         </div>
 
@@ -166,7 +178,6 @@ function Niveau2(valeur){
             <img src="@/img/icone_google.png" alt="">
             <img src="@/img/icone_base_donnee.png" alt="" :style="styleAppConstructeur" @click="openConstructeur" >
             <img src="@/img/icone_messagerie.png" alt="" :style="styleAppChatBox" @click="openChatBox">
-            <img src="@/img/Fortnite_Logo.png" alt="" @click="easterEgg">
             <img src="@/img/icone_word.png" alt="">
             <img src="@/img/icone_excel.png" alt="">
             <img src="@/img/icone_firefox.png" alt="">
@@ -259,23 +270,29 @@ header {
   left: 500px;
   top: 100px;
   background-color: #000000;
-  background-image: url("../src/img/fond_ecran_anonymous.jpg");
+  background-image: url("../src/img/Windows-10-Hero-screen-2015-©-Microsoft.jpg");
   background-position: center;
+  background-size: 100%;
+
 }
 .ecran_application{
   display: flex;
   justify-content: left;
   margin-top: 20px;
   margin-left: 100px;
+  z-index: 1;
 }
 .constructeur{
   margin-right: 50px;
   background-color: black;
+  z-index: 4;
+  box-shadow: #222222;
 }
 .chat_box{
   height: 100px;
   width: 100px;
   margin-top: 50px;
+  z-index: 4;
 }
 .barre_tache {
   border-top: 1px solid #808080;
@@ -362,16 +379,15 @@ header {
 .slide-down {
   position: absolute;
 }
-.img_jeu_easterEgg{
+.icone_easter_egg{
   width: 2.7%;
   position: fixed;
   left: 800px;
   top: 400px;
+  z-index: 2;
 }
 .date{
   margin-left: -50px;
 }
-.zindex{
-  z-index: 3;
-}
+
 </style>

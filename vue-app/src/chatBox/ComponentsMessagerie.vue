@@ -1,9 +1,9 @@
 <template>
  <div class="onglet-telephone">
    <div class="barre-onglet">
-     <button><img src="../assets/icon/minus.png" alt="" class="minus"></button>
-     <button><img src="../assets/icon/square.png" alt="" class="square"></button>
-     <button @click="close" ><img src="../assets/icon/close.png" alt="" class="close"></button>
+     <button><img src="../assets/icon/moins.png" alt="" class="minus"></button>
+     <button><img src="../assets/icon/carre.png" alt="" class="square"></button>
+     <button @click="close" ><img src="../assets/icon/traverser.png" alt="" class="close"></button>
    </div>
     <div class="chat">
     <ChatBox :sendMessage="sendMessage" />
@@ -11,7 +11,6 @@
     </div>
  </div>
 </template>
-
 
 <script setup>
   import { ref, onMounted, onBeforeUnmount } from "vue";
@@ -375,7 +374,7 @@
   //padding: 5px;
   //margin: 5px;
   height: 30px;
-  background-color: #cccccc;
+  background-color: #222222;
   border-bottom: 1px solid white;
   display: flex;
   padding-top: 3px;
@@ -408,8 +407,18 @@
   height: 100%; /* Définissez la hauteur souhaitée */
 }
 
-.minus, .square, .close{
+.minus, .close{
   height: 20px;
   width: 20px;
+}
+.square {
+  height: 15px;
+}
+.square:hover, .minus:hover, .close:hover {
+  transform: scale(1.1);
+  background-color: #28282f;
+}
+.square:hover {
+  transform: scale(1.05);
 }
 </style>

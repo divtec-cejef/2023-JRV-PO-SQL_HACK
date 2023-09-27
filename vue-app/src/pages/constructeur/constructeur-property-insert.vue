@@ -51,6 +51,7 @@ let date_de_naissance = ref()
 let numero_de_tel = ref()
 let nom_materiel = ref()
 let quantite = ref()
+const customAlertVisible = ref(false);
 
 const props = defineProps(['table'])
 const define = defineEmits(['datainsert', 'changeTailleTextarea', 'etatBtnEnvoiRequete'])
@@ -98,7 +99,8 @@ function testChampsSaisieInput() {
       // est donc juste
       if (typeof couleur.value === "undefined" || typeof marque.value === "undefined" ||
           typeof proprietaire.value === "undefined" || typeof numero_plaque.value === "undefined") {
-        windowAlert("Vous devez remplir les champs")
+        showCustomAlert()
+        // windowAlert("Vous devez remplir les champs")
         return false
 
       }
@@ -106,9 +108,13 @@ function testChampsSaisieInput() {
 
     case 1:
       if (!nom.value || !prenom.value || !date_de_naissance.value || !numero_de_tel.value) {
+        showCustomAlert()
+
         windowAlert("Vous devez remplir tous les champs");
       } else {
         if (!dateNaissanceIsValidate(table_selectionnee)) {
+          showCustomAlert()
+
           alert("Le format de la date de naissance doit être : aaaa-mm-jj");
           return false;
         }
@@ -176,13 +182,16 @@ function dateNaissanceIsValidate(table_selectionnee){
       return regex.test(date_de_naissance.value)
     }
 }
+
+
+const showCustomAlert = () => {
+  customAlertVisible.value = true;
+};
+
 </script>
 
 <style scoped>
 
-#property-insert{
-
-}
 .saisie_property_insert{
   width: 430px;
 }
@@ -225,5 +234,9 @@ button:hover{
   padding: 10px;
   border-radius: 8px;
   transition: transform 500ms ease;
+}
+.custom_alert{
+  color: white;
+  z-index: 6;
 }
 </style>

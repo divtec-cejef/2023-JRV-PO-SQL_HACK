@@ -81,7 +81,7 @@ function executeSelectRequest(request) {
         if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
             select(table, champsCondition, parseInt(valeur));
         }else {
-            select(table, champsCondition, valeur);
+            select(table, champsCondition, checkValue(valeur));
         }
 
         console.log('table : ' + table + ', champs de condition : ' + champsCondition + ', valeur : ' + valeur);
@@ -136,10 +136,10 @@ function executeUpdateRequest(request) {
         console.log('champs modifié : ' + champsModif + ', nouvelle valeur : ' + nouvelleValeurProprio);
         update(table, parseInt(valeurID), champsModif, nouvelleValeurProprio);
 
-        displayModificationUpdate(table, valeurID);
+        displaydata(table, valeurID);
     }else {
         update(table, parseInt(valeurID), champsModif, nouvelleValeur);
-        displayModificationUpdate(table, valeurID);
+        displaydata(table, valeurID);
         console.log(table + ', ' + champsModif + ', ' + nouvelleValeur + ', ' + valeurID);
     }
 }
@@ -174,11 +174,27 @@ function checkFieldsProprio(table, champsConcerner) {
 }
 
 /**
+ * Vérifie si la valeur saisie par l'utilisateur correspond à la couleur 'noire'.
+ * @param valeurSaisie La valeur saisie par l'utilisateur.
+ * @returns {string} 'Noire' si la couleur saisie correspond à la couleur 'noire', sinon une chaine vide.
+ */
+function checkValue(valeurSaisie) {
+    let valeurRetourne = '';
+    if (valeurSaisie === 'Noir') {
+        valeurRetourne = 'Noire';
+    } else {
+        valeurRetourne = valeurSaisie;
+    }
+
+    return valeurRetourne;
+}
+
+/**
  * Affiche uniquement le champs qui a été mofifié après une requête UPDATE.
  * @param table La table sur lequel on fait la modification.
  * @param valeurID L'id du champs sur lequel on fait la modification.
  */
-function displayModificationUpdate(table, valeurID) {
+function displaydata(table, valeurID) {
     switch (table) {
         case 'tb_voiture':
             select(table, 'idVoiture', parseInt(valeurID));

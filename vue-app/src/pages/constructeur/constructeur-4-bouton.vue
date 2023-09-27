@@ -1,10 +1,10 @@
 <template>
   <div class="page1">
 
-      <button @click="addSelectToQuery(1)" class="btn1">SELECT</button>
-      <button @click="addSelectToQuery(2)" class="btn2">UPDATE</button>
-      <button @click="addSelectToQuery(3)" class="btn3">INSERT</button>
-      <button @click="addSelectToQuery(4)" class="btn4">DELETE</button>
+      <button @click="addSelectToQuery(1)" class="btn1">Sélectionner</button>
+      <button @click="addSelectToQuery(2)" class="btn2">Modifier</button>
+      <button @click="addSelectToQuery(3)" class="btn3">Ajouter</button>
+      <button @click="addSelectToQuery(4)" class="btn4">Supprimer</button>
 
   </div>
 </template>
@@ -51,24 +51,19 @@ const emits = defineEmits(['select'])
   align-items: center;
 
 }
-.btn {
 
-}
-
-.page1 button{
+button{
+  transition: transform 500ms ease;
   border: 2px solid white;
   font-size: 28px;
   margin: 15px;
   border-radius: 20px;
-  padding: 30px;
   background-color: black;
   color: white;
   font-family: 'Jura', sans-serif;
   font-weight: 700;
-}
-
-button{
-  transition: transform 500ms ease;
+  width: 220px;
+  height: 100px;
 }
 button:hover{
   transform: scale(1.1);
