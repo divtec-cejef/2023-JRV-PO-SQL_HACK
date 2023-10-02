@@ -4,7 +4,7 @@ let request = window.indexedDB.open("maBaseDeDonnees");
 request.onerror = function(event) {
     console.log("Erreur d'ouverture de la base de données");
 };
-let dupontPlace = 7; //Math.floor(Math.random() * 500) + 1;
+let dupontPlace = 494; //Math.floor(Math.random() * 500) + 1;
 // Création des tables dans la base de données
 request.onupgradeneeded = function(event) {
     let db = event.target.result;
