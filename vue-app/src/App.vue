@@ -7,8 +7,8 @@ import {ref, onMounted, toRef} from "vue";
 import FinCinematique from "@/pages/cinématique/FinCinematique.vue";
 
 
-let jeu = ref(false)
-let cinematiqueDebut = ref(true)
+let jeu = ref(true)
+let cinematiqueDebut = ref(false)
 let cinematiqueFin = ref(false)
 let cle = ref(0)
 let afficherChatBox = ref(false)
