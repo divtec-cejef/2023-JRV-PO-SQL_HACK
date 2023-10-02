@@ -152,7 +152,8 @@ function finDeCinematiqueNiv2(valeur) {
 
   <main>
 
-    <cinématique @changement-ecran="changerEcran" v-if="cinematiqueDebut" :key="cle" class="cinematiqueDebut"></cinématique>
+    <!-- cinematiqueDebut -->
+    <cinématique @changement-ecran="changerEcran" v-if="true" :key="cle" class="cinematiqueDebut"></cinématique>
     <div class="jeu" :key="cle" v-if="jeu">
       <div>
         <barre-laterale></barre-laterale>
@@ -160,8 +161,6 @@ function finDeCinematiqueNiv2(valeur) {
 
       <div class="ecran_ordinateur">
         <div class="ecran_application">
-
-          <img src="@/img/Fortnite_Logo.png" alt="" @click="easterEgg" class="icone_easter_egg">
 
           <div :class="{ 'slide-down': afficherVideo }" :key="cle">
             <video height="400" width="400" controls v-show="afficherVideo" autoplay muted playsinline loop>

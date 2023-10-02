@@ -22,17 +22,24 @@ function nextText(){
 </script>
 
 <template>
-  <img src="../../img/VuGarage.jpg" id="image-fond" alt="">
-  <img src="../../img/personnage.png" id="personnage" alt="">
 
-  <div class="texte-bulle">
-    <cinématique-bulle :message="message"></cinématique-bulle>
-  </div>
 
-  <button
-      class="btnContinuer"
-      @click="nextText"
-  >Continuer</button>
+    <img src="../../img/VuGarage.jpg" id="image_de_fond" alt="" >
+    <img src="../../img/personnage.png" id="personnage" alt="">
+    <div id="message"> {{ message }}</div>
+
+
+
+
+
+
+
+
+<!--  <div class="texte-bulle">-->
+<!--    <cinématique-bulle :message="message"></cinématique-bulle>-->
+<!--  </div>-->
+
+  <button class="btnContinuer" @click="nextText">Continuer</button>
 
 <!--  <RouterLink to="/">retour</RouterLink>-->
 
@@ -52,27 +59,17 @@ img {
 }
 
 #image-fond{
-  /* Fixe l'image en haut à gauche de la page */
-  position: fixed;
-  top: 0;
-  left: 0;
-  /* Préserve le ratio de l'image */
-  min-width: 100%;
-  min-height: 100%;
+
 }
 
 #personnage{
   width: auto;
-  height: 500px;
+  height: 900px;
   position: fixed;
   left: 200px;
+  top: 200px;
   bottom: 0;
-}
-
-.texte-bulle{
-  position: fixed;
-  bottom: 400px;
-  right: 800px;
+  z-index: 3;
 }
 
  .btnContinuer{
@@ -88,10 +85,30 @@ img {
    font-weight: bold;
    border-radius: 20px;
    transition: transform 500ms ease;
+   z-index: 3;
  }
 
  .btnContinuer:hover{
    transform: scale(1.1);
+ }
+ #message {
+   color: white;
+   font-size: 64px;
+   left: 600px;
+   top: 150px ;
+   z-index: 5;
+   position: fixed;
+ }
+ #image_de_fond {
+   /* Fixe l'image en haut à gauche de la page */
+   position: fixed;
+   top: 0;
+   left: 0;
+   /* Préserve le ratio de l'image */
+   min-width: 100%;
+   min-height: 100%;
+   filter: brightness(0.45); /* Réduit la luminosité à 50% (plus sombre) */
+   z-index: 3;
  }
 
 </style>
