@@ -319,10 +319,12 @@ const sendMessage = (newMessageText) => {
               etape.value = etape.value + 1;
               messages.value.push(messagesVoleur.value[17]);
             }, 1500);
-            emits("cinematiqueFinNiv2", true);
             setTimeout(() => {
               scrollToBottom();
             }, 1510);
+            setTimeout(() => {
+              emits("cinematiqueFinNiv2", true);
+            }, 2500);
           }else{
             setTimeout(() => {
               messages.value.push(messagesVoleur.value[18]);

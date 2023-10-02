@@ -1,9 +1,9 @@
 
 <template>
-  <div class="MessageReussite" v-if="showFel">Merci, j'aurais jamais réussi sans toi !</div>
+  <div class="MessageReussiteNiv2" v-if="showFel">Merci, j'aurais jamais réussi sans toi !</div>
   <img class="image" src="../../img/Terminator.png"/>
-  <div class="bouton-quitter" v-if="showContent">
-   <button class="Quitter" @click="recommencer">Quitter</button>
+  <div class="bouton-quitterNiv2" v-if="showContent">
+   <button class="QuitterNiv2" @click="recommencer">Quitter</button>
   </div>
 </template>
 
@@ -40,11 +40,11 @@ onMounted(() => {
   max-width: 1920px;
   max-height: 1080px;
 }
-.MessageReussite{
+.MessageReussiteNiv2{
   position: fixed;
   z-index: 3;
   color: #FFFFFF;
-  font-size: 90px;
+  font-size: 85px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,18 +54,19 @@ onMounted(() => {
   font-weight: bold;
 }
 
-.bouton-quitter{
+.bouton-quitterNiv2{
   position: fixed;
   z-index: 3;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  top: 700px;
-  left: 300px;
+  top: 770px;
+  left: 735px;
+  margin-left: auto;
 }
-button{
-  width: 420px;
-  height: 210px;
+.QuitterNiv2{
+  width: 280px;
+  height: 120px;
   background-color: #ffffff;
   color: black;
   border: black solid 2px;
@@ -79,8 +80,6 @@ button:hover {
 }
 
 .Quitter{
-  position: fixed;
-  left: 750px;
-  margin-left: auto;
+
 }
 </style>

@@ -73,8 +73,8 @@ onMounted(() => {
   left: 300px;
 }
 button{
-  width: 320px;
-  height: 150px;
+  width: 280px;
+  height: 120px;
   background-color: #ffffff;
   color: black;
   border: black solid 2px;
@@ -93,7 +93,7 @@ button:hover {
 
 .Quitter{
   position: fixed;
-  left: 1300px;
+  left: 1170px;
   margin-left: auto;
 }
 </style>

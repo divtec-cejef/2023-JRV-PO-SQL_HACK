@@ -190,9 +190,9 @@ function checkValue(valeurSaisie) {
 }
 
 /**
- * Affiche uniquement le champs qui a été mofifié après une requête UPDATE.
+ * Affiche uniquement le champ qui a été mofifié après une requête UPDATE.
  * @param table La table sur lequel on fait la modification.
- * @param valeurID L'id du champs sur lequel on fait la modification.
+ * @param valeurID L'id du champ sur lequel on fait la modification.
  */
 function displaydata(table, valeurID) {
     switch (table) {
