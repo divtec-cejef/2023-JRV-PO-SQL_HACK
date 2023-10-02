@@ -5,11 +5,13 @@ import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
 import {ref, onMounted, toRef} from "vue";
 import FinCinematique from "@/pages/cinématique/FinCinematique.vue";
+import FinNiv2Cinematique from "@/pages/cinématique/FinNiv2Cinematique.vue";
 
 
-let jeu = ref(true)
-let cinematiqueDebut = ref(false)
+let jeu = ref(false)
+let cinematiqueDebut = ref(true)
 let cinematiqueFin = ref(false)
+let cinematiqueFinNiv2 = ref(false)
 let cle = ref(0)
 let afficherChatBox = ref(false)
 let afficherConstructeur = ref(false)
@@ -134,6 +136,13 @@ function Niveau2(valeur){
   zIndexis4 = false
 }
 
+function finDeCinematiqueNiv2(valeur) {
+  cle.value += 1
+  cinematiqueFinNiv2.value = valeur
+  zIndexis4 = true
+  cinematiqueDebut.value = false
+}
+
 </script>
 
 <template>
@@ -164,7 +173,7 @@ function Niveau2(valeur){
             <constructeur @close-constructeur="closeConstructeur" v-show="!afficherConstructeur" ></constructeur>
           </div>
           <div class="chat_box">
-            <ComponentsMessagerie @close-chatbox="closeChatBox" v-show="!afficherChatBox" @cinematique-fin="finDeCinematique"></ComponentsMessagerie>
+            <ComponentsMessagerie @close-chatbox="closeChatBox" v-show="!afficherChatBox" @cinematique-fin="finDeCinematique" @cinematique-fin-niv2="finDeCinematiqueNiv2"></ComponentsMessagerie>
           </div>
         </div>
 
@@ -188,10 +197,13 @@ function Niveau2(valeur){
       </div>
     </div>
 
-      <div :key="cle" v-if="cinematiqueFin" :class="{'zindex': zIndexis4}">
-        <FinCinematique @Niv2="Niveau2" ></FinCinematique>
-      </div>
+    <div :key="cle" v-if="cinematiqueFin" :class="{'zindex': zIndexis4}">
+      <FinCinematique @Niv2="Niveau2" ></FinCinematique>
+    </div>
 
+    <div :key="cle" v-if="cinematiqueFinNiv2" :class="{'zindex': zIndexis4}">
+      <FinNiv2Cinematique></FinNiv2Cinematique>
+    </div>
 
 
   </main>
