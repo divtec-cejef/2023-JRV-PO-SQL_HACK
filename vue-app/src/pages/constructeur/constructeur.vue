@@ -129,7 +129,7 @@
     <button @click="retour" :disabled="btnRetourIsDisabled"
             v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
                                                                                                       class="img_retour"></button>
-    <button v-if="btnRetourRequeteDeleteIsVisibled" @click="retourAlaSuppression">Revenir à la suppression</button>
+<!--    <button v-if="btnRetourRequeteDeleteIsVisibled" @click="retourAlaSuppression">Revenir à la suppression</button>-->
 
     <!-- Texte de la requête dans l'input read only -->
     <div class="div_text_requete">
@@ -179,6 +179,7 @@ let inputFocusRef = ref(null)
 let btnRetourRequeteDeleteIsVisibled = ref(false)
 let stockRequeteDelete = ""
 let test1 = 0
+let chercheIdDepuisDelete = true
 
 const tailleDivResultatRequete = ref({
   height: '460px',
@@ -248,6 +249,10 @@ function commandeSelectionee(valeur) {
  * @param valeur Valeur de la propriété que l'utilisateur à cliqué
  */
 function propriété(valeur){
+
+  if (!chercheIdDepuisDelete) {
+
+  }
 
   historiqueTextRequete.push(text_requete.value)
 
@@ -342,7 +347,6 @@ function effacer(){
  *                  se décrémente et le text de la requête change pour
  */
 function retour(){
-
   console.log(historiqueTextRequete)
   text_requete.value = historiqueTextRequete[constructeurActuel - 1]
   console.log(historiqueTextRequete[constructeurActuel])
@@ -609,13 +613,19 @@ function close(){
  *
  */
 function redirectionSelect() {
+  // le bouton de retour s'enlève
+  btnRetourIsDisabled = true
+
+  // met la variable a true pour dire qu'on est dans la recherhe de l'id depuis le "delete"
+  chercheIdDepuisDelete = true
+
   stockRequeteDelete = text_requete.value
   text_requete.value = "SELECT" + " * " + "FROM " + table_selectionnee + " WHERE"
   historiqueTextRequete.push(text_requete.value)
   commandeSelectionee("SELECT")
   constructeurActuel = 3
   btnRetourRequeteDeleteIsVisibled = true
-  btnRetourIsDisabled = true
+
 }
 
 /***
