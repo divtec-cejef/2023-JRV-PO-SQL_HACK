@@ -153,7 +153,7 @@ function finDeCinematiqueNiv2(valeur) {
   <main>
 
     <!-- cinematiqueDebut -->
-    <cinématique @changement-ecran="changerEcran" v-if="true" :key="cle" class="cinematiqueDebut"></cinématique>
+    <cinématique @changement-ecran="changerEcran" v-if="cinematiqueDebut" :key="cle" class="cinematiqueDebut"></cinématique>
     <div class="jeu" :key="cle" v-if="jeu">
       <div>
         <barre-laterale></barre-laterale>
