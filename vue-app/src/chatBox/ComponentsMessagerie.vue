@@ -21,7 +21,7 @@ import MessageList from "@/chatBox/MessageList.vue";
 import ChatBox from "@/chatBox/ChatBox.vue";
 import { dupontPlace } from "@/DB/DataBase";
 
-const etape = ref(2);
+const etape = ref(1);
 const showComponent = ref(true);
 const valeur = ref()
 
@@ -55,7 +55,7 @@ const messagesVoleur = ref([
 
 ]);
 const DupontPlace = ref(0);
-const emits = defineEmits(['close-chatbox','cinematiqueFin','jeu']);
+const emits = defineEmits(['close-chatbox','cinematiqueFin','jeu', "cinematiqueFinNiv2"]);
 
 function close(){
   // emet false donc on affiche pas la fenetre
@@ -318,8 +318,8 @@ const sendMessage = (newMessageText) => {
             setTimeout(() => {
               etape.value = etape.value + 1;
               messages.value.push(messagesVoleur.value[17]);
-              //emits("cinematiqueFin", true);
             }, 1500);
+            emits("cinematiqueFinNiv2", true);
             setTimeout(() => {
               scrollToBottom();
             }, 1510);
