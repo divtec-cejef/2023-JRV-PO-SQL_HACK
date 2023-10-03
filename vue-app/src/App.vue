@@ -153,7 +153,7 @@ function finDeCinematiqueNiv2(valeur) {
   <main>
 
     <!-- cinematiqueDebut -->
-    <cinématique @changement-ecran="changerEcran" v-if="true" :key="cle" class="cinematiqueDebut"></cinématique>
+    <cinématique @changement-ecran="changerEcran" v-if="cinematiqueDebut" :key="cle" class="cinematiqueDebut"></cinématique>
     <div class="jeu" :key="cle" v-if="jeu">
       <div>
         <barre-laterale></barre-laterale>
@@ -279,7 +279,7 @@ header {
   left: 500px;
   top: 100px;
   background-color: #000000;
-  background-image: url("../src/img/Windows-10-Hero-screen-2015-©-Microsoft.jpg");
+  background-image: url("FondEcranWin10.jpg");
   background-position: center;
   background-size: 100%;
 

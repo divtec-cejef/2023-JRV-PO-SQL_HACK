@@ -1,10 +1,16 @@
 // Importez createApp depuis Vue
-//Lala
 import { createApp } from 'vue';
 
 // Créez une instance d'application Vue
 const app = createApp({});
+
+/**
+ * Supprime une donnée grace au nom de la table et à l'id
+ * @param tableName nom de la table pour supprimer
+ * @param id numéro de l'id pour supprimer
+ */
 function Delete(tableName, id){
+    //Ouverture de la base de donnée
     let request = window.indexedDB.open("maBaseDeDonnees");
 
     request.onerror = function(event) {

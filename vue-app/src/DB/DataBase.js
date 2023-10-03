@@ -11,7 +11,7 @@ let dupontPlace = Math.floor(Math.random() * 101) + 200;
 request.onupgradeneeded = function(event) {
     let db = event.target.result;
 
-    // Création table tb_personnel
+    // Création table tb_personne
     let objectStore =  db.createObjectStore("tb_personne", { keyPath: "idPersonne", autoIncrement:true });
     objectStore.createIndex("nom", "nom", { unique: false });
     objectStore.createIndex("prenom", "prenom", { unique: false });
@@ -35,7 +35,6 @@ request.onupgradeneeded = function(event) {
 request.onsuccess = function(event) {
     let db = event.target.result;
 
-    // Générer 100 enregistrements avec des noms et prénoms existants
     let noms = ["Dupont", "Durand", "Lefevre", "Dubois", "Santin", "Pinto", "Zuber", "Glauser", "Renaud", "Beuchat", "Fresard", "Odiet", "Mertz", "Rondez", "Reist", "Broquet", "Demars", "Choulat", "Jubin", "Caillet", "Aubry", "Marti", "Yerly", "Gerber", "Crelier", "Piloti", "Hays", "Burkalthere", "Rion", "Marchand", "Constantin", "Willemin", "Giullieri", "Wuthrich", "Bandelier", "Raval", "Saner", "Clerc", "Theuvenat", "Morin", "Gagnon", "Roy", "Lévesque", "Johnson", "Smith", "Brown", "Tremblay", "Martin", "García", "Martínez", "Rodríguez", "Pérez", "López", "González", "Hernández", "Moreno", "Álvarez", "Romero", "Fernández", "Müller", "Schmidt", "Schneider", "Fischer", "Weber", "Wagner", "Becker", "Russo", "Bianchi", "Romano", "Ferrari", "Esposito", "Ricci", "Gallo"];
     let prenoms = ["Jean", "Pierre", "Marie", "Sophie", "Julie", "Liam", "Luca", "Evan", "Tobias", "Chloé", "Odin", "Alexis", "Mathilde", "Rayan", "Colin", "Ryan", "Michael", "Elliot", "Gauthier", "Noé", "Mael", "Thomas", "Simon", "Loic", "Line", "Zoé", "Basile", "Hugo", "Tom", "Melio", "Malo", "Rémy", "Tifan", "Noah", "Yanis", "Alois", "Nolan", "Jerome", "Kevin", "Jules", "Bernard", "Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia", "Harper", "Evelyn", "Liam", "Noah", "Oliver", "Elijah", "William", "James", "Benjamin", "Lucas", "Henry", "Alexander", "Alejandro", "Sofía", "Javier", "Valentina", "Diego", "Camila", "Carlos", "Élise", "Julien", "Lucie", "Mathieu", "Sophie", "Antoine", "Laure", "Hannah", "Leon", "Emma", "Maximilian", "Lena", "Paul", "Mia", "Alessia", "Luca", "Sofia", "Gabriele", "Giulia", "Marco", "Emma", "Yamamoto", "Suzuki", "Takahashi", "Tanaka", "Watanabe", "Ito", "Nakamura", "Kobayashi", "Sato", "Kato", "Leong", "Chong", "Lau", "Tan", "Chen", "Wang", "Li", "Huang", "Wong", "Kim", "Lee", "Park", "Choi", "Nguyen", "Tran", "Nguyen", "Pham", "Huynh", "Truong", "Vo", "Hoang", "Nguyen", "Kim", "Bui", "Vu"];
     let marques = ["Toyota", "Ford", "Chevrolet", "Honda", "Volkswagen", "Nissan", "Mercedes-Benz", "BMW", "Audi", "Hyundai", "Kia", "Mazda", "Subaru", "Lexus", "Volvo", "Porsche", "Ferrari", "Lamborghini", "Maserati", "Jaguar", "Land Rover", "Tesla", "Buick", "Cadillac", "Chrysler", "Dodge", "Jeep", "GMC", "Lincoln", "Mitsubishi", "Ram", "Acura", "Alfa Romeo", "Genesis", "Infiniti", "MINI", "Smart", "Suzuki", "Aston Martin", "Bentley", "Bugatti", "Lotus", "McLaren", "Rolls-Royce"];
@@ -69,6 +68,8 @@ request.onsuccess = function(event) {
     for (let i = 0; i < max; i++) {
         if (i === dupontPlace) {
             console.log(dupontPlace);
+
+            //Creation des données utiles pour les étapes
             let Dupont = {
                 nom: 'Dupont',
                 prenom: 'Martin',
@@ -176,6 +177,10 @@ request.onsuccess = function(event) {
     console.log("Donné ajouté!");
 }
 
+/**
+ * Génère un numéro de telephone aleatoire qui commence pas 041
+ * @returns numTelephone
+ */
 function generateRandomPhoneNumber() {
     let numTelephone = "041";
     for (let i = 0; i < 7; i++) {
@@ -184,6 +189,10 @@ function generateRandomPhoneNumber() {
     return numTelephone;
 }
 
+/**
+ * Génère un numéro de plaque aleatoire qui commence pas JU
+ * @returns numPlaque
+ */
 function generatePlaqueNumber() {
     let numPlaque = "JU";
     for (let i = 0; i < 5; i++) {
@@ -192,6 +201,10 @@ function generatePlaqueNumber() {
     return numPlaque;
 }
 
+/**
+ * Génère une date de naissance générer aléatoirement
+ * @returns une date de naissance aaaa-mm-jj
+ */
 // Fonction pour générer une date de naissance aléatoire
 function generateRandomDateOfBirth() {
     let year = Math.floor(Math.random() * (2010 - 1950) + 1950); // Année entre 1950 et 2002

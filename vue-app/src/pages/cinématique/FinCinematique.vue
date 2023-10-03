@@ -33,7 +33,7 @@ onMounted(() => {
 
   setTimeout(() => {
     showFel.value = true;
-  }, 1000); // Délai de 5 secondes
+  }, 2000); // Délai de 5 secondes
 });
 </script>
 
