@@ -2,10 +2,10 @@
 
 import CinématiqueBulle from "@/pages/cinématique/cinématique-bulle.vue";
 import {ref} from "vue";
-const message= ref("Salut, hacker ! Aide moi à voler la Tesla de couleur noir dans le garage derrière moi.")
-const listeTexte = ["Pour entrer, il faut que tu trouves le mot de passe de l’alarme. Il me semble que c’est la date de naissance du patron. Il s'appelle Martin Dupont.",
-"Tu dois créer une requête SELECT qui permettra de rechercher dans la base de données la date de naissance du patron.",
-"Dans l’écran suivant tu trouveras un constructeur sur ta gauche qui te permettra de construire ta requête."]
+const message= ref("Salut hacker ! Aide moi à voler la Tesla de couleur noire dans le garage derrière moi.")
+const listeTexte = ["Dans l'écran suivant tu trouveras des indications sur ta gauche et un écran d'ordinateur sur ta droite.",
+"Dans cet écran d'ordinateur il y a un constructeur de requête Sql et une messagerie",
+"Ce que tu dois faire c'est répondre à mes messages en créant les requêtes grâce au constructeur et m'envoyer la réponse par message"]
 var questionActuelle = 0
 const emits = defineEmits(['changement-ecran'])
 
@@ -58,13 +58,9 @@ img {
   height: 100%;
 }
 
-#image-fond{
-
-}
-
 #personnage{
   width: auto;
-  height: 900px;
+  height: 1000px;
   position: fixed;
   left: 200px;
   top: 200px;
@@ -93,10 +89,11 @@ img {
  }
  #message {
    color: white;
-   font-size: 64px;
-   left: 600px;
-   top: 150px ;
+   font-size: 60px;
+   left: 700px;
+   top: 200px ;
    z-index: 5;
+   margin-right: 20px;
    position: fixed;
  }
  #image_de_fond {
@@ -107,7 +104,7 @@ img {
    /* Préserve le ratio de l'image */
    min-width: 100%;
    min-height: 100%;
-   filter: brightness(0.45); /* Réduit la luminosité à 50% (plus sombre) */
+   filter: brightness(0.2); /* Réduit la luminosité à 50% (plus sombre) */
    z-index: 3;
  }
 
