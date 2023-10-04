@@ -1,4 +1,3 @@
-
 <template>
 
   <div class="constructeur_app">
@@ -63,7 +62,7 @@
               <ConstructeurTableEtPropriete @propriete="propriété" :where="false" :commande="2"
                                             @propriete_selectionnee="changeProprieteSelectionnee"
                                             @table_selectionnee="changeTableSelectionnee" :is-update="true"
-                                            :label="'propriété'" :ul-is-hover="false" :li-is-hover="true"
+                                            :label="'propriété à changer'" :ul-is-hover="false" :li-is-hover="true"
                                             :p-is-hover="true"></ConstructeurTableEtPropriete>
             </div>
             <div v-if="constructeurActuel === 2" class="saisie_condition">
@@ -83,7 +82,6 @@
           <!-- requête INSERT -->
           <div class="requete_insert" v-if="commande_selectionnee===3">
             <div v-if="constructeurActuel===1">
-<!--              <constructeur-table @propriete="proprieteInsert"></constructeur-table>-->
               <constructeur-table-et-propriete :label="'table'" :where="false" :commande="3" @propriete="propriété"
                                                @propriete_selectionnee="changeProprieteSelectionnee"
                                                @table_selectionnee="changeTableSelectionnee"
@@ -105,9 +103,6 @@
             </div>
 
             <div v-if="constructeurActuel===2" class="btn_condition">
-
-<!--              <button class="btn_redirection" @click="redirectionSelect">Sélectionner l'ID <img src="../../assets/icon/fleche-droite.png" alt=""></button>-->
-
               <div class="saisie_condition_delete">
                 <div class="text_saisie_id_et_input">
                   <div class="text_saisie_id">Saisissez l'id :</div>
@@ -117,9 +112,10 @@
                          @keydown.enter.prevent="valideRequeteUpdate" autocomplete="off">
                   <button class="btnValider" @click="valideRequeteUpdate">Envoyer la requête</button>
                 </div>
-
               </div>
             </div>
+
+            <!-- fin -->
           </div>
         </div>
       </div>
@@ -129,15 +125,13 @@
     <button @click="retour" :disabled="btnRetourIsDisabled"
             v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
                                                                                                       class="img_retour"></button>
-<!--    <button v-if="btnRetourRequeteDeleteIsVisibled" @click="retourAlaSuppression">Revenir à la suppression</button>-->
-
     <!-- Texte de la requête dans l'input read only -->
     <div class="div_text_requete">
       <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2"
-                :value="text_requete" :style="styleTextArea" readonly></textarea>
+                :value="query" :style="styleTextArea" readonly></textarea>
     </div>
 
-
+    <!-- Tableau qui affiche toutes les données -->
     <div class="resultat_requete" id="resultat_requete" @scroll="handleScroll" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
     </div>
   </div>
@@ -159,7 +153,7 @@ import { sendRequest } from "@/tools/requestDB";
 import {stringifyQuery} from "vue-router";
 
 /* déclarations des variables*/
-const text_requete = ref('')
+const query = ref('')
 const textCondition = ref()
 const numId = ref()
 const emits = defineEmits(['close-constructeur']);
@@ -213,20 +207,17 @@ function changeEtatBtnEnvoiRequete(){
  * pour la requête
  * @param valeur
  */
-function addValeurToTextRequete(valeur){
+function addValeurToTextArea(valeur){
   text_requete_temp = valeur
-  if (constructeurActuel === 0){
-    text_requete.value = ""
-  }
 
+  // si on se trouve dans la commande update alors la table sélectionnée change
   if (commande_selectionnee === 2 && constructeurActuel === 2){
     console.log(table_selectionnee)
     changeTableSelectionnee()
   } else {
-    text_requete.value += valeur
+    query.value += valeur
   }
 
-  // ajouterLettresAvecEffet(valeur)
 }
 
 /****
@@ -250,14 +241,12 @@ function commandeSelectionee(valeur) {
  */
 function propriété(valeur){
 
-  if (!chercheIdDepuisDelete) {
-
-  }
-
-  historiqueTextRequete.push(text_requete.value)
+  // ajoute la valeur du textarea dans l'historique pour
+  // la fonction du bouton "retour"
+  historiqueTextRequete.push(query.value)
 
   commandeSelectionee(valeur)
-  addValeurToTextRequete(valeur)
+  addValeurToTextArea(valeur)
   console.log(constructeurActuel + " " + commande_selectionnee)
   console.log("constructeur actuel : "+constructeurActuel)
   console.log("texte temp : "+text_requete_temp)
@@ -277,7 +266,7 @@ function propriété(valeur){
  * @param valeur
  */
 function validerValuesInsert(valeur){
-  addValeurToTextRequete(valeur)
+  addValeurToTextArea(valeur)
   constructeurActuel = 6
   sendRequestFromConstructor()
 }
@@ -293,7 +282,7 @@ function testerInputText() {
   if (textCondition.value === ""){
     window.alert("Veuillez remplir le champs de saisie")
   } else {
-    text_requete.value += "'" + textCondition.value + "'"
+    query.value += "'" + textCondition.value + "'"
     constructeurActuel++
     textCondition.value = ""
   }
@@ -320,7 +309,7 @@ function effacer(){
       oldTable.remove();
     }
     // reset tout à 0
-    text_requete.value = ""
+    query.value = ""
     textCondition.value = ""
     constructeurActuel = 0
     numId.value = ''
@@ -340,7 +329,7 @@ function effacer(){
 /***
  * Fonction qui permet de retourner dans le constructeur précédent
  * en cas d'erreur de la part de l'utilisateur
- * Fonctionnement : ajouter le texte de la requête (text_requete)
+ * Fonctionnement : ajouter le texte de la requête (query)
  *                  dans un tablea à chaque fois qu'on passe au
  *                  prochain constructeur (pas dans cette fonction).
  *                  Quand on clique sur le bouton, le constructeur actuel
@@ -348,7 +337,7 @@ function effacer(){
  */
 function retour(){
   console.log(historiqueTextRequete)
-  text_requete.value = historiqueTextRequete[constructeurActuel - 1]
+  query.value = historiqueTextRequete[constructeurActuel - 1]
   console.log(historiqueTextRequete[constructeurActuel])
   historiqueTextRequete.pop()
   numId.value = ""
@@ -357,32 +346,13 @@ function retour(){
   constructeurActuel--
 }
 
-function proprieteInsert(valeur) {
-  text_requete_temp = text_requete.value
-
-  /*** Fonctionnalité btn Retour ****/
-  historiqueTextRequete.push(text_requete.value)
-  console.log(constructeurActuel + " " + commande_selectionnee)
-  console.log("constructeur actuel : "+constructeurActuel)
-  console.log("texte temp : "+text_requete_temp)
-  console.log(historiqueTextRequete)
-  console.log("----------------------")
-  /******/
-
-  commande_selectionnee = 3;
-  text_requete.value += " INTO " + valeur;
-  table_selectionnee = valeur;
-  constructeurActuel++;
-  btnRetourIsDisabled = false
-}
-
 /***
  * Ajoute les propriétés lorsque la commande DELETE est choisi
  * @param valeur
  */
 function proprieteDelete(valeur){
   /*** Fonctionnalité btn Retour ****/
-  historiqueTextRequete.push(text_requete.value)
+  historiqueTextRequete.push(query.value)
   console.log(constructeurActuel + " " + commande_selectionnee)
   console.log("constructeur actuel : "+constructeurActuel)
   console.log("texte temp : "+text_requete_temp)
@@ -391,7 +361,7 @@ function proprieteDelete(valeur){
   /******/
 
   commande_selectionnee = 4
-  text_requete.value += " FROM " + valeur
+  query.value += " FROM " + valeur
   constructeurActuel++
 }
 
@@ -403,7 +373,7 @@ function proprieteDelete(valeur){
 function changeProprieteSelectionnee(valeur){
   propriete_selectionnee = valeur
   textCondition.value = ""
-  changeTextEnCasDeID(valeur)
+  changeLabel(valeur)
 }
 
 /***
@@ -416,51 +386,62 @@ function changeTableSelectionnee(valeur){
   console.log(valeur)
 }
 
-function changeTextEnCasDeID(propriete_selectionnee){
-    if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne" ||
-        propriete_selectionnee === "idMateriel"){
-      inputIsNumber = true;
-    } else {
-      inputIsNumber = false
+
+/***
+ * Fonction qui permet de changer le texte d'indication au dessus de l'input lors de la
+ * saisie de la condition pour une requête SELECT et UPDATE.
+ * Exemple pour SELECT : Saisissez le propriétaire, Saisissez l'ID (numéro) de la voiture
+ * Exemple pour UPDATE : Saisissez le nouveau prénom, Saisissez le nouveau numéro de plaque
+ * @param propriete_selectionnee Valeur émise lorsque l'on clique sur une propriété d'une table
+ */
+function changeLabel(propriete_selectionnee){
+
+    // si la propriété sélectionnée est un ID des trois choix alors l'input sera en mode "number"
+    inputIsNumber =  (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne" ||
+        propriete_selectionnee === "idMateriel");
+
+  let texteExplicationSaisie = "Saisissez "
+
+  if (commande_selectionnee === 1) {
+    switch (propriete_selectionnee) {
+      case "idVoiture" : texteExplicationSaisie += "l'ID (numéro) de la voiture"; break;
+      case "idPersonne" : texteExplicationSaisie += "l'ID (numéro) de la personne";  break;
+      case "idMateriel" : texteExplicationSaisie += "l'ID (numéro) du matériel"; break;
+      case "prénom" : texteExplicationSaisie += "le prénom :";  break;
+      case "nom" : texteExplicationSaisie += "le nom";  break;
+      case "date_de_naissance" : texteExplicationSaisie += "la date de naissance";  break;
+      case "numéro_de_tel" : texteExplicationSaisie += "le numéro de téléphone";  break;
+      case "couleur" : texteExplicationSaisie += "la couleur"; break;
+      case "marque" : texteExplicationSaisie += "la marque"; break;
+      case "propriétaire" : texteExplicationSaisie += "le propriétaire"; break;
+      case "numéro_plaque": texteExplicationSaisie += "le numéro de plaque"; break;
+      case "nom_matériel" : texteExplicationSaisie += "le nom du matériel"; break;
+      case "quantité": texteExplicationSaisie += "la quantité"
     }
-
-    let texteExplicationSaisie = "Saisissez "
-
-
-    if (commande_selectionnee === 1) {
-      switch (propriete_selectionnee) {
-        case "idVoiture" : texteExplicationSaisie += "l'ID (numéro) de la voiture"; break;
-        case "idPersonne" : texteExplicationSaisie += "l'ID (numéro) de la personne";  break;
-        case "idMateriel" : texteExplicationSaisie += "l'ID (numéro) du matériel"; break;
-        case "prénom" : texteExplicationSaisie += "le prénom :";  break;
-        case "nom" : texteExplicationSaisie += "le nom";  break;
-        case "date_de_naissance" : texteExplicationSaisie += "la date de naissance";  break;
-        case "numéro_de_tel" : texteExplicationSaisie += "le numéro de téléphone";  break;
-        case "couleur" : texteExplicationSaisie += "la couleur"; break;
-        case "marque" : texteExplicationSaisie += "la marque"; break;
-        case "propriétaire" : texteExplicationSaisie += "le propriétaire"; break;
-        case "numéro_plaque": texteExplicationSaisie += "le numéro de plaque"; break;
-        case "nom_matériel" : texteExplicationSaisie += "le nom du matériel"; break;
-        case "quantité": texteExplicationSaisie += "la quantité"
-      }
-    } else if (commande_selectionnee === 2) {
-      switch (propriete_selectionnee) {
-        case "prénom" : texteExplicationSaisie += "le nouveau prénom :";  break;
-        case "nom" : texteExplicationSaisie += "le nouveau nom";  break;
-        case "date_de_naissance" : texteExplicationSaisie += "la nouvelle date de naissance (aaaa-mm-jj)";  break;
-        case "numéro_de_tel" : texteExplicationSaisie += "le nouveau numéro de téléphone";  break;
-        case "couleur" : texteExplicationSaisie += "la nouvelle couleur"; break;
-        case "marque" : texteExplicationSaisie += "la nouvelle marque"; break;
-        case "propriétaire" : texteExplicationSaisie += "le nouveau propriétaire"; break;
-        case "numéro_plaque": texteExplicationSaisie += "le nouveau numéro de plaque"; break;
-        case "nom_matériel" : texteExplicationSaisie += "le nouveau nom du matériel"; break;
-        case "quantité": texteExplicationSaisie += "la nouvelle quantité"
-      }
+  } else if (commande_selectionnee === 2) {
+    switch (propriete_selectionnee) {
+      case "prénom" : texteExplicationSaisie += "le nouveau prénom :";  break;
+      case "nom" : texteExplicationSaisie += "le nouveau nom";  break;
+      case "date_de_naissance" : texteExplicationSaisie += "la nouvelle date de naissance (aaaa-mm-jj)";  break;
+      case "numéro_de_tel" : texteExplicationSaisie += "le nouveau numéro de téléphone";  break;
+      case "couleur" : texteExplicationSaisie += "la nouvelle couleur"; break;
+      case "marque" : texteExplicationSaisie += "la nouvelle marque"; break;
+      case "propriétaire" : texteExplicationSaisie += "le nouveau propriétaire"; break;
+      case "numéro_plaque": texteExplicationSaisie += "le nouveau numéro de plaque"; break;
+      case "nom_matériel" : texteExplicationSaisie += "le nouveau nom du matériel"; break;
+      case "quantité": texteExplicationSaisie += "la nouvelle quantité"
     }
+  }
 
-    texteTitreSaisieID.value = texteExplicationSaisie
+  texteTitreSaisieID.value = texteExplicationSaisie
 }
 
+/***
+ * Fonction qui convertit la table (chaine de caractère)
+ * avec l'ID correspondant
+ * @param table_selectionnee table sélectionnée
+ * @returns {number|string} l'id de la table
+ */
 function convertId(table_selectionnee){
   switch (table_selectionnee) {
     case "tb_voiture" : return "idVoiture";
@@ -471,49 +452,48 @@ function convertId(table_selectionnee){
 }
 
 /***
- * Fonction qui permet de tester le champs de saisie de la condition
- * @param commande si la commande correspond au constructeur actuel update
+ * Fonction qui permet de tester si le champ de saisie est valide selon la propriété choisie
+ * @param commandeUpdate Boolean si la commande sélectionnée est UPDATE
  */
 function valideRequete(commandeUpdate) {
-  text_requete_temp = text_requete.value
+  text_requete_temp = query.value
 
+  // test si la propriété sélectionnée est l'ID de la table
   if (["idVoiture", "idPersonne", "idMateriel"].includes(propriete_selectionnee)) {
     if (Number.isInteger(parseInt(textCondition.value))) {
-      addValeurToTextRequete(textCondition.value);
+      addValeurToTextArea(textCondition.value);
     } else {
       window.alert("Vous devez saisir un nombre (ID)");
       return;
     }
+
+    // test si la propriété sélectionnée est la date de naissance
+    // est au bon format soit année-mois-jour
   } else if (propriete_selectionnee === "date_de_naissance") {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     if (regex.test(textCondition.value)) {
-      addValeurToTextRequete(textCondition.value);
+      addValeurToTextArea(textCondition.value);
       constructeurActuel++
     } else {
       window.alert("Le format de la date doit être : aaaa-mm-jj");
       return;
     }
+
   } else {
     if (textCondition.value !== "") {
       if (commandeUpdate)  {
-        historiqueTextRequete.push(text_requete.value)
-        console.log(constructeurActuel + " " + commande_selectionnee)
-        console.log("constructeur actuel : "+constructeurActuel)
-        console.log("texte temp : "+text_requete_temp)
-        console.log(historiqueTextRequete)
-        console.log("----------------------")
+        historiqueTextRequete.push(query.value)
       }
-      console.log("champs rempli")
 
       if (commande_selectionnee === 2 && constructeurActuel === 2){
-        text_requete.value += "'" + textCondition.value + "'" + " WHERE " + convertId(table_selectionnee) + " = "
+        query.value += "'" + textCondition.value + "'" + " WHERE " + convertId(table_selectionnee) + " = "
       } else {
-        text_requete.value += "'";
-        addValeurToTextRequete(textCondition.value);
-        text_requete.value += "'";
+        query.value += "'";
+        addValeurToTextArea(textCondition.value);
+        query.value += "'";
       }
 
-      console.log(text_requete.value);
+      console.log(query.value);
       constructeurActuel++
     } else {
       console.log("champs vide")
@@ -524,7 +504,7 @@ function valideRequete(commandeUpdate) {
 
   if (!commandeUpdate){
     constructeurActuel = 6
-    text_requete.value += ";"
+    query.value += ";"
     changeTailleTextarea()
     sendRequestFromConstructor()
   }
@@ -542,9 +522,9 @@ function valideRequeteUpdate() {
   console.log(numId.value)
   if (!isNaN(numId.value) && numId.value !== "" && numId.value >= 1) {
 
-    text_requete.value += numId.value
+    query.value += numId.value
     constructeurActuel = 6
-    text_requete.value += ";"
+    query.value += ";"
     changeTailleTextarea()
     sendRequestFromConstructor()
   } else {
@@ -553,11 +533,12 @@ function valideRequeteUpdate() {
 }
 
 /***
- * Fonction qui valide la requête
+ * Fonction qui valide la requête quand l'utilisateur
+ * clique sur "Valider sans filtre"
  */
 function validerSansCondition(){
   constructeurActuel = 6
-  text_requete.value += ";"
+  query.value += ";"
   changeTailleTextarea()
   etatBtnEnvoiRequete = false
   sendRequestFromConstructor()
@@ -569,34 +550,29 @@ function validerSansCondition(){
  * "sendRequest"
  */
 function sendRequestFromConstructor() {
-  sendRequest(text_requete.value);
+  sendRequest(query.value);
 }
 
-
 function updateTextarea(info) {
-  console.log("lala");
-  text_requete.value = info;
+  query.value = info;
 }
 
 window.addEventListener('updateTextareaEvent', (event) => {
   updateTextarea(event.detail);
 });
 
+/***
+ * Fonction qui permet d'afficher les lettres d'un "string" passé
+ * en paramètre une par une comme si on écrivait au clavier
+ * @param inputText Text à afficher lettre après lettre
+ */
 const effetLettres = async (inputText) => {
   for (const letter of inputText) {
     ajouterText = false
-    text_requete.value += letter;
+    query.value += letter;
     await new Promise(resolve => setTimeout(resolve, 200));
   }
   ajouterText = true
-}
-
-function ajouterLettresAvecEffet(valeur) {
-  if (ajouterText) {
-    effetLettres(valeur)
-  } else {
-    text_requete.value = text_requete_temp
-  }
 }
 
 /***
@@ -606,36 +582,6 @@ function ajouterLettresAvecEffet(valeur) {
 function close(){
   // emet false donc on affiche pas la fenetre
   emits('close-constructeur', true)
-}
-
-/***
- *
- */
-function redirectionSelect() {
-  // le bouton de retour s'enlève
-  btnRetourIsDisabled = true
-
-  // met la variable a true pour dire qu'on est dans la recherhe de l'id depuis le "delete"
-  chercheIdDepuisDelete = true
-
-  stockRequeteDelete = text_requete.value
-  text_requete.value = "SELECT" + " * " + "FROM " + table_selectionnee + " WHERE"
-  historiqueTextRequete.push(text_requete.value)
-  commandeSelectionee("SELECT")
-  constructeurActuel = 3
-  btnRetourRequeteDeleteIsVisibled = true
-
-}
-
-/***
- * Fonction qui permet de retourner sur le constructeur de la requête DELETE
- * après avoir cliquer sur le bouton "Revenir à la suppression"
- */
-function retourAlaSuppression() {
-  text_requete.value = stockRequeteDelete
-  commandeSelectionee("DELETE")
-  constructeurActuel = 2
-  btnRetourRequeteDeleteIsVisibled = false
 }
 
 </script>
@@ -753,7 +699,6 @@ textarea:focus{
   display: inline-block;
   text-align: center;
 }
-
 
 /************** Saisie condition SELECT ********/
 .condition_select{
