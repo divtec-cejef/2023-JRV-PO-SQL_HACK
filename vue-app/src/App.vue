@@ -7,13 +7,14 @@ import {ref, onMounted, toRef} from "vue";
 import CinematiqueFinNiv1 from "@/pages/cinématique/CinematiqueFinNiv1.vue";
 import CinematiqueFinNiv2 from "@/pages/cinématique/CinematiqueFinNiv2.vue";
 import CinematiqueDebut from "@/pages/cinématique/cinematiqueDebut.vue";
-
+import VideoExemple from "@/pages/cinématique/VideoExemple.vue";
 
 
 let afficherEcranJeu = ref(false)
 let afficherCinematiqueDuDebut = ref(true)
 let afficherCinematiqueFinNiveau1 = ref(false)
 let afficherCinematiqueFinNiveau2 = ref(false)
+let afficherVideoExemple = ref(false)
 
 let cle = ref(0)
 let afficherChatBox = ref(false)
@@ -94,6 +95,20 @@ onMounted(() => {
 function cinematiqueDebutToEcranJeu(valeur){
   console.log(valeur)
   afficherEcranJeu.value = valeur
+  afficherCinematiqueDuDebut.value = false
+  afficherVideoExemple.value = false
+  afficherCinematiqueFinNiveau1.value = false
+  cle.value += 1
+}
+
+/***
+ * Fonction qui permet de passer de l'écran de la cinématique à
+ * l'écran de jeu
+ * @param valeur Boolean émit lors du dernier clic du bouton "continuer"
+ */
+function cinematiqueDebutToVideo(valeur){
+  console.log(valeur)
+  afficherVideoExemple.value = valeur
   afficherCinematiqueDuDebut.value = false
   afficherCinematiqueFinNiveau1.value = false
   cle.value += 1
@@ -199,8 +214,8 @@ function finNiveau2ToCinematique(valeur) {
   <main>
 
     <!-- Cinématique du début -->
-    <CinematiqueDebut @changement-ecran="cinematiqueDebutToEcranJeu" v-if="afficherCinematiqueDuDebut" :key="cle" class="cinematiqueDebut"></cinematiqueDebut>
-
+    <CinematiqueDebut @changement-ecran="cinematiqueDebutToVideo" v-if="afficherCinematiqueDuDebut" :key="cle" class="cinematiqueDebut"></cinematiqueDebut>
+    <VideoExemple @VideoExemple="cinematiqueDebutToEcranJeu" v-if="afficherVideoExemple" :key="cle" ></VideoExemple>
     <!-- Écran de jeu -->
     <div class="jeu" :key="cle" v-if="afficherEcranJeu">
       <div>

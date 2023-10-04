@@ -1,6 +1,6 @@
 
 <template>
-  <div class="MessageReussiteNiv2" v-if="showFel">Merci, j'aurais jamais réussi sans toi !</div>
+  <div class="MessageReussiteNiv2" v-if="showFel">Merci, je n'aurais jamais réussi sans toi !</div>
   <img class="image" src="../../img/Terminator.png"/>
   <div class="bouton-quitterNiv2" v-if="showContent">
    <button class="QuitterNiv2" @click="recommencer">Quitter</button>
@@ -47,7 +47,7 @@ onMounted(() => {
   position: fixed;
   z-index: 3;
   color: #FFFFFF;
-  font-size: 85px;
+  font-size: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
