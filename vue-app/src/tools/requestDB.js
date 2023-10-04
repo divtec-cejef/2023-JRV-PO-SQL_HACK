@@ -75,7 +75,7 @@ function executeSelectRequest(request) {
 
         let champsCondition = removeAccents(getWord(request, 5));
         if (checkFieldsProprio(table, champsCondition) === true) {
-            valeur = cleanString(getWord(request, 7)) + ' ' + cleanString(getWord(request, 8));
+            valeur = firstLetterToUppercase(cleanString(getWord(request, 7))) + ' ' + firstLetterToUppercase(cleanString(getWord(request, 8)));
         }
 
         if (champsCondition === 'idPersonne' || champsCondition === 'idMateriel' || champsCondition === 'idVoiture' || champsCondition === 'quantite') {
