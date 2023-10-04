@@ -11,6 +11,7 @@
 <script setup>
 import {defineEmits, ref} from 'vue'
 const emits = defineEmits(['where', 'sans-condition', 'valider_sans_condition'])
+const props = defineProps(['etat'])
 
 /***
  * Emet la chaine de caractère WHERE pour
