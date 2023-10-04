@@ -34,7 +34,9 @@ const styleAppChatBox = ref({
   marginBottom : '0px'
 });
 
-// Fonction pour mettre à jour l'heure
+/***
+ * Met à jour l'heure au moment où le composant se lance
+ */
 const mettreAJourHeure = () => {
   const maintenant = new Date();
   const heure = maintenant.getHours();
@@ -45,6 +47,9 @@ const mettreAJourHeure = () => {
   heureActuelle.value = `${heure.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
 };
 
+/***
+ * Met à jour la date au moment où le composant se lance
+ */
 const mettreAJourDate = () => {
   const maintenant = new Date();
   const annee = maintenant.getFullYear();
@@ -55,6 +60,10 @@ const mettreAJourDate = () => {
   dateActuelle.value = `${jour.toString().padStart(2, '0')}.${mois.toString().padStart(2, '0')}.${annee}`;
 }
 
+/***
+ * Désactive la touche F5 pour éviter de reload l'écran
+ * @param event Evénement de la pression de la touche
+ */
 const disabledF5 = (event) => {
   if (event.key === 'F5') {
     event.preventDefault();
@@ -279,7 +288,7 @@ header {
   left: 500px;
   top: 100px;
   background-color: #000000;
-  background-image: url("FondEcranWin10.jpg");
+  background-image: url("img/FondEcranWin10.jpg");
   background-position: center;
   background-size: 100%;
 
