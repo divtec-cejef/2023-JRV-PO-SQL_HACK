@@ -16,13 +16,13 @@ const emits = defineEmits(['select'])
 
 /***
  * Emet la chaîne de caractère d'une des 4 commandes
- * des boutons
- * @param boutonSelectionne Valeur du bouton sélectionner (de 1 à 4)
+ * des boutons qui est sélectionnée par l'utilisateur
+ * @param boutonSelectionnee Valeur du bouton sélectionner (de 1 à 4)
  */
-  function addSelectToQuery(boutonSelectionne){
+  function addSelectToQuery(boutonSelectionnee){
   let valeur = ""
   console.log(valeur)
-    switch (boutonSelectionne){
+    switch (boutonSelectionnee){
       case 1: valeur = "SELECT"
         break
       case 2: valeur = "UPDATE"

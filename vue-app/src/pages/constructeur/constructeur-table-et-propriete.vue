@@ -122,30 +122,36 @@ function addPropriety(valeur, table) {
 
   stringRequete = " " + valeur
 
-  // select
-  if (props.commande === 1){
-    // choix du filtre
-    if (props.where) {
-      // propriété de la table en cas de filtre
-      stringRequete = " " + valeur + " = "
-    } else {
-      // * pour la première séléction de la table
-      stringRequete =  " *" + " FROM " + table
-    }
 
-    // update
-  } else if (props.commande === 2){
+  switch (props.commande) {
+    /* select */
+    case 1:
+      // choix du filtre
+      if (props.where) {
+        // propriété de la table en cas de filtre
+        stringRequete = " " + valeur + " = "
+      } else {
+        // * pour la première séléction de la table
+        stringRequete =  " *" + " FROM " + table
+      }
+      break;
+
+    /* update */
+    case 2:
       stringRequete = " " + table + " SET " + valeur + " = " /* + " WHERE " + convertId(table) */
+          break;
 
-    // insert
-  } else if (props.commande === 3) {
-    stringRequete = " INTO " + table
+    /* insert */
+    case 3:
+      stringRequete = " INTO " + table
+      break;
 
-    // delete
-  } else if (props.commande === 4){
-    stringRequete = " FROM " + table + " WHERE " + convertId(table) + " = "
-
+    /* delete */
+    case 4:
+      stringRequete = " FROM " + table + " WHERE " + convertId(table) + " = "
+          break;
   }
+
 
   // émition
   propriete('propriete', stringRequete)
@@ -226,7 +232,7 @@ ul:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 36px;
+  font-size: 32px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
