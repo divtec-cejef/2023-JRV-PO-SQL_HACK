@@ -1,4 +1,3 @@
-
 <template>
 
   <div class="constructeur_app">
@@ -83,7 +82,6 @@
           <!-- requête INSERT -->
           <div class="requete_insert" v-if="commande_selectionnee===3">
             <div v-if="constructeurActuel===1">
-<!--              <constructeur-table @propriete="proprieteInsert"></constructeur-table>-->
               <constructeur-table-et-propriete :label="'table'" :where="false" :commande="3" @propriete="propriété"
                                                @propriete_selectionnee="changeProprieteSelectionnee"
                                                @table_selectionnee="changeTableSelectionnee"
@@ -105,9 +103,6 @@
             </div>
 
             <div v-if="constructeurActuel===2" class="btn_condition">
-
-<!--              <button class="btn_redirection" @click="redirectionSelect">Sélectionner l'ID <img src="../../assets/icon/fleche-droite.png" alt=""></button>-->
-
               <div class="saisie_condition_delete">
                 <div class="text_saisie_id_et_input">
                   <div class="text_saisie_id">Saisissez l'id :</div>
@@ -117,9 +112,10 @@
                          @keydown.enter.prevent="valideRequeteUpdate" autocomplete="off">
                   <button class="btnValider" @click="valideRequeteUpdate">Envoyer la requête</button>
                 </div>
-
               </div>
             </div>
+
+            <!-- fin -->
           </div>
         </div>
       </div>
@@ -129,14 +125,11 @@
     <button @click="retour" :disabled="btnRetourIsDisabled"
             v-if="constructeurActuel!==0 && constructeurActuel!==6" class="bouton_finaux">Retour <img src="../../assets/img/fleche-gauche.png"
                                                                                                       class="img_retour"></button>
-<!--    <button v-if="btnRetourRequeteDeleteIsVisibled" @click="retourAlaSuppression">Revenir à la suppression</button>-->
-
     <!-- Texte de la requête dans l'input read only -->
     <div class="div_text_requete">
       <textarea ref="textarea" name="text_requete typing-animation" id="text-requete" cols="2" rows="2"
                 :value="text_requete" :style="styleTextArea" readonly></textarea>
     </div>
-
 
     <div class="resultat_requete" id="resultat_requete" @scroll="handleScroll" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
     </div>
