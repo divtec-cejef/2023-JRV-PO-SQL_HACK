@@ -1,23 +1,24 @@
 <script setup>
 import Constructeur from "@/pages/constructeur/constructeur.vue";
-import Cinématique from "@/pages/cinématique/cinématique.vue";
+import Cin3matique from "@/pages/cinématique/cinematiqueDebut.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
-import {ref, onMounted, toRef} from "vue";
-import FinCinematiqueNiveau1 from "@/pages/cinématique/FinCinematiqueNiveau1.vue";
-import FinCinematiqueNiveau2 from "@/pages/cinématique/FinCinematiqueNiveau2.vue";
+import {ref, onMounted} from "vue";
+import cinematiqueFinNiveau1 from "@/pages/cinématique/cinematiqueFinNiveau1.vue";
+import cinematiqueFinNiveau2 from "@/pages/cinématique/cinematiqueFinNiveau2.vue";
+import CinematiqueDebut from "@/pages/cinématique/cinematiqueDebut.vue";
+import CinematiqueFinNiveau1 from "@/pages/cinématique/cinematiqueFinNiveau1.vue";
+import CinematiqueFinNiveau2 from "@/pages/cinématique/cinematiqueFinNiveau2.vue";
 
 
-let jeu = ref(false)
-let cinematiqueDebut = ref(true)
-let cinematiqueFin = ref(false)
-let cinematiqueFinNiv2 = ref(false)
+let afficherEcranJeu = ref(false)
+let afficherCinematiqueDuDebut = ref(true)
+let afficherCinematiqueFinNiveau1 = ref(false)
+let afficherCinematiqueFinNiveau2 = ref(false)
 let cle = ref(0)
 let afficherChatBox = ref(false)
 let afficherConstructeur = ref(false)
 let isBordered = ref(false);
-let afficherVideo = ref(false)
-let afficherVideoTemp = true
 const heureActuelle = ref('');
 const dateActuelle = ref('');
 let zIndexis4 = ref(true)
@@ -35,7 +36,7 @@ const styleAppChatBox = ref({
 });
 
 /***
- * Met à jour l'heure au moment où le composant se lance
+ * Met à jour l'heure, la minute et la seconde au moment où le composant se lance
  */
 const mettreAJourHeure = () => {
   const maintenant = new Date();
@@ -90,11 +91,11 @@ onMounted(() => {
  * l'écran de jeu
  * @param valeur Boolean émit lors du dernier clic du bouton "continuer"
  */
-function cinematiqueToEcranJeu(valeur){
+function cinematiqueDebutToEcranJeu(valeur){
   console.log(valeur)
-  jeu.value = valeur
-  cinematiqueDebut.value = false
-  cinematiqueFin.value = false
+  afficherEcranJeu.value = valeur
+  afficherCinematiqueDuDebut.value = false
+  afficherCinematiqueFinNiveau1.value = false
   cle.value += 1
 }
 
@@ -159,9 +160,9 @@ function closeConstructeur(valeur){
  *               l'utilisateur envoie "OK" après la modification du propriétaire
  */
 function finNiveau1ToCinematique(valeur) {
-  cinematiqueFin.value = valeur
+  afficherCinematiqueFinNiveau1.value = valeur
   zIndexis4 = true
-  cinematiqueDebut.value = false
+  afficherCinematiqueDuDebut.value = false
 }
 
 /***
@@ -171,8 +172,8 @@ function finNiveau1ToCinematique(valeur) {
  * @param valeur Boolean émit quand on clique sur le bouton "niveau 2"
  */
 function cinematiqueFinToNiveau2(valeur){
-  cinematiqueDebut.value = false
-  cinematiqueFin.value = false
+  afficherCinematiqueDuDebut.value = false
+  afficherCinematiqueFinNiveau1.value = false
   zIndexis4 = false
 }
 
@@ -183,9 +184,9 @@ function cinematiqueFinToNiveau2(valeur){
  */
 function finNiveau2ToCinematique(valeur) {
   cle.value += 1
-  cinematiqueFinNiv2.value = valeur
+  afficherCinematiqueFinNiveau2.value = valeur
   zIndexis4 = true
-  cinematiqueDebut.value = false
+  afficherCinematiqueDuDebut.value = false
 }
 
 </script>
@@ -197,21 +198,17 @@ function finNiveau2ToCinematique(valeur) {
 
   <main>
 
-    <!-- cinematiqueDebut -->
-    <cinématique @changement-ecran="cinematiqueToEcranJeu" v-if="cinematiqueDebut" :key="cle" class="cinematiqueDebut"></cinématique>
-    <div class="jeu" :key="cle" v-if="jeu">
+    <!-- Cinématique du début -->
+    <CinematiqueDebut @changement-ecran="cinematiqueDebutToEcranJeu" v-if="afficherCinematiqueDuDebut" :key="cle" class="cinematiqueDebut"></cinematiqueDebut>
+
+    <!-- Écran de jeu -->
+    <div class="jeu" :key="cle" v-if="afficherEcranJeu">
       <div>
         <barre-laterale></barre-laterale>
       </div>
 
       <div class="ecran_ordinateur">
         <div class="ecran_application">
-
-          <div :class="{ 'slide-down': afficherVideo }" :key="cle">
-            <video height="400" width="400" controls v-show="afficherVideo" autoplay muted playsinline loop>
-              <source src="../src/video/video_test.webm" type="video/webm"/>
-            </video>
-          </div>
 
           <div class="constructeur">
             <constructeur @close-constructeur="closeConstructeur" v-show="!afficherConstructeur" ></constructeur>
@@ -241,12 +238,14 @@ function finNiveau2ToCinematique(valeur) {
       </div>
     </div>
 
-    <div :key="cle" v-if="cinematiqueFin" :class="{'zindex': zIndexis4}">
-      <FinCinematiqueNiveau1 @Niv2="cinematiqueFinToNiveau2" ></FinCinematiqueNiveau1>
+    <!-- Cinématique de fin du niveau 1  -->
+    <div :key="cle" v-if="afficherCinematiqueFinNiveau1" :class="{'zindex': zIndexis4}">
+      <cinematiqueFinNiveau1 @Niv2="cinematiqueFinToNiveau2" ></cinematiqueFinNiveau1>
     </div>
 
-    <div :key="cle" v-if="cinematiqueFinNiv2" :class="{'zindex': zIndexis4}">
-      <FinCinematiqueNiveau2></FinCinematiqueNiveau2>
+    <!-- Cinématique de fin du niveau 2  -->
+    <div :key="cle" v-if="afficherCinematiqueFinNiveau2" :class="{'zindex': zIndexis4}">
+      <cinematiqueFinNiveau2></cinematiqueFinNiveau2>
     </div>
 
 
