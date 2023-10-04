@@ -1,12 +1,11 @@
 <script setup>
 import Constructeur from "@/pages/constructeur/constructeur.vue";
-import Cin3matique from "@/pages/cinématique/cinematiqueDebut.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
 
 import {ref, onMounted, toRef} from "vue";
-import FinCinematique from "@/pages/cinématique/CinematiqueFinNiv1.vue";
-import FinNiv2Cinematique from "@/pages/cinématique/CinematiqueFinNiv2.vue";
+import CinematiqueFinNiv1 from "@/pages/cinématique/CinematiqueFinNiv1.vue";
+import CinematiqueFinNiv2 from "@/pages/cinématique/CinematiqueFinNiv2.vue";
 import CinematiqueDebut from "@/pages/cinématique/cinematiqueDebut.vue";
 
 
@@ -241,12 +240,12 @@ function finNiveau2ToCinematique(valeur) {
 
     <!-- Cinématique de fin du niveau 1  -->
     <div :key="cle" v-if="afficherCinematiqueFinNiveau1" :class="{'zindex': zIndexis4}">
-      <cinematiqueFinNiveau1 @Niv2="cinematiqueFinToNiveau2" ></cinematiqueFinNiveau1>
+      <cinematique-fin-niv1 @Niv2="cinematiqueFinToNiveau2" ></cinematique-fin-niv1>
     </div>
 
     <!-- Cinématique de fin du niveau 2  -->
     <div :key="cle" v-if="afficherCinematiqueFinNiveau2" :class="{'zindex': zIndexis4}">
-      <cinematiqueFinNiveau2></cinematiqueFinNiveau2>
+      <cinematique-fin-niv2></cinematique-fin-niv2>
     </div>
 
 
