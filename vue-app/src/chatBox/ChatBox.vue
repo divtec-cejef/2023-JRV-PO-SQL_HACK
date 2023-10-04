@@ -26,6 +26,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * Envoie du message dans la messagerie
+     */
     send() {
       const textarea = document.getElementById("message-text");
       textarea.disabled = true;
@@ -49,7 +52,7 @@ export default {
 .message-input {
   display: flex;
   align-items: center;
-  background-color: #f0f0f0; /* Couleur de fond de la zone de texte et du bouton */
+  background-color: #f0f0f0;
   position: fixed;
   top: 695px;
   width: 400px;
@@ -57,21 +60,21 @@ export default {
 }
 
 .message-text {
-  flex-grow: 1; /* La zone de texte prend tout l'espace disponible */
-  resize: none; /* Désactiver le redimensionnement */
+  flex-grow: 1;
+  resize: none;
   border: none;
   padding: 10px 5px 10px 5px;
   border-radius: 10px;
   margin: 10px 10px 10px 10px;
   text-align: left;
   font-size: 15px;
-  overflow: hidden; /* Empêche le débordement du contenu */
-  height: auto; /* La hauteur est automatiquement ajustée en fonction du contenu */
+  overflow: hidden;
+  height: auto;
 }
 
 .send-button {
   padding: 10px 20px;
-  background-color: #f0f0f0; /* Couleur du bouton Envoyer */
+  background-color: #f0f0f0;
   color: #fff;
   border: none;
   border-radius: 20px;
@@ -92,9 +95,9 @@ export default {
 }
 
 .interlocuteur-photo {
-  width: 50px; /* Ajustez la largeur de la photo de l'interlocuteur */
-  height: 50px; /* Ajustez la hauteur de la photo de l'interlocuteur */
-  border-radius: 50%; /* Pour une photo de profil ronde */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   margin-right: 10px;
 }
 

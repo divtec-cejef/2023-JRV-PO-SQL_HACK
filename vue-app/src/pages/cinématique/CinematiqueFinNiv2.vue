@@ -14,6 +14,9 @@ import { ref, onMounted } from 'vue';
 const showContent = ref(false);
 const showFel = ref(false);
 
+/**
+ * Reload la page pour recommencer
+ */
 const recommencer = () => {
   window.location.reload();
 };
@@ -21,11 +24,11 @@ const recommencer = () => {
 onMounted(() => {
   setTimeout(() => {
     showContent.value = true;
-  }, 1000); // Délai de 5 secondes
+  }, 1000);
 
   setTimeout(() => {
     showFel.value = true;
-  }, 1000); // Délai de 5 secondes
+  }, 1000);
 });
 </script>
 
@@ -79,7 +82,4 @@ button:hover {
   transform: scale(1.10);
 }
 
-.Quitter{
-
-}
 </style>

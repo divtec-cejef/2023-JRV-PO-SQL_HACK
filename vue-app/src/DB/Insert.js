@@ -1,10 +1,10 @@
-// Importez createApp depuis Vue
-import { createApp } from 'vue';
-
-// Créez une instance d'application Vue
-const app = createApp({});
-
+/**
+ * Insérer une donnes que l'utilisateur à écrit.
+ * @param table Nom de la table pour insérer
+ * @param donnes Donnes que l'utilisateur à écrit
+ */
 function insert(table, donnes){
+    //Ouverture de la base de Donnée
     let request = window.indexedDB.open("maBaseDeDonnees");
 
     request.onerror = function(event) {
@@ -13,11 +13,10 @@ function insert(table, donnes){
     request.onsuccess = function(event) {
         let db = event.target.result;
         let Ajouts;
+
+        //Test pour voirs ce que l'utilisateur a choisis comme table
         if (table === "tb_personne") {
-            console.log(donnes[0],donnes[1],donnes[2],donnes[3])
             let dateNaiss = new Date(donnes[2]);
-            console.log(dateNaiss);
-            console.log(formatDate(dateNaiss));
             Ajouts = {
                 nom: donnes[0],
                 prenom: donnes[1],
@@ -53,6 +52,7 @@ function insert(table, donnes){
             console.log("Donné ajouté!");
         };
     }
+    //Enlevez l'ancienne table
     let oldTable = document.getElementById("tableHtml");
     if (oldTable) {
         oldTable.remove();

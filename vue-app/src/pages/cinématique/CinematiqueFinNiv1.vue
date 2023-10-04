@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="MessageReussite" v-if="showFel">Bravo, tu as réussi !</div>
     <video class="video" autoplay muted playsinline>
@@ -18,10 +16,16 @@ const emits = defineEmits(['Niv2']);
 const showContent = ref(false);
 const showFel = ref(false);
 
+/**
+ * Reload la page pour recommencer
+ */
 const recommencer = () => {
   window.location.reload();
 };
 
+/**
+ * passe au niveau 2
+ */
 const Niv2 = () => {
   emits('Niv2', true);
 };
@@ -29,11 +33,11 @@ const Niv2 = () => {
 onMounted(() => {
   setTimeout(() => {
     showContent.value = true;
-  }, 5000); // Délai de 5 secondes
+  }, 3000);
 
   setTimeout(() => {
     showFel.value = true;
-  }, 2000); // Délai de 5 secondes
+  }, 2000);
 });
 </script>
 

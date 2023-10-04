@@ -1,4 +1,9 @@
-
+/**
+ * Select les donnes que l'utilisateur a choisis
+ * @param table Nom de la table que l'utilisateur à choisis
+ * @param condition Si l'utilisateur utilise un filtre sur quelle propriété
+ * @param valeurCondition Si l'utilisateur utilise un filtre quelle valeur à-t-il choisit
+ */
 function select(table, condition = 0, valeurCondition = 0){
     // Ouverture de la base de données "maBaseDeDonnees"
     let request = window.indexedDB.open("maBaseDeDonnees");
@@ -22,9 +27,16 @@ function select(table, condition = 0, valeurCondition = 0){
 }
 
 
-function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
+/**
+ * Affiche les données que l'utilisateur à choisis et fais le filtre
+ * @param data Toute les donnnées qui ont été sélétionné de la table
+ * @param nomTable Le nom de la table
+ * @param propriete La propriété choisis
+ * @param valeurPropriete La valeur du filtre pour la propriété
+ */
+function afficherTablePersonne(data,nomTable,propriete,valeurPropriete) {
 
-// Créer un nouvel élément <table>
+    // Créer un nouvel élément <table>
     let table = document.createElement("table");
     table.id = "table_result";
     table.classList.add("table_result");
@@ -39,8 +51,9 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
     }
 
 
+    //Fais le filtre et montre que ce que l'utilisateur à choisis et qu'elle table à-t-il choisit
     for(let i = 0; i < data.length; i++) {
-        if (data[i][conditionl] === valeurCondition || valeurCondition === 0 || formatDate(data[i].date_de_naissance) === valeurCondition) {
+        if (data[i][propriete] === valeurPropriete || valeurPropriete === 0 || formatDate(data[i].date_de_naissance) === valeurPropriete) {
             let tr = document.createElement("tr");
             tr.classList.add("tr_result");
             if (nomTable === "tb_personne"){
@@ -59,7 +72,12 @@ function afficherTablePersonne(data,nomTable,conditionl,valeurCondition) {
     Affichage.appendChild(table)
 }
 
-// Fonction pour formater une date au format jj/mm/aaaa
+
+/**
+ * Fonction pour formater une date au format aaaa-mm-jj
+ * @param date Date
+ * @returns une date au format aaaa-mm-jj
+ */
 function formatDate(date) {
     let d = new Date(date);
     let day = ("0" + d.getDate()).slice(-2);
@@ -69,8 +87,12 @@ function formatDate(date) {
 }
 let encadreActuel = null;
 
+/**
+ * Copie et colle dans la messagerie du telephone
+ * @param cellule Cellule du tableau
+ * @param bouton bouton Copier
+ */
 function copierContenu(cellule, bouton) {
-    console.log("Copierrr")
     // Sélectionnez le contenu de la cellule
     let texte = cellule.innerText;
     const textarea = document.getElementById("message-text");
@@ -85,9 +107,12 @@ function copierContenu(cellule, bouton) {
     }, 1000);
 }
 
-// Fonction pour afficher l'encadré et le bouton "Copier"
+
+/**
+ * Fonction pour afficher l'encadré et le bouton "Copier"
+ * @param cellule Cellule du tableau
+ */
 function afficherEncadre(cellule) {
-    console.log("ENTRE");
     if (encadreActuel) {
         // Supprimez l'encadré actuellement affiché
         encadreActuel.parentNode.removeChild(encadreActuel);
@@ -103,9 +128,7 @@ function afficherEncadre(cellule) {
     encadre.style.position = "absolute";
     encadre.style.top = cellule.offsetTop - scrollTop +256 + "px";
     encadre.style.left = cellule.offsetLeft+ 105 + "px";
-    console.log(cellule.offsetTop + "px");
-    console.log(encadre.offsetHeight);
-    console.log(scrollTop);
+
 
     // Créez un bouton avec un gestionnaire d'événement pour copier le contenu
     let copierBouton = document.createElement("button");

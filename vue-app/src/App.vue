@@ -4,8 +4,8 @@ import Cinématique from "@/pages/cinématique/cinématique.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
 import {ref, onMounted, toRef} from "vue";
-import FinCinematique from "@/pages/cinématique/FinCinematique.vue";
-import FinNiv2Cinematique from "@/pages/cinématique/FinNiv2Cinematique.vue";
+import FinCinematique from "@/pages/cinématique/CinematiqueFinNiv1.vue";
+import FinNiv2Cinematique from "@/pages/cinématique/CinematiqueFinNiv2.vue";
 
 
 let jeu = ref(false)

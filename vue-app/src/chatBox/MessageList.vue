@@ -19,28 +19,28 @@ export default {
 
 .message-container {
   padding: 10px;
-  max-height: 425px; /* Hauteur maximale pour activer le défilement vertical */
-  overflow-y: auto; /* Activer le défilement vertical lorsque nécessaire */
+  max-height: 425px;
+  overflow-y: auto;
 }
 
 .sent {
-  background-color: #d3fca8; /* Vert pour les messages envoyés */
+  background-color: #d3fca8;
   max-width: 60%;
   width: max-content;
   margin: 10px 8px 5px auto;
   border-radius: 10px;
   word-wrap: break-word;
-  white-space: pre-line; /* Permet aux messages de se diviser sur plusieurs lignes */
+  white-space: pre-line;
 }
 
 .received {
-  background-color: #ffffff; /* Gris pour les messages reçus */
+  background-color: #ffffff;
   max-width: 60%;
   width: max-content;
   margin: 10px auto 5px 8px;
   border-radius: 10px;
   word-wrap: break-word;
-  white-space: pre-line; /* Permet aux messages de se diviser sur plusieurs lignes */
+  white-space: pre-line;
 }
 
 </style>

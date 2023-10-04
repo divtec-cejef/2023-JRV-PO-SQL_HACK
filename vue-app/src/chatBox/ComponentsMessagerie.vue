@@ -22,7 +22,6 @@ import ChatBox from "@/chatBox/ChatBox.vue";
 import { dupontPlace } from "@/DB/DataBase";
 
 const etape = ref(1);
-const showComponent = ref(true);
 const valeur = ref()
 
 const messages = ref([
@@ -54,18 +53,24 @@ const messagesVoleur = ref([
 
 
 ]);
-const DupontPlace = ref(0);
+
 const emits = defineEmits(['close-chatbox','cinematiqueFin','jeu', "cinematiqueFinNiv2"]);
 
+/**
+ * emet false donc on affiche pas la fenetre
+ */
 function close(){
-  // emet false donc on affiche pas la fenetre
   emits('close-chatbox', true)
 }
 
-const sendMessage = (newMessageText) => {
+/**
+ * Envoie le message
+ * @param newMessageText Text du message que l'utilisateur à écrits
+ */
+function sendMessage(newMessageText) {
   const newMessage = {
     text: newMessageText,
-    id: messages.value.length + 1, // Assurez-vous que l'ID est unique
+    id: messages.value.length + 1,
     isSent: true,
 
   };
@@ -74,80 +79,60 @@ const sendMessage = (newMessageText) => {
   setTimeout(() => {
     scrollToBottom();
   }, 10);
+  VerifEtapeEnCours(newMessageText);
+}
 
-// Vérification de l'étape en cours
-  if (etape.value === 1) {
-    // Si l'étape est 1, on vérifie le contenu du message
-    if (newMessageText === '1986-04-26' || newMessageText === '26-04-1986') {
-      // Si le message est une date valide, on ajoute un message après 1,5 seconde
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[0]);
-      }, 1500);
+/**
+ * Pousse un message apres un certain timing
+ * @param Temps timing
+ * @param idMess id du message
+ */
+function EnvoyerMessAvecTiming(Temps,idMess){
+  setTimeout(() => {
+    messages.value.push(messagesVoleur.value[idMess]);
+  }, Temps);
+}
 
-      // Passage à l'étape suivante
-      etape.value = etape.value + 1;
-
-      // Ajout d'un autre message après 2,5 secondes
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[2]);
-      }, 2500);
-
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[3]);
-      }, 3500);
-
-      // Fait défiler vers le bas après 2,51 secondes
-      setTimeout(() => {
-        scrollToBottom();
-      }, 3510);
-    } else {
-      // Si le message n'est pas une date valide, on ajoute un message différent après 1,5 seconde
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[1]);
-      }, 1500);
-
-      // Fait défiler vers le bas après 1,51 secondes
-      setTimeout(() => {
-        scrollToBottom();
-      }, 1510);
+/**
+ * Scroll vers le dernier message Apres un certain timing
+ * @param Temps Le timing
+ */
+function scrollToBottom(Temps){
+  setTimeout(() => {
+    const messageContainer = document.querySelector('.chat');
+    if (messageContainer) {
+      messageContainer.scrollTop = messageContainer.scrollHeight;
     }
-  } else if (etape.value === 2) {
-    // Si l'étape est 2, on vérifie le contenu du message
-    if (newMessageText.toLowerCase() === 'rejome viral') {
-      // Si le message correspond, on ajoute un message après 1,5 seconde
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[4]);
-      }, 1500);
+  }, Temps);
+}
 
-      // Fait défiler vers le bas après 1,51 secondes
-      setTimeout(() => {
-        scrollToBottom();
-      }, 1510);
+/**
+ * Ouverture de la base de données et Select tout
+ * @param NomTable Nom de la table choisis
+ */
+function OuvrirBaseDonnes(NomTable) {
+  return new Promise((resolve) => {
+    let request = window.indexedDB.open("maBaseDeDonnees");
 
-      // Passage à l'étape suivante
-      etape.value = etape.value + 1;
+    request.onsuccess = (event) => {
+      let db = event.target.result;
+      let transaction = db.transaction([NomTable], "readonly");
+      let objectStore = transaction.objectStore(NomTable);
+      let request = objectStore.getAll();
 
-      // Ajout d'un autre message après 2,5 secondes
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[6]);
-      }, 2500);
+      request.onsuccess = (event) => {
+        let data = event.target.result;
+        resolve(data);
+      };
+    };
+  });
+}
 
-      // Fait défiler vers le bas après 2,51 secondes
-      setTimeout(() => {
-        scrollToBottom();
-      }, 2510);
-    } else {
-      // Si le message ne correspond pas, on ajoute un message différent après 1,5 seconde
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[5]);
-      }, 1500);
-
-      // Fait défiler vers le bas après 1,51 secondes
-      setTimeout(() => {
-        scrollToBottom();
-      }, 1510);
-    }
-  }else if (etape.value === 3){
+/**
+ * Trouve l'id du propriete de la tesla noire
+ */
+function TrouveIDProprietaire() {
+  return new Promise((resolve, reject) => {
     let request = window.indexedDB.open("maBaseDeDonnees");
 
     request.onsuccess = (event) => {
@@ -155,232 +140,172 @@ const sendMessage = (newMessageText) => {
       let transaction = db.transaction(["tb_voiture"], "readonly");
       let objectStore = transaction.objectStore("tb_voiture");
       let request = objectStore.getAll();
-
+      let iDup = 0;
       request.onsuccess = (event) => {
         let data = event.target.result;
-        let idDupont = 0;
-        let iDup = 0;
-        let dupontPlacev2 = 40;
-        if (dupontPlace > 30){
-          iDup = dupontPlace - 30;
-          dupontPlacev2 = dupontPlace+30;
-        }else if (dupontPlace > 470){
+        let dupontPlacev2 = 30;
+        if (dupontPlace > 20) {
+          iDup = dupontPlace - 20;
+          dupontPlacev2 = dupontPlace + 20;
+        } else if (dupontPlace > 470) {
           iDup = 450;
           dupontPlacev2 = 500;
         }
-        console.log("grr " + iDup)
         for (let i = iDup; i < dupontPlacev2; i++) {
           if (data[i].couleur === "Noire") {
-            idDupont = i+1;
-            console.log(idDupont)
-            break;
+            iDup = i;
           }
         }
-        console.log(idDupont +  "WARRRR")
-        console.log(newMessage.text);
-        if (newMessage.text === idDupont.toString()) {
-          setTimeout(() => {
-            messages.value.push(messagesVoleur.value[7]);
-          }, 1500);
-          setTimeout(() => {
-            scrollToBottom();
-          }, 1510);
-          setTimeout(() => {
-            messages.value.push(messagesVoleur.value[9]);
-          }, 2500);
-          setTimeout(() => {
-            scrollToBottom();
-          }, 2510);
-          setTimeout(() => {
-            messages.value.push(messagesVoleur.value[10]);
-          }, 3000);
-          setTimeout(() => {
-            scrollToBottom();
-          }, 3010);
-          setTimeout(() => {
-            messages.value.push(messagesVoleur.value[11]);
-          }, 3500);
-          setTimeout(() => {
-            scrollToBottom();
-          }, 3510);
-          etape.value = etape.value + 1;
-        } else {
-          // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
-          setTimeout(() => {
-            messages.value.push(messagesVoleur.value[8]);
-          }, 1500);
-
-          // Fait défiler vers le bas après 1,51 secondes
-          setTimeout(() => {
-            scrollToBottom();
-          }, 1510);
-        }
+        resolve(iDup);
       }
     }
+
+    request.onerror = (event) => {
+      reject(event.target.error);
+    }
+  });
+}
+
+/**
+ * Verifie l'étape en cours et repond en fonction de l'étape
+ * @param newMessageText Text écrit par l'utilisateur
+ */
+function VerifEtapeEnCours(newMessageText) {
+
+//Verification date de naissance
+  if (etape.value === 1) {
+    if (newMessageText === '1986-04-26' || newMessageText === '26-04-1986') {
+      //on ajoute un message après 1,5 seconde
+      EnvoyerMessAvecTiming(1500, 0);
+      // Passage à l'étape suivante
+      etape.value = etape.value + 1;
+
+      // Ajout d'autre message en plusieur timing
+      EnvoyerMessAvecTiming(2500, 2);
+      EnvoyerMessAvecTiming(3500, 3);
+      scrollToBottom(3510);
+    } else {
+      // Si la date n'est correcte, on ajoute un message différent après 1,5 seconde
+      EnvoyerMessAvecTiming(1500, 1);
+      // Fait défiler vers le bas après 1,51 secondes
+      scrollToBottom(1510);
+    }
+
+    //verification REJOME VIRAL
+  } else if (etape.value === 2) {
+    if (newMessageText.toLowerCase() === 'rejome viral') {
+      // Si le nom est juste, on ajoute un message
+      EnvoyerMessAvecTiming(1500, 4);
+      scrollToBottom(1510);
+
+      // Passage à l'étape suivante
+      etape.value = etape.value + 1;
+
+      // Ajout d'un autre message
+      EnvoyerMessAvecTiming(2500, 6);
+      scrollToBottom(2510);
+
+    } else {
+      // Si le nom est faux, on ajoute un message différent
+      EnvoyerMessAvecTiming(1500, 5);
+      scrollToBottom(1510);
+    }
+
+
+    //Verification de l'id de rejome viral
+  } else if (etape.value === 3) {
+    TrouveIDProprietaire().then((idDupont) => {
+      if (newMessageText.toString() === (idDupont + 1).toString()) {
+        EnvoyerMessAvecTiming(1500, 7);
+        scrollToBottom(1510);
+        EnvoyerMessAvecTiming(2500, 9);
+        scrollToBottom(2510);
+        EnvoyerMessAvecTiming(3000, 10);
+        scrollToBottom(3010);
+        EnvoyerMessAvecTiming(3500, 11);
+        scrollToBottom(3510);
+        etape.value = etape.value + 1;
+      } else {
+        // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
+        EnvoyerMessAvecTiming(1500, 8);
+        scrollToBottom(1510);
+      }
+    })
+
+    //Verification si la modication a eu lieu et si elle est juste
   }else if (etape.value === 4) {
-    // Si l'étape est 3, on vérifie le contenu du message
+
     if (newMessageText.toLowerCase() === 'ok') {
-      // Si le message est "OK", on effectue des opérations supplémentaires
-      console.log("OKEY")
-      let request = window.indexedDB.open("maBaseDeDonnees");
-
-      request.onsuccess = (event) => {
-        let db = event.target.result;
-        let transaction = db.transaction(["tb_voiture"], "readonly");
-        let objectStore = transaction.objectStore("tb_voiture");
-        let request = objectStore.getAll();
-
-        request.onsuccess = (event) => {
-          let data = event.target.result;
-          let idDupont = 0;
-          let iDup = 0;
-          let dupontPlacev2 = 30;
-          if (dupontPlace > 20){
-            iDup = dupontPlace - 20;
-            dupontPlacev2 = dupontPlace+20;
-          }else if (dupontPlace > 470){
-            iDup = 450;
-            dupontPlacev2 = 500;
-          }
-          console.log("pk" + iDup)
-          for (let i = iDup; i < dupontPlacev2; i++) {
-            console.log(data[i].proprietaire);
-            if (data[i].couleur === "Noire") {
-              idDupont = i;
-              break;
-            }
-          }
-          console.log(data[idDupont].proprietaire);
+      TrouveIDProprietaire().then((idDupont) => {
+        OuvrirBaseDonnes("tb_voiture").then((data) => {
           if (data[idDupont].proprietaire === "John Doe") {
-            setTimeout(() => {
-              messages.value.push(messagesVoleur.value[12]);
-            }, 1500);
-            setTimeout(() => {
-              scrollToBottom();
-            }, 1510);
+            EnvoyerMessAvecTiming(1500, 12);
+            scrollToBottom(1510);
             etape.value = etape.value + 1;
-
-            setTimeout( () =>{
+            setTimeout(() => {
               emits('cinematiqueFin', true);
-              setTimeout(() => {
-                messages.value.push(messagesVoleur.value[14]);
-                messages.value.push(messagesVoleur.value[15]);
-                messages.value.push(messagesVoleur.value[16]);
-              }, 3000);
-              setTimeout(() => {
-                scrollToBottom();
-              }, 3010);
-            }, 2500);
-            setTimeout(() => {
-              scrollToBottom();
-            }, 2510);
+              EnvoyerMessAvecTiming(3000, 14);
+              EnvoyerMessAvecTiming(3000, 15);
+              EnvoyerMessAvecTiming(3000, 16);
+              scrollToBottom(3010);
+            }, 3500);
+            scrollToBottom(2510);
           } else {
-            // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
-            setTimeout(() => {
-              messages.value.push(messagesVoleur.value[13]);
-            }, 1500);
-
-            // Fait défiler vers le bas après 1,51 secondes
-            setTimeout(() => {
-              scrollToBottom();
-            }, 1510);
+            EnvoyerMessAvecTiming(1500, 13);
+            scrollToBottom(1510);
           }
-        }
-      }
+        })
+      })
     }else{
-      // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[13]);
-      }, 1500);
-
-      // Fait défiler vers le bas après 1,51 secondes
-      setTimeout(() => {
-        scrollToBottom();
-      }, 1510);
+      EnvoyerMessAvecTiming(1500, 13);
+      scrollToBottom(1510);
     }
+
+
+    //2eme Niveau et verifie si la supression est faites
   }else if (etape.value === 5) {
-    // Si l'étape est 5, on vérifie le contenu du message
+
     if (newMessageText.toLowerCase() === 'ok') {
-      // Si le message est "OK", on effectue des opérations supplémentaires
-      let request = window.indexedDB.open("maBaseDeDonnees");
-
-      request.onsuccess = (event) => {
-        let db = event.target.result;
-        let transaction = db.transaction(["tb_materiel"], "readonly");
-        let objectStore = transaction.objectStore("tb_materiel");
-        let request = objectStore.getAll();
-
-        request.onsuccess = (event) => {
-          let data = event.target.result;
-          console.log(data[16].nom_materiel);
-          if (data[16].nom_materiel === "Chalumeau") {
-            console.log("Evan")
-            setTimeout(() => {
-              etape.value = etape.value + 1;
-              messages.value.push(messagesVoleur.value[17]);
-            }, 1500);
-            setTimeout(() => {
-              scrollToBottom();
-            }, 1510);
-            setTimeout(() => {
-              emits("cinematiqueFinNiv2", true);
-            }, 2500);
-          }else{
-            setTimeout(() => {
-              messages.value.push(messagesVoleur.value[18]);
-            }, 1500);
-            setTimeout(() => {
-              scrollToBottom();
-            }, 1510);
-          }
+      OuvrirBaseDonnes("tb_materiel").then((data) => {
+        if (data[16].nom_materiel === "Chalumeau") {
+          EnvoyerMessAvecTiming(1500, 17);
+          scrollToBottom(1510);
+          etape.value = etape.value + 1;
+          setTimeout(() => {
+            emits("cinematiqueFinNiv2", true);
+          }, 3000);
+        }else{
+          EnvoyerMessAvecTiming(1500, 18);
+          scrollToBottom(1510);
         }
-      }
+      })
     }else{
-      // Si le message n'est pas "OK", on ajoute un message différent après 1,5 seconde
-      setTimeout(() => {
-        messages.value.push(messagesVoleur.value[18]);
-      }, 1500);
-
-      // Fait défiler vers le bas après 1,51 secondes
-      setTimeout(() => {
-        scrollToBottom();
-      }, 1510);
+      EnvoyerMessAvecTiming(1500, 18);
+      scrollToBottom(1510);
     }
   }
-};
-const scrollToBottom = () => {
-  const messageContainer = document.querySelector('.chat');
-  if (messageContainer) {
-    messageContainer.scrollTop = messageContainer.scrollHeight;
-  }
-};
+}
 
 onMounted(() => {
   scrollToBottom();
-});
-
-onBeforeUnmount(() => {
-  // Nettoyer les ressources, les gestionnaires d'événements, etc. si nécessaire
 });
 
 </script>
 
 
 <style>
-/* Styles pour l'iPhone 11 */
+
 .onglet-telephone {
   position: relative;
   width: 400px;
   height: 578px;
   border: 3px solid white;
   box-shadow: 5px 5px 5px black;
-  display: flex; /* Utilisez l'affichage flex */
-  flex-direction: column; /* Les éléments flex s'étendront verticalement */
+  display: flex;
+  flex-direction: column;
 }
 
 .barre-onglet {
-//padding: 5px;
-//margin: 5px;
   height: 30px;
   background-color: #222222;
   border-bottom: 1px solid white;
@@ -396,22 +321,20 @@ onBeforeUnmount(() => {
 
 .message {
   margin: 5px;
-  max-width: 70%; /* Limite la largeur des messages pour éviter qu'ils ne s'étendent trop */
-  display: flex; /* Utilisez l'affichage flex pour inverser l'alignement */
-  justify-content: flex-start; /* Inverse l'alignement horizontal */
+  max-width: 70%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .chat{
-//flex: 1; /* Faites en sorte que .chat utilise tout l'espace vertical disponible */
-  width: 100%; /* Utilisez toute la largeur disponible */
-  max-height: 489px; /* Hauteur maximale pour la liste de messages, ajustez selon vos besoins */
-  overflow-y: auto; /* Affiche une barre de défilement en cas de dépassement de la hauteur maximale */
+  width: 100%;
+  max-height: 489px;
+  overflow-y: auto;
   background-image: url('@/img/Fond_ecran_wattsap.png');
-  background-size: cover; /* Pour redimensionner l'image pour qu'elle couvre tout le conteneur */
-  background-repeat: no-repeat; /* Pour éviter que l'image ne se répète */
-  background-position: center center; /* Pour centrer l'image horizontalement et verticalement */
-  /* Autres styles de votre conteneur */
-  height: 100%; /* Définissez la hauteur souhaitée */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%;
 }
 
 .minus, .close{
