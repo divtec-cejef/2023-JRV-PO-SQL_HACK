@@ -582,7 +582,6 @@ window.addEventListener('updateTextareaEvent', (event) => {
   updateTextarea(event.detail);
 });
 
-
 const effetLettres = async (inputText) => {
   for (const letter of inputText) {
     ajouterText = false
