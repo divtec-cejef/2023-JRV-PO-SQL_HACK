@@ -4,8 +4,8 @@ import Cinématique from "@/pages/cinématique/cinématique.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
 import {ref, onMounted, toRef} from "vue";
-import FinCinematique from "@/pages/cinématique/FinCinematique.vue";
-import FinNiv2Cinematique from "@/pages/cinématique/FinNiv2Cinematique.vue";
+import FinCinematiqueNiveau1 from "@/pages/cinématique/FinCinematiqueNiveau1.vue";
+import FinCinematiqueNiveau2 from "@/pages/cinématique/FinCinematiqueNiveau2.vue";
 
 
 let jeu = ref(false)
@@ -70,7 +70,10 @@ const disabledF5 = (event) => {
     event.stopPropagation();
   }
 }
-// Appelez la fonction au moment de la création du composant
+
+/***
+ * Se lance au moment du chargement du composant
+ */
 onMounted(() => {
   mettreAJourHeure();
   mettreAJourDate();
@@ -82,7 +85,12 @@ onMounted(() => {
   setInterval(mettreAJourHeure, 1000);
 });
 
-function changerEcran(valeur){
+/***
+ * Fonction qui permet de passer de l'écran de la cinématique à
+ * l'écran de jeu
+ * @param valeur Boolean émit lors du dernier clic du bouton "continuer"
+ */
+function cinematiqueToEcranJeu(valeur){
   console.log(valeur)
   jeu.value = valeur
   cinematiqueDebut.value = false
@@ -90,6 +98,11 @@ function changerEcran(valeur){
   cle.value += 1
 }
 
+/***
+ * Fonction qui affiche la messagerie quand
+ * on clique sur l'icone de la barre des tâches et
+ * change aussi le style des icônes dans la barre des tâches
+ */
 function openChatBox(){
   afficherChatBox.value = false
   // change le style de l'icone quand l'appli est ouverte
@@ -98,6 +111,12 @@ function openChatBox(){
   styleAppChatBox.value.marginBottom = '0px'
   styleAppChatBox.value.transition = '0.5s ease'
 }
+
+/***
+ * Fonction qui affiche le constructeur quand
+ * on clique sur l'icône de la barre des tâches et
+ * change aussi le style des icônes dans la barre des tâches
+ */
 function openConstructeur() {
   afficherConstructeur.value = false
   isBordered.value = !isBordered.value;
@@ -107,6 +126,12 @@ function openConstructeur() {
   styleAppConstructeur.value.marginBottom = '0px'
   styleAppConstructeur.value.transition = '0.5s ease'
 }
+
+/***
+ * Fonction qui rend invisible ("ferme") la messagerie
+ * @param valeur Boolean émit quand on clique sur la croix pour
+ *               "fermer" la messagerie
+ */
 function closeChatBox(valeur){
   console.log(valeur)
   afficherChatBox.value = valeur
@@ -114,6 +139,12 @@ function closeChatBox(valeur){
   styleAppChatBox.value.paddingBottom = '6px';
   styleAppChatBox.value.marginBottom = '3px'
 }
+
+/***
+ * Fonction qui rend invisible ("ferme") le constructeur
+ * @param valeur Boolean émit quand on clique sur la croix pour
+ *               "fermer" le constructeur
+ */
 function closeConstructeur(valeur){
   afficherConstructeur.value = valeur
   styleAppConstructeur.value.borderBottom = '0px';
@@ -121,31 +152,36 @@ function closeConstructeur(valeur){
   styleAppConstructeur.value.marginBottom = '3px'
 }
 
-function easterEgg(){
-  if (afficherVideoTemp) {
-    afficherVideo = true
-    afficherVideoTemp = false
-  } else {
-    afficherVideo = false
-    afficherVideoTemp = true
-  }
-  cle.value += 1
-}
-
-function finDeCinematique(valeur) {
+/***
+ * Fonction qui permet de passer de l'écran de jeu à la cinématique (avec la photo de la voiture)
+ * où on a le choix de soit faire le "niveau 2" ou alors "quitter"
+ * @param valeur Boolean émit si le niveau 1 est terminé donc quand
+ *               l'utilisateur envoie "OK" après la modification du propriétaire
+ */
+function finNiveau1ToCinematique(valeur) {
   cinematiqueFin.value = valeur
   zIndexis4 = true
   cinematiqueDebut.value = false
 }
 
-function Niveau2(valeur){
-  console.log(valeur)
+/***
+ * Fonction qui permet de passer de la première cinématique de fin
+ * jusqu'à l'écran de jeu pour le niveau 2 quand on clique sur le bouton
+ * "niveau 2"
+ * @param valeur Boolean émit quand on clique sur le bouton "niveau 2"
+ */
+function cinematiqueFinToNiveau2(valeur){
   cinematiqueDebut.value = false
   cinematiqueFin.value = false
   zIndexis4 = false
 }
 
-function finDeCinematiqueNiv2(valeur) {
+/***
+ * Fonction qui permet de passer de l'écran de jeu quand on termine le deuxième niveau
+ * jusqu'à la cinématique 2 de fin du niveau 2
+ * @param valeur Boolean émit lorsque le niveau 2 est terminé dans l'écran de jeu
+ */
+function finNiveau2ToCinematique(valeur) {
   cle.value += 1
   cinematiqueFinNiv2.value = valeur
   zIndexis4 = true
@@ -162,7 +198,7 @@ function finDeCinematiqueNiv2(valeur) {
   <main>
 
     <!-- cinematiqueDebut -->
-    <cinématique @changement-ecran="changerEcran" v-if="cinematiqueDebut" :key="cle" class="cinematiqueDebut"></cinématique>
+    <cinématique @changement-ecran="cinematiqueToEcranJeu" v-if="cinematiqueDebut" :key="cle" class="cinematiqueDebut"></cinématique>
     <div class="jeu" :key="cle" v-if="jeu">
       <div>
         <barre-laterale></barre-laterale>
@@ -181,7 +217,7 @@ function finDeCinematiqueNiv2(valeur) {
             <constructeur @close-constructeur="closeConstructeur" v-show="!afficherConstructeur" ></constructeur>
           </div>
           <div class="chat_box">
-            <ComponentsMessagerie @close-chatbox="closeChatBox" v-show="!afficherChatBox" @cinematique-fin="finDeCinematique" @cinematique-fin-niv2="finDeCinematiqueNiv2"></ComponentsMessagerie>
+            <ComponentsMessagerie @close-chatbox="closeChatBox" v-show="!afficherChatBox" @cinematique-fin="finNiveau1ToCinematique" @cinematique-fin-niv2="finNiveau2ToCinematique"></ComponentsMessagerie>
           </div>
         </div>
 
@@ -206,11 +242,11 @@ function finDeCinematiqueNiv2(valeur) {
     </div>
 
     <div :key="cle" v-if="cinematiqueFin" :class="{'zindex': zIndexis4}">
-      <FinCinematique @Niv2="Niveau2" ></FinCinematique>
+      <FinCinematiqueNiveau1 @Niv2="cinematiqueFinToNiveau2" ></FinCinematiqueNiveau1>
     </div>
 
     <div :key="cle" v-if="cinematiqueFinNiv2" :class="{'zindex': zIndexis4}">
-      <FinNiv2Cinematique></FinNiv2Cinematique>
+      <FinCinematiqueNiveau2></FinCinematiqueNiveau2>
     </div>
 
 
