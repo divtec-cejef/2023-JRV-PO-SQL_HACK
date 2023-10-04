@@ -131,6 +131,7 @@
                 :value="text_requete" :style="styleTextArea" readonly></textarea>
     </div>
 
+    <!-- Tableau qui affiche toutes les données -->
     <div class="resultat_requete" id="resultat_requete" @scroll="handleScroll" :style="tailleDivResultatRequete" v-if="constructeurActuel===6">
     </div>
   </div>
@@ -350,25 +351,6 @@ function retour(){
   constructeurActuel--
 }
 
-function proprieteInsert(valeur) {
-  text_requete_temp = text_requete.value
-
-  /*** Fonctionnalité btn Retour ****/
-  historiqueTextRequete.push(text_requete.value)
-  console.log(constructeurActuel + " " + commande_selectionnee)
-  console.log("constructeur actuel : "+constructeurActuel)
-  console.log("texte temp : "+text_requete_temp)
-  console.log(historiqueTextRequete)
-  console.log("----------------------")
-  /******/
-
-  commande_selectionnee = 3;
-  text_requete.value += " INTO " + valeur;
-  table_selectionnee = valeur;
-  constructeurActuel++;
-  btnRetourIsDisabled = false
-}
-
 /***
  * Ajoute les propriétés lorsque la commande DELETE est choisi
  * @param valeur
@@ -408,6 +390,7 @@ function changeTableSelectionnee(valeur){
   table_selectionnee = valeur
   console.log(valeur)
 }
+
 
 function changeTextEnCasDeID(propriete_selectionnee){
     if (propriete_selectionnee === "idVoiture" || propriete_selectionnee === "idPersonne" ||

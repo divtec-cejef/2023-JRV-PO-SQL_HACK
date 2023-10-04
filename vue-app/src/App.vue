@@ -274,23 +274,6 @@ header {
   line-height: 1.5;
 }
 
-.logo {
-  max-height: 100%;
-  max-width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-
-/* Définition de l'animation 'descend' */
-@keyframes descend {
-  from {
-    top: -200px; /* Position initiale en haut de la fenêtre */
-  }
-  to {
-    top: 0; /* Position finale, la div est affichée en bas */
-  }
-}
 
 /* Définition de l'animation 'arrive' */
 @keyframes arrive {
