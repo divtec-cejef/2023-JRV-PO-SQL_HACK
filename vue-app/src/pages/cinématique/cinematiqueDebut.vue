@@ -4,8 +4,8 @@ import CinématiqueBulle from "@/pages/cinématique/cinématique-bulle.vue";
 import {onMounted, ref} from "vue";
 const message = ref()
 const listeTexte = ["Dans l'écran suivant tu trouveras des indications sur ta gauche et un écran d'ordinateur sur ta droite.",
-"Dans cet écran d'ordinateur il y a un constructeur de requête Sql et une messagerie.",
-"Ce que tu dois faire c'est répondre à mes messages en créant les requêtes grâce au constructeur et m'envoyer la réponse par message."]
+"Tu vas devoir créer des requêtes SQL pour récupérer des informations dans la base de données et me les envoyer par message.",
+"Pour commencer, regarde la vidéo de tutoriel pour t'aider à comprendre."]
 var questionActuelle = 0
 const emits = defineEmits(['changement-ecran'])
 let disabledBtnContinuer = ref()
