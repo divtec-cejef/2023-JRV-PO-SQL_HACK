@@ -3,18 +3,19 @@ import Constructeur from "@/pages/constructeur/constructeur.vue";
 import Cin3matique from "@/pages/cinématique/cinematiqueDebut.vue";
 import BarreLaterale from "@/pages/barreLaterale/barre-laterale.vue";
 import ComponentsMessagerie from "@/chatBox/ComponentsMessagerie.vue";
-import {ref, onMounted} from "vue";
-import cinematiqueFinNiveau1 from "@/pages/cinématique/cinematiqueFinNiveau1.vue";
-import cinematiqueFinNiveau2 from "@/pages/cinématique/cinematiqueFinNiveau2.vue";
+
+import {ref, onMounted, toRef} from "vue";
+import FinCinematique from "@/pages/cinématique/CinematiqueFinNiv1.vue";
+import FinNiv2Cinematique from "@/pages/cinématique/CinematiqueFinNiv2.vue";
 import CinematiqueDebut from "@/pages/cinématique/cinematiqueDebut.vue";
-import CinematiqueFinNiveau1 from "@/pages/cinématique/cinematiqueFinNiveau1.vue";
-import CinematiqueFinNiveau2 from "@/pages/cinématique/cinematiqueFinNiveau2.vue";
+
 
 
 let afficherEcranJeu = ref(false)
 let afficherCinematiqueDuDebut = ref(true)
 let afficherCinematiqueFinNiveau1 = ref(false)
 let afficherCinematiqueFinNiveau2 = ref(false)
+
 let cle = ref(0)
 let afficherChatBox = ref(false)
 let afficherConstructeur = ref(false)

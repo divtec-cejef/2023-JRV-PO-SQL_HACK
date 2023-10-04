@@ -1,8 +1,3 @@
-// Importez createApp depuis Vue
-import { createApp } from 'vue';
-
-// Créez une instance d'application Vue
-const app = createApp({});
 
 /**
  * Supprime une donnée grace au nom de la table et à l'id
@@ -17,6 +12,7 @@ function Delete(tableName, id){
         console.log("Erreur d'ouverture de la base de données");
     };
 
+    //Suppresion de l'objet
     request.onsuccess = function(event) {
         let db = event.target.result;
         let transaction = db.transaction([tableName], "readwrite");
