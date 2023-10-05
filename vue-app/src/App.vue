@@ -214,8 +214,8 @@ function finNiveau2ToCinematique(valeur) {
   <main>
 
     <!-- Cinématique du début -->
-    <CinematiqueDebut @changement-ecran="cinematiqueDebutToVideo" v-if="afficherCinematiqueDuDebut" :key="cle" class="cinematiqueDebut"></cinematiqueDebut>
-    <VideoExemple @VideoExemple="cinematiqueDebutToEcranJeu" v-if="afficherVideoExemple" :key="cle" ></VideoExemple>
+    <CinematiqueDebut @changement-ecran="cinematiqueDebutToEcranJeu" v-if="afficherCinematiqueDuDebut" :key="cle" class="cinematiqueDebut"></cinematiqueDebut>
+<!--    <VideoExemple @VideoExemple="cinematiqueDebutToEcranJeu" v-if="afficherVideoExemple" :key="cle" ></VideoExemple>-->
     <!-- Écran de jeu -->
     <div class="jeu" :key="cle" v-if="afficherEcranJeu">
       <div>
