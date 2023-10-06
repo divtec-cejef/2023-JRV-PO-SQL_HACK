@@ -25,6 +25,8 @@
       </ul>
     </div>
 
+    <button class="btn_aide">Vidéo d'aide</button>
+
   </div>
 </template>
 
@@ -71,6 +73,19 @@ li {
   color: white;
   margin-top: 15px;
   margin-left: 20px;
+}
+.btn_aide {
+  margin-top: 100px;
+  font-size: 18px;
+  font-family: 'Jura', sans-serif;
+  font-weight: bold;
+  width: 180px;
+  height: 50px;
+  border-radius: 8px;
+  transition: transform 500ms ease;
+}
+.btn_aide:hover {
+  transform: scale(1.10);
 }
 
 </style>
