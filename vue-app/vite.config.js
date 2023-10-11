@@ -10,6 +10,7 @@ export default defineConfig({
       return tagName === 'vue-advanced-chat' || tagName === 'emoji-picker'
     }
   },
+  base: '/sqlhack',
   plugins: [vue()],
   resolve: {
     alias: {

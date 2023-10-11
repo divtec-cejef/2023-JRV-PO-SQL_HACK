@@ -19,7 +19,7 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import MessageList from "@/chatBox/MessageList.vue";
 import ChatBox from "@/chatBox/ChatBox.vue";
-import { dupontPlace } from "@/DB/DataBase";
+import { dupontPlace } from "../../public/DB/DataBase";
 
 const etape = ref(1);
 const valeur = ref()

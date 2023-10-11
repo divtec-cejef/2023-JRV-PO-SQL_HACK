@@ -149,7 +149,7 @@ import {reactive, ref, onMounted, onUnmounted} from "vue";
 import ConstructeurValiderSansCondition from "@/pages/constructeur/constructeur-valider-sans-condition.vue"
 import ConstructeurBoutonRetour from "@/pages/constructeur/constructeur-bouton-retour.vue";
 
-import { sendRequest } from "@/tools/requestDB";
+import { sendRequest } from "../../../public/tools/requestDB";
 import {stringifyQuery} from "vue-router";
 
 /* déclarations des variables*/
